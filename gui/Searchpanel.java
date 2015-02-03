@@ -1,6 +1,4 @@
-package search;
 import java.awt.*;
-
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -29,7 +27,7 @@ public class Searchpanel extends JFrame{
 		jpanel = new JPanel(){
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon img = new ImageIcon("D:\\java\\case\\digitalLibrary\\src\\search\\img\\ËÑË÷±³¾°.png");
+				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\ËÑË÷±³¾°.png");
 				img.paintIcon(this, g, 0, 0);
 			}
 		};
