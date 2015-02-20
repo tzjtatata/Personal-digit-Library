@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 @SuppressWarnings("serial")
 public class BookshelfPanel extends JFrame {
 	private JPanel panel;
@@ -10,6 +11,7 @@ public class BookshelfPanel extends JFrame {
 	private JLabel left,right,add,menu,calendar,pass1,pass2;
 	private int page,leftNumber,maxPage,rightNumber,category,maxCategory,leftCategory,rightCategory;
 	private TextArea note;
+	private HashMap<Integer,Integer> jumpMap,listMap;
 	public BookshelfPanel() {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
@@ -18,9 +20,11 @@ public class BookshelfPanel extends JFrame {
 				img.paintIcon(this,g,0,0);
 			}
 		};
-
+		
 		page = -1;
 		category = -1;
+		jumpMap = new HashMap<Integer,Integer>();
+		listMap = new HashMap<Integer,Integer>();
 		
 		pass1 = new JLabel("...",JLabel.CENTER);
 		pass2 = new JLabel("...",JLabel.CENTER);
@@ -118,11 +122,13 @@ public class BookshelfPanel extends JFrame {
 		maxCategory = c;
 		maxPage = (int) Math.ceil((30+20*c)/7.0);
 		list = new JLabel[c];
+		listMap.clear();
 		for (int i=0;i<list.length;i++) {
 			list[i] = new JLabel("第"+String.valueOf(i+1)+"类",JLabel.CENTER);
 			list[i].setBackground(Color.white);
 			list[i].addMouseListener(new CursorListener());
 			list[i].addMouseListener(new ListListener());
+			listMap.put(list[i].hashCode(), i+1);
 			if (i < 5) {
 				list[i].setBounds(270+i*58, 133, 55, 28);
 				panel.add(list[i]);
@@ -187,11 +193,13 @@ public class BookshelfPanel extends JFrame {
 		category = c;
 		maxPage = (int) Math.ceil((30+20*c)/7.0);
 		jump = new JLabel[maxPage];
+		jumpMap.clear();
 		for (int i=0;i<jump.length;i++) {
 			jump[i] = new JLabel(String.valueOf(i+1),JLabel.CENTER);
 			jump[i].setFont(new Font("黑体",Font.BOLD,24));
 			jump[i].addMouseListener(new JumpListener());
 			jump[i].addMouseListener(new CursorListener());
+			jumpMap.put(jump[i].hashCode(), i+1);
 			if (i < 7) {
 				jump[i].setBounds(280+i*30,430,30,30);
 				panel.add(jump[i]);
@@ -314,12 +322,10 @@ public class BookshelfPanel extends JFrame {
 				evertCategory("right");
 			}
 			else {
-				for (int i=leftCategory;i<=rightCategory;i++) {
-					if (e.getSource().equals(list[i-1]) && i!=category ) {
-						removeCategory(category);
-						addCategory(i);
-						break;
-					}
+				int listHash = listMap.get(e.getSource().hashCode());
+				if (listHash != category) {
+					removeCategory(category);
+					addCategory(listHash);
 				}
 			}
 		}
@@ -333,12 +339,10 @@ public class BookshelfPanel extends JFrame {
 				evertJump("left");
 			}
 			else {
-				for (int i=leftNumber;i<=rightNumber;i++) {
-					if (e.getSource().equals(jump[i-1]) && i!=page) {
-						removePage(category,page);
-						addPage(category,i);
-						break;
-					}
+				int pageHash = jumpMap.get(e.getSource().hashCode());
+				if (pageHash != page) {
+					removePage(category,page);
+					addPage(category,pageHash);
 				}
 			}
 		}
