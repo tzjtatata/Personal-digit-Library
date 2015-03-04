@@ -28,7 +28,7 @@ public class Searchpanel extends JFrame{
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\ËÑË÷±³¾°.png");
-				img.paintIcon(this, g, 0, 0);
+			//	img.paintIcon(this, g, 0, 0);
 			}
 		};
 		jpanel.setLayout(null);

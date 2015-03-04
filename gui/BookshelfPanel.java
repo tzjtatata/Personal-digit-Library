@@ -16,7 +16,7 @@ public class BookshelfPanel extends JFrame {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon img = new ImageIcon(System.getProperty("user.dir")+"/source/书架背景.PNG");
+				ImageIcon img = new ImageIcon(System.getProperty("user.dir")+"/source/涔︽灦鑳屾櫙.PNG");
 				img.paintIcon(this,g,0,0);
 			}
 		};
@@ -30,8 +30,8 @@ public class BookshelfPanel extends JFrame {
 		pass2 = new JLabel("...",JLabel.CENTER);
 		pass1.setBounds(270, 430, 40, 30);
 		pass2.setBounds(490, 430, 40, 30);
-		pass1.setFont(new Font("黑体",Font.BOLD,24));
-		pass2.setFont(new Font("黑体",Font.BOLD,24));
+		pass1.setFont(new Font("榛戜綋",Font.BOLD,24));
+		pass2.setFont(new Font("榛戜綋",Font.BOLD,24));
 		pass1.addMouseListener(new JumpListener());
 		pass1.addMouseListener(new CursorListener());
 		pass2.addMouseListener(new JumpListener());
@@ -68,10 +68,10 @@ public class BookshelfPanel extends JFrame {
 		calendar.addMouseListener(new CursorListener());
 		panel.add(calendar);
 		
-		setCategory(20);  //测试
+		setCategory(20);  //娴嬭瘯
 		
 		panel.setLayout(null);
-		setTitle("书架");
+		setTitle("涔︽灦");
 		setUndecorated(true);
 		setContentPane(panel);
 		setResizable(false);
@@ -90,17 +90,17 @@ public class BookshelfPanel extends JFrame {
 			operate = new JLabel[books - (p-1)*7][3];
 		}
 		for (int i=0;i<book.length;i++) {
-			book[i] = new JCheckBox("《第"+String.valueOf(c)+"类的第"+String.valueOf((p-1)*7+i+1)+"本书.pdf》");
+			book[i] = new JCheckBox("銆婄"+String.valueOf(c)+"绫荤殑绗�"+String.valueOf((p-1)*7+i+1)+"鏈功.pdf銆�");
 			book[i].setOpaque(false);
 			book[i].setBounds(150, 185+35*i, 280, 24);
 			book[i].addMouseListener(new CursorListener());
-			operate[i][0] = new JLabel("打开",JLabel.CENTER);
+			operate[i][0] = new JLabel("鎵撳紑",JLabel.CENTER);
 			operate[i][0].setBounds(446, 185+35*i, 40, 24);
 			operate[i][0].addMouseListener(new CursorListener());
-			operate[i][1] = new JLabel("删除",JLabel.CENTER);
+			operate[i][1] = new JLabel("鍒犻櫎",JLabel.CENTER);
 			operate[i][1].setBounds(491, 185+35*i, 40, 24);
 			operate[i][1].addMouseListener(new CursorListener());
-			operate[i][2] = new JLabel("导入",JLabel.CENTER);
+			operate[i][2] = new JLabel("瀵煎叆",JLabel.CENTER);
 			operate[i][2].setBounds(536, 185+35*i, 40, 24);
 			operate[i][2].addMouseListener(new CursorListener());
 		}
@@ -124,7 +124,7 @@ public class BookshelfPanel extends JFrame {
 		list = new JLabel[c];
 		listMap.clear();
 		for (int i=0;i<list.length;i++) {
-			list[i] = new JLabel("第"+String.valueOf(i+1)+"类",JLabel.CENTER);
+			list[i] = new JLabel("绗�"+String.valueOf(i+1)+"绫�",JLabel.CENTER);
 			list[i].setBackground(Color.white);
 			list[i].addMouseListener(new CursorListener());
 			list[i].addMouseListener(new ListListener());
@@ -196,7 +196,7 @@ public class BookshelfPanel extends JFrame {
 		jumpMap.clear();
 		for (int i=0;i<jump.length;i++) {
 			jump[i] = new JLabel(String.valueOf(i+1),JLabel.CENTER);
-			jump[i].setFont(new Font("黑体",Font.BOLD,24));
+			jump[i].setFont(new Font("榛戜綋",Font.BOLD,24));
 			jump[i].addMouseListener(new JumpListener());
 			jump[i].addMouseListener(new CursorListener());
 			jumpMap.put(jump[i].hashCode(), i+1);
