@@ -23,7 +23,6 @@ public class Searchpanel extends JFrame{
 	private JButton bt1,bt2;
 	private JPanel jpanel;
 	public Searchpanel() {
-		this.setUndecorated(true);
 		jpanel = new JPanel(){
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -186,9 +185,7 @@ public class Searchpanel extends JFrame{
 		}
 	}
 	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
 		new Searchpanel();
-
 	}
 
 }

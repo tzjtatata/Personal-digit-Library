@@ -71,7 +71,6 @@ public class BookshelfPanel extends JFrame {
 		
 		panel.setLayout(null);
 		setTitle("书架");
-		setUndecorated(true);
 		setContentPane(panel);
 		setResizable(false);
 		setVisible(true);
@@ -299,7 +298,6 @@ public class BookshelfPanel extends JFrame {
 		}
 	}
 	public static void main(String[] args) {
-		setDefaultLookAndFeelDecorated(true);
 		new BookshelfPanel();
 	}
 	class CursorListener extends MouseAdapter {
