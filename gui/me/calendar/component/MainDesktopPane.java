@@ -1,7 +1,10 @@
 ﻿package me.calendar.component;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -14,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JFrame;
 
 import me.calendar.frame.MainFrame;
 import me.calendar.service.ActionType;
@@ -35,6 +39,7 @@ public class MainDesktopPane extends JDesktopPane{
 		mf = _mf;
 		init();
 	}
+	
 	
 	void init()
 	{
@@ -196,22 +201,22 @@ public class MainDesktopPane extends JDesktopPane{
 		mf.jp.setLayout(null);
 
 		mf.jb_shelf.setMnemonic('b');
-		mf.jb_shelf.setBounds(134,215,56,28);
+		mf.jb_shelf.setBounds(140,215,56,28);
 		mf.jb_shelf.setBorder(null);
 		this.add(mf.jb_shelf);
 		
 		mf.jb_function.setMnemonic('f');
-		mf.jb_function.setBounds(257,348,54,28);
+		mf.jb_function.setBounds(263,348,54,28);
 		mf.jb_function.setBorder(null);
 		this.add(mf.jb_function);
 		
 		mf.jb_help.setMnemonic('h');
-		mf.jb_help.setBounds(385,215,54,27);
+		mf.jb_help.setBounds(390,215,54,27);
 		mf.jb_help.setBorder(null);
 		this.add(mf.jb_help);
 		
 		mf.jb_about.setMnemonic('a');
-		mf.jb_about.setBounds(513,348,49,26);
+		mf.jb_about.setBounds(518,348,49,26);
 		mf.jb_about.setBorder(null);
 		this.add(mf.jb_about);
 		
@@ -235,5 +240,4 @@ public class MainDesktopPane extends JDesktopPane{
          mf.lab_show_date.setForeground(new java.awt.Color(215,217,218));//設定字體為白色
          Utility.date_btn_create(now[0],now[1]);//產生日期按鈕
 	}
-
 }

@@ -1,5 +1,9 @@
-﻿package me.calendar.frame;
+﻿package me;
+import me.Main;
+import me.calendar.frame.MainFrame;
+
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
@@ -13,7 +17,7 @@ public class BookshelfPanel extends JFrame {
 	private int page,leftNumber,maxPage,rightNumber,category,maxCategory,leftCategory,rightCategory;
 	private TextArea note;
 	private HashMap<Integer,Integer> jumpMap,listMap;
-	public BookshelfPanel(MainFrame mf) {
+	public BookshelfPanel() {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -80,7 +84,9 @@ public class BookshelfPanel extends JFrame {
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				setVisible(false);
+				MainFrame inst = new MainFrame();
+			    inst.setVisible(true);
+				dispose();
 			}
 		});
 	}

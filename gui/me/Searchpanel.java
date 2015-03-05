@@ -1,4 +1,4 @@
-﻿package me.calendar.frame;
+﻿package me;
 import java.awt.*;
 
 import javax.swing.*;
@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import me.calendar.frame.MainFrame;
 @SuppressWarnings("serial")
 public class Searchpanel extends JFrame{
 	private JLabel option1,option2,option3,option4;
@@ -32,6 +34,14 @@ public class Searchpanel extends JFrame{
 				img.paintIcon(this, g, 0, 0);
 			}
 		};
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				MainFrame inst = new MainFrame();
+			    inst.setVisible(true);
+				dispose();
+			}
+		});
 		jpanel.setLayout(null);
 		jpanel.setOpaque(true);
 		this.setTitle("搜索");
@@ -71,14 +81,6 @@ public class Searchpanel extends JFrame{
 		point2.addMouseListener(new CursorListener());
 		point3.addMouseListener(new CursorListener());
 		point4.addMouseListener(new CursorListener());
-		this.addWindowListener(new WindowAdapter() {
-	        public void windowClosing(WindowEvent we) {
-	                dispose();
-	        }
-	        public void windowClosed(WindowEvent we) {
-	                System.exit(0);
-	        }
-		});
 		jpanel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				System.out.println(e.getKeyCode());

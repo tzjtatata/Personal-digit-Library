@@ -1,8 +1,11 @@
 ﻿package me.calendar.frame;
 
 
+import me.BookshelfPanel;
+import me.Searchpanel;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Image;
 
 import javax.swing.Icon;
@@ -15,6 +18,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import java.awt.event.*;
 
 import me.calendar.component.CalendarPane;
 import me.calendar.component.MainDesktopPane;
@@ -59,11 +64,35 @@ import me.calendar.service.Utility;
 	    super();
 	    ActionDispatcher.setMainFrame(this);
 	    Utility.setMainFrame(this);
-	    
+	    jb_shelf.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new BookshelfPanel();
+	    		dispose();
+	    	}
+	    });
+	    jb_function.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new Searchpanel();
+	    		dispose();
+	    	}
+	    });
+	    jb_shelf.addMouseListener(new CursorListener());
+	    jb_function.addMouseListener(new CursorListener());
+	    jb_help.addMouseListener(new CursorListener());
+	    jb_about.addMouseListener(new CursorListener());
 	    initGUI();//呼叫GUI函數
 	  }//建立視窗結束
 	  
-	  
+	  class CursorListener extends MouseAdapter {
+			@SuppressWarnings("deprecation")
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.HAND_CURSOR);
+			}
+			@SuppressWarnings("deprecation")
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		}
 	  
 	  private void initGUI()//產生視覺化物件函數(Graph User Interface，圖形化使用者介面)
 	  {
