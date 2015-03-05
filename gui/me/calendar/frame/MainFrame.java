@@ -1,10 +1,11 @@
 ﻿package me.calendar.frame;
 
 
-
+import me.calendar.frame.Searchpanel;
+import me.calendar.frame.BookshelfPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
-
+import java.awt.event.*;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,6 +58,18 @@ import me.calendar.service.Utility;
 	  public MainFrame()//建立視窗開始
 	  {
 	    super();
+	    jb_shelf.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		setVisible(false);
+	    		new BookshelfPanel();
+	    	}
+	    });
+	    jb_function.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		setVisible(false);
+	    		new Searchpanel();
+	    	}
+	    });
 	    ActionDispatcher.setMainFrame(this);
 	    Utility.setMainFrame(this);
 	    

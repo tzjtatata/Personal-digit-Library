@@ -1,4 +1,5 @@
-﻿import javax.swing.*;
+﻿package me.calendar.frame;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public class BookshelfPanel extends JFrame {
 		setContentPane(panel);
 		setResizable(false);
 		setVisible(true);
-		setSize(900,650);
+		setBounds(200,70,950,650);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public void setBookName(int c, int p) {
@@ -297,9 +298,6 @@ public class BookshelfPanel extends JFrame {
 				addPage(category,rightNumber);
 			}
 		}
-	}
-	public static void main(String[] args) {
-		new BookshelfPanel();
 	}
 	class CursorListener extends MouseAdapter {
 		@SuppressWarnings("deprecation")

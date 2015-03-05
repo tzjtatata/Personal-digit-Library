@@ -1,4 +1,5 @@
-﻿import java.awt.*;
+﻿package me.calendar.frame;
+import java.awt.*;
 
 import javax.swing.*;
 
@@ -168,7 +169,7 @@ public class Searchpanel extends JFrame{
 		this.setContentPane(jpanel);
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(900,650);
+		this.setBounds(200,70,950,650);
 	}
 	class CursorListener extends MouseAdapter {
 		@SuppressWarnings("deprecation")
@@ -224,8 +225,4 @@ public class Searchpanel extends JFrame{
 			}
 		}
 	}
-	public static void main(String[] args) {
-		new Searchpanel();
-	}
-
 }
