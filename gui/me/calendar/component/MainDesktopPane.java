@@ -1,4 +1,4 @@
-package me.calendar.component;
+ï»¿package me.calendar.component;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,9 +38,9 @@ public class MainDesktopPane extends JDesktopPane{
 	
 	void init()
 	{
-		 setPreferredSize(new java.awt.Dimension(950, 650));//ÔO¶¨×ÀÃæ´óĞ¡ 
+		 setPreferredSize(new java.awt.Dimension(950, 650));//è¨­å®šæ¡Œé¢å¤§å° 
 		 
-		 //setBackground(new java.awt.Color(215,217,218));//ÔO¶¨×ÀÃæîÉ«
+		 //setBackground(new java.awt.Color(215,217,218));//è¨­å®šæ¡Œé¢é¡è‰²
 	     initCalenderPane();
 	     initLabels();
 	     initNoteArea();
@@ -49,9 +49,9 @@ public class MainDesktopPane extends JDesktopPane{
 	     initInput();
 	     indexButton();
 	     //initNow();
-	     Icon icon=new ImageIcon("Ö÷Ò³_±³¾°.png","");  //ÉèÖÃ±³¾° 
-	     //Icon icon=new ImageIcon("Ö÷Ò³.png","");  //ÉèÖÃ±³¾° 
-			lab=new JLabel("Swing!",icon,SwingConstants.CENTER);  
+	     Icon icon=new ImageIcon(System.getProperty("java.class.path")+"/source/ä¸»é¡µ_èƒŒæ™¯.png","");  //è®¾ç½®èƒŒæ™¯ 
+	     //Icon icon=new ImageIcon("ä¸»é¡µ.png","");  //è®¾ç½®èƒŒæ™¯ 
+			lab=new JLabel("",icon,SwingConstants.CENTER);  
 			lab.setBounds(0,0, 950, 650);
 			add(lab);
 	     System.out.println(System.getProperty("user.dir"));
@@ -82,9 +82,9 @@ public class MainDesktopPane extends JDesktopPane{
         
         mf.lab_show_test = new JLabel();
         
-        mf.lab_show_test.setText("¸öÈËÊı×ÖÍ¼Êé¹İ");
+        mf.lab_show_test.setText("ä¸ªäººæ•°å­—å›¾ä¹¦é¦†");
         mf.lab_show_test.setBounds(645, 430, 200, 21);
-        mf.lab_show_test.setFont(new java.awt.Font("Î¢ÈíÑÅºÚ",1,13));
+        mf.lab_show_test.setFont(new java.awt.Font("å¾®è½¯é›…é»‘",1,13));
         mf.lab_show_test.setForeground(new java.awt.Color(39, 158,218));
         add(mf.lab_show_test);
         
@@ -92,15 +92,15 @@ public class MainDesktopPane extends JDesktopPane{
         add(mf.lab_show_tip);
         mf.lab_show_tip.setText("------------------------------------");
         mf.lab_show_tip.setForeground(new java.awt.Color(255,255,255));
-        mf.lab_show_tip.setFont(new java.awt.Font("Î¢ÈíÑÅºÚ",Font.BOLD,18));
+        mf.lab_show_tip.setFont(new java.awt.Font("å¾®è½¯é›…é»‘",Font.BOLD,18));
         mf.lab_show_tip.setBounds(645, 208, 200, 14);
         mf.lab_show_tip.setFont(Utility.cn11);
         
         mf.lab_query_month = new JLabel();
         
-        mf.lab_query_month.setText("ÔÂ");
+        mf.lab_query_month.setText("æœˆ");
         mf.lab_query_month.setForeground(new java.awt.Color(39, 158,218));
-        mf.lab_query_month.setFont(new java.awt.Font("Î¢ÈíÑÅºÚ",1,14));
+        mf.lab_query_month.setFont(new java.awt.Font("å¾®è½¯é›…é»‘",1,14));
         mf.lab_query_month.setBounds(758, 183, 20, 21);
         
         //jLabel3.setBackground(Color.blue);
@@ -111,43 +111,43 @@ public class MainDesktopPane extends JDesktopPane{
         
         mf.lab_query_year = new JLabel();
         add(mf.lab_query_year);
-        mf.lab_query_year.setText("Äê");
+        mf.lab_query_year.setText("å¹´");
         mf.lab_query_year.setForeground(new java.awt.Color(39, 158,218));
-        mf.lab_query_year.setFont(new java.awt.Font("Î¢ÈíÑÅºÚ",1,14));
+        mf.lab_query_year.setFont(new java.awt.Font("å¾®è½¯é›…é»‘",1,14));
         //mf.lab_query_year.setFont(Utility.cn12);
         mf.lab_query_year.setBounds(690, 182, 14, 21);
         
         mf.jLabel7 = new JLabel();
         add(mf.jLabel7);
         mf.jLabel7.setText("");
-        mf.jLabel7.setBounds(0, 0, 0, 0);//ÔO¶¨´óĞ¡é0
+        mf.jLabel7.setBounds(0, 0, 0, 0);//è¨­å®šå¤§å°ç‚º0
 	}
 	
 	void initNoteArea()
 	{
 		 mf.area_note = new JTextArea(182, 42);
          
-         mf.area_note.setText("");//îAÔOƒÈÈİÇå¿Õ
-         mf.area_note.setBounds(645, 452, 182, 42);//ÔO¶¨´óĞ¡
+         mf.area_note.setText("");//é è¨­å…§å®¹æ¸…ç©º
+         mf.area_note.setBounds(645, 452, 182, 42);//è¨­å®šå¤§å°
          mf.area_note.setForeground(new java.awt.Color(39, 158,218));
-         mf.area_note.setFont(new java.awt.Font("ºÚÌå",Font.BOLD,18));//ÔO¶¨×Öów˜ÓÊ½´óĞ¡
-         mf.area_note.setLineWrap(true);//ÎÄ×Öß^éL×Ô„Ó“QĞĞ
-         mf.area_note.setWrapStyleWord(true);//ÎÄ×Öß^éL×Ô„Ó“QĞĞ
+         mf.area_note.setFont(new java.awt.Font("é»‘ä½“",Font.BOLD,18));//è¨­å®šå­—é«”æ¨£å¼å¤§å°
+         mf.area_note.setLineWrap(true);//æ–‡å­—éé•·è‡ªå‹•æ›è¡Œ
+         mf.area_note.setWrapStyleWord(true);//æ–‡å­—éé•·è‡ªå‹•æ›è¡Œ
          mf.area_note.setBackground(new Color(215,217,218));
          add(mf.area_note);
          JScrollPane scrollPane = new JScrollPane(mf.area_note, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
          scrollPane.setBackground(Color.red);
-         add(scrollPane);//ÉÏÃæé½¨Á¢scorollpane(Ò•´°ÅÔß…µÄÒÆ„Ó°ô);Œ¢Ó›ÊÂ¿ò½¨Á¢ÔÚscrollpaneÉÏ
-         scrollPane.setBounds(645, 452, 182, 42);//ÔO¶¨´óĞ¡¼°Î»ÖÃ
+         add(scrollPane);//ä¸Šé¢ç‚ºå»ºç«‹scorollpane(è¦–çª—æ—é‚Šçš„ç§»å‹•æ£’);å°‡è¨˜äº‹æ¡†å»ºç«‹åœ¨scrollpaneä¸Š
+         scrollPane.setBounds(645, 452, 182, 42);//è¨­å®šå¤§å°åŠä½ç½®
          
 	}
 	
 	void initButtons()
 	{
 		 
-		 Icon i1=new ImageIcon("Çå³ı.png","");
-		 Icon i2=new ImageIcon("´¢´æ.png","");
-		 Icon i3=new ImageIcon("²éÑ¯.png","");
+		 Icon i1=new ImageIcon(System.getProperty("java.class.path")+"/source/æ¸…é™¤.png","");
+		 Icon i2=new ImageIcon(System.getProperty("java.class.path")+"/source/å‚¨å­˜.png","");
+		 Icon i3=new ImageIcon(System.getProperty("java.class.path")+"/source/æŸ¥è¯¢.png","");
 		 
 		 mf.btn_clear = new DefaultButton(i1,ActionType.Clear);
 		 mf.btn_clear.setBorder(null);
@@ -168,13 +168,13 @@ public class MainDesktopPane extends JDesktopPane{
 	void initSelect()
 	{
 		 ComboBoxModel<String> jComboBox1Model = new DefaultComboBoxModel<String>
-         (new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });//ƒÈÈİÔO¶¨1~12
+         (new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });//å…§å®¹è¨­å®š1~12
          mf.cbox_month = new JComboBox<String>();
          add(mf.cbox_month);
          mf.cbox_month.setModel(jComboBox1Model);
          mf.cbox_month.setBackground(new Color(215,217,218));
          mf.cbox_month.setForeground(new java.awt.Color(39, 158,218));
-         mf.cbox_month.setFont(new java.awt.Font("Î¢ÈíÑÅºÚ",Font.BOLD,12));
+         mf.cbox_month.setFont(new java.awt.Font("å¾®è½¯é›…é»‘",Font.BOLD,12));
          mf.cbox_month.setBounds(710, 184, 40, 18);
          mf.cbox_month.setFont(Utility.en11);
 	}
@@ -187,7 +187,7 @@ public class MainDesktopPane extends JDesktopPane{
          mf.text_year.setBounds(645, 184, 40, 18);
          mf.text_year.setBackground(new Color(215,217,218));
          mf.text_year.setForeground(new java.awt.Color(39, 158,218));
-         mf.text_year.setFont(new java.awt.Font("Î¢ÈíÑÅºÚ",Font.BOLD,12));
+         mf.text_year.setFont(new java.awt.Font("å¾®è½¯é›…é»‘",Font.BOLD,12));
          
          add(mf.text_year);
 	}
@@ -222,7 +222,7 @@ public class MainDesktopPane extends JDesktopPane{
 	public void initNow()
 	{
 		 int[] now = new int[3];
-         now = Utility.getdate();//îAÔOé®”Äê®”ÔÂ
+         now = Utility.getdate();//é è¨­ç‚ºç•¶å¹´ç•¶æœˆ
          String year5,smonth;
          year5 = String.valueOf(now[0]);
          smonth = String.valueOf(now[1]);
@@ -231,10 +231,10 @@ public class MainDesktopPane extends JDesktopPane{
         
          mf.lab_show_date = new JLabel();
          add(mf.lab_show_date);
-         mf.lab_show_date.setText(year5+" Äê "+smonth+" ÔÂ");
+         mf.lab_show_date.setText(year5+" å¹´ "+smonth+" æœˆ");
          mf.lab_show_date.setBounds(645,200, 120, 21);
-         mf.lab_show_date.setForeground(new java.awt.Color(215,217,218));//ÔO¶¨×Öówé°×É«
-         Utility.date_btn_create(now[0],now[1]);//®aÉúÈÕÆÚ°´âo
+         mf.lab_show_date.setForeground(new java.awt.Color(215,217,218));//è¨­å®šå­—é«”ç‚ºç™½è‰²
+         Utility.date_btn_create(now[0],now[1]);//ç”¢ç”Ÿæ—¥æœŸæŒ‰éˆ•
 	}
 
 }

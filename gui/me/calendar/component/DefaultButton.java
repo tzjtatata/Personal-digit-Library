@@ -1,4 +1,4 @@
-package me.calendar.component;
+ï»¿package me.calendar.component;
 
 import java.awt.Font;
 import java.util.HashMap;
@@ -20,9 +20,9 @@ public class DefaultButton extends JButton {
 	static Map<ActionType,String> textMap = new HashMap<ActionType,String>();
 	static Font font  = Utility.cn11;
 	static{
-		textMap.put(ActionType.Query, "²éÑ¯");
-		textMap.put(ActionType.Clear,"Çå³ý");
-		textMap.put(ActionType.Save, "´¢´æ");
+		textMap.put(ActionType.Query, "æŸ¥è¯¢");
+		textMap.put(ActionType.Clear,"æ¸…é™¤");
+		textMap.put(ActionType.Save, "å‚¨å­˜");
 		font = Utility.cn11;
 	}
 	

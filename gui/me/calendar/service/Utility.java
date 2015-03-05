@@ -1,4 +1,4 @@
-package me.calendar.service;
+ï»¿package me.calendar.service;
 
 import java.awt.Font;
 import java.io.File;
@@ -16,39 +16,39 @@ public class Utility {
 	static MainFrame mf;
 	public static Font en11=new java.awt.Font("Segue",0,11);
 	public static Font en12=new java.awt.Font("Leto",0,12);
-	public static Font cn11=new java.awt.Font("Î¢ÈíÑÅºÚ",0,11);
-	public static Font cn12=new java.awt.Font("Î¢ÈíÑÅºÚ",0,12);
+	public static Font cn11=new java.awt.Font("å¾®è½¯é›…é»‘",0,11);
+	public static Font cn12=new java.awt.Font("å¾®è½¯é›…é»‘",0,12);
 	
 	public static void setMainFrame(MainFrame _mf)
 	{
 		mf = _mf;
 	}
 	
-	  public static void new_btn()//ÖØĞÂ®aÉúÈÕÆÚ°´âoº¯”µé_Ê¼
+	  public static void new_btn()//é‡æ–°ç”¢ç”Ÿæ—¥æœŸæŒ‰éˆ•å‡½æ•¸é–‹å§‹
 	  {
-	    mf.area_note.setText("");//Çå¿ÕÓ›ÊÂ
+	    mf.area_note.setText("");//æ¸…ç©ºè¨˜äº‹
 	    int year,month;
-	    year = Integer.parseInt(mf.lab_show_date.getText().substring(0,4));//ÔO¶¨éÒÑßx“ñµÄÄê
-	    month = Integer.parseInt(mf.lab_show_date.getText().substring(7,9));//ÔO¶¨éÒÑßx“ñµÄÔÂ
-	    date_btn_create(year,month);//ºô½Ğ®aÉúÈÕÆÚ°´âoº¯”µ
-	  }//ÖØĞÂ®aÉúÈÕÆÚ°´âoº¯”µ½YÊø
+	    year = Integer.parseInt(mf.lab_show_date.getText().substring(0,4));//è¨­å®šç‚ºå·²é¸æ“‡çš„å¹´
+	    month = Integer.parseInt(mf.lab_show_date.getText().substring(7,9));//è¨­å®šç‚ºå·²é¸æ“‡çš„æœˆ
+	    date_btn_create(year,month);//å‘¼å«ç”¢ç”Ÿæ—¥æœŸæŒ‰éˆ•å‡½æ•¸
+	  }//é‡æ–°ç”¢ç”Ÿæ—¥æœŸæŒ‰éˆ•å‡½æ•¸çµæŸ
 	  
-	  public static void date_btn_create(int year,int month)//®aÉúÈÕÆÚ°´âo
+	  public static void date_btn_create(int year,int month)//ç”¢ç”Ÿæ—¥æœŸæŒ‰éˆ•
 	  {
 	
 
 	   
-	    mf.mainDesktop.remove(mf.calendarPane);//ÒÆ³ı×ÀÃæ2(ÈÕÆÚ°´âo¸½Öø£¬Ò²¾ÍÊÇ°ÑÈÕÆÚ°´âoÒÆ³ı)
-	    mf.calendarPane = new CalendarPane(mf);//®aÉúÒ»‚€ĞÂµÄ×ÀÃæ
+	    mf.mainDesktop.remove(mf.calendarPane);//ç§»é™¤æ¡Œé¢2(æ—¥æœŸæŒ‰éˆ•é™„è‘—ï¼Œä¹Ÿå°±æ˜¯æŠŠæ—¥æœŸæŒ‰éˆ•ç§»é™¤)
+	    mf.calendarPane = new CalendarPane(mf);//ç”¢ç”Ÿä¸€å€‹æ–°çš„æ¡Œé¢
 	    mf.calendarPane.rebuild(year, month);
 	    mf.mainDesktop.add(mf.calendarPane);
-	    mf.mainDesktop.remove(mf.mainDesktop.lab);//ÒÆ³ı×ÀÃæ2(ÈÕÆÚ°´âo¸½Öø£¬Ò²¾ÍÊÇ°ÑÈÕÆÚ°´âoÒÆ³ı)
+	    mf.mainDesktop.remove(mf.mainDesktop.lab);//ç§»é™¤æ¡Œé¢2(æ—¥æœŸæŒ‰éˆ•é™„è‘—ï¼Œä¹Ÿå°±æ˜¯æŠŠæ—¥æœŸæŒ‰éˆ•ç§»é™¤)
 	    mf.mainDesktop.add(mf.mainDesktop.lab);
 
 	  }
-	  public static  boolean leap_year(int year)//ÅĞ”àécÄêº¯”µé_Ê¼
+	  public static  boolean leap_year(int year)//åˆ¤æ–·é–å¹´å‡½æ•¸é–‹å§‹
 	  {
-	    boolean leap_year;//4µÄ±¶”µ£¬Èôé100µÄ±¶”µ„t±Øíšé4µÄ±¶”µ²ÅÊÇécÄê
+	    boolean leap_year;//4çš„å€æ•¸ï¼Œè‹¥ç‚º100çš„å€æ•¸å‰‡å¿…é ˆç‚º4çš„å€æ•¸æ‰æ˜¯é–å¹´
 	    if (year%4 == 0)
 	    {
 	      if (year%100 == 0)
@@ -64,28 +64,28 @@ public class Utility {
 	    else
 	      leap_year = false;
 	    return leap_year;
-	  }//ÅĞ”àécÄêº¯”µ½YÊø
-	  public static int[] getdate()//È¡µÃÏµ½yÈÕÆÚº¯”µé_Ê¼
+	  }//åˆ¤æ–·é–å¹´å‡½æ•¸çµæŸ
+	  public static int[] getdate()//å–å¾—ç³»çµ±æ—¥æœŸå‡½æ•¸é–‹å§‹
 	  {
 	    int[] date_array = new int[3];
 	    Calendar ca = new GregorianCalendar();  
-	    date_array[0] = ca.get(Calendar.YEAR);//Äê
-	    date_array[1] = ca.get(Calendar.MONTH)+1;//ÔÂ
-	    date_array[2] = ca.get(Calendar.DAY_OF_MONTH);//ÈÕ
-	    return date_array;//»Ø‚÷×ÔÓ†ÈÕÆÚê‡ÁĞ
-	  }//È¡µÃÏµ½yÈÕÆÚº¯”µ½YÊø
+	    date_array[0] = ca.get(Calendar.YEAR);//å¹´
+	    date_array[1] = ca.get(Calendar.MONTH)+1;//æœˆ
+	    date_array[2] = ca.get(Calendar.DAY_OF_MONTH);//æ—¥
+	    return date_array;//å›å‚³è‡ªè¨‚æ—¥æœŸé™£åˆ—
+	  }//å–å¾—ç³»çµ±æ—¥æœŸå‡½æ•¸çµæŸ
 	  
-	  public static int dow(int y,int m,int d)//ÅĞ”àĞÇÆÚ×
+	  public static int dow(int y,int m,int d)//åˆ¤æ–·æ˜ŸæœŸå¹¾
 	  {
-	    int[] ww={6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};//ÌìÎÄĞÇówß\ĞĞÖµ
+	    int[] ww={6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};//å¤©æ–‡æ˜Ÿé«”é‹è¡Œå€¼
 	    int w;
-	    w=ww[m-1]+y+(y/4)-(y/100)+(y/400);//écÄêÔO¶¨
-	    if( ((y%4)==0) && (m<3) )//¹«Ê½
+	    w=ww[m-1]+y+(y/4)-(y/100)+(y/400);//é–å¹´è¨­å®š
+	    if( ((y%4)==0) && (m<3) )//å…¬å¼
 	    {
 	      w--;
 	      if((y%100)==0) w++;
 	      if((y%400)==0) w--;
 	    }
-	    return (w+d)%7;//»Ø‚÷ĞÇÆÚ×(0éĞÇÆÚÈÕ£¬1éĞÇÆÚÒ»ÒÔ´ËîÍÆ)
+	    return (w+d)%7;//å›å‚³æ˜ŸæœŸå¹¾(0ç‚ºæ˜ŸæœŸæ—¥ï¼Œ1ç‚ºæ˜ŸæœŸä¸€ä»¥æ­¤é¡æ¨)
 	  }
 }

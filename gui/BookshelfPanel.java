@@ -16,11 +16,14 @@ public class BookshelfPanel extends JFrame {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
+<<<<<<< HEAD
 				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\书架背景.PNG");
+=======
+				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"/source/书架背景.PNG");
+>>>>>>> e0f757794abf6edd533ce91a579df1ab1b49db88
 				img.paintIcon(this,g,0,0);
 			}
 		};
-		
 		page = -1;
 		category = -1;
 		jumpMap = new HashMap<Integer,Integer>();
@@ -72,7 +75,6 @@ public class BookshelfPanel extends JFrame {
 		
 		panel.setLayout(null);
 		setTitle("书架");
-		setUndecorated(true);
 		setContentPane(panel);
 		setResizable(false);
 		setVisible(true);
@@ -300,7 +302,6 @@ public class BookshelfPanel extends JFrame {
 		}
 	}
 	public static void main(String[] args) {
-		setDefaultLookAndFeelDecorated(true);
 		new BookshelfPanel();
 	}
 	class CursorListener extends MouseAdapter {

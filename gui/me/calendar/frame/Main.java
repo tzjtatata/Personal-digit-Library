@@ -1,10 +1,10 @@
-package me.calendar.frame;
+Ôªøpackage me.calendar.frame;
 
 import java.io.IOException;
 
 public class Main {
 
-	 public static void main(String[] args) throws IOException//÷˜≥Ã ΩÈ_ º
+	 public static void main(String[] args) throws IOException//‰∏ªÁ®ãÂºèÈñãÂßã
 	  {
 	    MainFrame inst = new MainFrame();
 	    inst.setVisible(true);
