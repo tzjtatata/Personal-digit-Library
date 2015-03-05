@@ -1,4 +1,4 @@
-import java.awt.*;
+ï»¿import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -27,19 +27,19 @@ public class Searchpanel extends JFrame{
 		jpanel = new JPanel(){
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\ËÑË÷±³¾°.png");
+				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\æœç´¢èƒŒæ™¯.png");
 				img.paintIcon(this, g, 0, 0);
 			}
 		};
 		jpanel.setLayout(null);
 		jpanel.setOpaque(true);
-		this.setTitle("ËÑË÷");
-		bt1 = new JButton("ÉèÖÃ");
-		bt2 = new JButton("ËÑË÷");
-		option1 = new JLabel("°´×÷ÕßËÑË÷");
-		option2 = new JLabel("°´ÀàĞÍËÑË÷");
-		option3 = new JLabel("°´ÎÄ¼şÃûËÑË÷");
-		option4 = new JLabel("°´¹Ø¼ü×ÖËÑË÷");
+		this.setTitle("æœç´¢");
+		bt1 = new JButton("è®¾ç½®");
+		bt2 = new JButton("æœç´¢");
+		option1 = new JLabel("æŒ‰ä½œè€…æœç´¢");
+		option2 = new JLabel("æŒ‰ç±»å‹æœç´¢");
+		option3 = new JLabel("æŒ‰æ–‡ä»¶åæœç´¢");
+		option4 = new JLabel("æŒ‰å…³é”®å­—æœç´¢");
 		entry1 = new JTextField(15);
 		entry2 = new JTextField(15);
 		entry3 = new JTextField(15);
@@ -53,7 +53,7 @@ public class Searchpanel extends JFrame{
 		back3 = new JLabel();
 		back4 = new JLabel();
 		line1 = new JLabel();
-		hint = new JLabel("2015-1-9     ¡¶ĞÅÏ¢¼ìË÷µ¼ÂÛ¡·ÌÆÃÎÑĞ¿ìµã¸øÎÒ¶Á£¡£¡£¡");
+		hint = new JLabel("2015-1-9     ã€Šä¿¡æ¯æ£€ç´¢å¯¼è®ºã€‹å”æ¢¦ç ”å¿«ç‚¹ç»™æˆ‘è¯»ï¼ï¼ï¼");
 		point1.addMouseListener(new ActionLis());
 		point2.addMouseListener(new ActionLis());
 		point3.addMouseListener(new ActionLis());

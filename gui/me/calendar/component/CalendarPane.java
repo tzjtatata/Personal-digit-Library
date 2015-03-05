@@ -1,4 +1,4 @@
-package me.calendar.component;
+ï»¿package me.calendar.component;
 
 import java.awt.Color;
 
@@ -36,9 +36,9 @@ public class CalendarPane extends JPanel {
     String smonth,sday,filename;
     smonth=""+month;
     if(smonth.length()==1)smonth="0"+smonth;
-	    switch(month)//ÔO¶¨ÔÂ·İÌì”µ
+	    switch(month)//è¨­å®šæœˆä»½å¤©æ•¸
 	    {
-	      case 1://´óÔÂ31Ìì
+	      case 1://å¤§æœˆ31å¤©
 	      case 3:
 	      case 5:
 	      case 7:
@@ -48,7 +48,7 @@ public class CalendarPane extends JPanel {
 	        date_acc = 31;
 	        break;
 	       
-	      case 4://Ğ¡ÔÂ30Ìì
+	      case 4://å°æœˆ30å¤©
 	      case 6:
 	      case 9:
 	      case 11:
@@ -62,46 +62,46 @@ public class CalendarPane extends JPanel {
 	          date_acc = 28;
 	    }
 	   
-	    week_of_day = Utility.dow(year,month,1);//ºô½ĞĞÇÆÚº¯”µ(È¡µÃ®”ÔÂµÚÒ»ÌìéĞÇÆÚ×)
+	    week_of_day = Utility.dow(year,month,1);//å‘¼å«æ˜ŸæœŸå‡½æ•¸(å–å¾—ç•¶æœˆç¬¬ä¸€å¤©ç‚ºæ˜ŸæœŸå¹¾)
 	    week_add=27*week_of_day;
 
-	    btn = new JButton[date_acc];//½¨Á¢ÈÕÆÚ°´âoê‡ÁĞ
-	    for (int i=0;i<date_acc;i++)//½¨Á¢ÈÕÆÚ°´âoê‡ÁĞ»ØÈ¦
+	    btn = new JButton[date_acc];//å»ºç«‹æ—¥æœŸæŒ‰éˆ•é™£åˆ—
+	    for (int i=0;i<date_acc;i++)//å»ºç«‹æ—¥æœŸæŒ‰éˆ•é™£åˆ—å›åœˆ
 	    {
-	      btn[i] = new JButton();//½¨Á¢Œ¦‘ªÈÕÆÚ°´âo
-	      mf.calendarPane.add(btn[i]);//¼Óµ½×ÀÃæ2ÉÏ
+	      btn[i] = new JButton();//å»ºç«‹å°æ‡‰æ—¥æœŸæŒ‰éˆ•
+	      mf.calendarPane.add(btn[i]);//åŠ åˆ°æ¡Œé¢2ä¸Š
 
-	      btn[i].setText(String.valueOf(i+1));//ÔO¶¨°´âoÎÄ×ÖéÈÕÆÚ
+	      btn[i].setText(String.valueOf(i+1));//è¨­å®šæŒ‰éˆ•æ–‡å­—ç‚ºæ—¥æœŸ
 	      if ((i-week_of_day>0 && (i+week_of_day)%7==0) || ((i+week_of_day)%7==0 && i != 0))
-	      {//ÔO¶¨®”ÔÂµÚÒ»ÌìÈÕÆÚ°´âoÎ»ÖÃ
-	        x=0;//XİS×ù˜Ë
-	        x_add=0;//ÏÂÒ»‚€°´âo×ù˜Ë(XİS)¼ÓÖµ
-	        y++;//YİS×ù˜Ë
-	        y_add+=0;//“QĞĞ×ù˜Ë(YİS)¼ÓÖµ
-	        week_add=0;//®”ÔÂµÚÒ»ÈÕ°´âo×ù˜Ë¼ÓÖµ
-	      }//ÏÂÃæÔO¶¨°´âo´óĞ¡¼°¼ÓÖµ(XéÆğÊ¼10+µÚ×‚€°´âo*™MÏòŒ’¶È25+ég¸ô+®”ÔÂµÚÒ»ÌìĞÇÆÚ×¼ÓÖµ)
-	      btn[i].setBounds(x*27+x_add+week_add, y*30+y_add, 27, 30);//(YéµÚ×‚€°´âo*¸ß¶È20+“QĞĞ¼ÓÖµ)°´âoŒ’é25¸ßé20
-	      btn[i].setFont(new java.awt.Font("Leto",1,12));//ÔO¶¨×Öów´óĞ¡¼°˜ÓÊ½
+	      {//è¨­å®šç•¶æœˆç¬¬ä¸€å¤©æ—¥æœŸæŒ‰éˆ•ä½ç½®
+	        x=0;//Xè»¸åº§æ¨™
+	        x_add=0;//ä¸‹ä¸€å€‹æŒ‰éˆ•åº§æ¨™(Xè»¸)åŠ å€¼
+	        y++;//Yè»¸åº§æ¨™
+	        y_add+=0;//æ›è¡Œåº§æ¨™(Yè»¸)åŠ å€¼
+	        week_add=0;//ç•¶æœˆç¬¬ä¸€æ—¥æŒ‰éˆ•åº§æ¨™åŠ å€¼
+	      }//ä¸‹é¢è¨­å®šæŒ‰éˆ•å¤§å°åŠåŠ å€¼(Xç‚ºèµ·å§‹10+ç¬¬å¹¾å€‹æŒ‰éˆ•*æ©«å‘å¯¬åº¦25+é–“éš”+ç•¶æœˆç¬¬ä¸€å¤©æ˜ŸæœŸå¹¾åŠ å€¼)
+	      btn[i].setBounds(x*27+x_add+week_add, y*30+y_add, 27, 30);//(Yç‚ºç¬¬å¹¾å€‹æŒ‰éˆ•*é«˜åº¦20+æ›è¡ŒåŠ å€¼)æŒ‰éˆ•å¯¬ç‚º25é«˜ç‚º20
+	      btn[i].setFont(new java.awt.Font("Leto",1,12));//è¨­å®šå­—é«”å¤§å°åŠæ¨£å¼
 	      btn[i].setForeground(new java.awt.Color(39, 158,218));
 	      btn[i].setBorder(null);
-	      btn[i].setBorder(BorderFactory.createTitledBorder(""));//ÔO¶¨°´âoÎÄ×Ö²»×Ô„ÓÕ{Õû´óĞ¡
+	      btn[i].setBorder(BorderFactory.createTitledBorder(""));//è¨­å®šæŒ‰éˆ•æ–‡å­—ä¸è‡ªå‹•èª¿æ•´å¤§å°
 	      int[] now = new int[3];
-	      now = Utility.getdate();//È¡µÃ®”ÌìÈÕÆÚ
+	      now = Utility.getdate();//å–å¾—ç•¶å¤©æ—¥æœŸ
 	      if (year == now[0] && month == now[1] && i+1 == now[2])
-	        btn[i].setBackground(new java.awt.Color(255,255,255));//Èôé®”Ìì„tÔO¶¨°´âoé°×É«
+	        btn[i].setBackground(new java.awt.Color(255,255,255));//è‹¥ç‚ºç•¶å¤©å‰‡è¨­å®šæŒ‰éˆ•ç‚ºç™½è‰²
 	      else
-	        btn[i].setBackground(new java.awt.Color(215,217,218));//Èô²»ÊÇ®”Ìì„tÔO¶¨°´âoéÀ¶É«
+	        btn[i].setBackground(new java.awt.Color(215,217,218));//è‹¥ä¸æ˜¯ç•¶å¤©å‰‡è¨­å®šæŒ‰éˆ•ç‚ºè“è‰²
 	      /* 
 	      sday = i+1+"";
-	      filename = year+smonth+sday;//Ó›ÊÂ™n°¸Ãû·Q(Äê+ÔÂ+ÈÕ.txt)
-	      File file=new File(filename+".txt");//½¨Á¢™n°¸Îï¼ş
+	      filename = year+smonth+sday;//è¨˜äº‹æª”æ¡ˆåç¨±(å¹´+æœˆ+æ—¥.txt)
+	      File file=new File(filename+".txt");//å»ºç«‹æª”æ¡ˆç‰©ä»¶
 	      */
-	      if (DataService.exist(year, month, i+1))//Èô®”ÌìÓĞÓ›ÊÂ™n°¸„tÔO¶¨°´âo×ÖówîÉ«é°×É«
+	      if (DataService.exist(year, month, i+1))//è‹¥ç•¶å¤©æœ‰è¨˜äº‹æª”æ¡ˆå‰‡è¨­å®šæŒ‰éˆ•å­—é«”é¡è‰²ç‚ºç™½è‰²
 	        btn[i].setForeground(new java.awt.Color(255,255,255));
 	     
 	      btn[i].addActionListener(new ActionDispatcher(ActionType.Pressed));
-	      x++;//ÏÂÒ»‚€°´âoX×ù˜Ë¼Ó™à
-	      x_add+=0;//ÏÂÒ»‚€°´âoég¸ôX×ù˜Ë¼Ó™à
+	      x++;//ä¸‹ä¸€å€‹æŒ‰éˆ•Xåº§æ¨™åŠ æ¬Š
+	      x_add+=0;//ä¸‹ä¸€å€‹æŒ‰éˆ•é–“éš”Xåº§æ¨™åŠ æ¬Š
 	    }
 	}
 }

@@ -1,4 +1,4 @@
-package me.calendar.frame;
+ï»¿package me.calendar.frame;
 
 
 
@@ -21,17 +21,17 @@ import me.calendar.component.MainDesktopPane;
 import me.calendar.service.ActionDispatcher;
 import me.calendar.service.Utility;
 	 
-	public class MainFrame extends javax.swing.JFrame //½¨Á¢Ò»Ò•´°Îï¼ş
+	public class MainFrame extends javax.swing.JFrame //å»ºç«‹ä¸€è¦–çª—ç‰©ä»¶
 	{
 	 /**
 		 * 
 		 */
 	private static final long serialVersionUID = 1L;
-	public MainDesktopPane mainDesktop;//ÏàêPÎï¼şĞû¸æ
+	public MainDesktopPane mainDesktop;//ç›¸é—œç‰©ä»¶å®£å‘Š
 	public CalendarPane calendarPane;
-	public JButton btn_clear=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/Çå³ı.png"));
-	public JButton btn_save=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/´¢´æ.png"));
-	public  JButton btn_query=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/²éÑ¯.png"));
+	public JButton btn_clear=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/æ¸…é™¤.png"));
+	public JButton btn_save=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/å‚¨å­˜.png"));
+	public  JButton btn_query=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/æŸ¥è¯¢.png"));
 	public JLabel lab_sun;
 	public JLabel lab_week;
 	public JLabel lab_query_year;
@@ -46,55 +46,55 @@ import me.calendar.service.Utility;
 	public  JTextArea area_note;
 	
 	public JLabel j1 = new JLabel();
-	public JButton jb_shelf=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/Êé¼Ü.jpg"));
-	public JButton jb_function=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/ËÑË÷.jpg"));
-	public JButton jb_about=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/¹ØÓÚ.jpg"));
-	public JButton jb_help=new JButton(new ImageIcon(System.getProperty("user.dir")+"/source/ÉèÖÃ.jpg"));
+	public JButton jb_shelf=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/ä¹¦æ¶.jpg"));
+	public JButton jb_function=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/æœç´¢.jpg"));
+	public JButton jb_about=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/å…³äº.jpg"));
+	public JButton jb_help=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/è®¾ç½®.jpg"));
 	public JPanel jp=new JPanel();
 	 
-	 //Ö÷³ÌÊ½½YÊø
+	 //ä¸»ç¨‹å¼çµæŸ
 	 
-	  public MainFrame()//½¨Á¢Ò•´°é_Ê¼
+	  public MainFrame()//å»ºç«‹è¦–çª—é–‹å§‹
 	  {
 	    super();
 	    ActionDispatcher.setMainFrame(this);
 	    Utility.setMainFrame(this);
 	    
-	    initGUI();//ºô½ĞGUIº¯”µ
-	  }//½¨Á¢Ò•´°½YÊø
+	    initGUI();//å‘¼å«GUIå‡½æ•¸
+	  }//å»ºç«‹è¦–çª—çµæŸ
 	  
 	  
 	  
-	  private void initGUI()//®aÉúÒ•ÓX»¯Îï¼şº¯”µ(Graph User Interface£¬ˆDĞÎ»¯Ê¹ÓÃÕß½éÃæ)
+	  private void initGUI()//ç”¢ç”Ÿè¦–è¦ºåŒ–ç‰©ä»¶å‡½æ•¸(Graph User Interfaceï¼Œåœ–å½¢åŒ–ä½¿ç”¨è€…ä»‹é¢)
 	  {
 	    try
 	    {
-	      setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);//ÔO¶¨Íâ¿òÒ•´°Ö÷Òª¹¦ÄÜÁĞé˜ËœÊ(¿sµ½×îĞ¡£¬·Åµ½×î´ó£¬êPé])
+	      setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);//è¨­å®šå¤–æ¡†è¦–çª—ä¸»è¦åŠŸèƒ½åˆ—ç‚ºæ¨™æº–(ç¸®åˆ°æœ€å°ï¼Œæ”¾åˆ°æœ€å¤§ï¼Œé—œé–‰)
 	      {
-	    	this.setTitle("¸öÈËÊı×ÖÍ¼Êé¹İ");//ÔO¶¨Ò•´°Ì§î^
+	    	this.setTitle("ä¸ªäººæ•°å­—å›¾ä¹¦é¦†");//è¨­å®šè¦–çª—æŠ¬é ­
 	    	
-	        mainDesktop = new MainDesktopPane(this);//½¨Á¢Ò»×ÀÃæ
+	        mainDesktop = new MainDesktopPane(this);//å»ºç«‹ä¸€æ¡Œé¢
 	        
 	        mainDesktop.initNow();
 	      }
 	      getContentPane().add(mainDesktop, BorderLayout.CENTER);
 	      pack();
 
-			this.setBounds(200,70,950,650);//´óĞ¡ Î»ÖÃ
-			Image i=this.getToolkit().getImage(System.getProperty("user.dir")+"/source/digital_library.png");//logo
+			this.setBounds(200,70,950,650);//å¤§å° ä½ç½®
+			Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
 			this.setIconImage(i);
 
-			this.setResizable(false);//²»¿ÉÒÔµ÷Õû´óĞ¡
-			//this.setUndecorated(false);//±ß¿ò
-			this.setVisible(true);//¿É¼û
+			this.setResizable(false);//ä¸å¯ä»¥è°ƒæ•´å¤§å°
+			//this.setUndecorated(false);//è¾¹æ¡†
+			this.setVisible(true);//å¯è§
 
 			//this.setSize(444, 296);
-	    } catch (Exception e) {//ÀıÍâÌÀí
+	    } catch (Exception e) {//ä¾‹å¤–è™•ç†
 	      e.printStackTrace();
 	    }
 	  }
 	 
-	 //²éÔƒ°´âo°´ÏÂÓ|°lÊÂ¼ş½YÊø
+	 //æŸ¥è©¢æŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶çµæŸ
 	 
 
 }

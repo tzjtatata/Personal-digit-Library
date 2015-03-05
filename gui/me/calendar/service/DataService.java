@@ -1,4 +1,4 @@
-package me.calendar.service;
+ï»¿package me.calendar.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -56,13 +56,13 @@ public class DataService {
 		 BufferedReader bfr;
 		try {
 			fr = new FileReader(file);
-			 bfr= new BufferedReader(fr);//Œ¢™n°¸×xµ½¾Ğn…^
-		      boolean flag=false;//Æì˜Ë
-		      while((read_str = bfr.readLine())!=null) // Ã¿´Î×xÈ¡Ò»ĞĞ£¬Ö±µ½™n°¸½YÊø
+			 bfr= new BufferedReader(fr);//å°‡æª”æ¡ˆè®€åˆ°ç·©è¡å€
+		      boolean flag=false;//æ——æ¨™
+		      while((read_str = bfr.readLine())!=null) // æ¯æ¬¡è®€å–ä¸€è¡Œï¼Œç›´åˆ°æª”æ¡ˆçµæŸ
 		      {
-		        if (flag)//ÄµÚ¶şĞĞé_Ê¼Ã¿Ò»ĞĞµÚÒ»‚€Î»ÖÃ¼ÓÈë”àĞĞ
+		        if (flag)//å¾ç¬¬äºŒè¡Œé–‹å§‹æ¯ä¸€è¡Œç¬¬ä¸€å€‹ä½ç½®åŠ å…¥æ–·è¡Œ
 		          sb.append("\n");
-		        sb.append(read_str);//¼ÓÈëÔ“ĞĞÓÏ¢
+		        sb.append(read_str);//åŠ å…¥è©²è¡Œè¨Šæ¯
 		        flag=true;
 		       
 		      }
@@ -71,7 +71,7 @@ public class DataService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}//×xÈ¡ßx“ñÈÕÆÚÓ›ÊÂ™n°¸
+		}//è®€å–é¸æ“‡æ—¥æœŸè¨˜äº‹æª”æ¡ˆ
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,18 +84,18 @@ public class DataService {
 	public boolean save(String str)
 	{
 		 FileWriter fw;
-		 BufferedWriter bfw;//†¢ÓÃ¾Ğn…^Œ‘Èë
+		 BufferedWriter bfw;//å•Ÿç”¨ç·©è¡å€å¯«å…¥
 		try {
 			fw = new FileWriter(file);
 			bfw=new BufferedWriter(fw);
-			 bfw.write(str); //Œ¢TextareaƒÈÈİŒ‘Èë¾Ğn…^Ñe
-		        bfw.flush();//Œ¢¾Ğn…^ÙYÁÏŒ‘µ½™n°¸
-		        fw.close();//êPé]™n°¸
+			 bfw.write(str); //å°‡Textareaå…§å®¹å¯«å…¥ç·©è¡å€è£¡
+		        bfw.flush();//å°‡ç·©è¡å€è³‡æ–™å¯«åˆ°æª”æ¡ˆ
+		        fw.close();//é—œé–‰æª”æ¡ˆ
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}//†¢ÓÃ™n°¸Œ‘Èë
+		}//å•Ÿç”¨æª”æ¡ˆå¯«å…¥
 	     return true;
 	       
 	}

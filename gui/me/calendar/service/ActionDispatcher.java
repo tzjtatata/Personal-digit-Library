@@ -1,4 +1,4 @@
-package me.calendar.service;
+ï»¿package me.calendar.service;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,34 +36,34 @@ public class ActionDispatcher implements ActionListener {
 			
 			dispatch(e);
 		}
-	private static  void btnActionPerformed(ActionEvent evt)//ÈÕÆÚ°´âo°´ÏÂÓ|°lÊÂ¼şé_Ê¼
+	private static  void btnActionPerformed(ActionEvent evt)//æ—¥æœŸæŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶é–‹å§‹
 	  {
 	    mf.area_note.setText("");
 	    String year,month,btn_date,filename,read_str;
-	    year = mf.lab_show_date.getText().substring(0,4);//È¡µÃÄê
-	    month = mf.lab_show_date.getText().substring(7,9);//È¡µÃÔÂ
-	    btn_date = evt.getActionCommand();//È¡µÃ°´ÏÂ°´âoÎÄ×Ö(ÈÕ)
+	    year = mf.lab_show_date.getText().substring(0,4);//å–å¾—å¹´
+	    month = mf.lab_show_date.getText().substring(7,9);//å–å¾—æœˆ
+	    btn_date = evt.getActionCommand();//å–å¾—æŒ‰ä¸‹æŒ‰éˆ•æ–‡å­—(æ—¥)
 	    
 	    mf.jLabel7.setText(btn_date);
 	    DataService ds = new DataService(Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(btn_date));
 	    
 	    if(!ds.exist())
 	    {
-	    	 mf.lab_show_test.setText("µ±ÈÕ¶ÁÊé¼Æ»®");
-		      mf.lab_show_tip.setText("ÒÑÑ¡Ôñ"+year+"Äê"+month+"ÔÂ"+btn_date+"ÈÕ");
+	    	 mf.lab_show_test.setText("å½“æ—¥è¯»ä¹¦è®¡åˆ’");
+		      mf.lab_show_tip.setText("å·²é€‰æ‹©"+year+"å¹´"+month+"æœˆ"+btn_date+"æ—¥");
 	    }
 	    else
 	    {
 	    	String content = ds.getContent();
 	    	 mf.area_note.setText(content);
 	    	 if(content!=null&&!content.equals(""))
-	    	 {	mf.lab_show_test.setText("¶ÁÊéÈÕÀú");
-		      	mf.lab_show_tip.setText("ÒÑÑ¡Ôñ"+year+"Äê"+month+"ÔÂ"+btn_date+"ÈÕ");
+	    	 {	mf.lab_show_test.setText("è¯»ä¹¦æ—¥å†");
+		      	mf.lab_show_tip.setText("å·²é€‰æ‹©"+year+"å¹´"+month+"æœˆ"+btn_date+"æ—¥");
 	    	 }
 	    	 else
 	    	 {
-	    		 mf.lab_show_test.setText("µ±ÈÕ¶ÁÊé¼Æ»®");
-			      mf.lab_show_tip.setText("ÒÑÑ¡Ôñ"+year+"Äê"+month+"ÔÂ"+btn_date+"ÈÕ");
+	    		 mf.lab_show_test.setText("å½“æ—¥è¯»ä¹¦è®¡åˆ’");
+			      mf.lab_show_tip.setText("å·²é€‰æ‹©"+year+"å¹´"+month+"æœˆ"+btn_date+"æ—¥");
 	    	 }
 		      
 	    }
@@ -71,34 +71,34 @@ public class ActionDispatcher implements ActionListener {
 	    filename = year+month+btn_date;
 	    try
 	    {
-	      FileReader fr = new FileReader(filename+".txt");//×xÈ¡ßx“ñÈÕÆÚÓ›ÊÂ™n°¸
-	      BufferedReader bfr = new BufferedReader(fr);//Œ¢™n°¸×xµ½¾Ğn…^
-	      boolean flag=false;//Æì˜Ë
-	      while((read_str = bfr.readLine())!=null) // Ã¿´Î×xÈ¡Ò»ĞĞ£¬Ö±µ½™n°¸½YÊø
+	      FileReader fr = new FileReader(filename+".txt");//è®€å–é¸æ“‡æ—¥æœŸè¨˜äº‹æª”æ¡ˆ
+	      BufferedReader bfr = new BufferedReader(fr);//å°‡æª”æ¡ˆè®€åˆ°ç·©è¡å€
+	      boolean flag=false;//æ——æ¨™
+	      while((read_str = bfr.readLine())!=null) // æ¯æ¬¡è®€å–ä¸€è¡Œï¼Œç›´åˆ°æª”æ¡ˆçµæŸ
 	      {
-	        if (flag)//ÄµÚ¶şĞĞé_Ê¼Ã¿Ò»ĞĞµÚÒ»‚€Î»ÖÃ¼ÓÈë”àĞĞ
+	        if (flag)//å¾ç¬¬äºŒè¡Œé–‹å§‹æ¯ä¸€è¡Œç¬¬ä¸€å€‹ä½ç½®åŠ å…¥æ–·è¡Œ
 	          mf.area_note.append("\n");
-	        mf.area_note.append(read_str);//¼ÓÈëÔ“ĞĞÓÏ¢
+	        mf.area_note.append(read_str);//åŠ å…¥è©²è¡Œè¨Šæ¯
 	        flag=true;
 	       
 	      }
-	      mf.lab_show_test.setText("µ±Ìì¼ÇÊÂ");
-	      mf.lab_show_tip.setText("ÒÑÑ¡Ôñ"+year+"Äê"+month+"ÔÂ"+btn_date+"ÈÕ");
+	      mf.lab_show_test.setText("å½“å¤©è®°äº‹");
+	      mf.lab_show_tip.setText("å·²é€‰æ‹©"+year+"å¹´"+month+"æœˆ"+btn_date+"æ—¥");
 	      fr.close();
-	    }catch(FileNotFoundException e)//Èç¹û›]ÓĞÖ¸¶¨µÄÓ›ÊÂ™n°¸¾ÍÓ¡³ö®”ÈÕŸoĞĞÊÂ•Ñ(ÀıÍâÌÀí)
+	    }catch(FileNotFoundException e)//å¦‚æœæ²’æœ‰æŒ‡å®šçš„è¨˜äº‹æª”æ¡ˆå°±å°å‡ºç•¶æ—¥ç„¡è¡Œäº‹æ›†(ä¾‹å¤–è™•ç†)
 	    {
-	      mf.lab_show_test.setText("µ±ÈÕÎŞĞĞÊÂÀú");
-	      mf.lab_show_tip.setText("ÒÑÑ¡Ôñ"+year+"Äê"+month+"ÔÂ"+btn_date+"ÈÕ");
-	    }catch(IOException e)//ÀıÍâÌÀí
+	      mf.lab_show_test.setText("å½“æ—¥æ— è¡Œäº‹å†");
+	      mf.lab_show_tip.setText("å·²é€‰æ‹©"+year+"å¹´"+month+"æœˆ"+btn_date+"æ—¥");
+	    }catch(IOException e)//ä¾‹å¤–è™•ç†
 	    {
 	      e.printStackTrace();
 	    }
 	    */
-	  }//ÈÕÆÚ°´âo°´ÏÂÓ|°lÊÂ¼ş½YÊø
+	  }//æ—¥æœŸæŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶çµæŸ
 	  
-	  private static  void clearActionPerformed(ActionEvent evt)//Çå³ı°´âo°´ÏÂÓ|°lÊÂ¼ş
+	  private static  void clearActionPerformed(ActionEvent evt)//æ¸…é™¤æŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶
 	  {
-	    mf.area_note.setText("");//Çå³ıÓ›ÊÂƒÈÈİ
+	    mf.area_note.setText("");//æ¸…é™¤è¨˜äº‹å…§å®¹
 	    String year,month,day,filename;
 	    year = mf.lab_show_date.getText().substring(0,4);
 	    month = mf.lab_show_date.getText().substring(7,9);
@@ -107,73 +107,73 @@ public class ActionDispatcher implements ActionListener {
 	    if(ds.exist())ds.delete();
 	    /*
 	    filename = year+month+day;
-	    File file=new File(filename+".txt");//„h³ı®”ÈÕÓ›ÊÂ™n°¸
+	    File file=new File(filename+".txt");//åˆªé™¤ç•¶æ—¥è¨˜äº‹æª”æ¡ˆ
 	    file.delete();
 	    */
-	    Utility.new_btn();//ÖØĞÂ®aÉú°´âo
-	    mf.lab_show_test.setText("¼Æ»®ÒÑÇå³ı");//ÔO¶¨ÏàêPÓÏ¢
+	    Utility.new_btn();//é‡æ–°ç”¢ç”ŸæŒ‰éˆ•
+	    mf.lab_show_test.setText("è®¡åˆ’å·²æ¸…é™¤");//è¨­å®šç›¸é—œè¨Šæ¯
 	    mf.jLabel7.setText("");
-	    mf.lab_show_tip.setText("Î´Ñ¡ÔñÈÕÆÚ");
+	    mf.lab_show_tip.setText("æœªé€‰æ‹©æ—¥æœŸ");
 	  }
 	 
-	  private static  void saveActionPerformed(ActionEvent evt)//ƒ¦´æ°´âo°´ÏÂÓ|°lÊÂ¼şé_Ê¼
+	  private static  void saveActionPerformed(ActionEvent evt)//å„²å­˜æŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶é–‹å§‹
 	  {
 	    String year,month,day,filename,insert_str;
 	    year = mf.lab_show_date.getText().substring(0,4);
 	    month = mf.lab_show_date.getText().substring(7,9);
 	    day = mf.jLabel7.getText();
-	    insert_str = mf.area_note.getText();//Ó›ÊÂƒÈÈİ
+	    insert_str = mf.area_note.getText();//è¨˜äº‹å…§å®¹
 	    DataService ds = new DataService(year,month,day);
 	    
 	    
-	    if (insert_str.length() != 0 && day.length() != 0)//ÈôÓ›ÊÂ¿òƒÈÓĞÎÄ×ÖÇÒÓĞßx“ñÈÕÆÚ„tƒ¦´æÓ›ÊÂ™n°¸
+	    if (insert_str.length() != 0 && day.length() != 0)//è‹¥è¨˜äº‹æ¡†å…§æœ‰æ–‡å­—ä¸”æœ‰é¸æ“‡æ—¥æœŸå‰‡å„²å­˜è¨˜äº‹æª”æ¡ˆ
 	    {
 	    	 if(ds.save(insert_str))
-	    	 { 	mf.lab_show_test.setText("ÒÑ¼ÇÂ¼¼Æ»®");//ÔO¶¨ÏàêPÓÏ¢
+	    	 { 	mf.lab_show_test.setText("å·²è®°å½•è®¡åˆ’");//è¨­å®šç›¸é—œè¨Šæ¯
 	    	 Utility.new_btn();
 		     	mf.jLabel7.setText("");
-		     	mf.lab_show_tip.setText("Î´Ñ¡ÔñÈÕÆÚ");
+		     	mf.lab_show_tip.setText("æœªé€‰æ‹©æ—¥æœŸ");
 	    	 }
 	    	 else
 	    	 {
-	    		 mf.lab_show_test.setText("¼ÇÂ¼Ê§°Ü"); 
+	    		 mf.lab_show_test.setText("è®°å½•å¤±è´¥"); 
 	    	 }
 		     Utility.new_btn();
 
 	    }
-	    else//ÈôŸoÓ›ÊÂƒÈÈİ»òŸoßx“ñÈÕÆÚ
+	    else//è‹¥ç„¡è¨˜äº‹å…§å®¹æˆ–ç„¡é¸æ“‡æ—¥æœŸ
 	    {
 	      if (day.length() == 0)
-	        mf.lab_show_test.setText("Î´Ñ¡ÔñÈÕÆÚ");//ÔO¶¨ÏàêPÓÏ¢
+	        mf.lab_show_test.setText("æœªé€‰æ‹©æ—¥æœŸ");//è¨­å®šç›¸é—œè¨Šæ¯
 	      else
-	        mf.lab_show_test.setText("µ±ÈÕÎŞ¶ÁÊé¼Æ»®");
+	        mf.lab_show_test.setText("å½“æ—¥æ— è¯»ä¹¦è®¡åˆ’");
 	    }
 	    Utility.new_btn();
-	  }//ƒ¦´æ°´âo°´ÏÂÓ|°lÊÂ¼ş½YÊø
+	  }//å„²å­˜æŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶çµæŸ
 	 
-	  private static   void queryActionPerformed(ActionEvent evt)//²éÔƒ°´âo°´ÏÂÓ|°lÊÂ¼şé_Ê¼
+	  private static   void queryActionPerformed(ActionEvent evt)//æŸ¥è©¢æŒ‰éˆ•æŒ‰ä¸‹è§¸ç™¼äº‹ä»¶é–‹å§‹
 	  {
 	    String syear,smonth;
 	    try
 	    {
 	      mf.area_note.setText("");
-	      mf.lab_show_test.setText("²éÑ¯ÈÕÆÚ");
+	      mf.lab_show_test.setText("æŸ¥è¯¢æ—¥æœŸ");
 	      syear = mf.text_year.getText();
 	      smonth = String.valueOf(mf.cbox_month.getSelectedIndex() + 1);
 	      if (smonth.length() == 1)
 	            smonth = "0"+smonth;
-	      if (syear == "" || Integer.parseInt(syear)<1582)//ÈôÎ´İ”ÈëÄê·İ¾ÍÓ|°lÀıÍâ(1582ÄêÒÔÇ°Ôø½›¸Ä•Ñß^£¬½Y¹û•ş²»œÊ´_)
+	      if (syear == "" || Integer.parseInt(syear)<1582)//è‹¥æœªè¼¸å…¥å¹´ä»½å°±è§¸ç™¼ä¾‹å¤–(1582å¹´ä»¥å‰æ›¾ç¶“æ”¹æ›†éï¼Œçµæœæœƒä¸æº–ç¢º)
 	      {
 	        int[] now = new int[3];
 	        now = Utility.getdate();
-	        syear = String.valueOf(now[0]);//Èôßx“ñÄê·İĞ¡ì¶1582Äê„tîAÔOé®”Äê
-	        mf.lab_show_test.setText("ÇëÑ¡Ôñ1582ÄêÒÔÉÏ");
+	        syear = String.valueOf(now[0]);//è‹¥é¸æ“‡å¹´ä»½å°æ–¼1582å¹´å‰‡é è¨­ç‚ºç•¶å¹´
+	        mf.lab_show_test.setText("è¯·é€‰æ‹©1582å¹´ä»¥ä¸Š");
 	      }
-	      mf.lab_show_date.setText(syear+" Äê "+smonth+" ÔÂ");
+	      mf.lab_show_date.setText(syear+" å¹´ "+smonth+" æœˆ");
 	      Utility.date_btn_create(Integer.parseInt(syear),Integer.parseInt(smonth));
 	     mf.jLabel7.setText("");
-	     mf.lab_show_tip.setText("Î´Ñ¡ÔñÈÕÆÚ");
-	    }catch(NumberFormatException e)//ÀıÍâÌÀíÔO¶¨é®”Äê¼°ßx“ñµÄÔÂ·İ
+	     mf.lab_show_tip.setText("æœªé€‰æ‹©æ—¥æœŸ");
+	    }catch(NumberFormatException e)//ä¾‹å¤–è™•ç†è¨­å®šç‚ºç•¶å¹´åŠé¸æ“‡çš„æœˆä»½
 	    {
 	      int[] now = new int[3];
 	      now = Utility.getdate();
@@ -181,11 +181,11 @@ public class ActionDispatcher implements ActionListener {
 	      smonth = String.valueOf(mf.cbox_month.getSelectedIndex() + 1);
 	      if (smonth.length() == 1)
 	            smonth = "0"+smonth;
-	     mf.lab_show_date.setText(syear+" Äê "+smonth+" ÔÂ");
-	     mf.lab_show_test.setText("ÇëÑ¡Ôñ1582ÄêÒÔÉÏ");
+	     mf.lab_show_date.setText(syear+" å¹´ "+smonth+" æœˆ");
+	     mf.lab_show_test.setText("è¯·é€‰æ‹©1582å¹´ä»¥ä¸Š");
 	      Utility.date_btn_create(Integer.parseInt(syear),Integer.parseInt(smonth));
 	     mf.jLabel7.setText("");
-	     mf.lab_show_tip.setText("Î´Ñ¡ÔñÈÕÆÚ");
+	     mf.lab_show_tip.setText("æœªé€‰æ‹©æ—¥æœŸ");
 	    }
 	  }
 
