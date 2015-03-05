@@ -29,8 +29,8 @@ public class BookshelfPanel extends JFrame {
 		pass2 = new JLabel("...",JLabel.CENTER);
 		pass1.setBounds(270, 430, 40, 30);
 		pass2.setBounds(490, 430, 40, 30);
-		pass1.setFont(new Font("黑体",Font.BOLD,24));
-		pass2.setFont(new Font("黑体",Font.BOLD,24));
+		pass1.setFont(new Font("黑体",Font.BOLD,15));
+		pass2.setFont(new Font("黑体",Font.BOLD,15));
 		pass1.addMouseListener(new JumpListener());
 		pass1.addMouseListener(new CursorListener());
 		pass2.addMouseListener(new JumpListener());
@@ -194,7 +194,7 @@ public class BookshelfPanel extends JFrame {
 		jumpMap.clear();
 		for (int i=0;i<jump.length;i++) {
 			jump[i] = new JLabel(String.valueOf(i+1),JLabel.CENTER);
-			jump[i].setFont(new Font("黑体",Font.BOLD,24));
+			jump[i].setFont(new Font("黑体",Font.BOLD,15));
 			jump[i].addMouseListener(new JumpListener());
 			jump[i].addMouseListener(new CursorListener());
 			jumpMap.put(jump[i].hashCode(), i+1);
@@ -318,12 +318,22 @@ public class BookshelfPanel extends JFrame {
 			else if(e.getSource().equals(right) && rightCategory < maxCategory) {
 				evertCategory("right");
 			}
-			else {
+			else if(e.getSource()!=left && e.getSource()!=right) {
 				int listHash = listMap.get(e.getSource().hashCode());
 				if (listHash != category) {
 					removeCategory(category);
 					addCategory(listHash);
 				}
+			}
+			else if(e.getSource().equals(left) && category > 1) {
+				int temp = category;
+				removeCategory(category);
+				addCategory(temp-1);
+			}
+			else if(e.getSource().equals(right) && category < maxCategory) {
+				int temp = category;
+				removeCategory(category);
+				addCategory(temp+1);
 			}
 		}
 	}
