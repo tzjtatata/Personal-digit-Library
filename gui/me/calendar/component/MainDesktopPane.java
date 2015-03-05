@@ -49,9 +49,9 @@ public class MainDesktopPane extends JDesktopPane{
 	     initInput();
 	     indexButton();
 	     //initNow();
-	     Icon icon=new ImageIcon("÷˜“≥_±≥æ∞.png","");  //…Ë÷√±≥æ∞ 
+	     Icon icon=new ImageIcon(System.getProperty("user.dir")+"/source/÷˜“≥_±≥æ∞.png","");  //…Ë÷√±≥æ∞ 
 	     //Icon icon=new ImageIcon("÷˜“≥.png","");  //…Ë÷√±≥æ∞ 
-			lab=new JLabel("Swing!",icon,SwingConstants.CENTER);  
+			lab=new JLabel("",icon,SwingConstants.CENTER);  
 			lab.setBounds(0,0, 950, 650);
 			add(lab);
 	}
