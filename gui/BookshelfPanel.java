@@ -16,7 +16,7 @@ public class BookshelfPanel extends JFrame {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon img = new ImageIcon(System.getProperty("user.dir")+"/source/书架背景.PNG");
+				ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\书架背景.PNG");
 				img.paintIcon(this,g,0,0);
 			}
 		};

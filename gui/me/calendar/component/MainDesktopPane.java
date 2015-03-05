@@ -54,6 +54,7 @@ public class MainDesktopPane extends JDesktopPane{
 			lab=new JLabel("Swing!",icon,SwingConstants.CENTER);  
 			lab.setBounds(0,0, 950, 650);
 			add(lab);
+	     System.out.println(System.getProperty("user.dir"));
 	}
 	
 	void initCalenderPane()

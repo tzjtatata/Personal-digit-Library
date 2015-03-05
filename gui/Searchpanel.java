@@ -1,7 +1,9 @@
 import java.awt.*;
+
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,13 +19,12 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class Searchpanel extends JFrame{
 	private JLabel option1,option2,option3,option4;
-	private JLabel point1,point2,point3,point4,line1,hint;
+	private JLabel point1,point2,point3,point4,backg1,backg2,backg3,backg4,line1,hint;
 	private JLabel back1,back2,back3,back4;
 	private JTextField entry1,entry2,entry3,entry4;
 	private JButton bt1,bt2;
 	private JPanel jpanel;
 	public Searchpanel() {
-		this.setUndecorated(true);
 		jpanel = new JPanel(){
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -48,16 +49,35 @@ public class Searchpanel extends JFrame{
 		point2 = new JLabel();
 		point3 = new JLabel();
 		point4 = new JLabel();
+		backg1 = new JLabel();
+		backg2 = new JLabel();
+		backg3 = new JLabel();
+		backg4 = new JLabel();
 		back1 = new JLabel();
 		back2 = new JLabel();
 		back3 = new JLabel();
 		back4 = new JLabel();
 		line1 = new JLabel();
 		hint = new JLabel("2015-1-9     《信息检索导论》唐梦研快点给我读！！！");
+		backg1.addMouseListener(new ActionLis());
+		backg2.addMouseListener(new ActionLis());
+		backg3.addMouseListener(new ActionLis());
+		backg4.addMouseListener(new ActionLis());
 		point1.addMouseListener(new ActionLis());
 		point2.addMouseListener(new ActionLis());
 		point3.addMouseListener(new ActionLis());
 		point4.addMouseListener(new ActionLis());
+		
+		point1.addMouseListener(new CursorListener());
+		point2.addMouseListener(new CursorListener());
+		point3.addMouseListener(new CursorListener());
+		point4.addMouseListener(new CursorListener());
+		
+		backg1.addMouseListener(new CursorListener());
+		backg2.addMouseListener(new CursorListener());
+		backg3.addMouseListener(new CursorListener());
+		backg4.addMouseListener(new CursorListener());
+		
 		this.addWindowListener(new WindowAdapter() {
 	        public void windowClosing(WindowEvent we) {
 	                dispose();
@@ -91,6 +111,10 @@ public class Searchpanel extends JFrame{
 		jpanel.add(point2);
 		jpanel.add(point3);
 		jpanel.add(point4);
+		jpanel.add(backg1);
+		jpanel.add(backg2);
+		jpanel.add(backg3);
+		jpanel.add(backg4);
 		jpanel.add(line1);
 		jpanel.add(hint);
 		
@@ -115,6 +139,19 @@ public class Searchpanel extends JFrame{
 		point4.setBounds(160,330,5,5);
 		point4.setOpaque(true);
 		point4.setBackground(Color.gray);
+		
+		backg1.setBounds(150,170,30,30);
+		backg1.setOpaque(true);
+		backg1.setBackground(new Color(215,217,218));
+		backg2.setBounds(150,220,30,30);
+		backg2.setOpaque(true);
+		backg2.setBackground(new Color(215,217,218));
+		backg3.setBounds(150,270,30,30);
+		backg3.setOpaque(true);
+		backg3.setBackground(new Color(215,217,218));
+		backg4.setBounds(150,320,30,30);
+		backg4.setOpaque(true);
+		backg4.setBackground(new Color(215,217,218));
 		
 		line1.setBounds(190,165,2,190);
 		line1.setOpaque(true);
@@ -141,9 +178,19 @@ public class Searchpanel extends JFrame{
 		this.setVisible(true);
 		this.setSize(900,650);
 	}
+	class CursorListener extends MouseAdapter {
+		@SuppressWarnings("deprecation")
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.HAND_CURSOR);
+		}
+		@SuppressWarnings("deprecation")
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.DEFAULT_CURSOR);
+		}
+	}
 	class ActionLis extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
-			if (e.getSource() == point1){
+			if (e.getSource() == backg1 || e.getSource() == point1){
 				if (entry1.isVisible() == true){
 					entry1.setVisible(false);
 					point1.setBackground(Color.gray);
@@ -153,7 +200,7 @@ public class Searchpanel extends JFrame{
 					point1.setBackground(Color.WHITE);
 				}
 			}
-			if (e.getSource() == point2){
+			if (e.getSource() == backg2 || e.getSource() == point2){
 				if (entry2.isVisible() == true){
 					entry2.setVisible(false);
 					point2.setBackground(Color.gray);
@@ -163,7 +210,7 @@ public class Searchpanel extends JFrame{
 					point2.setBackground(Color.WHITE);
 				}
 			}
-			if (e.getSource() == point3){
+			if (e.getSource() == backg3 || e.getSource() == point3){
 				if (entry3.isVisible() == true){
 					entry3.setVisible(false);
 					point3.setBackground(Color.gray);
@@ -173,7 +220,7 @@ public class Searchpanel extends JFrame{
 					point3.setBackground(Color.WHITE);
 				}
 			}
-			if (e.getSource() == point4){
+			if (e.getSource() == backg4 || e.getSource() == point4){
 				if (entry4.isVisible() == true){
 					entry4.setVisible(false);
 					point4.setBackground(Color.gray);
@@ -186,7 +233,6 @@ public class Searchpanel extends JFrame{
 		}
 	}
 	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
 		new Searchpanel();
 
 	}
