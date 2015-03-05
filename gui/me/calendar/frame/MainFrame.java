@@ -1,7 +1,8 @@
 ﻿package me.calendar.frame;
 
 
-
+import me.BookshelfPanel;
+import me.Searchpanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
 
@@ -15,7 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-
+import java.awt.event.*;
 import me.calendar.component.CalendarPane;
 import me.calendar.component.MainDesktopPane;
 import me.calendar.service.ActionDispatcher;
@@ -59,7 +60,12 @@ import me.calendar.service.Utility;
 	    super();
 	    ActionDispatcher.setMainFrame(this);
 	    Utility.setMainFrame(this);
-	    
+	    jb_shelf.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new BookshelfPanel();
+	    		dispose();
+	    	}
+	    });
 	    initGUI();//呼叫GUI函數
 	  }//建立視窗結束
 	  
