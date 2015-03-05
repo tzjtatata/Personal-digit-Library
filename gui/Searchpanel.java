@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import java.awt.*;
-
-=======
 ï»¿import java.awt.*;
->>>>>>> e0f757794abf6edd533ce91a579df1ab1b49db88
+
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -62,30 +58,23 @@ public class Searchpanel extends JFrame{
 		back3 = new JLabel();
 		back4 = new JLabel();
 		line1 = new JLabel();
-<<<<<<< HEAD
-		hint = new JLabel("2015-1-9     ¡¶ÐÅÏ¢¼ìË÷µ¼ÂÛ¡·ÌÆÃÎÑÐ¿ìµã¸øÎÒ¶Á£¡£¡£¡");
-		backg1.addMouseListener(new ActionLis());
-		backg2.addMouseListener(new ActionLis());
-		backg3.addMouseListener(new ActionLis());
-		backg4.addMouseListener(new ActionLis());
-=======
 		hint = new JLabel("2015-1-9     ã€Šä¿¡æ¯æ£€ç´¢å¯¼è®ºã€‹å”æ¢¦ç ”å¿«ç‚¹ç»™æˆ‘è¯»ï¼ï¼ï¼");
->>>>>>> e0f757794abf6edd533ce91a579df1ab1b49db88
 		point1.addMouseListener(new ActionLis());
 		point2.addMouseListener(new ActionLis());
 		point3.addMouseListener(new ActionLis());
 		point4.addMouseListener(new ActionLis());
-		
-		point1.addMouseListener(new CursorListener());
-		point2.addMouseListener(new CursorListener());
-		point3.addMouseListener(new CursorListener());
-		point4.addMouseListener(new CursorListener());
-		
+		backg1.addMouseListener(new ActionLis());
+		backg2.addMouseListener(new ActionLis());
+		backg3.addMouseListener(new ActionLis());
+		backg4.addMouseListener(new ActionLis());
 		backg1.addMouseListener(new CursorListener());
 		backg2.addMouseListener(new CursorListener());
 		backg3.addMouseListener(new CursorListener());
 		backg4.addMouseListener(new CursorListener());
-		
+		point1.addMouseListener(new CursorListener());
+		point2.addMouseListener(new CursorListener());
+		point3.addMouseListener(new CursorListener());
+		point4.addMouseListener(new CursorListener());
 		this.addWindowListener(new WindowAdapter() {
 	        public void windowClosing(WindowEvent we) {
 	                dispose();
@@ -198,7 +187,7 @@ public class Searchpanel extends JFrame{
 	}
 	class ActionLis extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
-			if (e.getSource() == backg1 || e.getSource() == point1){
+			if (e.getSource() == point1 || e.getSource() == backg1){
 				if (entry1.isVisible() == true){
 					entry1.setVisible(false);
 					point1.setBackground(Color.gray);
@@ -208,7 +197,7 @@ public class Searchpanel extends JFrame{
 					point1.setBackground(Color.WHITE);
 				}
 			}
-			if (e.getSource() == backg2 || e.getSource() == point2){
+			if (e.getSource() == point2 || e.getSource() == backg2){
 				if (entry2.isVisible() == true){
 					entry2.setVisible(false);
 					point2.setBackground(Color.gray);
@@ -218,7 +207,7 @@ public class Searchpanel extends JFrame{
 					point2.setBackground(Color.WHITE);
 				}
 			}
-			if (e.getSource() == backg3 || e.getSource() == point3){
+			if (e.getSource() == point3 || e.getSource() == backg3){
 				if (entry3.isVisible() == true){
 					entry3.setVisible(false);
 					point3.setBackground(Color.gray);
@@ -228,7 +217,7 @@ public class Searchpanel extends JFrame{
 					point3.setBackground(Color.WHITE);
 				}
 			}
-			if (e.getSource() == backg4 || e.getSource() == point4){
+			if (e.getSource() == point4 || e.getSource() == backg4){
 				if (entry4.isVisible() == true){
 					entry4.setVisible(false);
 					point4.setBackground(Color.gray);
