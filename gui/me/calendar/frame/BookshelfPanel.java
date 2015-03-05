@@ -13,7 +13,7 @@ public class BookshelfPanel extends JFrame {
 	private int page,leftNumber,maxPage,rightNumber,category,maxCategory,leftCategory,rightCategory;
 	private TextArea note;
 	private HashMap<Integer,Integer> jumpMap,listMap;
-	public BookshelfPanel() {
+	public BookshelfPanel(MainFrame mf) {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -77,7 +77,12 @@ public class BookshelfPanel extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		setBounds(200,70,950,650);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				setVisible(false);
+			}
+		});
 	}
 	public void setBookName(int c, int p) {
 		int books = 30+20*c;
