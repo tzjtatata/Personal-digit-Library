@@ -57,7 +57,7 @@ public class BookshelfPanel extends JFrame {
 		right.addMouseListener(new CursorListener());
 		right.addMouseListener(new ListListener());
 		panel.add(right);
-		
+
 		note = new TextArea("",20,20,TextArea.SCROLLBARS_VERTICAL_ONLY);
 		note.setBackground(new Color(215,217,218));
 		note.setBounds(673, 162, 176, 298);

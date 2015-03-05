@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 public class Searchpanel extends JFrame{
 	private JLabel option1,option2,option3,option4;
 	private JLabel point1,point2,point3,point4,backg1,backg2,backg3,backg4,line1,hint;
-	private JLabel back1,back2,back3,back4;
 	private JTextField entry1,entry2,entry3,entry4;
 	private JButton bt1,bt2;
 	private JPanel jpanel;
@@ -53,10 +52,6 @@ public class Searchpanel extends JFrame{
 		backg2 = new JLabel();
 		backg3 = new JLabel();
 		backg4 = new JLabel();
-		back1 = new JLabel();
-		back2 = new JLabel();
-		back3 = new JLabel();
-		back4 = new JLabel();
 		line1 = new JLabel();
 		hint = new JLabel("2015-1-9     《信息检索导论》唐梦研快点给我读！！！");
 		point1.addMouseListener(new ActionLis());
