@@ -76,6 +76,8 @@ public class BookshelfPanel extends JFrame {
 		setCategory(20);  //测试
 		
 		panel.setLayout(null);
+		Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
+		setIconImage(i);
 		setTitle("书架");
 		setContentPane(panel);
 		setResizable(false);

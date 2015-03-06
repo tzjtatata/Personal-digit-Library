@@ -8,6 +8,7 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
@@ -168,6 +169,8 @@ public class Searchpanel extends JFrame{
 		entry3.setBounds(320,273,200,20);
 		entry4.setBounds(320,323,200,20);
 		
+		Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
+		this.setIconImage(i);
 		this.setContentPane(jpanel);
 		this.setResizable(false);
 		this.setVisible(true);
