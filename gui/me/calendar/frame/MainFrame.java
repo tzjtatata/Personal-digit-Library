@@ -3,6 +3,7 @@
 
 import me.BookshelfPanel;
 import me.Searchpanel;
+import me.SettingPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -67,6 +68,12 @@ import me.calendar.service.Utility;
 	    jb_shelf.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		new BookshelfPanel();
+	    		dispose();
+	    	}
+	    });
+	    jb_help.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new SettingPanel();
 	    		dispose();
 	    	}
 	    });
