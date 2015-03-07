@@ -1,4 +1,4 @@
-package me;
+锘縫ackage me;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -23,20 +23,20 @@ public class SettingPanel extends JFrame{
 		private String[] string_Gongxiang = new String[10];
 		
 		
-		private final String Font1_C = "Serif", Font1_E = "Serif", Font2_C = "微软雅黑", Font2_E = "Segoe UI", Font3_C = "华文行楷", Font3_E = "Pristina 常规";
+		private final String Font1_C = "Serif", Font1_E = "Serif", Font2_C = "寰蒋闆呴粦", Font2_E = "Segoe UI", Font3_C = "鍗庢枃琛屾シ", Font3_E = "Pristina 甯歌";
 		private final int FONT_SIZE1 = 30, FONT_SIZE3 = 15, FONT_SIZE2 = 10;
 		private final int[] X = {315, 500, 680}, Y = {200, 275, 312, 350};
 		
 		private static final String DEFAULT_TYPE = "normal";
 		
 		public SettingPanel(){		 
-			this.setTitle("设置");
+			this.setTitle("璁剧疆");
 			this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 			
 			panel = new JPanel(){
 				protected void paintComponent(Graphics g){
 					super.paintComponent(g);
-					ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\设置2.png");
+					ImageIcon img = new ImageIcon(System.getProperty("java.class.path")+"\\source\\璁剧疆2.png");
 					img.paintIcon(this, g, 0, 0);
 				}
 			};
@@ -46,13 +46,13 @@ public class SettingPanel extends JFrame{
 			//add the labels
 			add_bigLabel();
 					
-			//add 风格checkboxs
+			//add 椋庢牸checkboxs
 			add_FenggeCheckbox();
 			
-			//add 字体checkboxs
+			//add 瀛椾綋checkboxs
 			add_ZitiCheckbox();
 			
-			//add 共享checkboxs
+			//add 鍏变韩checkboxs
 			number_Gongxiang += 1;
 			string_Gongxiang[number_Gongxiang] = "Ada";
 			add_GongxiangCheckbox();
@@ -69,14 +69,16 @@ public class SettingPanel extends JFrame{
 			this.setResizable(false);
 			this.setVisible(true);
 			this.setBounds(200,70,950,650);
+			Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
+			this.setIconImage(i);
 		}
 		
 		void add_bigLabel(){
-			label1 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\风格.png"));
+			label1 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\椋庢牸.png"));
 			label1.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
-			label2 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\字体.png"));
+			label2 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\瀛椾綋.png"));
 			label2.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
-			label3 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\共享.png"));
+			label3 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\鍏变韩.png"));
 			label3.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
 			dateLabel = new JLabel("2015.2.26 I just want to show the font of English");		
 			dateLabel.setFont(new Font(font_E, Font.BOLD, FONT_SIZE2));
@@ -147,9 +149,9 @@ public class SettingPanel extends JFrame{
 			};		
 			font1 = new JCheckBox("Serif");
 			font1.addActionListener(ZitiCheckbox_listener);
-			font2 = new JCheckBox("微软雅黑");
+			font2 = new JCheckBox("寰蒋闆呴粦");
 			font2.addActionListener(ZitiCheckbox_listener);
-			font3 = new JCheckBox("华文行楷");
+			font3 = new JCheckBox("鍗庢枃琛屾シ");
 			font3.addActionListener(ZitiCheckbox_listener);
 		
 			panel.add(font1);

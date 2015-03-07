@@ -123,34 +123,36 @@ public class ActionDispatcher implements ActionListener {
 	    month = mf.lab_show_date.getText().substring(7,9);
 	    day = mf.jLabel7.getText();
 	    insert_str = mf.area_note.getText();//記事內容
-	    DataService ds = new DataService(year,month,day);
-	    
-	    
-	    if (insert_str.length() != 0 && day.length() != 0)//若記事框內有文字且有選擇日期則儲存記事檔案
-	    {
-	    	 if(ds.save(insert_str))
-	    	 { 	mf.lab_show_test.setText("已记录计划");//設定相關訊息
-	    	 Utility.new_btn();
-		     	mf.jLabel7.setText("");
-		     	mf.lab_show_tip.setText("未选择日期");
-	    	 }
-	    	 else
-	    	 {
-	    		 mf.lab_show_test.setText("记录失败"); 
-	    	 }
-		     Utility.new_btn();
-
-	    }
-	    else//若無記事內容或無選擇日期
-	    {
-	      if (day.length() == 0)
+	    if (day.length() == 0)
 	        mf.lab_show_test.setText("未选择日期");//設定相關訊息
-	      else
+	    else if(insert_str.length()==0)	 
 	        mf.lab_show_test.setText("当日无读书计划");
+	    else {
+	    	DataService ds = new DataService(year,month,day);
+		    
+		    if (insert_str.length() != 0 && day.length() != 0)//若記事框內有文字且有選擇日期則儲存記事檔案
+		    {
+		    	 if(ds.save(insert_str))
+		    	 { 	mf.lab_show_test.setText("已记录计划");//設定相關訊息
+		    	 Utility.new_btn();
+			     	mf.jLabel7.setText("");
+			     	mf.lab_show_tip.setText("未选择日期");
+		    	 }
+		    	 else
+		    	 {
+		    		 mf.lab_show_test.setText("记录失败"); 
+		    	 }
+			     Utility.new_btn();
+
+		    }
+		    else//若無記事內容或無選擇日期
+		    {
+		      
+		    }
+		    Utility.new_btn();
 	    }
-	    Utility.new_btn();
-	  }//儲存按鈕按下觸發事件結束
-	 
+	    }
+	  //儲存按鈕按下觸發事件結束
 	  private static   void queryActionPerformed(ActionEvent evt)//查詢按鈕按下觸發事件開始
 	  {
 	    String syear,smonth;
