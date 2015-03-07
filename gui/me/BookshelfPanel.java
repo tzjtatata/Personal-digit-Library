@@ -73,7 +73,11 @@ public class BookshelfPanel extends JFrame {
 		
 		date = Utility.getdate();
 		dts = new DataService(date[0],date[1],date[2]);
-		calendar = new JLabel(dts.getContent(),JLabel.CENTER);
+		if (dts.getContent() == null)
+		{
+			calendar = new JLabel("当前日期暂无读书计划",JLabel.CENTER);
+		}
+		else calendar = new JLabel(dts.getContent(),JLabel.CENTER);
 		calendar.setBounds(103, 478, 750, 37);
 		calendar.addMouseListener(new CursorListener());
 		panel.add(calendar);

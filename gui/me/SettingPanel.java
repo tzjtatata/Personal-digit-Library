@@ -85,7 +85,11 @@ public class SettingPanel extends JFrame{
 			label3.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
 			date = Utility.getdate();
 			dts = new DataService(date[0],date[1],date[2]);
-			dateLabel = new JLabel(dts.getContent());		
+			if (dts.getContent() == null)
+			{
+				dateLabel = new JLabel("当前日期暂无读书计划");
+			}
+			else dateLabel = new JLabel(dts.getContent());		
 			dateLabel.setFont(new Font(font_E, Font.BOLD, FONT_SIZE2));
 			
 			panel.add(label1);

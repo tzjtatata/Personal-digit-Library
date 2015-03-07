@@ -175,8 +175,11 @@ public class Searchpanel extends JFrame{
 		entry2.setBounds(320,223,200,20);
 		entry3.setBounds(320,273,200,20);
 		entry4.setBounds(320,323,200,20);
-		
-		hint.setText(dts.getContent());
+		if (dts.getContent() == null)
+		{
+			hint.setText("当前日期暂无读书计划");
+		}
+		else hint.setText(dts.getContent());
 		Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
 		this.setIconImage(i);
 		this.setContentPane(jpanel);
