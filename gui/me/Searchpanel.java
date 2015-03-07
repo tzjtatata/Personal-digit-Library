@@ -21,6 +21,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import me.calendar.frame.MainFrame;
+import me.calendar.service.*;
+import me.calendar.service.DataService;
 @SuppressWarnings("serial")
 public class Searchpanel extends JFrame{
 	private JLabel option1,option2,option3,option4;
@@ -28,6 +30,8 @@ public class Searchpanel extends JFrame{
 	private JTextField entry1,entry2,entry3,entry4;
 	private JButton bt1,bt2;
 	private JPanel jpanel;
+	private DataService dts;
+	private int[] date;
 	public Searchpanel() {
 		jpanel = new JPanel(){
 			protected void paintComponent(Graphics g) {
@@ -66,6 +70,8 @@ public class Searchpanel extends JFrame{
 		backg3 = new JLabel();
 		backg4 = new JLabel();
 		line1 = new JLabel();
+		date = Utility.getdate();
+		dts = new DataService(date[0],date[1],date[2]);
 		hint = new JLabel("2015-1-9     《信息检索导论》唐梦研快点给我读！！！");
 		point1.addMouseListener(new ActionLis());
 		point2.addMouseListener(new ActionLis());
@@ -170,6 +176,7 @@ public class Searchpanel extends JFrame{
 		entry3.setBounds(320,273,200,20);
 		entry4.setBounds(320,323,200,20);
 		
+		hint.setText(dts.getContent());
 		Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
 		this.setIconImage(i);
 		this.setContentPane(jpanel);

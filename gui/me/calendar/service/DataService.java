@@ -18,7 +18,7 @@ public class DataService {
 		String smonth=month+"";
 		if(smonth.length()==1)smonth="0"+smonth;
 		fileName = year+smonth+day;
-		file=new File(fileName+".txt");
+		file=new File("gui\\calendar\\"+fileName+".txt");
 	}
 	
 	public DataService(String _year,String _month,String _day)
@@ -40,7 +40,7 @@ public class DataService {
 		String smonth=_month+"";
 		if(smonth.length()==1)smonth="0"+smonth;
 		 filename = _year+smonth+_day;
-		File file=new File(filename+".txt");
+		File file=new File("gui\\calendar\\"+filename+".txt");
 		return file.exists();
 	}
 	public boolean exist()

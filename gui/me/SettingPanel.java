@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import me.calendar.frame.MainFrame;
+import me.calendar.service.*;
 
 @SuppressWarnings("serial")
 public class SettingPanel extends JFrame{	
@@ -21,6 +22,8 @@ public class SettingPanel extends JFrame{
 		private JCheckBox[] Gongxiang = new JCheckBox[10];
 		private int number_Gongxiang = 0;
 		private String[] string_Gongxiang = new String[10];
+		private DataService dts;
+		private int[] date;
 		
 		
 		private final String Font1_C = "Serif", Font1_E = "Serif", Font2_C = "微软雅黑", Font2_E = "Segoe UI", Font3_C = "华文行楷", Font3_E = "Pristina 常规";
@@ -80,7 +83,9 @@ public class SettingPanel extends JFrame{
 			label2.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
 			label3 = new JLabel(new ImageIcon(System.getProperty("java.class.path")+"\\source\\共享.png"));
 			label3.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
-			dateLabel = new JLabel("2015.2.26 I just want to show the font of English");		
+			date = Utility.getdate();
+			dts = new DataService(date[0],date[1],date[2]);
+			dateLabel = new JLabel(dts.getContent());		
 			dateLabel.setFont(new Font(font_E, Font.BOLD, FONT_SIZE2));
 			
 			panel.add(label1);

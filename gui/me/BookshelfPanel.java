@@ -1,6 +1,7 @@
 ﻿package me;
 
 import me.calendar.frame.MainFrame;
+import me.calendar.service.*;
 
 import javax.swing.*;
 
@@ -17,6 +18,8 @@ public class BookshelfPanel extends JFrame {
 	private int page,leftNumber,maxPage,rightNumber,category,maxCategory,leftCategory,rightCategory;
 	private TextArea note;
 	private HashMap<Integer,Integer> jumpMap,listMap;
+	private DataService dts;
+	private int[] date;
 	public BookshelfPanel() {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
@@ -68,7 +71,9 @@ public class BookshelfPanel extends JFrame {
 		note.setBounds(673, 162, 176, 298);
 		panel.add(note);
 		
-		calendar = new JLabel("Feb 8st:oh,shit!",JLabel.CENTER);
+		date = Utility.getdate();
+		dts = new DataService(date[0],date[1],date[2]);
+		calendar = new JLabel(dts.getContent(),JLabel.CENTER);
 		calendar.setBounds(103, 478, 750, 37);
 		calendar.addMouseListener(new CursorListener());
 		panel.add(calendar);

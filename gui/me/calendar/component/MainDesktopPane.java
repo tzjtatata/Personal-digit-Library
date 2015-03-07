@@ -181,13 +181,14 @@ public class MainDesktopPane extends JDesktopPane{
          mf.cbox_month.setFont(new java.awt.Font("微软雅黑",Font.BOLD,12));
          mf.cbox_month.setBounds(710, 184, 40, 18);
          mf.cbox_month.setFont(Utility.en11);
+         mf.cbox_month.setSelectedItem(String.valueOf(Utility.getdate()[1]));
 	}
 	
 	void initInput()
 	{
 		 mf.text_year = new JTextField();
          
-         mf.text_year.setText("");
+         mf.text_year.setText(String.valueOf(Utility.getdate()[0]));
          mf.text_year.setBounds(645, 184, 40, 18);
          mf.text_year.setBackground(new Color(215,217,218));
          mf.text_year.setForeground(new java.awt.Color(39, 158,218));
