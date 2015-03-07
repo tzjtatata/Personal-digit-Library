@@ -103,17 +103,25 @@ public class ActionDispatcher implements ActionListener {
 	    year = mf.lab_show_date.getText().substring(0,4);
 	    month = mf.lab_show_date.getText().substring(7,9);
 	    day = mf.jLabel7.getText();
-	    DataService ds = new DataService(Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(day));
-	    if(ds.exist())ds.delete();
-	    /*
-	    filename = year+month+day;
-	    File file=new File(filename+".txt");//刪除當日記事檔案
-	    file.delete();
-	    */
-	    Utility.new_btn();//重新產生按鈕
-	    mf.lab_show_test.setText("计划已清除");//設定相關訊息
-	    mf.jLabel7.setText("");
-	    mf.lab_show_tip.setText("未选择日期");
+	    String insert_str = mf.area_note.getText();
+	    if (day.length() == 0)
+	        mf.lab_show_test.setText("未选择日期");//設定相關訊息
+	    else if(insert_str.length()==0)	 
+	        mf.lab_show_test.setText("当日无读书计划");
+	    else {
+	    	DataService ds = new DataService(Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(day));
+		    if(ds.exist())ds.delete();
+		    /*
+		    filename = year+month+day;
+		    File file=new File(filename+".txt");//刪除當日記事檔案
+		    file.delete();
+		    */
+		    Utility.new_btn();//重新產生按鈕
+		    mf.lab_show_test.setText("计划已清除");//設定相關訊息
+		    mf.jLabel7.setText("");
+		    mf.lab_show_tip.setText("未选择日期");
+	    }
+	    
 	  }
 	 
 	  private static  void saveActionPerformed(ActionEvent evt)//儲存按鈕按下觸發事件開始
