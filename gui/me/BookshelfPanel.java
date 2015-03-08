@@ -122,7 +122,7 @@ public class BookshelfPanel extends JFrame {
 			operate[i][1] = new JLabel("删除",JLabel.CENTER);
 			operate[i][1].setBounds(491, 185+35*i, 40, 24);
 			operate[i][1].addMouseListener(new CursorListener());
-			operate[i][2] = new JLabel("导入",JLabel.CENTER);
+			operate[i][2] = new JLabel("导出",JLabel.CENTER);
 			operate[i][2].setBounds(536, 185+35*i, 40, 24);
 			operate[i][2].addMouseListener(new CursorListener());
 		}
