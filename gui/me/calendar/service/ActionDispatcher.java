@@ -49,7 +49,7 @@ public class ActionDispatcher implements ActionListener {
 	    
 	    if(!ds.exist())
 	    {
-	    	 mf.lab_show_test.setText("当日读书计划");
+	    	 mf.lab_show_test.setText("当日无读书计划");
 		      mf.lab_show_tip.setText("已选择"+year+"年"+month+"月"+btn_date+"日");
 	    }
 	    else
@@ -142,15 +142,15 @@ public class ActionDispatcher implements ActionListener {
 		    {
 		    	 if(ds.save(insert_str))
 		    	 { 	mf.lab_show_test.setText("已记录计划");//設定相關訊息
-		    	 Utility.new_btn();
-			     	mf.jLabel7.setText("");
-			     	mf.lab_show_tip.setText("未选择日期");
+		    	 //Utility.new_btn();
+			     	//mf.jLabel7.setText("");
+			     	//mf.lab_show_tip.setText("未选择日期");
 		    	 }
 		    	 else
 		    	 {
 		    		 mf.lab_show_test.setText("记录失败"); 
 		    	 }
-			     Utility.new_btn();
+			     //Utility.new_btn();
 
 		    }
 		    else//若無記事內容或無選擇日期
