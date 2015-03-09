@@ -26,7 +26,7 @@ public class Utility {
 	
 	  public static void new_btn()//重新產生日期按鈕函數開始
 	  {
-	    mf.area_note.setText("");//清空記事
+	    //mf.area_note.setText("");//清空記事
 	    int year,month;
 	    year = Integer.parseInt(mf.lab_show_date.getText().substring(0,4));//設定為已選擇的年
 	    month = Integer.parseInt(mf.lab_show_date.getText().substring(7,9));//設定為已選擇的月

@@ -21,6 +21,7 @@ public class CalendarPane extends JPanel {
 	MainFrame mf;
 	JButton btn[];
 	Color bg=new java.awt.Color(215,217,218);
+	//DataService ds;
 	public CalendarPane(MainFrame _mf)
 	{
 		super();
@@ -96,7 +97,8 @@ public class CalendarPane extends JPanel {
 	      filename = year+smonth+sday;//記事檔案名稱(年+月+日.txt)
 	      File file=new File(filename+".txt");//建立檔案物件
 	      */
-	      if (DataService.exist(year, month, i+1))//若當天有記事檔案則設定按鈕字體顏色為白色
+	      //ds = new DataService(year,month,i+1);
+	      if (DataService.exist(year, month, i+1) == true)//若當天有記事檔案則設定按鈕字體顏色為白色
 	        btn[i].setForeground(new java.awt.Color(255,255,255));
 	     
 	      btn[i].addActionListener(new ActionDispatcher(ActionType.Pressed));

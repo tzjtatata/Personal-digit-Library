@@ -98,19 +98,20 @@ public class ActionDispatcher implements ActionListener {
 	  
 	  private static  void clearActionPerformed(ActionEvent evt)//清除按鈕按下觸發事件
 	  {
-	    mf.area_note.setText("");//清除記事內容
+	    
 	    String year,month,day,filename;
 	    year = mf.lab_show_date.getText().substring(0,4);
 	    month = mf.lab_show_date.getText().substring(7,9);
 	    day = mf.jLabel7.getText();
 	    String insert_str = mf.area_note.getText();
+	    mf.area_note.setText("");//清除記事內容
 	    if (day.length() == 0)
 	        mf.lab_show_test.setText("未选择日期");//設定相關訊息
 	    else if(insert_str.length()==0)	 
 	        mf.lab_show_test.setText("当日无读书计划");
 	    else {
 	    	DataService ds = new DataService(Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(day));
-		    if(ds.exist())ds.delete();
+	    	if(ds.exist()) ds.delete();
 		    /*
 		    filename = year+month+day;
 		    File file=new File(filename+".txt");//刪除當日記事檔案
@@ -119,7 +120,7 @@ public class ActionDispatcher implements ActionListener {
 		    Utility.new_btn();//重新產生按鈕
 		    mf.lab_show_test.setText("计划已清除");//設定相關訊息
 		    mf.jLabel7.setText("");
-		    mf.lab_show_tip.setText("未选择日期");
+		    //mf.lab_show_tip.setText("未选择日期");
 	    }
 	    
 	  }

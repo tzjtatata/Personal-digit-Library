@@ -67,6 +67,7 @@ public class DataService {
 		       
 		      }
 		      fr.close();
+		      bfr.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,6 +92,7 @@ public class DataService {
 			 bfw.write(str); //將Textarea內容寫入緩衝區裡
 		        bfw.flush();//將緩衝區資料寫到檔案
 		        fw.close();//關閉檔案
+		        bfw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
