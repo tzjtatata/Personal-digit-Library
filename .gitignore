@@ -186,3 +186,7 @@ FakesAssemblies/
 *.db
 *.class
 *.txt
+/nbproject/
+manifest.mf
+/build/
+build.xml
