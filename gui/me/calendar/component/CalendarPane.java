@@ -1,4 +1,4 @@
-﻿package me.calendar.component;
+package me.calendar.component;
 
 import java.awt.Color;
 

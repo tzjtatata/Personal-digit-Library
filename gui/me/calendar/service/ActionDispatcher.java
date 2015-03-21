@@ -1,4 +1,4 @@
-﻿package me.calendar.service;
+package me.calendar.service;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

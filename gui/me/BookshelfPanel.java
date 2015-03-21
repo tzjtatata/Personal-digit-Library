@@ -1,4 +1,4 @@
-﻿package me;
+package me;
 
 import me.calendar.frame.MainFrame;
 import me.calendar.service.*;

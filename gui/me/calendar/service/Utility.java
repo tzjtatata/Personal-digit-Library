@@ -1,4 +1,4 @@
-﻿package me.calendar.service;
+package me.calendar.service;
 
 import java.awt.Font;
 import java.io.File;

@@ -1,4 +1,4 @@
-﻿package me.calendar.frame;
+package me.calendar.frame;
 
 
 import me.BookshelfPanel;
