@@ -55,7 +55,7 @@ public class Search {
 	 *
 	 * @param f 文件
 	 * @param nf 是否在循环中第一次写入文件
-	 * @param type 文件夹
+	 * @param type 文件夹("txtFolder\\或者otherFolder")
 	 * @throws IOException
 	 */
 	public void MakeFile(File f, boolean nf, String type) throws IOException {
@@ -111,7 +111,7 @@ public class Search {
 	 * 搜索题目
 	 *
 	 * @param name 要搜索的名字
-	 * @param type 文件类型
+	 * @param type 文件类型("txtFolder\\或者otherFolder")
 	 * @throws Exception
 	 */
 	public void NameSearch(String name, String type) throws Exception {
