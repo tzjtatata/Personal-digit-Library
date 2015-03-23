@@ -19,6 +19,16 @@ import java.util.regex.Pattern;
  */
 public class Search {
 
+	private String lyz;
+
+	public Search() {
+		if (System.getProperty("os.name").startsWith("W")) {
+			lyz = "\\\\";
+		} else {
+			lyz = "/";
+		}
+	}
+
 	/**
 	 * 搜索某个磁盘下所有文件
 	 *
@@ -43,11 +53,11 @@ public class Search {
 						}
 						if (flist1.isFile() && !flist1.isHidden()) { // 判断文件
 							if (flist1.getName().endsWith("txt")) {
-								MakeFile(flist1, notFirst, "txtFolder\\");
+								MakeFile(flist1, notFirst, "txtFolder/");
 								notFirst = true; // 将标志量置为true，下次写之后的循环中写文件将不再清空
 							} else if (flist1.getName().endsWith("pdf")
 									|| flist1.getName().endsWith("doc")) {
-								MakeFile(flist1, notFirst, "otherFolder\\");
+								MakeFile(flist1, notFirst, "otherFolder/");
 								notFirst = true;
 							}
 						}
@@ -64,15 +74,17 @@ public class Search {
 	 *
 	 * @param f 文件
 	 * @param nf 是否在循环中第一次写入文件
-	 * @param type 文件夹("txtFolder\\或者otherFolder\\")
+	 * @param type 文件夹("txtFolder/或者otherFolder/")
 	 * @throws IOException
 	 */
 	public void MakeFile(File f, boolean nf, String type) throws IOException {
 		// 创建文件
-		File file = new File("gui\\backtable\\"
+		File file = new File("gui/backtable/"
 				+ type
-				+ f.getParent().replaceAll("\\\\", "@@")
-				.replaceAll(":@@", "@@@") + ".pdl"); // pdl格式防止程序检索
+				+ f.getParent().replaceAll(lyz, "@@")
+				.replaceAll("/", "@@").replaceAll(":@@", "@@@")
+				+ ".pdl");  // pdl格式防止程序检索
+		System.out.println(file.getAbsolutePath());
 		if (!file.exists()) {
 			file.createNewFile();
 		}
@@ -132,12 +144,12 @@ public class Search {
 	 * 搜索题目
 	 *
 	 * @param name 要搜索的名字
-	 * @param type 文件类型("txtFolder\\或者otherFolder\\")
+	 * @param type 文件类型("txtFolder/或者otherFolder/")
 	 * @throws Exception
 	 */
 	public void NameSearch(String name, String type) throws Exception {
 		Pattern p = Pattern.compile(name);
-		for (String sd : SearchDish("gui\\backtable\\" + type, p)) {
+		for (String sd : SearchDish("gui/backtable" + type, p)) {
 			System.out.println(sd);
 		}
 	}
@@ -149,7 +161,7 @@ public class Search {
 	 * @return 转换后的名字
 	 */
 	public String nameChange(String name) {
-		String temp = name.replaceAll("@@@", ":@@").replaceAll("@@", "\\\\");
+		String temp = name.replaceAll("@@@", ":@@").replaceAll("@@", lyz);
 		return temp.substring(0, temp.length() - 4);
 	}
 }
