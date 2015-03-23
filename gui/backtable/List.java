@@ -82,7 +82,7 @@ public class List {
 		String s = "***";
 		Pointer = Head;
 		while (Pointer != null) {
-			s  = s + + '\n' + Pointer.toString();
+			s  = s + '\n' + Pointer.toString();
 			Pointer = Pointer.next;
 		}
 		return s + "\n";
