@@ -97,8 +97,13 @@ public class Search {
 		try {
 			File f = new File(path);
 			if (f.isDirectory() && f.listFiles() != null) {
-				File flist[] = f.listFiles((File pathname) -> !pathname
-						.isHidden());
+				File flist[] = f.listFiles(new FileFilter() {
+
+					@Override
+					public boolean accept(File pathname) {
+						return !pathname.isHidden();
+					}
+				});
 				for (File flist1 : flist) {
 					if (flist1.isDirectory() && flist1.listFiles() != null) {
 						SearchDish(flist1.getPath());
