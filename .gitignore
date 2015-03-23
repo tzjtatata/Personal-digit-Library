@@ -190,3 +190,5 @@ FakesAssemblies/
 manifest.mf
 /build/
 build.xml
+/gui/backtable/otherFolder/
+/gui/backtable/txtFolder/
