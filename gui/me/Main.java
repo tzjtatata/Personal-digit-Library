@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception// 主程式開始
 	{
-		File fr = new File("gui\\backtable\\flag.pdl");
+		File fr = new File("gui/backtable/flag.pdl");
 		BufferedReader br = new BufferedReader(new FileReader(fr));
 		if ("0".equals(br.readLine())) {
 			Search search = new Search();
@@ -21,7 +21,7 @@ public class Main {
 				search.SearchDish(list1.toString());
 			}
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fr))) {
-				bw.write(1);
+				bw.write("1");
 			}
 			br.close();
 		}

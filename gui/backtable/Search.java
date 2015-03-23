@@ -81,8 +81,7 @@ public class Search {
 		// 创建文件
 		File file = new File("gui/backtable/"
 				+ type
-				+ f.getParent().replaceAll(lyz, "@@")
-				.replaceAll("/", "@@").replaceAll(":@@", "@@@")
+				+ f.getParent().replaceAll(lyz, "@@").replaceAll(":@@", "@@@")
 				+ ".pdl");  // pdl格式防止程序检索
 		System.out.println(file.getAbsolutePath());
 		if (!file.exists()) {
