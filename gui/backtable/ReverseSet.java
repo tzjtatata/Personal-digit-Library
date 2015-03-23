@@ -1,9 +1,7 @@
 package backtable;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+
 import backtable.Hashstr;
 
 public class ReverseSet {
@@ -14,7 +12,7 @@ public class ReverseSet {
 	int i ;
 	public long[] cryptTable = new long[round];
 	Hashstr[] lpTable = new  Hashstr[round];
-	public ReverseSet() throws FileNotFoundException {
+	public ReverseSet() throws IOException {
 		//prepareCryptTable();
 		//对目录下每个txt读取，获取子文件目录
 		//File fi = new File("test.txt");
@@ -22,21 +20,21 @@ public class ReverseSet {
 		Refile();
 		//Refile(fi);
 		//最后将hash数组输出到倒排索引表中
-		//printf();
+		printf();
 	}
 	public void Refile() throws FileNotFoundException {
 		long temp = 0;
 		int i;
 		String[] word =  {"zoukaifa","dadoubi","dahuaidan","kosting","zoukaifa","dadoubi","zoukaifa","dadoubi","liyuanze"};
-		prepareCryptTable();
+		//分词
+		String ffi = "test.txt";
+		//prepareCryptTable();
 		for (i = 0;i<word.length;i++)
 		{	
-		//分词
-			
 		/*对每个词求其hash值，存进对应的数组项
 		 * 并用链表存储其所在地址
 		*/
-		setpos(word[i],lpTable);
+		setpos(word[i],ffi);
 		}
 	}
 	public void prepareCryptTable() {
@@ -77,11 +75,20 @@ public class ReverseSet {
 		}
 		return Hash;
 	}
-	public void printf()
+	public void printf() throws IOException
 	{
-		
+		int i;
+		File fi = new File("gui/backtable/daopai.pdl");
+		fi.createNewFile();
+		FileWriter fw = new FileWriter(fi);
+		for (i = 0;i<round;i++) {
+			if (lpTable[i] != null){
+				fw.write(lpTable[i].toString());
+			}
+		}
+		fw.close();
 	}
-	public void setpos(String lpString, Hashstr[] lpTable){
+	public void setpos(String lpString,String file){
 		int temp;
 		long nHash = HashString(lpString);
 		//System.out.println(nHash);
@@ -89,14 +96,15 @@ public class ReverseSet {
 		//System.out.println(lpString +  ", *** " +nHash);
 		if (lpTable[temp] == null)
 		{
-			lpTable[temp]= new Hashstr(nHash);
+			lpTable[temp]= new Hashstr(nHash,file);
 			//System.out.println(lpString +  ",  " +nHash);
 		}
 		else {
-			
+			lpTable[temp].addhash(nHash,file);
+			//System.out.println("!" + lpString);
 		}
 	}
-	public static void main(String[] args) throws FileNotFoundException {
-		new ReverseSet();
+	public static void main(String[] args) throws IOException {
+			new ReverseSet();
 	}
 }
