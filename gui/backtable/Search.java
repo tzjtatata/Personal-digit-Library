@@ -83,7 +83,7 @@ public class Search {
 				+ type
 				+ f.getParent().replaceAll(lyz, "@@").replaceAll(":@@", "@@@")
 				+ ".pdl");  // pdl格式防止程序检索
-		System.out.println(file.getAbsolutePath());
+		//System.out.println(file.getAbsolutePath());
 		if (!file.exists()) {
 			file.createNewFile();
 		}
@@ -120,17 +120,15 @@ public class Search {
 						SearchDish(flist1.getPath());
 					}
 					if (flist1.isFile() && !flist1.isHidden()) {
-						FileReader fr = new FileReader(flist1);
-						BufferedReader br = new BufferedReader(fr);
-						while (br.ready()) {
-							String s = br.readLine();
-							Matcher m = p.matcher(s);
-							if (m.find()) {
-								al.add(nameChange(flist1.getName()) + s);
+						try (FileReader fr = new FileReader(flist1); BufferedReader br = new BufferedReader(fr)) {
+							while (br.ready()) {
+								String s = br.readLine();
+								Matcher m = p.matcher(s);
+								if (m.find()) {
+									al.add(nameChange(flist1.getName()) + s);
+								}
 							}
 						}
-						br.close();
-						fr.close();
 					}
 				}
 			}
@@ -148,7 +146,7 @@ public class Search {
 	 */
 	public void NameSearch(String name, String type) throws Exception {
 		Pattern p = Pattern.compile(name);
-		for (String sd : SearchDish("gui/backtable" + type, p)) {
+		for (String sd : SearchDish("gui/backtable/" + type, p)) {
 			System.out.println(sd);
 		}
 	}
