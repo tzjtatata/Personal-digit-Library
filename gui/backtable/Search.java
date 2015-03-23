@@ -3,6 +3,7 @@ package backtable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,8 +29,12 @@ public class Search {
 		try {
 			File f = new File(path);
 			if (f.isDirectory()) {
-				File flist[] = f.listFiles((File pathname) -> !pathname
-						.isHidden()); // 过滤掉隐藏文件夹
+				File flist[] = f.listFiles(new FileFilter() {
+					@Override
+					public boolean accept(File pathname) {
+						return !pathname.isHidden();
+					}
+				}); // 过滤掉隐藏文件夹
 				if (flist != null) { // C盘部分文件夹形成数组为null
 					boolean notFirst = false; // 写文件的标志量
 					for (File flist1 : flist) {
