@@ -27,26 +27,28 @@ public class Search {
 	public void SearchDish(String path) throws Exception {
 		try {
 			File f = new File(path);
-			if (f.isDirectory() && f.listFiles().length != 0) {  //非空文件夹
-				File flist[] = f.listFiles();
-				boolean notFirst = false;  //写文件的标志量
-				for (File flist1 : flist) {
-					if (!flist1.isHidden() && flist1.isDirectory() && flist1.listFiles().length != 0) {  //非空且非隐藏则递归读取子文件夹
-						SearchDish(flist1.getPath());
-					}
-					if (flist1.isFile() && !flist1.isHidden()) {  //判断文件
-						if (flist1.getName().endsWith("txt")) {
-							MakeFile(flist1, notFirst, "txtFolder\\");
-							notFirst = true;  //将标志量置为true，下次写之后的循环中写文件将不再清空
-						} else if (flist1.getName().endsWith("pdf") || flist1.getName().endsWith("doc")) {
-							MakeFile(flist1, notFirst, "otherFolder\\");
-							notFirst = true;
+			if (f.isDirectory()) {
+				File flist[] = f.listFiles((File pathname) -> !pathname.isHidden());  //过滤掉隐藏文件夹
+				if (flist != null) {  //C盘部分文件夹形成数组为null
+					boolean notFirst = false;  //写文件的标志量
+					for (File flist1 : flist) {
+						if (flist1.isDirectory() && flist1.listFiles() != null) {  //非空且非隐藏则递归读取子文件夹
+							SearchDish(flist1.getPath());
+						}
+						if (flist1.isFile() && !flist1.isHidden()) {  //判断文件
+							if (flist1.getName().endsWith("txt")) {
+								MakeFile(flist1, notFirst, "txtFolder\\");
+								notFirst = true;  //将标志量置为true，下次写之后的循环中写文件将不再清空
+							} else if (flist1.getName().endsWith("pdf") || flist1.getName().endsWith("doc")) {
+								MakeFile(flist1, notFirst, "otherFolder\\");
+								notFirst = true;
+							}
 						}
 					}
 				}
+
 			}
 		} catch (Exception e) {
-			//C盘无法访问
 		}
 	}
 
@@ -55,18 +57,20 @@ public class Search {
 	 *
 	 * @param f 文件
 	 * @param nf 是否在循环中第一次写入文件
-	 * @param type 文件夹("txtFolder\\或者otherFolder")
+	 * @param type 文件夹("txtFolder\\或者otherFolder\\")
 	 * @throws IOException
 	 */
 	public void MakeFile(File f, boolean nf, String type) throws IOException {
 		//创建文件
-		File file = new File(System.getProperty("java.class.path") + "\\backtable\\" + type + f.getParent().replaceAll("\\\\", "@@").replaceAll(":@@", "@@@"));
+		File file = new File(System.getProperty("java.class.path") + "\\backtable\\" + type
+				+ f.getParent().replaceAll("\\\\", "@@").replaceAll(":@@", "@@@") + ".pdl"); //pdl格式防止程序检索
 		if (!file.exists()) {
 			file.createNewFile();
 		}
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, nf)));
-		bw.write(f.getName() + '\n');
-		bw.close();
+		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, nf)))) {
+			bw.write(f.getName() + '\n');
+			bw.close();
+		}
 	}
 
 	/**
@@ -81,10 +85,10 @@ public class Search {
 		ArrayList<String> al = new ArrayList<>();
 		try {
 			File f = new File(path);
-			if (f.isDirectory() && f.listFiles().length != 0) {
-				File flist[] = f.listFiles();
+			if (f.isDirectory() && f.listFiles() != null) {
+				File flist[] = f.listFiles((File pathname) -> !pathname.isHidden());
 				for (File flist1 : flist) {
-					if (!flist1.isHidden() && flist1.isDirectory() && flist1.listFiles().length != 0) {
+					if (flist1.isDirectory() && flist1.listFiles() != null) {
 						SearchDish(flist1.getPath());
 					}
 					if (flist1.isFile() && !flist1.isHidden()) {
@@ -94,7 +98,8 @@ public class Search {
 							String s = br.readLine();
 							Matcher m = p.matcher(s);
 							if (m.find()) {
-								al.add(flist1.getName().replaceAll("@@@", ":@@").replaceAll("@@", "\\\\") + s);
+								String nameString = flist1.getName().replaceAll("@@@", ":@@").replaceAll("@@", "\\\\");  //还原格式
+								al.add(nameString.substring(0, nameString.length() - 4) + s);  //去掉.pdl
 							}
 						}
 						br.close();
