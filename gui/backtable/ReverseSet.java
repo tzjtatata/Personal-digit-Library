@@ -2,12 +2,15 @@ package backtable;
 
 import java.io.*;
 
+import backtable.Search.*;
+
 import backtable.Hashstr;
 
 public class ReverseSet {
 	//获取txtFolder文件夹下的所有文件
 	protected File ft = new File(System.getProperty("java.class.path")+"/backtable/txtFolder");
 	protected File[] ls = ft.listFiles();
+	protected String str;
 	static int round = 0x500;
 	int i ;
 	public long[] cryptTable = new long[round];
@@ -15,9 +18,14 @@ public class ReverseSet {
 	public ReverseSet() throws IOException {
 		//prepareCryptTable();
 		//对目录下每个txt读取，获取子文件目录
-		//File fi = new File("test.txt");
 		//读取txt文件内容
-		Refile();
+		for (i = 0;i<ls.length;i++) {
+				if (!ls[i].isHidden()) {
+					str = ls[i].getName();
+					str = (str);
+					
+				}
+		}
 		//Refile(fi);
 		//最后将hash数组输出到倒排索引表中
 		printf();
