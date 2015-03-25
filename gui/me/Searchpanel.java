@@ -44,7 +44,7 @@ public class Searchpanel extends JFrame {
 		jpanel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon img = new ImageIcon(System.getProperty("java.class.path") + "/source/搜索背景.png");
+				ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
 				img.paintIcon(this, g, 0, 0);
 			}
 		};
@@ -68,7 +68,7 @@ public class Searchpanel extends JFrame {
 					try {
 						search.NameSearch(entry3.getText(), "txtFolder/");
 						search.NameSearch(entry3.getText(), "otherFolder/");
-
+						JOptionPane.showMessageDialog(null, "搜索完成！", "提示", JOptionPane.INFORMATION_MESSAGE);
 					} catch (Exception ex) {
 					}
 				}

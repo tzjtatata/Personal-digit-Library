@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Search {
 
-	private String lyz;
+	private final String lyz;
 
 	public Search() {
 		if (System.getProperty("os.name").startsWith("W")) {
@@ -125,7 +125,11 @@ public class Search {
 								String s = br.readLine();
 								Matcher m = p.matcher(s);
 								if (m.find()) {
-									al.add(nameChange(flist1.getName()) + s);
+									if (System.getProperty("os.name").startsWith("W")) {
+										al.add(nameChange(flist1.getName()) + s);
+									} else {
+										al.add(nameChange(flist1.getName()) + "/" + s);
+									}
 								}
 							}
 						}
