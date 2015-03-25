@@ -20,6 +20,7 @@ public class Main {
 		if ("0".equals(br.readLine())) {
 			Search search = new Search();
 			search.SearchDish("/home/liyuanze/test/");
+			new ReverseSet();
 			/*File[] list = File.listRoots();
 			for (File list1 : list) {
 				search.SearchDish(list1.toString());
@@ -29,7 +30,6 @@ public class Main {
 			}
 			br.close();
 		}
-		new ReverseSet();
 		post = System.currentTimeMillis();
 		System.out.println(post-pre);
 		MainFrame inst = new MainFrame();
