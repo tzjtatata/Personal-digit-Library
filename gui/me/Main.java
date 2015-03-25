@@ -2,6 +2,7 @@ package me;
 
 import java.io.File;
 import backtable.Search;
+import backtable.ReverseSet;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -26,6 +27,7 @@ public class Main {
 			}
 			br.close();
 		}
+		new ReverseSet();
 		MainFrame inst = new MainFrame();
 		inst.setVisible(true);
 	}

@@ -20,11 +20,19 @@ public class ReverseSet {
 	int i;
 	public long[] cryptTable = new long[round];
 	Hashstr[] lpTable = new Hashstr[round];
-
+	private String lyz;
+	public void change() {
+		if (System.getProperty("os.name").startsWith("W")) {
+			lyz = "\\\\";
+		} else {
+			lyz = "/";
+		}
+	}
 	public ReverseSet() throws IOException {
 		//prepareCryptTable();
 		//对目录下每个txt读取，获取子文件目录
 		//读取txt文件内容
+		change();
 		for (i = 0;i<ls.length;i++) {
 				if (!ls[i].isHidden()) {
 					//获取txtFolder目录下文件
@@ -37,7 +45,7 @@ public class ReverseSet {
 					String str2 = br.readLine();
 					if (str2 == null) break;
 					try {
-						Refile(new File(str+"/"+str2));
+						Refile(new File(str+lyz+str2));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -58,7 +66,6 @@ public class ReverseSet {
 		while ((nw = br.readLine())!=null)
 		//分词
 			Analyze.testCJK(nw,word);
-		System.out.println(word.toString());
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
 			/*对每个词求其hash值，存进对应的数组项
