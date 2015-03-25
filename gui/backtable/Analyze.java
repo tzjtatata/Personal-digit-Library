@@ -2,6 +2,7 @@ package backtable;
 
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.StopFilter;
@@ -37,24 +38,29 @@ public class Analyze  {
         }     
     }
    // @SuppressWarnings("deprecation")
-	public static void testCJK(String testString) throws Exception{
+	public static void testCJK(String testString,ArrayList<String> word) throws Exception{
    //     @SuppressWarnings("deprecation")
 		Analyzer analyzer = new CJKAnalyzer();      
+		String temp;
         Reader r = new StringReader(testString);      
         StopFilter sf = (StopFilter) analyzer.tokenStream("", r);
-        System.err.println("=====cjk analyzer====");
-        System.err.println("分析方法:交叉双字分割");
+        //System.err.println("=====cjk analyzer====");
+        //System.err.println("分析方法:交叉双字分割");
         Token t;      
-        while ((t = sf.next()) != null) {      
-            System.out.println(t.termText());      
-        }     
+        while ((t = sf.next()) != null) { 
+        	temp = t.termText();
+        	if (word.contains(temp)){
+        		continue;
+        	}
+            word.add(temp); 
+        } 
     }
     public static void testPaoding(String testString) throws Exception{
         XAnalyzer analyzer = XFactory.getQueryAnalyzer();   
         Reader r = new StringReader(testString);   
         XTokenizer ts = (XTokenizer) analyzer.tokenStream("", r);   
-        System.err.println("=====paoding analyzer====");
-        System.err.println("分析方法:字典分词,去掉停止词。在字典不能匹配的情况下使用CJKAnalyzer的分割发。");
+        //System.err.println("=====paoding analyzer====");
+        //System.err.println("分析方法:字典分词,去掉停止词。在字典不能匹配的情况下使用CJKAnalyzer的分割发。");
         Token t;   
         while ((t = ts.next()) != null) {   
            System.out.println(t.termText());   
@@ -64,22 +70,12 @@ public class Analyze  {
         Analyzer analyzer = new IK_CAnalyzer();
         Reader r = new StringReader(testString); 
         TokenStream ts = (TokenStream)analyzer.tokenStream("", r);
-        System.err.println("=====je analyzer====");
-        System.err.println("分析方法:字典分词,正反双向搜索，具体不明");
+       // System.err.println("=====je analyzer====");
+        //System.err.println("分析方法:字典分词,正反双向搜索，具体不明");
         Token t;   
         while ((t = ts.next()) != null) {   
            System.out.println(t.termText());   
         }   
-    }
-    public static void main(String[] args) throws Exception{
-        String testString = testString1;
-        System.out.println(testString);
-        
-        testStandard(testString);
-        testCJK(testString);
-     //   testPaoding(testString);
-        
-        testJe(testString);
     }
 
 }

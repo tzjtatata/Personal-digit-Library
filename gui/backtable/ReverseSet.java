@@ -1,10 +1,12 @@
 package backtable;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import backtable.Search.*;
 
 import backtable.Hashstr;
+import backtable.Analyze;
 
 public class ReverseSet {
 
@@ -13,6 +15,7 @@ public class ReverseSet {
 	protected File ft = new File("gui/backtable/txtFolder");
 	protected File[] ls = ft.listFiles();
 	protected String str;
+	protected File temp;
 	static int round = 0x500;
 	int i;
 	public long[] cryptTable = new long[round];
@@ -24,9 +27,21 @@ public class ReverseSet {
 		//读取txt文件内容
 		for (i = 0;i<ls.length;i++) {
 				if (!ls[i].isHidden()) {
+					//获取txtFolder目录下文件
 					str = ls[i].getName();
-					str = (str);
-					
+					Search zkf = new Search();
+					str = zkf.nameChange(str);
+					temp = new File(str);
+					FileReader fr = new FileReader(ls[i]);
+					BufferedReader br = new BufferedReader(fr);
+					String str2 = br.readLine();
+					if (str2 == null) break;
+					try {
+						Refile(new File(str+"/"+str2));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 		}
 		//Refile(fi);
@@ -34,18 +49,22 @@ public class ReverseSet {
 		printf();
 	}
 
-	public void Refile() throws FileNotFoundException {
+	public void Refile(File ffi) throws Exception {
 		long temp = 0;
 		int i;
-		String[] word = {"zoukaifa", "dadoubi", "dahuaidan", "kosting", "zoukaifa", "dadoubi", "zoukaifa", "dadoubi", "liyuanze"};
+		ArrayList<String> word = new ArrayList<>();
+		BufferedReader br = new BufferedReader(new FileReader(ffi));
+		String nw;
+		while ((nw = br.readLine())!=null)
 		//分词
-		String ffi = "test.txt";
+			Analyze.testCJK(nw,word);
+		System.out.println(word.toString());
 		//prepareCryptTable();
-		for (i = 0; i < word.length; i++) {
+		for (i = 0; i < word.size(); i++) {
 			/*对每个词求其hash值，存进对应的数组项
 			 * 并用链表存储其所在地址
 			 */
-			setpos(word[i], ffi);
+			setpos(word.get(i), ffi.getName());
 		}
 	}
 
