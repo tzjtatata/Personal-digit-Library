@@ -16,10 +16,11 @@ public class Main {
 		BufferedReader br = new BufferedReader(new FileReader(fr));
 		if ("0".equals(br.readLine())) {
 			Search search = new Search();
-			File[] list = File.listRoots();
+			search.SearchDish("/home/liyuanze/test/");
+			/*File[] list = File.listRoots();
 			for (File list1 : list) {
 				search.SearchDish(list1.toString());
-			}
+			}*/
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fr))) {
 				bw.write("1");
 			}

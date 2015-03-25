@@ -35,9 +35,9 @@ import me.calendar.service.Utility;
 	private static final long serialVersionUID = 1L;
 	public MainDesktopPane mainDesktop;//相關物件宣告
 	public CalendarPane calendarPane;
-	public JButton btn_clear=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/清除.png"));
-	public JButton btn_save=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/储存.png"));
-	public  JButton btn_query=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/查询.png"));
+	public JButton btn_clear=new JButton(new ImageIcon("gui/source/清除.png"));
+	public JButton btn_save=new JButton(new ImageIcon("gui/source/储存.png"));
+	public  JButton btn_query=new JButton(new ImageIcon("gui/source/查询.png"));
 	public JLabel lab_sun;
 	public JLabel lab_week;
 	public JLabel lab_query_year;
@@ -52,17 +52,19 @@ import me.calendar.service.Utility;
 	public  JTextArea area_note;
 	
 	public JLabel j1 = new JLabel();
-	public JButton jb_shelf=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/书架.jpg"));
-	public JButton jb_function=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/搜索.jpg"));
-	public JButton jb_about=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/关于.jpg"));
-	public JButton jb_help=new JButton(new ImageIcon(System.getProperty("java.class.path")+"/source/设置.jpg"));
+	public JButton jb_shelf=new JButton(new ImageIcon("gui/source/书架.jpg"));
+	public JButton jb_function=new JButton(new ImageIcon("gui/source/搜索.jpg"));
+	public JButton jb_about=new JButton(new ImageIcon("gui/source/关于.jpg"));
+	public JButton jb_help=new JButton(new ImageIcon("gui/source/设置.jpg"));
 	public JPanel jp=new JPanel();
 	 
 	 //主程式結束
 	 
 	  public MainFrame()//建立視窗開始
 	  {
+		 
 	    super();
+	    System.out.println(System.getProperty("java.class.path"));
 	    ActionDispatcher.setMainFrame(this);
 	    Utility.setMainFrame(this);
 	    jb_shelf.addActionListener(new ActionListener() {
@@ -117,7 +119,7 @@ import me.calendar.service.Utility;
 	      pack();
 
 			this.setBounds(200,70,950,650);//大小 位置
-			Image i=this.getToolkit().getImage(System.getProperty("java.class.path")+"/source/digital_library.png");//logo
+			Image i=this.getToolkit().getImage("gui/source/digital_library.png");//logo
 			this.setIconImage(i);
 
 			this.setResizable(false);//不可以调整大小
