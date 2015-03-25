@@ -13,6 +13,8 @@ public class Main {
 
 	public static void main(String[] args) throws Exception// 主程式開始
 	{
+		long pre=System.currentTimeMillis();
+		long post;
 		File fr = new File("gui/backtable/flag.pdl");
 		BufferedReader br = new BufferedReader(new FileReader(fr));
 		if ("0".equals(br.readLine())) {
@@ -28,6 +30,8 @@ public class Main {
 			br.close();
 		}
 		new ReverseSet();
+		post = System.currentTimeMillis();
+		System.out.println(post-pre);
 		MainFrame inst = new MainFrame();
 		inst.setVisible(true);
 	}
