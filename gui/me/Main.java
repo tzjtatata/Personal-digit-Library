@@ -8,11 +8,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import me.calendar.frame.MainFrame;
+import me.*;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception// 主程式開始
 	{
+		JSplashWindow.getABC();
 		long pre=System.currentTimeMillis();
 		long post;
 		File fr = new File("gui/backtable/flag.pdl");
@@ -30,9 +32,17 @@ public class Main {
 			}
 			br.close();
 		}
+		Thread.sleep(10000);
 		post = System.currentTimeMillis();
 		System.out.println(post-pre);
+		File fi = new File("gui/me/showflag.txt");
+		BufferedWriter bw = new BufferedWriter(new FileWriter(fi));
+		bw.write("0");
+		bw.close();
 		MainFrame inst = new MainFrame();
+		bw = new BufferedWriter(new FileWriter(fi));
+		bw.write("1");
+		bw.close();
 		inst.setVisible(true);
 	}
 
