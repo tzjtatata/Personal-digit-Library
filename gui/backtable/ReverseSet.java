@@ -43,12 +43,14 @@ public class ReverseSet {
 					FileReader fr = new FileReader(ls[i]);
 					BufferedReader br = new BufferedReader(fr);
 					String str2 = br.readLine();
-					if (str2 == null) break;
-					try {
-						Refile(new File(str+lyz+str2));
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					while (str2 != null){
+						try {
+							Refile(new File(str+lyz+str2));
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						str2 = br.readLine();
 					}
 				}
 		}
@@ -63,9 +65,11 @@ public class ReverseSet {
 		ArrayList<String> word = new ArrayList<>();
 		BufferedReader br = new BufferedReader(new FileReader(ffi));
 		String nw;
-		while ((nw = br.readLine())!=null)
+		while ((nw = br.readLine())!=null){
 		//分词
 			Analyze.testCJK(nw,word);
+			System.out.println(nw);
+		}
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
 			/*对每个词求其hash值，存进对应的数组项
@@ -104,7 +108,7 @@ public class ReverseSet {
 	 return seed1;
 	 }*/
 
-	public long HashString(String key) {
+	public static long HashString(String key) {
 		int ch;
 		int len = key.length(), i;
 		long Hash = 0;

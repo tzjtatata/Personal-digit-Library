@@ -1,6 +1,7 @@
 package me;
 
 import backtable.Search;
+import backtable.SearchContent;
 import java.awt.*;
 
 import javax.swing.*;
@@ -61,19 +62,24 @@ public class Searchpanel extends JFrame {
 		this.setTitle("搜索");
 		bt1 = new JButton("设置");
 		bt2 = new JButton("搜索");
-		bt2.addActionListener(new ActionListener() {
-
+		bt2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				if (!"".equals(entry3.getText())) {
-					try {
-						search.NameSearch(entry3.getText(), "txtFolder/");
-						search.NameSearch(entry3.getText(), "otherFolder/");
-						JOptionPane.showMessageDialog(null, "搜索完成！", "提示", JOptionPane.INFORMATION_MESSAGE);
-					} catch (Exception ex) {
+						try {
+							search.NameSearch(entry3.getText(), "txtFolder/");
+							search.NameSearch(entry3.getText(), "otherFolder/");
+							JOptionPane.showMessageDialog(null, "搜索完成！", "提示", JOptionPane.INFORMATION_MESSAGE);
+						} catch (Exception ex) {
+						}
 					}
-				}
+				else
+					if (!"".equals(entry4.getText())) {
+						try {
+							new SearchContent(entry4.getText());
+						} catch (Exception ex) {
+						}
 			}
-		});
+		}});
 		option1 = new JLabel("按作者搜索");
 		option2 = new JLabel("按类型搜索");
 		option3 = new JLabel("按文件名搜索");
@@ -203,7 +209,7 @@ public class Searchpanel extends JFrame {
 		} else {
 			hint.setText(dts.getContent());
 		}
-		Image i = this.getToolkit().getImage(System.getProperty("java.class.path") + "/source/digital_library.png");//logo
+		Image i = this.getToolkit().getImage( "gui/source/digital_library.png");//logo
 		this.setIconImage(i);
 		this.setContentPane(jpanel);
 		this.setResizable(false);
