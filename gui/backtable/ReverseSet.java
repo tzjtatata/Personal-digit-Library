@@ -11,7 +11,6 @@ import backtable.Analyze;
 public class ReverseSet {
 
 	//获取txtFolder文件夹下的所有文件
-
 	protected File ft = new File("gui/backtable/txtFolder");
 	protected File[] ls = ft.listFiles();
 	protected String str;
@@ -21,6 +20,7 @@ public class ReverseSet {
 	public long[] cryptTable = new long[round];
 	Hashstr[] lpTable = new Hashstr[round];
 	private String lyz;
+
 	public void change() {
 		if (System.getProperty("os.name").startsWith("W")) {
 			lyz = "\\\\";
@@ -28,31 +28,32 @@ public class ReverseSet {
 			lyz = "/";
 		}
 	}
+
 	public ReverseSet() throws IOException {
 		//prepareCryptTable();
 		//对目录下每个txt读取，获取子文件目录
 		//读取txt文件内容
 		change();
-		for (i = 0;i<ls.length;i++) {
-				if (!ls[i].isHidden()) {
-					//获取txtFolder目录下文件
-					str = ls[i].getName();
-					Search zkf = new Search();
-					str = zkf.nameChange(str);
-					temp = new File(str);
-					FileReader fr = new FileReader(ls[i]);
-					BufferedReader br = new BufferedReader(fr);
-					String str2 = br.readLine();
-					while (str2 != null){
-						try {
-							Refile(new File(str+lyz+str2));
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						str2 = br.readLine();
+		for (i = 0; i < ls.length; i++) {
+			if (!ls[i].isHidden()) {
+				//获取txtFolder目录下文件
+				str = ls[i].getName();
+				Search zkf = new Search();
+				str = zkf.nameChange(str);
+				temp = new File(str);
+				FileReader fr = new FileReader(ls[i]);
+				BufferedReader br = new BufferedReader(fr);
+				String str2 = br.readLine();
+				while (str2 != null) {
+					try {
+						Refile(new File(str + lyz + str2));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+					str2 = br.readLine();
 				}
+			}
 		}
 		//Refile(fi);
 		//最后将hash数组输出到倒排索引表中
@@ -65,10 +66,9 @@ public class ReverseSet {
 		ArrayList<String> word = new ArrayList<>();
 		BufferedReader br = new BufferedReader(new FileReader(ffi));
 		String nw;
-		while ((nw = br.readLine())!=null){
-		//分词
-			Analyze.testCJK(nw,word);
-			System.out.println(nw);
+		while ((nw = br.readLine()) != null) {
+			//分词
+			Analyze.testCJK(nw, word);
 		}
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
@@ -108,17 +108,16 @@ public class ReverseSet {
 	 return seed1;
 	 }*/
 
-	public static long HashString(String key) {
-		int ch;
-		int len = key.length(), i;
-		long Hash = 0;
-		for (i = 0; i < len; i++) {
-			ch = key.charAt(i);
-			Hash = Hash * 33 + ch;
-		}
-		return Hash;
-	}
-
+	/*public static long HashString(String key) {
+	 int ch;
+	 int len = key.length(), i;
+	 long Hash = 0;
+	 for (i = 0; i < len; i++) {
+	 ch = key.charAt(i);
+	 Hash = Hash * 33 + ch;
+	 }
+	 return Hash;
+	 }*/
 	public void printf() throws IOException {
 		int i;
 		File fi = new File("gui/backtable/daopai.pdl");
@@ -134,9 +133,10 @@ public class ReverseSet {
 
 	public void setpos(String lpString, String file) {
 		int temp;
-		long nHash = HashString(lpString);
+		long nHash = lpString.hashCode();
 		//System.out.println(nHash);
-		temp = (int) (HashString(lpString) % round);
+		temp = (int) (nHash % round);
+		System.out.println(nHash);
 		//System.out.println(lpString +  ", *** " +nHash);
 		if (lpTable[temp] == null) {
 			lpTable[temp] = new Hashstr(nHash, file);
@@ -148,6 +148,6 @@ public class ReverseSet {
 	}
 
 	/*public static void main(String[] args) throws IOException {
-		new ReverseSet();
-	}*/
+	 new ReverseSet();
+	 }*/
 }
