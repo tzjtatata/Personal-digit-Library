@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
+
+import com.sun.prism.Image;
  
 /**
  * 几乎所有时髦的应用都有一个欢迎屏幕。欢迎屏幕既是宣传产品的方法之一，
@@ -37,9 +39,10 @@ public class JSplashWindow extends JWindow {
      */
     public JSplashWindow(String filename, JFrame frame) {
         super(frame);
- 
+        ImageIcon img = new ImageIcon(filename);
+        img.setImage(img.getImage().getScaledInstance(500, 400, 1));
         // 建立一个标签，标签中显示图片。
-        JLabel label = new JLabel(new ImageIcon(filename));
+        JLabel label = new JLabel(img);
         // 将标签放在欢迎屏幕中间
         getContentPane().add(label, BorderLayout.CENTER);
         pack();
@@ -81,17 +84,17 @@ class ThreadToStop extends Thread{
     public void run(){  
 	    // double check，检查stop的状态   
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JSplashWindow splash = new JSplashWindow("/home/liyuanze/github/Personal-digit-Library/gui/me/start.gif", frame);
+        JSplashWindow splash = new JSplashWindow("gui/me/start.gif", frame);
         splash.setVisible(true);
         frame.pack();
         frame.setVisible(true);
 	    while(!isStop){  
-	    	File fi = new File("/home/liyuanze/github/Personal-digit-Library/gui/me/showflag.txt");
+	    	File fi = new File("gui/me/showflag.txt");
 	    	try {
 				BufferedReader br = new BufferedReader(new FileReader(fi));
 				if ("1".equals(br.readLine()))
 				{
-					System.out.println("abc");
+					//System.out.println("abc");
 					try {  
 				        Thread.sleep(1000); 
 				        } catch (InterruptedException e) {  

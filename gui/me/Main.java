@@ -32,7 +32,7 @@ public class Main {
 			}
 			br.close();
 		}
-		Thread.sleep(10000);
+		Thread.sleep(4000);//测试欢迎窗口用;
 		post = System.currentTimeMillis();
 		System.out.println(post-pre);
 		File fi = new File("gui/me/showflag.txt");

@@ -75,7 +75,7 @@ public class ReverseSet {
 			/*对每个词求其hash值，存进对应的数组项
 			 * 并用链表存储其所在地址
 			 */
-			setpos(word.get(i), ffi.getName());
+			setpos(word.get(i), ffi.getPath());
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ReverseSet {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		new ReverseSet();
-	}
+	}*/
 }
