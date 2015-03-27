@@ -84,6 +84,7 @@ class ThreadToStop extends Thread{
     public void run(){  
 	    // double check，检查stop的状态   
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setUndecorated(true);
         JSplashWindow splash = new JSplashWindow("gui/me/start.gif", frame);
         splash.setVisible(true);
         frame.pack();
