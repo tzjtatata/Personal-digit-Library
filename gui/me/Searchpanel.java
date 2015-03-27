@@ -61,7 +61,9 @@ public class Searchpanel extends JFrame {
 		jpanel.setOpaque(true);
 		this.setTitle("搜索");
 		bt1 = new JButton("设置");
+		bt1.setFont(new java.awt.Font("Leto",1,12));
 		bt2 = new JButton("搜索");
+		bt2.setFont(new java.awt.Font("Leto",1,12));
 		bt2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				if (!"".equals(entry3.getText())) {
@@ -81,9 +83,13 @@ public class Searchpanel extends JFrame {
 			}
 		}});
 		option1 = new JLabel("按作者搜索");
+		option1.setFont(new java.awt.Font("微软雅黑",1,14));
 		option2 = new JLabel("按类型搜索");
+		option2.setFont(new java.awt.Font("微软雅黑",1,14));
 		option3 = new JLabel("按文件名搜索");
+		option3.setFont(new java.awt.Font("微软雅黑",1,14));
 		option4 = new JLabel("按关键字搜索");
+		option4.setFont(new java.awt.Font("微软雅黑",1,14));
 		entry1 = new JTextField(15);
 		entry2 = new JTextField(15);
 		entry3 = new JTextField(15);

@@ -2,11 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="gui"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/IKAnalyzer1.4.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.analysis.source_2.9.1.v201101211721.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.analysis_2.9.1.v201101211721.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.core_2.9.1.v201101211721.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.highlighter_2.9.1.v20100421-0704.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/paoding-analysis.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Desktop/IKAnalyzer1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Desktop/org.apache.lucene.analysis.source_2.9.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Desktop/org.apache.lucene.analysis_2.9.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Desktop/org.apache.lucene.core_2.9.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Desktop/org.apache.lucene.highlighter_2.9.1.v20100421-0704.jar"/>
 	<classpathentry kind="output" path="gui"/>
 </classpath>

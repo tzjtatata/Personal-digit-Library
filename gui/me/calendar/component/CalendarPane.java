@@ -89,7 +89,7 @@ public class CalendarPane extends JPanel {
 	      int[] now = new int[3];
 	      now = Utility.getdate();//取得當天日期
 	      if (year == now[0] && month == now[1] && i+1 == now[2])
-	        btn[i].setBackground(new java.awt.Color(100,245,50));//若為當天則設定按鈕為白色
+	        btn[i].setBackground(new java.awt.Color(255,255,255));//若為當天則設定按鈕為白色
 	      else
 	        btn[i].setBackground(new java.awt.Color(215,217,218));//若不是當天則設定按鈕為蓝色
 	      /* 
