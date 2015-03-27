@@ -1,6 +1,7 @@
 package backtable;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import backtable.Search.*;
@@ -11,11 +12,12 @@ import backtable.Analyze;
 public class ReverseSet {
 
 	//获取txtFolder文件夹下的所有文件
-	protected File ft = new File("gui/backtable/txtFolder");
+	protected File ft = new File("gui/backtable/txtFolder/");
 	protected File[] ls = ft.listFiles();
 	protected String str;
 	protected File temp;
 	static int round = 0x500;
+	int num = 0;
 	int i;
 	public long[] cryptTable = new long[round];
 	Hashstr[] lpTable = new Hashstr[round];
@@ -34,9 +36,11 @@ public class ReverseSet {
 		//对目录下每个txt读取，获取子文件目录
 		//读取txt文件内容
 		change();
+		num = ls.length;
 		for (i = 0; i < ls.length; i++) {
 			if (!ls[i].isHidden()) {
 				//获取txtFolder目录下文件
+				System.out.println(i + "/" + num);
 				str = ls[i].getName();
 				Search zkf = new Search();
 				str = zkf.nameChange(str);
@@ -69,6 +73,8 @@ public class ReverseSet {
 		while ((nw = br.readLine()) != null) {
 			//分词
 			Analyze.testCJK(nw, word);
+
+			//System.out.println(nw);
 		}
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
@@ -108,16 +114,17 @@ public class ReverseSet {
 	 return seed1;
 	 }*/
 
-	/*public static long HashString(String key) {
-	 int ch;
-	 int len = key.length(), i;
-	 long Hash = 0;
-	 for (i = 0; i < len; i++) {
-	 ch = key.charAt(i);
-	 Hash = Hash * 33 + ch;
-	 }
-	 return Hash;
-	 }*/
+	public static BigInteger HashString(String key) {
+		int ch;
+		int len = key.length(), i;
+		BigInteger Hash = BigInteger.valueOf(0);
+		for (i = 0; i < len; i++) {
+			ch = key.charAt(i);
+			Hash = Hash.multiply(BigInteger.valueOf(33)).add(BigInteger.valueOf((long) ch));
+		}
+		return Hash;
+	}
+
 	public void printf() throws IOException {
 		int i;
 		File fi = new File("gui/backtable/daopai.pdl");
@@ -125,6 +132,7 @@ public class ReverseSet {
 		FileWriter fw = new FileWriter(fi);
 		for (i = 0; i < round; i++) {
 			if (lpTable[i] != null) {
+				//System.out.println("running");
 				fw.write(lpTable[i].toString());
 			}
 		}
@@ -133,10 +141,10 @@ public class ReverseSet {
 
 	public void setpos(String lpString, String file) {
 		int temp;
-		long nHash = lpString.hashCode();
+		BigInteger nHash = HashString(lpString);
 		//System.out.println(nHash);
-		temp = (int) (nHash % round);
-		System.out.println(nHash);
+		//System.out.println(lpString + " / " + nHash.toString());
+		temp = nHash.mod(BigInteger.valueOf(round)).intValue();
 		//System.out.println(lpString +  ", *** " +nHash);
 		if (lpTable[temp] == null) {
 			lpTable[temp] = new Hashstr(nHash, file);

@@ -1,5 +1,7 @@
 package backtable;
 
+import java.math.BigInteger;
+
 public class List {
 
 	private Node Head = null;
@@ -27,9 +29,11 @@ public class List {
 	public Node cursor() {
 		if (Head == null) {
 			throw new java.lang.NullPointerException();
-		} else if (Pointer == null) {;
+		} else if (Pointer == null) {
+			System.out.println("&");
 			return Head;
 		} else {
+			System.out.println("*");
 			return Pointer;
 		}
 	}
@@ -39,13 +43,13 @@ public class List {
 		return temp.hashcode;
 	}
 
-	public void insert(long d, String file) {
+	public void insert(BigInteger d, String file) {
 		Node e;
 		e = find(d);
 		//System.out.println("!!!" + e);
 		if (e != null) {
 			e.add(file);
-			//System.out.println("\n**"+ d +"**\n");
+			//System.out.println("\n**" + d + "**\n");
 			return;
 		}
 		e = new Node(d);
@@ -64,7 +68,7 @@ public class List {
 		Length++;
 	}
 
-	public Node find(long da) {
+	public Node find(BigInteger da) {
 		//System.out.println("**" + Pointer);
 		Node temp = Pointer;
 		if (Head == null) {
@@ -76,7 +80,7 @@ public class List {
 		while (Pointer != null) {
 			//System.out.println(Pointer.hashcode);
 			//System.out.println(da);
-			if (Pointer.hashcode == da) {
+			if (da.equals(Pointer.hashcode)) {
 				//System.out.println("###");
 				return Pointer;
 			} else {

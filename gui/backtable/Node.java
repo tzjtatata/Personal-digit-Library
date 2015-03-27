@@ -1,23 +1,30 @@
 package backtable;
 
+import java.math.*;
+import java.util.ArrayList;
+
 public class Node {
-	String[] data =  new String[1000];
-	long hashcode;
+
+	ArrayList<String> data = new ArrayList();
+	BigInteger hashcode;
 	int count = 0;
 	Node next;
-	Node(long da){
+
+	Node(BigInteger da) {
 		hashcode = da;
 		next = null;
 	}
+
 	public void add(String da) {
-		data[count] = da;
+		data.add(da);
 		count++;
 	}
+
 	public String toString() {
 		String s = "###" + hashcode + ":";
 		int i;
-		for (i = 0;i<count;i++){
-			s = s.concat(data[i] + ',');
+		for (i = 0; i < count; i++) {
+			s = s.concat(data.get(i) + ',');
 		}
 		return s;
 	}

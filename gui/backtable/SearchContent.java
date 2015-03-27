@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
@@ -14,18 +15,20 @@ import backtable.ReverseSet;
 
 public class SearchContent {
 
-	private long hash;
+	private BigInteger hash;
 	private String result;
 
 	public SearchContent(String query) throws FileNotFoundException, IOException {
-		this.hash = query.hashCode();
+		this.hash = ReverseSet.HashString(query);
+		System.out.println(hash);
 		result = Retable(hash);
 		System.out.println(show(result).toString());
 	}
 
-	public String Retable(long hashcode) throws IOException, FileNotFoundException {
+	public String Retable(BigInteger hashcode) throws IOException, FileNotFoundException {
 		String temp;
-		int i, mark, hash = 0;
+		int i, mark;
+		BigInteger hash;
 		File fi = new File("gui/backtable/daopai.pdl");
 		BufferedReader br = new BufferedReader(new FileReader(fi));
 		temp = br.readLine();
@@ -33,8 +36,8 @@ public class SearchContent {
 			if (temp.startsWith("###")) {
 				if ((mark = temp.indexOf(":")) != -1) {
 					//获取hash值
-					hash = Integer.parseInt(temp.substring(3, mark));
-					if (hash == hashcode) {
+					hash = new BigInteger(temp.substring(3, mark));
+					if (hash.equals(hashcode)) {
 						return temp.substring(mark + 1);
 					}
 				}
@@ -48,7 +51,8 @@ public class SearchContent {
 		int i;
 		String[] str;
 		ArrayList<String> temp = new ArrayList<>();
-		if (result == null) {
+		System.out.println(result);
+		if (result == null || result.length() == 0) {
 			temp.add("未查询到相关结果！");
 		} else {
 			str = result.split(",");

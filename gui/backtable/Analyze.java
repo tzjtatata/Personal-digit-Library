@@ -22,11 +22,10 @@ import org.mira.lucene.analysis.MIK_CAnalyzer;
  import com.sohospace.lucene.analysis.xanalyzer.XTokenizer;*/
 public class Analyze {
 
-	private static String testString1 = "2008年8月8日晚举世瞩目目的北京第二十九届奥林匹克运动会开幕式在国国家体育场隆重举行";
+	private static String testString1 = "大逗比邹开发是主任计算机的哈哈这台哈";
 	private static String testString2 = "比尔盖茨从事餐饮业和服务业方面的工作";
 
 	// @SuppressWarnings("deprecation")
-
 	public static void testStandard(String testString) throws Exception {
 		//      @SuppressWarnings("deprecation")
 		Analyzer analyzer = new StandardAnalyzer();
@@ -41,14 +40,13 @@ public class Analyze {
 	}
 
 	// @SuppressWarnings("deprecation")
-
 	public static void testCJK(String testString, ArrayList<String> word) throws Exception {
 		//     @SuppressWarnings("deprecation")
 		Analyzer analyzer = new CJKAnalyzer();
 		String temp;
 		Reader r = new StringReader(testString);
 		StopFilter sf = (StopFilter) analyzer.tokenStream("", r);
-        //System.err.println("=====cjk analyzer====");
+		//System.err.println("=====cjk analyzer====");
 		//System.err.println("分析方法:交叉双字分割");
 		Token t;
 		while ((t = sf.next()) != null) {
@@ -58,6 +56,7 @@ public class Analyze {
 			}
 			word.add(temp);
 		}
+		//System.out.println(word.toString());
 	}
 	/*public static void testPaoding(String testString) throws Exception{
 	 XAnalyzer analyzer = XFactory.getQueryAnalyzer();
@@ -75,7 +74,7 @@ public class Analyze {
 		Analyzer analyzer = new IK_CAnalyzer();
 		Reader r = new StringReader(testString);
 		TokenStream ts = (TokenStream) analyzer.tokenStream("", r);
-       // System.err.println("=====je analyzer====");
+		// System.err.println("=====je analyzer====");
 		//System.err.println("分析方法:字典分词,正反双向搜索，具体不明");
 		Token t;
 		while ((t = ts.next()) != null) {
@@ -83,4 +82,8 @@ public class Analyze {
 		}
 	}
 
+	public static void main(String[] args) throws Exception {
+		ArrayList<String> word = new ArrayList<>();
+		testCJK(testString1, word);
+	}
 }

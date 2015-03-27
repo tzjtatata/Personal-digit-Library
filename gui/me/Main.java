@@ -8,7 +8,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import me.calendar.frame.MainFrame;
-import me.*;
 
 public class Main {
 
@@ -21,22 +20,28 @@ public class Main {
 		BufferedReader br = new BufferedReader(new FileReader(fr));
 		if ("0".equals(br.readLine())) {
 			Search search = new Search();
-//			search.SearchDish("/home/liyuanze/test/");
+			//search.SearchDish("D:/测试/");
 
 			File[] list = File.listRoots();
 			for (File list1 : list) {
-				search.SearchDish(list1.toString());
+				if (!list1.toString().startsWith("C")) {
+					search.SearchDish(list1.toString());
+				}
 			}
 			System.out.println("Already search the disk;");
+
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fr))) {
 				bw.write("1");
 			}
 			br.close();
-
+			new ReverseSet();
 		}
-		new ReverseSet();
+		Thread.sleep(4000);
 		post = System.currentTimeMillis();
 		System.out.println(post - pre);
+
+		pre = System.currentTimeMillis();
+		System.out.println(pre - post);
 		File fi = new File("gui/me/showflag.pdl");
 		BufferedWriter bw = new BufferedWriter(new FileWriter(fi));
 		bw.write("0");

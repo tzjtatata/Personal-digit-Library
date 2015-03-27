@@ -1,4 +1,5 @@
 package backtable;
+import java.math.*;
 
 public class Hashstr {
 	static int round = 0x500;
@@ -7,11 +8,11 @@ public class Hashstr {
 	public Hashstr() {
 		this.bExists = 0;
 	}
-	public Hashstr(long hashString,String file) {
+	public Hashstr(BigInteger hashString,String file) {
 		this.bExists = 1; 
 		nHashA.insert(hashString,file);
 	}
-	public  void addhash(long hashString,String file) {
+	public  void addhash(BigInteger hashString,String file) {
 		nHashA.insert(hashString,file);
 	}
 	public String toString() {
