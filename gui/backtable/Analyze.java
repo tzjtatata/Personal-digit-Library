@@ -82,8 +82,8 @@ public class Analyze {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		ArrayList<String> word = new ArrayList<>();
-		testCJK(testString1, word);
-	}
+	/*public static void main(String[] args) throws Exception {
+	 ArrayList<String> word = new ArrayList<>();
+	 testCJK(testString1, word);
+	 }*/
 }
