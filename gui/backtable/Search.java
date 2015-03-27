@@ -27,6 +27,10 @@ public class Search {
 		} else {
 			lyz = "/";
 		}
+		File f1 = new File("gui/backtable/txtFolder/");
+		f1.mkdir();
+		File f2 = new File("gui/backtable/otherFolder/");
+		f2.mkdir();
 	}
 
 	/**
