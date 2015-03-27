@@ -130,7 +130,7 @@ public class Search {
 								Matcher m = p.matcher(s);
 								if (m.find()) {
 									if (System.getProperty("os.name").startsWith("W")) {
-										al.add(nameChange(flist1.getName()) + s);
+										al.add(nameChange(flist1.getName()) + "\\" + s);
 									} else {
 										al.add(nameChange(flist1.getName()) + "/" + s);
 									}
