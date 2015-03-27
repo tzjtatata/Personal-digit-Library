@@ -28,20 +28,13 @@ public class Main {
 					search.SearchDish(list1.toString());
 				}
 			}
-			System.out.println("Already search the disk;");
 
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fr))) {
 				bw.write("1");
 			}
 			br.close();
-			new ReverseSet();
+			ReverseSet reverseSet = new ReverseSet();
 		}
-		Thread.sleep(4000);
-		post = System.currentTimeMillis();
-		System.out.println(post - pre);
-
-		pre = System.currentTimeMillis();
-		System.out.println(pre - post);
 		File fi = new File("gui/me/showflag.pdl");
 		BufferedWriter bw = new BufferedWriter(new FileWriter(fi));
 		bw.write("0");
