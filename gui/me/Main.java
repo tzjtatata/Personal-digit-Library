@@ -24,10 +24,11 @@ public class Main {
 
 			File[] list = File.listRoots();
 			for (File list1 : list) {
-				if (!list1.toString().startsWith("C")) {
+				if (!list1.toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0)))) {
 					search.SearchDish(list1.toString());
 				}
 			}
+			System.out.println(System.currentTimeMillis() - pre);
 
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fr))) {
 				bw.write("1");
