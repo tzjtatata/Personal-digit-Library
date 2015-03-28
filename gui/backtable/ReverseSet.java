@@ -4,11 +4,6 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import backtable.Search.*;
-
-import backtable.Hashstr;
-import backtable.Analyze;
-
 public class ReverseSet {
 
 	//获取txtFolder文件夹下的所有文件
