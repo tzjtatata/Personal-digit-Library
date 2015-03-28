@@ -15,4 +15,3 @@
 		3.java似乎不支持文件插入，所以有可能需要重写backtable.Search类中的searchDish方法，来实现在2.a中就完成2.d.1中的功能。
 三.分类
 1.预先分类
-	a.
