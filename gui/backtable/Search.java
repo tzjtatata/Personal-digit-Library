@@ -11,7 +11,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.text.DefaultEditorKit;
 
 /**
  * 集合了搜索方法的类
@@ -219,6 +218,69 @@ public class Search {
 			return "null";
 		} else {
 			return matchFile.getName();
+		}
+	}
+
+	/**
+	 * 按作者搜索
+	 *
+	 * @param name 作者名
+	 * @return 相关书籍组成的动态数组
+	 * @throws Exception
+	 */
+	public ArrayList<String> SearchForAuthor(String name) throws Exception {
+		Pattern p = Pattern.compile(name);  //正则匹配作者名
+		File f = new File("gui/backtable/otherFolder/");
+		ArrayList<String> al = new ArrayList<>();  //存放用的动态数组
+		File[] files = f.listFiles(new FileFilter() {
+
+			@Override
+			public boolean accept(File pathname) {
+				return !pathname.isHidden();
+			}
+		});
+		for (File file : files) {
+			try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
+				while (br.ready()) {
+					String line = br.readLine();
+					if (!line.endsWith("null")) {  //空结尾说明文件不能从bookInfo中匹配
+						File book = new File("gui/backtable/bookInfo/" + line.split("@@")[1]);
+						try (BufferedReader br1 = new BufferedReader(new FileReader(book))) {
+							br1.readLine();
+							String s = br1.readLine();  //第二行是作者
+							if (s != null) {
+								Matcher m = p.matcher(s);
+								if (m.find()) {
+									if (System.getProperty("os.name").startsWith("W")) {
+										al.add(nameChange(file.getName()) + "\\" + line.split("@@")[0]);
+									} else {
+										al.add(nameChange(file.getName()) + "/" + line.split("@@")[0]);
+									}
+								}
+							}
+
+						}
+					}
+				}
+			}
+		}
+		return al;
+	}
+
+	/**
+	 * 调用SearchForAuthor来完成作者名搜索，此方法方便gui调用和测试输出；
+	 *
+	 * @param name 作者名
+	 * @throws java.lang.Exception
+	 */
+	public void AuthorSearch(String name) throws Exception {
+		ArrayList<String> re = SearchForAuthor(name);
+		if (re.isEmpty()) {
+			System.out.println("无结果！");
+		} else {
+			for (String re1 : re) {
+				System.out.println(re1);
+			}
 		}
 	}
 }

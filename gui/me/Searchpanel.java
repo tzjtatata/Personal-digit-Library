@@ -61,35 +61,42 @@ public class Searchpanel extends JFrame {
 		jpanel.setOpaque(true);
 		this.setTitle("搜索");
 		bt1 = new JButton("设置");
-		bt1.setFont(new java.awt.Font("Leto",1,12));
+		bt1.setFont(new java.awt.Font("Leto", 1, 12));
 		bt2 = new JButton("搜索");
-		bt2.setFont(new java.awt.Font("Leto",1,12));
-		bt2.addActionListener(new ActionListener(){
+		bt2.setFont(new java.awt.Font("Leto", 1, 12));
+		bt2.addActionListener(new ActionListener() {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!"".equals(entry3.getText())) {
-						try {
-							search.NameSearch(entry3.getText(), "txtFolder/");
-							search.NameSearch(entry3.getText(), "otherFolder/");
-							JOptionPane.showMessageDialog(null, "搜索完成！", "提示", JOptionPane.INFORMATION_MESSAGE);
-						} catch (Exception ex) {
-						}
+					try {
+						search.NameSearch(entry3.getText(), "txtFolder/");
+						search.NameSearch(entry3.getText(), "otherFolder/");
+						JOptionPane.showMessageDialog(null, "搜索完成！(请看控制台)", "提示", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception ex) {
 					}
-				else
-					if (!"".equals(entry4.getText())) {
-						try {
-							new SearchContent(entry4.getText());
-						} catch (Exception ex) {
-						}
+				} else if (!"".equals(entry4.getText())) {
+					try {
+						new SearchContent(entry4.getText());
+					} catch (Exception ex) {
+					}
+				} else if (!"".equals(entry1.getText())) {
+					try {
+						search.AuthorSearch(entry1.getText());
+						JOptionPane.showMessageDialog(null, "搜索完成！(请看控制台)", "提示", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception ex) {
+					}
+				}
 			}
-		}});
+		});
 		option1 = new JLabel("按作者搜索");
-		option1.setFont(new java.awt.Font("微软雅黑",1,14));
+		option1.setFont(new java.awt.Font("微软雅黑", 1, 14));
 		option2 = new JLabel("按类型搜索");
-		option2.setFont(new java.awt.Font("微软雅黑",1,14));
+		option2.setFont(new java.awt.Font("微软雅黑", 1, 14));
 		option3 = new JLabel("按文件名搜索");
-		option3.setFont(new java.awt.Font("微软雅黑",1,14));
+		option3.setFont(new java.awt.Font("微软雅黑", 1, 14));
 		option4 = new JLabel("按关键字搜索");
-		option4.setFont(new java.awt.Font("微软雅黑",1,14));
+		option4.setFont(new java.awt.Font("微软雅黑", 1, 14));
 		entry1 = new JTextField(15);
 		entry2 = new JTextField(15);
 		entry3 = new JTextField(15);
@@ -215,7 +222,7 @@ public class Searchpanel extends JFrame {
 		} else {
 			hint.setText(dts.getContent());
 		}
-		Image i = this.getToolkit().getImage( "gui/source/digital_library.png");//logo
+		Image i = this.getToolkit().getImage("gui/source/digital_library.png");//logo
 		this.setIconImage(i);
 		this.setContentPane(jpanel);
 		this.setResizable(false);
