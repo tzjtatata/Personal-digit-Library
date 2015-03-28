@@ -169,4 +169,54 @@ public class Search {
 		String temp = name.replaceAll("@@@", ":@@").replaceAll("@@", lyz);
 		return temp.substring(0, temp.length() - 4);
 	}
+
+	/**
+	 * 对两个字符串进行模糊匹配
+	 *
+	 * @param user 已有的字符串
+	 * @param douban 被匹配的字符串
+	 * @return 前者匹配后者词的个数
+	 * @throws Exception
+	 */
+	public static int NameMatch(String user, String douban) throws Exception {
+		ArrayList<String> userList = new ArrayList<>();
+		Analyze.testCJK(user, userList);  //将文件名分词；
+		int actLength = 0;
+		for (String word : userList) {
+			Pattern p = Pattern.compile(word);
+			Matcher m = p.matcher(douban);
+			if (m.find()) {
+				actLength++;
+			}
+		}
+		return actLength;
+	}
+
+	/**
+	 * 对某一文件匹配豆瓣的信息
+	 *
+	 * @param user 匹配文件
+	 * @return 被匹配到的文件的名字（含pdl后缀），如果匹配不到，返回""
+	 */
+	public static String FileMatch(File user) throws Exception {
+		File file = new File("gui/backtable/bookInfo");
+		File[] files = file.listFiles();
+		File matchFile = null;  //初始化被匹配到的文件
+		int num = 0, i; //num代表匹配率，i是循环中每个文件的匹配率
+		for (File f : files) {
+			i = NameMatch(user.getName(), f.getName());
+			if (i >= 0.4 && i > num) {  //匹配率40%以上
+				num = i;
+				matchFile = f;
+			}
+		}
+		if (matchFile == null) { //未匹配到的情况
+			return "";
+		} else {
+			return matchFile.getName();
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+	}
 }
