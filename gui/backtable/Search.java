@@ -216,7 +216,4 @@ public class Search {
 			return matchFile.getName();
 		}
 	}
-
-	public static void main(String[] args) throws Exception {
-	}
 }
