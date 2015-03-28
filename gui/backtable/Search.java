@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.text.DefaultEditorKit;
 
 /**
  * 集合了搜索方法的类
@@ -74,14 +75,14 @@ public class Search {
 	}
 
 	/**
-	 * 写文件
+	 * 写文件，如果是非txt格式则在行末追加豆瓣信息
 	 *
 	 * @param f 文件
 	 * @param nf 是否在循环中第一次写入文件
 	 * @param type 文件夹("txtFolder/或者otherFolder/")
 	 * @throws IOException
 	 */
-	public void MakeFile(File f, boolean nf, String type) throws IOException {
+	public void MakeFile(File f, boolean nf, String type) throws Exception {
 		// 创建文件
 		File file = new File("gui/backtable/"
 				+ type
@@ -93,7 +94,11 @@ public class Search {
 		}
 		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(file, nf)))) {
-			bw.write(f.getName() + '\n');
+			bw.write(f.getName());
+			if ("otherFolder/".equals(type)) {
+				bw.write("@@" + FileMatch(f));
+			}
+			bw.write("\n");
 			bw.close();
 		}
 	}
@@ -178,7 +183,7 @@ public class Search {
 	 * @return 前者匹配后者词的个数
 	 * @throws Exception
 	 */
-	public static int NameMatch(String user, String douban) throws Exception {
+	public static double NameMatch(String user, String douban) throws Exception {
 		ArrayList<String> userList = new ArrayList<>();
 		Analyze.testCJK(user, userList);  //将文件名分词；
 		int actLength = 0;
@@ -189,7 +194,7 @@ public class Search {
 				actLength++;
 			}
 		}
-		return actLength;
+		return actLength * 1.0 / userList.size();
 	}
 
 	/**
@@ -202,7 +207,7 @@ public class Search {
 		File file = new File("gui/backtable/bookInfo");
 		File[] files = file.listFiles();
 		File matchFile = null;  //初始化被匹配到的文件
-		int num = 0, i; //num代表匹配率，i是循环中每个文件的匹配率
+		double num = 0, i; //num代表匹配率，i是循环中每个文件的匹配率
 		for (File f : files) {
 			i = NameMatch(user.getName(), f.getName());
 			if (i >= 0.4 && i > num) {  //匹配率40%以上
@@ -211,7 +216,7 @@ public class Search {
 			}
 		}
 		if (matchFile == null) { //未匹配到的情况
-			return "";
+			return "null";
 		} else {
 			return matchFile.getName();
 		}
