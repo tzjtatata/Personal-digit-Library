@@ -94,9 +94,9 @@ public class Search {
 		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(file, nf)))) {
 			bw.write(f.getName());
-			if ("otherFolder/".equals(type)) {
-				bw.write("@@" + FileMatch(f));
-			}
+			//if ("otherFolder/".equals(type)) {
+			//	bw.write("@@" + FileMatch(f));
+			//}
 			bw.write("\n");
 			bw.close();
 		}
