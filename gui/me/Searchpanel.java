@@ -13,6 +13,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import sun.misc.FDBigInteger;
+
 import me.calendar.frame.MainFrame;
 import me.calendar.service.*;
-import me.calendar.service.DataService;
 
 @SuppressWarnings("serial")
 public class Searchpanel extends JFrame {
@@ -39,6 +43,8 @@ public class Searchpanel extends JFrame {
 	private DataService dts;
 	private int[] date;
 	private Search search;
+	JPanel jpanelroot = new JPanel();
+	CardLayout card = new CardLayout();
 
 	public Searchpanel() {
 		search = new Search();
@@ -57,6 +63,8 @@ public class Searchpanel extends JFrame {
 				dispose();
 			}
 		});
+		jpanelroot.setLayout(card);
+		jpanelroot.setOpaque(true);
 		jpanel.setLayout(null);
 		jpanel.setOpaque(true);
 		this.setTitle("搜索");
@@ -76,10 +84,17 @@ public class Searchpanel extends JFrame {
 					} catch (Exception ex) {
 					}
 				} else if (!"".equals(entry4.getText())) {
-					try {
-						new SearchContent(entry4.getText());
-					} catch (Exception ex) {
-					}
+						SearchContent result;
+						try {
+							result = new SearchContent(entry4.getText());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+							return ;
+						}
+						Container f = entry4.getRootPane().getParent();
+						jpanelroot.add(new ResultPanel(entry4.getText(), result.getresult));
+						card.last(jpanelroot);
 				} else if (!"".equals(entry1.getText())) {
 					try {
 						search.AuthorSearch(entry1.getText());
@@ -129,23 +144,6 @@ public class Searchpanel extends JFrame {
 		point2.addMouseListener(new CursorListener());
 		point3.addMouseListener(new CursorListener());
 		point4.addMouseListener(new CursorListener());
-		jpanel.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyCode());
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					System.exit(0);
-				}
-			}
-
-			public void keyReleased(KeyEvent e) {
-				System.out.println("bang!");
-			}
-
-			public void keyTyped(KeyEvent e) {
-				System.out.println(e.getKeyChar());
-			}
-		});
-
 		jpanel.add(bt1);
 		jpanel.add(bt2);
 		jpanel.add(option1);
@@ -224,7 +222,22 @@ public class Searchpanel extends JFrame {
 		}
 		Image i = this.getToolkit().getImage("gui/source/digital_library.png");//logo
 		this.setIconImage(i);
-		this.setContentPane(jpanel);
+		this.setContentPane(jpanelroot);
+		jpanelroot.add(jpanel,"panel");
+		ArrayList<String> test = new ArrayList<String>();
+		test.add("1");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		test.add("2");
+		jpanelroot.add(new ResultPanel("abda",  test));
+		
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setBounds(200, 70, 950, 650);

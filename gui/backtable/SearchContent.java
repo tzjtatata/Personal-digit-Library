@@ -17,12 +17,11 @@ public class SearchContent {
 
 	private BigInteger hash;
 	private String result;
+	public ArrayList<String> getresult;
 
 	public SearchContent(String query) throws FileNotFoundException, IOException {
 		this.hash = ReverseSet.HashString(query);
-		System.out.println(hash);
 		result = Retable(hash);
-		System.out.println(show(result).toString());
 	}
 
 	public String Retable(BigInteger hashcode) throws IOException, FileNotFoundException {
@@ -51,7 +50,6 @@ public class SearchContent {
 		int i;
 		String[] str;
 		ArrayList<String> temp = new ArrayList<>();
-		System.out.println(result);
 		if (result == null || result.length() == 0) {
 			temp.add("未查询到相关结果！");
 		} else {
