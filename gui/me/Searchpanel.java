@@ -80,7 +80,9 @@ public class Searchpanel extends JFrame {
 					try {
 						search.NameSearch(entry3.getText(), "txtFolder/");
 						search.NameSearch(entry3.getText(), "otherFolder/");
-						JOptionPane.showMessageDialog(null, "搜索完成！(请看控制台)", "提示", JOptionPane.INFORMATION_MESSAGE);
+						Container f = entry4.getRootPane().getParent();
+						jpanelroot.add(new ResultPanel(entry3.getText(), search.getresult()));
+						card.last(jpanelroot);
 					} catch (Exception ex) {
 					}
 				} else if (!"".equals(entry4.getText())) {
@@ -97,8 +99,9 @@ public class Searchpanel extends JFrame {
 						card.last(jpanelroot);
 				} else if (!"".equals(entry1.getText())) {
 					try {
-						search.AuthorSearch(entry1.getText());
-						JOptionPane.showMessageDialog(null, "搜索完成！(请看控制台)", "提示", JOptionPane.INFORMATION_MESSAGE);
+						Container f = entry4.getRootPane().getParent();
+						jpanelroot.add(new ResultPanel(entry1.getText(),search.AuthorSearch(entry1.getText())));
+						card.last(jpanelroot);
 					} catch (Exception ex) {
 					}
 				}
@@ -224,7 +227,7 @@ public class Searchpanel extends JFrame {
 		this.setIconImage(i);
 		this.setContentPane(jpanelroot);
 		jpanelroot.add(jpanel,"panel");
-		ArrayList<String> test = new ArrayList<String>();
+		/*ArrayList<String> test = new ArrayList<String>();
 		test.add("1");
 		test.add("2");
 		test.add("2");
@@ -236,7 +239,7 @@ public class Searchpanel extends JFrame {
 		test.add("2");
 		test.add("2");
 		test.add("2");
-		jpanelroot.add(new ResultPanel("abda",  test));
+		jpanelroot.add(new ResultPanel("abda",  test));*/
 		
 		this.setResizable(false);
 		this.setVisible(true);

@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 public class Search {
 
 	private final String lyz;
+	private ArrayList<String> result = new ArrayList<>();
 
 	public Search() {
 		if (System.getProperty("os.name").startsWith("W")) {
@@ -159,10 +160,12 @@ public class Search {
 	public void NameSearch(String name, String type) throws Exception {
 		Pattern p = Pattern.compile(name);
 		for (String sd : SearchDish("gui/backtable/" + type, p)) {
-			System.out.println(sd);
+			result.add(sd);
 		}
 	}
-
+	public ArrayList<String> getresult() {
+		return this.result;
+	}
 	/**
 	 * 对txtFolder和otherFolder文件夹下的文件名字进行格式转换
 	 *
@@ -273,14 +276,8 @@ public class Search {
 	 * @param name 作者名
 	 * @throws java.lang.Exception
 	 */
-	public void AuthorSearch(String name) throws Exception {
+	public ArrayList<String> AuthorSearch(String name) throws Exception {
 		ArrayList<String> re = SearchForAuthor(name);
-		if (re.isEmpty()) {
-			System.out.println("无结果！");
-		} else {
-			for (String re1 : re) {
-				System.out.println(re1);
-			}
-		}
+		return re;
 	}
 }
