@@ -86,21 +86,22 @@ public class Searchpanel extends JFrame {
 					} catch (Exception ex) {
 					}
 				} else if (!"".equals(entry4.getText())) {
-						SearchContent result;
-						try {
-							result = new SearchContent(entry4.getText());
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-							return ;
-						}
-						Container f = entry4.getRootPane().getParent();
-						jpanelroot.add(new ResultPanel(entry4.getText(), result.getresult));
-						card.last(jpanelroot);
+					SearchContent result;
+					try {
+						result = new SearchContent(entry4.getText());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						return;
+					}
+					System.out.println(result.getresult);
+					Container f = entry4.getRootPane().getParent();
+					jpanelroot.add(new ResultPanel(entry4.getText(), result.getresult));
+					card.last(jpanelroot);
 				} else if (!"".equals(entry1.getText())) {
 					try {
 						Container f = entry4.getRootPane().getParent();
-						jpanelroot.add(new ResultPanel(entry1.getText(),search.AuthorSearch(entry1.getText())));
+						jpanelroot.add(new ResultPanel(entry1.getText(), search.AuthorSearch(entry1.getText())));
 						card.last(jpanelroot);
 					} catch (Exception ex) {
 					}
@@ -226,21 +227,21 @@ public class Searchpanel extends JFrame {
 		Image i = this.getToolkit().getImage("gui/source/digital_library.png");//logo
 		this.setIconImage(i);
 		this.setContentPane(jpanelroot);
-		jpanelroot.add(jpanel,"panel");
+		jpanelroot.add(jpanel, "panel");
 		/*ArrayList<String> test = new ArrayList<String>();
-		test.add("1");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		test.add("2");
-		jpanelroot.add(new ResultPanel("abda",  test));*/
-		
+		 test.add("1");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 test.add("2");
+		 jpanelroot.add(new ResultPanel("abda",  test));*/
+
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setBounds(200, 70, 950, 650);

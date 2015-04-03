@@ -71,6 +71,7 @@ public class ReverseSet {
 
 			//System.out.println(nw);
 		}
+		System.out.println(word);
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
 			/*对每个词求其hash值，存进对应的数组项

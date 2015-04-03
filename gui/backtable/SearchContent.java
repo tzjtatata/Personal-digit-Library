@@ -21,6 +21,7 @@ public class SearchContent {
 
 	public SearchContent(String query) throws FileNotFoundException, IOException {
 		this.hash = ReverseSet.HashString(query);
+		System.out.println(hash);
 		result = Retable(hash);
 	}
 

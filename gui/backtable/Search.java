@@ -28,10 +28,34 @@ public class Search {
 		} else {
 			lyz = "/";
 		}
+
+	}
+
+	/**
+	 * 调用该方法会清空txtFolder和otherFolder
+	 */
+	public void Init() {
 		File f1 = new File("gui/backtable/txtFolder/");
+		if (f1.exists()) {
+			DeleteDirectory(f1);
+		}
 		f1.mkdir();
 		File f2 = new File("gui/backtable/otherFolder/");
+		if (f2.exists()) {
+			DeleteDirectory(f2);
+		}
 		f2.mkdir();
+	}
+
+	/**
+	 * 删除文件夹下所有文件（仅适用于无子目录的文件夹）
+	 *
+	 * @param path 文件夹名
+	 */
+	public void DeleteDirectory(File path) {
+		for (File f : path.listFiles()) {
+			f.delete();
+		}
 	}
 
 	/**
@@ -86,7 +110,7 @@ public class Search {
 		// 创建文件
 		File file = new File("gui/backtable/"
 				+ type
-				+ f.getParent().replaceAll(lyz, "@@").replaceAll(":@@", "@@@")
+				+ f.getParent().replaceAll(lyz, "&&").replaceAll(":&&", "&&&")
 				+ ".pdl");  // pdl格式防止程序检索
 		//System.out.println(file.getAbsolutePath());
 		if (!file.exists()) {
@@ -96,7 +120,7 @@ public class Search {
 				new FileOutputStream(file, nf)))) {
 			bw.write(f.getName());
 			//if ("otherFolder/".equals(type)) {
-			//	bw.write("@@" + FileMatch(f));
+			//	bw.write("??" + FileMatch(f));
 			//}
 			bw.write("\n");
 			bw.close();
@@ -163,9 +187,11 @@ public class Search {
 			result.add(sd);
 		}
 	}
+
 	public ArrayList<String> getresult() {
 		return this.result;
 	}
+
 	/**
 	 * 对txtFolder和otherFolder文件夹下的文件名字进行格式转换
 	 *
@@ -173,7 +199,7 @@ public class Search {
 	 * @return 转换后的名字
 	 */
 	public String nameChange(String name) {
-		String temp = name.replaceAll("@@@", ":@@").replaceAll("@@", lyz);
+		String temp = name.replaceAll("&&&", ":&&").replaceAll("&&", lyz);
 		return temp.substring(0, temp.length() - 4);
 	}
 
@@ -247,7 +273,7 @@ public class Search {
 				while (br.ready()) {
 					String line = br.readLine();
 					if (!line.endsWith("null")) {  //空结尾说明文件不能从bookInfo中匹配
-						File book = new File("gui/backtable/bookInfo/" + line.split("@@")[1]);
+						File book = new File("gui/backtable/bookInfo/" + line.split("&&")[1]);
 						try (BufferedReader br1 = new BufferedReader(new FileReader(book))) {
 							br1.readLine();
 							String s = br1.readLine();  //第二行是作者
@@ -255,9 +281,9 @@ public class Search {
 								Matcher m = p.matcher(s);
 								if (m.find()) {
 									if (System.getProperty("os.name").startsWith("W")) {
-										al.add(nameChange(file.getName()) + "\\" + line.split("@@")[0]);
+										al.add(nameChange(file.getName()) + "\\" + line.split("&&")[0]);
 									} else {
-										al.add(nameChange(file.getName()) + "/" + line.split("@@")[0]);
+										al.add(nameChange(file.getName()) + "/" + line.split("&&")[0]);
 									}
 								}
 							}
