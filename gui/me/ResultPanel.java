@@ -21,7 +21,7 @@ public class ResultPanel extends JPanel{
 	private int pagelength = 8;
 	private int countpage = 0;
 	private JButton back = new JButton("返回搜索界面");
-	private static int startwidth = 200,startheight = 163,width = 200,height= 30;
+	private static int startwidth = 200,startheight = 163,width = 400,height= 30;
 	private int now = 100000;
 	private JLabel temLabel;
 	private int size;

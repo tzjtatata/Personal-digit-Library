@@ -21,8 +21,9 @@ public class SearchContent {
 
 	public SearchContent(String query) throws FileNotFoundException, IOException {
 		this.hash = ReverseSet.HashString(query);
-		System.out.println(hash);
+		//System.out.println(hash);
 		result = Retable(hash);
+                show(result);
 	}
 
 	public String Retable(BigInteger hashcode) throws IOException, FileNotFoundException {
@@ -37,7 +38,9 @@ public class SearchContent {
 				if ((mark = temp.indexOf(":")) != -1) {
 					//获取hash值
 					hash = new BigInteger(temp.substring(3, mark));
+                                        //System.out.println(hash+"***"+hashcode);
 					if (hash.equals(hashcode)) {
+                                                //System.out.println(temp.substring(mark + 1));
 						return temp.substring(mark + 1);
 					}
 				}
@@ -47,19 +50,19 @@ public class SearchContent {
 		return null;
 	}
 
-	public ArrayList<String> show(String result) {
+	public void show(String result) {
 		int i;
 		String[] str;
-		ArrayList<String> temp = new ArrayList<>();
+                getresult = new ArrayList<>();
 		if (result == null || result.length() == 0) {
-			temp.add("未查询到相关结果！");
+			getresult = null;
 		} else {
 			str = result.split(",");
 			for (i = 0; i < str.length; i++) {
-				temp.add(str[i]);
+				getresult.add(str[i]);
 			}
 		}
-		return temp;
+                System.out.println(getresult);
 	}
 	/*public static void main(String[] args) {
 	 // TODO Auto-generated method stub

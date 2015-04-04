@@ -62,25 +62,6 @@ public class ReverseSet {
 		printf();
 	}
 
-	public String EncodingDetect(String path) throws IOException {
-		int[] head = new int[4];
-		InputStream inputStream = new FileInputStream(path);
-		for (int i = 0; i < 4; i++) {
-
-			head[0] = inputStream.read();
-		}
-		inputStream.close();
-		String code = "GBK";
-		if (head[0] == 0xef && head[1] == 0xbb && head[2] == 0xbf) {
-			code = "UTF-8";
-		} else if (head[0] == 0xfe && head[1] == 0xff) {
-			code = "UTF-16";
-		} else if (head[0] == 0xff && head[1] == 0xfe && head[2] == 0x0 && head[3] == 0x0) {
-			code = "UTF-32";
-		}
-		return code;
-	}
-
 	public void Refile(File ffi) throws Exception {
 		long temp = 0;
 		int i;

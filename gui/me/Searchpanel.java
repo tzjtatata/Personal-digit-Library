@@ -93,8 +93,8 @@ public class Searchpanel extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						return;
-					}
-					System.out.println(result.getresult);
+                                        }
+                                        //System.out.println(result.getresult);
 					Container f = entry4.getRootPane().getParent();
 					jpanelroot.add(new ResultPanel(entry4.getText(), result.getresult));
 					card.last(jpanelroot);
