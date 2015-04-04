@@ -28,8 +28,8 @@ public class Main {
 			 search.SearchDish(list1.toString());
 			 }
 			 }*/
-			//search.SearchDish("/home/liyuanze/test/");
 			search.SearchDish("D:/新建文件夹/");
+			//search.SearchDish("/home/liyuanze/test/");
 			System.out.println(System.currentTimeMillis() - pre);
 
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fr))) {
