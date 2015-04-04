@@ -62,7 +62,7 @@ public class SearchContent {
 				getresult.add(str[i]);
 			}
 		}
-                System.out.println(getresult);
+                //System.out.println(getresult);
 	}
 	/*public static void main(String[] args) {
 	 // TODO Auto-generated method stub
