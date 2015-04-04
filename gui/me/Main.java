@@ -22,13 +22,13 @@ public class Main {
 			Search search = new Search();
 			//search.SearchDish("D:/测试/");
 			search.Init();
-			/*File[] list = File.listRoots();
-			 for (File list1 : list) {
-			 if (!list1.toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0)))) {
-			 search.SearchDish(list1.toString());
-			 }
-			 }*/
-			search.SearchDish("E:/github/test/");
+			File[] list = File.listRoots();
+			for (File list1 : list) {
+				if (!list1.toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0)))) {
+					search.SearchDish(list1.toString());
+				}
+			}
+			//search.SearchDish("E:/github/test/");
 			//search.SearchDish("/home/liyuanze/test/");
 			System.out.println(System.currentTimeMillis() - pre);
 
