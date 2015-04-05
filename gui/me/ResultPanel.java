@@ -27,7 +27,7 @@ public class ResultPanel extends JPanel {
 	private int countpage = 0;
 	private JButton back = new JButton("返回搜索界面");
 	private static int startwidth = 200, startheight = 163, width = 400, height = 30;
-	private int now = 100000;
+	private int now = 0;
 	private JLabel temLabel;
 	private int size;
 
@@ -38,6 +38,7 @@ public class ResultPanel extends JPanel {
 	}
 
 	public ResultPanel(String query, ArrayList<String> result) {
+		back.addMouseListener(new CursorListener());
 		int i;
 		JLHashMap = new HashMap<>();
 		this.setLayout(null);
@@ -84,6 +85,7 @@ public class ResultPanel extends JPanel {
 				if (i / pagelength >= countpage) {
 					temLabel = new JLabel();
 					labelPageJLabels.add(temLabel);
+					labelPageJLabels.get(countpage).addMouseListener(new CursorListener());
 					labelPageJLabels.get(countpage).setText("" + (countpage + 1));
 					labelPageJLabels.get(countpage).setFont(new java.awt.Font("微软雅黑", 1, 18));
 					labelPageJLabels.get(countpage).setBounds(startwidth + height * (countpage), startheight - height, height, height);
@@ -105,6 +107,7 @@ public class ResultPanel extends JPanel {
 			temp = pagelength * n + i;
 			if (labelListJLabels[temp] != null) {
 				labelListJLabels[temp].addMouseListener(new ShowAdapter());
+				labelListJLabels[temp].addMouseListener(new CursorListener());
 				labelListJLabels[temp].setBounds(startwidth, startheight + height * (i + 1), width, height);
 				labelListJLabels[temp].setVisible(true);
 				labelorderJLabels[i].setVisible(true);
@@ -147,4 +150,16 @@ public class ResultPanel extends JPanel {
 		}
 	}
 
+	class CursorListener extends MouseAdapter {
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
 }
