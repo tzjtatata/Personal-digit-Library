@@ -1,5 +1,6 @@
 package backtable;
 
+import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,23 +8,39 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import backtable.Analyze;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
+/*import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 import com.sun.webkit.ContextMenu.ShowContext;
 
-import backtable.ReverseSet;
+import backtable.ReverseSet;*/
 
 public class SearchContent {
 
 	private BigInteger hash;
-	private String result;
+	private String result = "";
 	public ArrayList<String> getresult;
+        private ArrayList<String> word = new ArrayList<String>();
 
 	public SearchContent(String query) throws FileNotFoundException, IOException {
-		this.hash = ReverseSet.HashString(query);
+            try {
+                Analyze.testCJK(query,word);
+            } catch (Exception ex) {
+                Logger.getLogger(SearchContent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int i =1,n = word.size();
+            String temp;
+            for (;i<n;i++) {
+		this.hash = ReverseSet.HashString(word.get(i));
 		//System.out.println(hash);
-		result = Retable(hash);
-                show(result);
+		temp = Retable(hash);
+                if (temp != null) {
+                    result += temp;
+                }
+            }
+            show(result);
 	}
 
 	public String Retable(BigInteger hashcode) throws IOException, FileNotFoundException {
@@ -53,13 +70,15 @@ public class SearchContent {
 	public void show(String result) {
 		int i;
 		String[] str;
+                int[] temp = new int[100];
                 getresult = new ArrayList<>();
 		if (result == null || result.length() == 0) {
 			getresult = null;
 		} else {
 			str = result.split(",");
 			for (i = 0; i < str.length; i++) {
-				getresult.add(str[i]);
+                            if (!getresult.contains(str[i]))
+                             getresult.add(str[i]);
 			}
 		}
                 //System.out.println(getresult);
