@@ -49,6 +49,7 @@ public class Searchpanel extends JFrame {
 	public Searchpanel() {
 		search = new Search();
 		jpanel = new JPanel() {
+			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
@@ -57,6 +58,7 @@ public class Searchpanel extends JFrame {
 		};
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				MainFrame inst = new MainFrame();
 				inst.setVisible(true);
@@ -69,8 +71,10 @@ public class Searchpanel extends JFrame {
 		jpanel.setOpaque(true);
 		this.setTitle("搜索");
 		bt1 = new JButton("设置");
+		bt1.addMouseListener(new CursorListener());
 		bt1.setFont(new java.awt.Font("Leto", 1, 12));
 		bt2 = new JButton("搜索");
+		bt2.addMouseListener(new CursorListener());
 		bt2.setFont(new java.awt.Font("Leto", 1, 12));
 		bt2.addActionListener(new ActionListener() {
 
@@ -93,8 +97,8 @@ public class Searchpanel extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						return;
-                                        }
-                                        //System.out.println(result.getresult);
+					}
+					//System.out.println(result.getresult);
 					Container f = entry4.getRootPane().getParent();
 					jpanelroot.add(new ResultPanel(entry4.getText(), result.getresult));
 					card.last(jpanelroot);
@@ -117,9 +121,13 @@ public class Searchpanel extends JFrame {
 		option4 = new JLabel("按关键字搜索");
 		option4.setFont(new java.awt.Font("微软雅黑", 1, 14));
 		entry1 = new JTextField(15);
+		entry1.addMouseListener(new EntryListener());
 		entry2 = new JTextField(15);
+		entry2.addMouseListener(new EntryListener());
 		entry3 = new JTextField(15);
+		entry3.addMouseListener(new EntryListener());
 		entry4 = new JTextField(15);
+		entry4.addMouseListener(new EntryListener());
 		point1 = new JLabel();
 		point2 = new JLabel();
 		point3 = new JLabel();
@@ -247,16 +255,34 @@ public class Searchpanel extends JFrame {
 		this.setBounds(200, 70, 950, 650);
 	}
 
+	public Searchpanel(GraphicsConfiguration gc) {
+		super(gc);
+	}
+
+	class EntryListener extends MouseAdapter {
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
+
 	class CursorListener extends MouseAdapter {
 
-		@SuppressWarnings("deprecation")
+		@Override
 		public void mouseEntered(MouseEvent e) {
-			setCursor(Cursor.HAND_CURSOR);
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 
 		@SuppressWarnings("deprecation")
+		@Override
 		public void mouseExited(MouseEvent e) {
-			setCursor(Cursor.DEFAULT_CURSOR);
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 

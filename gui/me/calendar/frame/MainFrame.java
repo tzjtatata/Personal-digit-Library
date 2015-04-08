@@ -58,7 +58,7 @@ public class MainFrame extends javax.swing.JFrame //建立一視窗物件
 	public JButton jb_help = new JButton(new ImageIcon("gui/source/设置.jpg"));
 	public JPanel jp = new JPanel();
 
-	 //主程式結束
+	//主程式結束
 	public MainFrame()//建立視窗開始
 	{
 
@@ -83,6 +83,9 @@ public class MainFrame extends javax.swing.JFrame //建立一視窗物件
 				dispose();
 			}
 		});
+		btn_clear.addMouseListener(new CursorListener());
+		btn_query.addMouseListener(new CursorListener());
+		btn_save.addMouseListener(new CursorListener());
 		jb_shelf.addMouseListener(new CursorListener());
 		jb_function.addMouseListener(new CursorListener());
 		jb_help.addMouseListener(new CursorListener());
@@ -92,14 +95,14 @@ public class MainFrame extends javax.swing.JFrame //建立一視窗物件
 
 	class CursorListener extends MouseAdapter {
 
-		@SuppressWarnings("deprecation")
+		@Override
 		public void mouseEntered(MouseEvent e) {
-			setCursor(Cursor.HAND_CURSOR);
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 
-		@SuppressWarnings("deprecation")
+		@Override
 		public void mouseExited(MouseEvent e) {
-			setCursor(Cursor.DEFAULT_CURSOR);
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 

@@ -121,10 +121,13 @@ public class SettingPanel extends JFrame {
 			}
 		};
 		bold = new JCheckBox("Bold");
+		bold.addMouseListener(new CursorListener());
 		bold.addActionListener(FenggeCheckbox_listener);
 		plain = new JCheckBox("Plain");
+		plain.addMouseListener(new CursorListener());
 		plain.addActionListener(FenggeCheckbox_listener);
 		italic = new JCheckBox("Italic");
+		italic.addMouseListener(new CursorListener());
 		italic.addActionListener(FenggeCheckbox_listener);
 
 		panel.add(plain);
@@ -164,10 +167,13 @@ public class SettingPanel extends JFrame {
 			}
 		};
 		font1 = new JCheckBox("Serif");
+		font1.addMouseListener(new CursorListener());
 		font1.addActionListener(ZitiCheckbox_listener);
 		font2 = new JCheckBox("微软雅黑");
+		font2.addMouseListener(new CursorListener());
 		font2.addActionListener(ZitiCheckbox_listener);
 		font3 = new JCheckBox("华文行楷");
+		font3.addMouseListener(new CursorListener());
 		font3.addActionListener(ZitiCheckbox_listener);
 
 		panel.add(font1);
@@ -186,6 +192,7 @@ public class SettingPanel extends JFrame {
 		};
 		for (int i = 1; i <= number_Gongxiang; i++) {
 			Gongxiang[i] = new JCheckBox(string_Gongxiang[i]);
+			Gongxiang[i].addMouseListener(new CursorListener());
 			Gongxiang[i].addActionListener(GongxiangCheckbox_listener);
 
 			panel.add(Gongxiang[i]);
@@ -193,4 +200,16 @@ public class SettingPanel extends JFrame {
 		}
 	}
 
+	class CursorListener extends MouseAdapter {
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
 }

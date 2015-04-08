@@ -20,7 +20,6 @@ public class Main {
 		BufferedReader br = new BufferedReader(new FileReader(fr));
 		if ("0".equals(br.readLine())) {
 			Search search = new Search();
-			//search.SearchDish("D:/测试/");
 			search.Init();
 			File[] list = File.listRoots();
 			for (File list1 : list) {
