@@ -1,6 +1,5 @@
 package backtable;
 
-import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,11 +30,13 @@ public class SearchContent {
                 Logger.getLogger(SearchContent.class.getName()).log(Level.SEVERE, null, ex);
             }
             int i =1,n = word.size();
+            //System.out.println(n);
             String temp;
-            for (;i<n;i++) {
-		this.hash = ReverseSet.HashString(word.get(i));
+            for (;i<=n;i++) {
+		this.hash = ReverseSet.HashString(word.get(i-1));
 		//System.out.println(hash);
 		temp = Retable(hash);
+                //System.out.println(hash);
                 if (temp != null) {
                     result += temp;
                 }

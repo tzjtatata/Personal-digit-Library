@@ -79,14 +79,14 @@ public class ReverseSet {
 		String filePath = ffi.getPath();
 		String fileEncode = EncodingDetect.getJavaEncode(filePath);
 		String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
-		//Analyze.testCJK(fileContent, word);
-		System.out.println(word);
+		Analyze.testCJK(fileContent, word);
+		//System.out.println(word);
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
 			/*对每个词求其hash值，存进对应的数组项
 			 * 并用链表存储其所在地址
 			 */
-			setpos(word.get(i), ffi.getPath());
+			setpos(word.get(i), filePath);
 		}
 	}
 
