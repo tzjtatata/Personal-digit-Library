@@ -124,6 +124,7 @@ public class ResultPanel extends JPanel {
 			if (temp < size) {
 				labelListJLabels[temp].setVisible(false);
 			}
+                        labelorderJLabels[i].setVisible(false);
 		}
 	}
 

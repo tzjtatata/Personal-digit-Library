@@ -380,7 +380,7 @@ class BytesEncodingDetect extends Encoding {
 		int hzstart = 0, hzend = 0;
 		int row, column;
 		rawtextlen = rawtext.length;
-		for (i = 0; i < rawtextlen; i++) {
+		for (i = 0; i < rawtextlen - 1; i++) {
 			if (rawtext[i] == '~') {
 				if (rawtext[i + 1] == '{') {
 					hzstart++;
@@ -704,9 +704,11 @@ class BytesEncodingDetect extends Encoding {
 		// int score = 0;
 		// int i, rawtextlen = 0;
 		// int goodbytes = 0, asciibytes = 0;
-		if (rawtext.length > 1 && ((byte) 0xFE == rawtext[0] && (byte) 0xFF == rawtext[1]) || // Big-endian
-				((byte) 0xFF == rawtext[0] && (byte) 0xFE == rawtext[1])) { // Little-endian
-			return 100;
+		if (rawtext.length > 1) {
+			if (rawtext.length > 1 && ((byte) 0xFE == rawtext[0] && (byte) 0xFF == rawtext[1]) || // Big-endian
+					((byte) 0xFF == rawtext[0] && (byte) 0xFE == rawtext[1])) { // Little-endian
+				return 100;
+			}
 		}
 		return 0;
 		/*

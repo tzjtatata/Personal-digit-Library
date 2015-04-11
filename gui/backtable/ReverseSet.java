@@ -37,6 +37,7 @@ public class ReverseSet {
 			if (!ls[i].isHidden()) {
 				//获取txtFolder目录下文件
 				//System.out.println(i + "/" + num);
+				//System.out.println(ls[i].getPath());
 				str = ls[i].getName();
 				Search zkf = new Search();
 				str = zkf.nameChange(str);
@@ -85,7 +86,7 @@ public class ReverseSet {
 			/*对每个词求其hash值，存进对应的数组项
 			 * 并用链表存储其所在地址
 			 */
-			setpos(word.get(i), ffi.getPath());
+			setpos(word.get(i), filePath);
 		}
 	}
 
