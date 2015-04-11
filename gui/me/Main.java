@@ -21,12 +21,13 @@ public class Main {
 		if ("0".equals(br.readLine())) {
 			Search search = new Search();
 			search.Init();
-			File[] list = File.listRoots();
-			for (File list1 : list) {
-				if (!list1.toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0)))) {
-					search.SearchDish(list1.toString());
-				}
-			}
+			/*File[] list = File.listRoots();
+			 for (File list1 : list) {
+			 if (!list1.toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0)))) {
+			 search.SearchDish(list1.toString());
+			 }
+			 }*/
+			search.SearchDish("D:/");
 			//search.SearchDish("E:/github/test/");
 			//search.SearchDish("/home/liyuanze/test/");
 			System.out.println(System.currentTimeMillis() - pre);

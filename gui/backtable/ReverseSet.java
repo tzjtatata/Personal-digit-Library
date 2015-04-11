@@ -37,6 +37,7 @@ public class ReverseSet {
 			if (!ls[i].isHidden()) {
 				//获取txtFolder目录下文件
 				//System.out.println(i + "/" + num);
+				//System.out.println(ls[i].getPath());
 				str = ls[i].getName();
 				Search zkf = new Search();
 				str = zkf.nameChange(str);
@@ -78,8 +79,8 @@ public class ReverseSet {
 		String filePath = ffi.getPath();
 		String fileEncode = EncodingDetect.getJavaEncode(filePath);
 		String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
-		Analyze.testCJK(fileContent, word);
-		//System.out.println(word);
+		//Analyze.testCJK(fileContent, word);
+		System.out.println(word);
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
 			/*对每个词求其hash值，存进对应的数组项
