@@ -25,7 +25,7 @@ public class ResultPanel extends JPanel {
 	private JLabel[] labelorderJLabels = new JLabel[20];
 	private int pagelength = 8;
 	private int countpage = 0;
-	private JButton back = new JButton("返回搜索界面");
+	private JButton back = new JButton(new ImageIcon("gui/source/return.png"));
 	private static int startwidth = 200, startheight = 163, width = 400, height = 30;
 	private int now = 0;
 	private JLabel temLabel;
@@ -39,12 +39,13 @@ public class ResultPanel extends JPanel {
 
 	public ResultPanel(String query, ArrayList<String> result) {
 		back.addMouseListener(new CursorListener());
+		back.setBorder(null);
 		int i;
 		JLHashMap = new HashMap<>();
 		this.setLayout(null);
 		this.setOpaque(true);
 		//back是按钮，负责返回搜索界面
-		back.setBounds(startwidth, startheight + 10 * height, height * 4, height);
+		back.setBounds(670, 134, 160, 28);
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -62,7 +63,8 @@ public class ResultPanel extends JPanel {
 			}
 			labelorderJLabels[i].setText("" + (i + 1));
 			labelorderJLabels[i].setBounds(startwidth - height * 2, startheight + height * (i + 1), width, height);
-			labelorderJLabels[i].setFont(new java.awt.Font("微软雅黑", 1, 18));
+			labelorderJLabels[i].setFont(new java.awt.Font("segoe", 1, 16));
+			labelorderJLabels[i].setForeground(new java.awt.Color(255,255,255));;
 			labelorderJLabels[i].setVisible(false);
 			this.add(labelorderJLabels[i]);
 		}
@@ -79,16 +81,16 @@ public class ResultPanel extends JPanel {
 				}
 				labelListJLabels[i].setText(result.get(i));
 				JLHashMap.put(labelListJLabels[i].hashCode(), labelListJLabels[i].getText());
-				labelListJLabels[i].setFont(new java.awt.Font("微软雅黑", 1, 18));
+				labelListJLabels[i].setFont(new java.awt.Font("微软雅黑", 0, 14));
 				this.add(labelListJLabels[i]);
 				//判定页数，并设定表现页数的标签
 				if (i / pagelength >= countpage) {
 					temLabel = new JLabel();
 					labelPageJLabels.add(temLabel);
 					labelPageJLabels.get(countpage).addMouseListener(new CursorListener());
-					labelPageJLabels.get(countpage).setText("" + (countpage + 1));
-					labelPageJLabels.get(countpage).setFont(new java.awt.Font("微软雅黑", 1, 18));
-					labelPageJLabels.get(countpage).setBounds(startwidth + height * (countpage), startheight - height, height, height);
+					labelPageJLabels.get(countpage).setText("PAGE " + (countpage + 1));
+					labelPageJLabels.get(countpage).setFont(new java.awt.Font("微软雅黑", 0, 14));
+					labelPageJLabels.get(countpage).setBounds(startwidth + (height+50) * (countpage), startheight - height, height+50, height);
 					labelPageJLabels.get(countpage).addMouseListener(new ChangePage());
 					this.add(labelPageJLabels.get(countpage));
 					countpage++;

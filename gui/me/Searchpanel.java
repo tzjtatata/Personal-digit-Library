@@ -70,12 +70,12 @@ public class Searchpanel extends JFrame {
 		jpanel.setLayout(null);
 		jpanel.setOpaque(true);
 		this.setTitle("搜索");
-		bt1 = new JButton("设置");
+		bt1 = new JButton(new ImageIcon("gui/source/设置.jpg"));
+		bt1.setBorder(null);
 		bt1.addMouseListener(new CursorListener());
-		bt1.setFont(new java.awt.Font("Leto", 1, 12));
-		bt2 = new JButton("搜索");
+		bt2 = new JButton(new ImageIcon("gui/source/搜索.jpg"));
 		bt2.addMouseListener(new CursorListener());
-		bt2.setFont(new java.awt.Font("Leto", 1, 12));
+                bt2.setBorder(null);
 		bt2.addActionListener(new ActionListener() {
 
 			@Override
@@ -113,13 +113,17 @@ public class Searchpanel extends JFrame {
 			}
 		});
 		option1 = new JLabel("按作者搜索");
-		option1.setFont(new java.awt.Font("微软雅黑", 1, 14));
+		option1.setFont(new java.awt.Font("微软雅黑", 1, 18));
+		option1.setForeground(new Color(39,158,218));
 		option2 = new JLabel("按类型搜索");
-		option2.setFont(new java.awt.Font("微软雅黑", 1, 14));
+		option2.setFont(new java.awt.Font("微软雅黑", 1, 18));
+		option2.setForeground(new Color(39,158,218));
 		option3 = new JLabel("按文件名搜索");
-		option3.setFont(new java.awt.Font("微软雅黑", 1, 14));
+		option3.setFont(new java.awt.Font("微软雅黑", 1, 18));
+		option3.setForeground(new Color(39,158,218));
 		option4 = new JLabel("按关键字搜索");
-		option4.setFont(new java.awt.Font("微软雅黑", 1, 14));
+		option4.setFont(new java.awt.Font("微软雅黑", 1, 18));
+		option4.setForeground(new Color(39,158,218));
 		entry1 = new JTextField(15);
 		entry1.addMouseListener(new EntryListener());
 		entry2 = new JTextField(15);
@@ -184,16 +188,16 @@ public class Searchpanel extends JFrame {
 
 		point1.setBounds(160, 180, 5, 5);
 		point1.setOpaque(true);
-		point1.setBackground(Color.gray);
+		point1.setBackground(new Color(39,158,218));
 		point2.setBounds(160, 230, 5, 5);
 		point2.setOpaque(true);
-		point2.setBackground(Color.gray);
+		point2.setBackground(new Color(39,158,218));
 		point3.setBounds(160, 280, 5, 5);
 		point3.setOpaque(true);
-		point3.setBackground(Color.gray);
+		point3.setBackground(new Color(39,158,218));
 		point4.setBounds(160, 330, 5, 5);
 		point4.setOpaque(true);
-		point4.setBackground(Color.gray);
+		point4.setBackground(new Color(39,158,218));
 
 		backg1.setBounds(150, 170, 30, 30);
 		backg1.setOpaque(true);
@@ -210,23 +214,23 @@ public class Searchpanel extends JFrame {
 
 		line1.setBounds(190, 165, 2, 190);
 		line1.setOpaque(true);
-		line1.setBackground(Color.gray);
+		line1.setBackground(new Color(39,158,218));
 
 		hint.setBounds(103, 480, 744, 40);
 		hint.setOpaque(true);
 		hint.setBackground(new Color(215, 217, 218));
 		hint.setHorizontalAlignment(SwingConstants.CENTER);
 
-		bt1.setBounds(270, 373, 60, 20);
-		bt2.setBounds(350, 373, 60, 20);
+		bt1.setBounds(240, 393, 50, 22);
+		bt2.setBounds(380, 393, 50, 22);
 		option1.setBounds(220, 173, 200, 20);
 		option2.setBounds(220, 223, 200, 20);
 		option3.setBounds(220, 273, 200, 20);
 		option4.setBounds(220, 323, 200, 20);
-		entry1.setBounds(320, 173, 200, 20);
-		entry2.setBounds(320, 223, 200, 20);
-		entry3.setBounds(320, 273, 200, 20);
-		entry4.setBounds(320, 323, 200, 20);
+		entry1.setBounds(350, 173, 200, 20);
+		entry2.setBounds(350, 223, 200, 20);
+		entry3.setBounds(350, 273, 200, 20);
+		entry4.setBounds(350, 323, 200, 20);
 		if (dts.getContent() == null) {
 			hint.setText("当前日期暂无读书计划");
 		} else {
