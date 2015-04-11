@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="gui"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.analysis.source_2.9.1.v201101211721.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.analysis_2.9.1.v201101211721.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.core_2.9.1.v201101211721.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/lucene-2.9.1/org.apache.lucene.highlighter_2.9.1.v20100421-0704.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/IKAnalyzer1.4.jar"/>
-	<classpathentry kind="lib" path="/home/liyuanze/github/Personal-digit-Library/commons-io-2.4.jar"/>
+	<classpathentry kind="src" path="gui"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Documents/GitHub/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Documents/GitHub/IKAnalyzer1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Documents/GitHub/org.apache.lucene.analysis.source_2.9.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Documents/GitHub/org.apache.lucene.analysis_2.9.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Documents/GitHub/org.apache.lucene.core_2.9.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dell/Documents/GitHub/org.apache.lucene.highlighter_2.9.1.v20100421-0704.jar"/>
 	<classpathentry kind="output" path="gui"/>
 </classpath>
