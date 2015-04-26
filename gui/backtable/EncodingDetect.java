@@ -83,7 +83,7 @@ class BytesEncodingDetect extends Encoding {
 		initialize_frequencies();
 	}
 
-	public static void main(String argc[]) {
+	/*public static void main(String argc[]) {
 		BytesEncodingDetect sinodetector;
 		int result = OTHER;
 		int i;
@@ -103,7 +103,7 @@ class BytesEncodingDetect extends Encoding {
 			}
 			System.out.println(nicename[result]);
 		}
-	}
+	}*/
 
 	/**
 	 * Function : detectEncoding Aruguments: URL Returns : One of the encodings
