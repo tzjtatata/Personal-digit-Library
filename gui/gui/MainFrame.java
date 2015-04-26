@@ -17,5 +17,13 @@ public class MainFrame extends JFrame{
     public MainFrame(){
 		this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
         this.setContentPane(mainJPanel);  //放置
+        this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点
+        this.setBounds(200, 50, 950, 650);
+        this.setResizable(false);  //大小不可变
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new MainFrame();
     }
 }
