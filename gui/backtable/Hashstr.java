@@ -2,20 +2,9 @@ package backtable;
 import java.math.*;
 
 public class Hashstr {
-	static int round = 0x500;
-	public List nHashA = new List();
-	public int bExists;
-	public Hashstr() {
-		this.bExists = 0;
-	}
-	public Hashstr(BigInteger hashString,String file) {
-		this.bExists = 1; 
-		nHashA.insert(hashString,file);
-	}
-	public  void addhash(BigInteger hashString,String file) {
-		nHashA.insert(hashString,file);
-	}
-	public String toString() {
-		return nHashA.toString();
-	}
+    String Filepath;
+    int next;
+    public String toString(){
+        return Filepath+","+next+"\n";
+    }
 }

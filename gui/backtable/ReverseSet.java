@@ -4,6 +4,8 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
+import backtable.Node;
+import backtable.Hashstr;
 
 public class ReverseSet {
 
@@ -12,18 +14,17 @@ public class ReverseSet {
 	protected File[] ls = ft.listFiles();
 	protected String str;
 	protected File temp;
-	static int round = 0x500;
-	int num = 0;
-	int i;
-	public long[] cryptTable = new long[round];
-	Hashstr[] lpTable = new Hashstr[round];
-	private String lyz;
+	protected int num = 0,i;
+        protected int count = 0;
+        protected ArrayList<Node> List = new ArrayList();
+        protected ArrayList<Hashstr> data = new ArrayList();
+	private String len;
 
 	public void change() {
 		if (System.getProperty("os.name").startsWith("W")) {
-			lyz = "\\\\";
+			len = "\\\\";
 		} else {
-			lyz = "/";
+			len = "/";
 		}
 	}
 
@@ -31,9 +32,10 @@ public class ReverseSet {
 		//prepareCryptTable();
 		//对目录下每个txt读取，获取子文件目录
 		//读取txt文件内容
+            long startTime=System.currentTimeMillis();
 		change();
 		num = ls.length;
-		for (i = 0; i < ls.length; i++) {
+		for (i = 0; i < num; i++) {
 			if (!ls[i].isHidden()) {
 				//获取txtFolder目录下文件
 				//System.out.println(i + "/" + num);
@@ -47,11 +49,10 @@ public class ReverseSet {
 				String str2 = br.readLine();
 				while (str2 != null) {
 					try {
-						//String codeString = EncodingDetect(str + lyz + str2);
+						//String codeString = EncodingDetect(str + len + str2);
 						//System.out.println(codeString);
-						Refile(new File(str + lyz + str2));
+						Refile(new File(str + len + str2));
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					str2 = br.readLine();
@@ -61,6 +62,8 @@ public class ReverseSet {
 		//Refile(fi);
 		//最后将hash数组输出到倒排索引表中
 		printf();
+                long endTime=System.currentTimeMillis();
+                System.out.println("程序运行时间： "+(endTime-startTime)/1000.0 +"s");
 	}
 
 	public void Refile(File ffi) throws Exception {
@@ -72,7 +75,7 @@ public class ReverseSet {
 		 String nw;
 		 while ((nw = br.readLine()) != null) {
 		 //分词
-		 Analyze.testCJK(nw, word);
+		 Analene.testCJK(nw, word);
 
 		 //System.out.println(nw);
 		 }*/
@@ -83,41 +86,11 @@ public class ReverseSet {
 		//System.out.println(word);
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
-			/*对每个词求其hash值，存进对应的数组项
-			 * 并用链表存储其所在地址
-			 */
-			setpos(word.get(i), filePath);
+                        //System.out.println("\r"+i+"/"+word.size());
+			setpos(word.get(i), filePath,count);
+                        count++;
 		}
 	}
-
-	public void prepareCryptTable() {
-		long seed = 0x001000001L, index1 = 0, index2 = 0;
-		int i;
-		for (index1 = 0; index1 < 0x100; index1++) {
-			for (index2 = index1, i = 0; i < 5; i++, index2 += 0x100) {
-				long temp1, temp2;
-				seed = (seed * 125 + 3) % 0x2AAAABL;
-				temp1 = (seed & 0xFFFF) << 0x10;
-				seed = (seed * 125 + 3) % 0x2AAAABL;
-				temp2 = (seed & 0xFFFF);
-				//System.out.println(index2);
-				cryptTable[(int) index2] = (temp1 | temp2);
-			}
-		}
-	}
-	/*public long HashString(String key) {
-	 long seed1 = 0x7FED7FEDL;
-	 long seed2 = 0xEEEEEEEEL;
-	 //System.out.println(seed1 + "," +seed2);
-	 int ch;
-	 int len = key.length(),i;
-	 for (i = 0;i<len;i++){
-	 ch = key.charAt(i);
-	 seed1 = cryptTable[(1<<8) + ch] ^ (seed1 + seed2);
-	 seed2 = ch + seed1 + seed2 + (seed2<<5) + 3;
-	 }
-	 return seed1;
-	 }*/
 
 	public static BigInteger HashString(String key) {
 		int ch;
@@ -131,36 +104,82 @@ public class ReverseSet {
 	}
 
 	public void printf() throws IOException {
-		int i;
-		File fi = new File("gui/backtable/daopai.pdl");
-		fi.createNewFile();
-		FileWriter fw = new FileWriter(fi);
-		for (i = 0; i < round; i++) {
-			if (lpTable[i] != null) {
-				//System.out.println("running");
-				fw.write(lpTable[i].toString());
-			}
-		}
-		fw.close();
+		int i,length;
+		File f1 = new File("gui/backtable/dic.pdl");
+		f1.createNewFile();
+		FileWriter fw1 = new FileWriter(f1);
+                File f2 = new File("gui/backtable/data.pdl");
+		f2.createNewFile();
+		FileWriter fw2 = new FileWriter(f2);
+                for (i = 0;i<count;i++)
+                    fw2.write(data.get(i).toString());
+                length = List.size();
+                for (i = 0;i<length;i++)
+                    fw1.write(List.get(i).toString());
+		fw1.close();
+                fw2.close();
 	}
 
-	public void setpos(String lpString, String file) {
-		int temp;
-		BigInteger nHash = HashString(lpString);
-		//System.out.println(nHash);
-		//System.out.println(lpString + " / " + nHash.toString());
-		temp = nHash.mod(BigInteger.valueOf(round)).intValue();
-		//System.out.println(lpString +  ", *** " +nHash);
-		if (lpTable[temp] == null) {
-			lpTable[temp] = new Hashstr(nHash, file);
-			//System.out.println(lpString +  ",  " +nHash);
-		} else {
-			lpTable[temp].addhash(nHash, file);
-			//System.out.println("!" + lpString);
-		}
+        protected class result {
+            int position;
+            boolean finded;
+            public result(){
+                
+            }
+        }
+	public void setpos(String lpString, String file,int i) {
+		result pos;
+                Node aNode = new Node();
+                Hashstr adata = new Hashstr();
+		BigInteger HashValue = HashString(lpString);
+                pos =find(HashValue);
+                //System.out.println(lpString + " pass the find function.");
+                //System.out.println(pos.position);
+                adata.Filepath = file;
+                adata.next = -1;
+                data.add(adata);
+		if (pos.finded == true) {
+                    Node temp = List.get(pos.position);
+                    data.get(temp.lastPOS).next = i;
+                    temp.lastPOS = i;
+                }
+                else {
+                    aNode.value = HashValue;
+                    aNode.lastPOS = i;
+                    List.add(pos.position, aNode);
+                }
 	}
-
-	/*public static void main(String[] args) throws IOException {
+        public result find(BigInteger Hashint) {
+            result a = new result();
+            int length = List.size(),temp;
+            //System.out.println("List length is "+length);
+            if (length != 0){
+                int head = 0,tail = length-1,mid = (head+tail)/2;
+                while (head != tail){
+                    //System.out.println(head + " " + tail);
+                    temp = Hashint.compareTo(List.get(mid).value);
+                    if (temp==0) {
+                        a.position = mid;
+                        a.finded = true;
+                        return a;
+                    }
+                    else if (temp<0){
+                        head = mid+1;
+                    }
+                    else tail = mid;
+                    mid = (head+tail)/2;
+                }
+                a.finded = false;
+                a.position = head;
+                return a;
+            }
+            else {
+                a.finded = false;
+                a.position = 0;
+                return a;
+            }
+        }
+	public static void main(String[] args) throws IOException {
 	 new ReverseSet();
-	 }*/
+	 }
 }

@@ -14,9 +14,10 @@ import java.awt.event.*;
  */
 public class Search extends JPanel{
     
-    
-    
     public Search() {
+        
+    }
+    public static void main(String args[]) {
         
     }
 }
