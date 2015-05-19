@@ -1,6 +1,8 @@
 package backtable;
 
 import java.io.*;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
@@ -15,6 +17,7 @@ public class ReverseSet {
 	protected String str;
 	protected File temp;
 	protected int num = 0,i;
+        protected int Count = 100*1024*1024;
         protected int count = 0;
         protected ArrayList<Node> List = new ArrayList();
         protected ArrayList<Hashstr> data = new ArrayList();
@@ -38,7 +41,7 @@ public class ReverseSet {
 		for (i = 0; i < num; i++) {
 			if (!ls[i].isHidden()) {
 				//获取txtFolder目录下文件
-				//System.out.println(i + "/" + num);
+				System.out.println(i + "/" + num);
 				//System.out.println(ls[i].getPath());
 				str = ls[i].getName();
 				Search zkf = new Search();
@@ -105,21 +108,17 @@ public class ReverseSet {
 
 	public void printf() throws IOException {
 		int i,length;
-		File f1 = new File("gui/backtable/dic.pdl");
-		f1.createNewFile();
-		FileWriter fw1 = new FileWriter(f1);
-                File f2 = new File("gui/backtable/data.pdl");
-		f2.createNewFile();
-		FileWriter fw2 = new FileWriter(f2);
-                for (i = 0;i<count;i++)
-                    fw2.write(data.get(i).toString());
+		ObjectOutputStream f1 = new ObjectOutputStream(new FileOutputStream("gui/backtable/dic.pdl"));
+                ObjectOutputStream f2 = new ObjectOutputStream(new FileOutputStream("gui/backtable/data.pdl"));
+                for (i = 0;i<count;i++) {
+                    f1.writeObject(data.get(i));
+                }
                 length = List.size();
                 for (i = 0;i<length;i++)
-                    fw1.write(List.get(i).toString());
-		fw1.close();
-                fw2.close();
+                    f2.writeObject(List.get(i));
+		f1.close();
+                f2.close();
 	}
-
         protected class result {
             int position;
             boolean finded;
@@ -146,6 +145,7 @@ public class ReverseSet {
                 else {
                     aNode.value = HashValue;
                     aNode.lastPOS = i;
+                    aNode.firstPOS = i;
                     List.add(pos.position, aNode);
                 }
 	}
