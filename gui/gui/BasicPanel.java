@@ -14,16 +14,19 @@ import javax.swing.JPanel;
  *
  * @author lyz
  */
-public class BasicPanel extends JPanel{
+public class BasicPanel extends JPanel {
+
     public BasicPanel(MainFrame index) {
-        
+        index.addToIndex(this, index);
     }
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
         img.paintIcon(this, g, 0, 0);
     }
+
     protected void back() {
-        
+
     }
 }

@@ -6,7 +6,6 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import gui.CalenderJPanel;
 
 /**
  * JFrame,各个JPanel的容器
@@ -46,7 +45,30 @@ public class MainFrame extends JFrame {
                 img.paintIcon(this, g, 0, 0);
             }
         };
+        index.setLayout(null);
         search = new Search(this);
+        JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+        sousuo.setBounds(263, 348, 54, 28);
+        sousuo.setBorder(null);
+        sousuo.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(changeJPanel, "search");
+            }
+        });
+        JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
+        sousuo2.setBounds(140, 215, 56, 28);
+        sousuo2.setBorder(null);
+        sousuo2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(changeJPanel, "shelf");
+            }
+        });
+        index.add(sousuo);
+        index.add(sousuo2);
         //测试代码段结束
 
         mainJPanel.setLayout(null);
@@ -61,17 +83,17 @@ public class MainFrame extends JFrame {
         };
         cl.addLayoutComponent(shelf, "shelf");
         cl.addLayoutComponent(index, "index");
-        cl.addLayoutComponent(search,"search");
+        cl.addLayoutComponent(search, "search");
         changeJPanel.add(shelf);
         changeJPanel.add(index);
         changeJPanel.add(search);
+        cl.show(changeJPanel, "index");
 
         changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
-        
-        
+
         this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
         this.setContentPane(mainJPanel);  //放置
         this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点
@@ -93,7 +115,7 @@ public class MainFrame extends JFrame {
      */
     public void addToIndex(JPanel self, MainFrame index) {
         JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
-        returnButton.setBounds(750, 80, 30, 30);
+        returnButton.setBounds(820, 80, 30, 30);
         returnButton.addActionListener(new ActionListener() {
 
             @Override
