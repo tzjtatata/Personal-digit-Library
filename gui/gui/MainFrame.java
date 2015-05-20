@@ -15,17 +15,38 @@ import gui.CalenderJPanel;
  */
 public class MainFrame extends JFrame {
 
-    private JPanel settingPanel;
-    private JPanel searchPanel;
-    private JPanel bookshelfPanel;
-    private JPanel indexPanel;
+    //private JPanel settingPanel;
+    //private JPanel searchPanel;
+    //private JPanel bookshelfPanel;
+    //private JPanel indexPanel;
     private CalenderJPanel calenderHint;
     private String[] fontStyle;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
     CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
     JPanel mainJPanel = new JPanel();  //主JPanel
+    ShelfTest shelf;  //测试
+    IndexTest index;  //测试
 
     public MainFrame() {
+        //测试代码段
+        shelf = new ShelfTest(this) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon img = new ImageIcon("gui/source/书架背景.png");
+                img.paintIcon(this, g, 0, 0);
+            }
+        };
+        index = new IndexTest() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon img = new ImageIcon("gui/source/主页_背景.png");
+                img.paintIcon(this, g, 0, 0);
+            }
+        };
+        //测试代码段结束
+
         mainJPanel.setLayout(null);
         changeJPanel.setLayout(cl);
         calenderHint = new CalenderJPanel() {
@@ -36,7 +57,12 @@ public class MainFrame extends JFrame {
                 img.paintIcon(this, g, 0, 0);
             }
         };
+        cl.addLayoutComponent(shelf, "shelf");
+        cl.addLayoutComponent(index, "index");
+        changeJPanel.add(shelf);
+        changeJPanel.add(index);
 
+        changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
@@ -54,4 +80,22 @@ public class MainFrame extends JFrame {
         new MainFrame();
     }
 
+    /**
+     * 将JPanel组件添加到卡片布局中，并为其加上返回主页的按钮
+     *
+     * @param self 需要添加到卡片布局中的JPanel
+     * @param index 需要返回的主页
+     */
+    public void addToIndex(JPanel self, MainFrame index) {
+        JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
+        returnButton.setBounds(750, 80, 30, 30);
+        returnButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(changeJPanel, "index");
+            }
+        });
+        self.add(returnButton);
+    }
 }
