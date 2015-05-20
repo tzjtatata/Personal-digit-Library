@@ -38,9 +38,12 @@ public class MainFrame extends JFrame {
         };
 
         mainJPanel.add(changeJPanel);
+        changeJPanel.setBounds(0, 0, 950, 522);
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
-
+        changeJPanel.add(new Search(this),"search");
+        cl.show(changeJPanel,"search");
+        
         this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
         this.setContentPane(mainJPanel);  //放置
         this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点
