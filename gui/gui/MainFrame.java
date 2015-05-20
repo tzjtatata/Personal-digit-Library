@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
     JPanel mainJPanel = new JPanel();  //主JPanel
     ShelfTest shelf;  //测试
     IndexTest index;  //测试
+    Search search; //测试
 
     public MainFrame() {
         //测试代码段
@@ -45,6 +46,7 @@ public class MainFrame extends JFrame {
                 img.paintIcon(this, g, 0, 0);
             }
         };
+        search = new Search(this);
         //测试代码段结束
 
         mainJPanel.setLayout(null);
@@ -59,16 +61,16 @@ public class MainFrame extends JFrame {
         };
         cl.addLayoutComponent(shelf, "shelf");
         cl.addLayoutComponent(index, "index");
+        cl.addLayoutComponent(search,"search");
         changeJPanel.add(shelf);
         changeJPanel.add(index);
+        changeJPanel.add(search);
 
         changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);
-        changeJPanel.setBounds(0, 0, 950, 522);
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
-        changeJPanel.add(new Search(this),"search");
-        cl.show(changeJPanel,"search");
+        
         
         this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
         this.setContentPane(mainJPanel);  //放置
