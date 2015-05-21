@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
     //private JPanel searchPanel;
     //private JPanel bookshelfPanel;
     //private JPanel indexPanel;
-    private CalenderJPanel calenderHint;
+    private final CalenderJPanel calenderHint;
     private String[] fontStyle;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
     CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
@@ -50,12 +50,8 @@ public class MainFrame extends JFrame {
         JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));
         sousuo.setBounds(263, 348, 54, 28);
         sousuo.setBorder(null);
-        sousuo.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cl.show(changeJPanel, "search");
-            }
+        sousuo.addActionListener((ActionEvent e) -> {
+            cl.show(changeJPanel, "search");
         });
         JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
         sousuo2.setBounds(140, 215, 56, 28);
@@ -115,13 +111,9 @@ public class MainFrame extends JFrame {
      */
     public void addToIndex(JPanel self, MainFrame index) {
         JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
-        returnButton.setBounds(820, 80, 30, 30);
-        returnButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cl.show(changeJPanel, "index");
-            }
+        returnButton.setBounds(820, 80, 27, 27);
+        returnButton.addActionListener((ActionEvent e) -> {
+            cl.show(changeJPanel, "index");
         });
         self.add(returnButton);
     }
