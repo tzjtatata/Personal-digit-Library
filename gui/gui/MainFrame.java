@@ -56,12 +56,8 @@ public class MainFrame extends JFrame {
         JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
         sousuo2.setBounds(140, 215, 56, 28);
         sousuo2.setBorder(null);
-        sousuo2.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cl.show(changeJPanel, "shelf");
-            }
+        sousuo2.addActionListener((ActionEvent e) -> {
+            cl.show(changeJPanel, "shelf");
         });
         index.add(sousuo);
         index.add(sousuo2);
