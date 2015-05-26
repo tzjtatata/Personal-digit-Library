@@ -18,6 +18,8 @@ public class MainFrame extends JFrame {
     //private JPanel searchPanel;
     //private JPanel bookshelfPanel;
     //private JPanel indexPanel;
+    public static Font fontForBookShelf = new Font("微软雅黑", 1, 18);
+    public static Font fontForGlobal = new Font("微软雅黑", 1, 18);
     private final CalenderJPanel calenderHint;
     private String[] fontStyle;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
