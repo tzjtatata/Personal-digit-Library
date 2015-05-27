@@ -15,11 +15,9 @@ import java.awt.event.*;
 public class MainFrame extends JFrame {
 
     //private JPanel settingPanel;
-    //private JPanel searchPanel;
+    private final Search searchPanel;
     //private JPanel bookshelfPanel;
     //private JPanel indexPanel;
-    public static Font fontForBookShelf = new Font("微软雅黑", 1, 18);
-    public static Font fontForGlobal = new Font("微软雅黑", 1, 18);
     private final CalenderJPanel calenderHint;
     private String[] fontStyle;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
@@ -27,7 +25,6 @@ public class MainFrame extends JFrame {
     JPanel mainJPanel = new JPanel();  //主JPanel
     ShelfTest shelf;  //测试
     IndexTest index;  //测试
-    Search search; //测试
 
     public MainFrame() {
         //测试代码段
@@ -48,7 +45,6 @@ public class MainFrame extends JFrame {
             }
         };
         index.setLayout(null);
-        search = new Search(this);
         JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));
         sousuo.setBounds(263, 348, 54, 28);
         sousuo.setBorder(null);
@@ -75,12 +71,13 @@ public class MainFrame extends JFrame {
                 img.paintIcon(this, g, 0, 0);
             }
         };
+        searchPanel = new Search(this);
         cl.addLayoutComponent(shelf, "shelf");
         cl.addLayoutComponent(index, "index");
-        cl.addLayoutComponent(search, "search");
+        cl.addLayoutComponent(searchPanel, "search");
         changeJPanel.add(shelf);
         changeJPanel.add(index);
-        changeJPanel.add(search);
+        changeJPanel.add(searchPanel);
         cl.show(changeJPanel, "index");
 
         changeJPanel.setBounds(0, 0, 950, 522);
