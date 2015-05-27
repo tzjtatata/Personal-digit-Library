@@ -65,6 +65,7 @@ public class MainFrame extends JFrame {
         changeJPanel.add(shelf);
         changeJPanel.add(index);
         changeJPanel.add(search);
+        
 
         changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);
@@ -98,7 +99,7 @@ public class MainFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                cl.show(changeJPanel, "index");
+                cl.show(changeJPanel, "search");
             }
         });
         self.add(returnButton);

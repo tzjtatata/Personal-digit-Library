@@ -25,9 +25,9 @@ public class Search extends BasicPanel{
     private JButton bt1, bt2;
     
     public Search(MainFrame index) {
-        super(index);
+        super();
         this.setLayout(null);
-        index.setTitle("搜索");
+        //index.setTitle("搜索");
         bt1 = new JButton(new ImageIcon("gui/source/设置.jpg"));
         bt1.setBorder(null);
         bt1.addMouseListener(new CursorListener());
@@ -139,7 +139,6 @@ public class Search extends BasicPanel{
         entry2.setBounds(350, 223, 200, 20);
         entry3.setBounds(350, 273, 200, 20);
         entry4.setBounds(350, 323, 200, 20);
-        this.setVisible(true);
     }
     class EntryListener extends MouseAdapter {
         @Override

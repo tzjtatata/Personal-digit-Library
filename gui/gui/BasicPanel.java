@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @author lyz
  */
 public class BasicPanel extends JPanel{
-    public BasicPanel(MainFrame index) {
+    public BasicPanel() {
         
     }
     protected void paintComponent(Graphics g) {
