@@ -6,7 +6,6 @@
 package gui;
 
 import java.awt.Graphics;
-import javax.smartcardio.CardTerminals;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
