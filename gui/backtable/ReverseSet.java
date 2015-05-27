@@ -107,17 +107,39 @@ public class ReverseSet {
 	}
 
 	public void printf() throws IOException {
-		int i,length;
+		int i,length,ptr;
+                /*Node NODE;
+                Hashstr DATA;
+                length = List.size();
+                try {
+                    for (i = 0;i<length;i++) {
+                        NODE = List.get(i);
+                        File f = new File("gui/backtable/workInfo/"+NODE.value+".pdl");
+                        if (!f.exists()) f.createNewFile();
+                        ptr = NODE.firstPOS;
+                        ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(f));
+                        DATA = data.get(ptr);
+                        while (DATA.next != -1) {
+                            OOS.writeObject(DATA);
+                            ptr = DATA.next;
+                            DATA = data.get(ptr);
+                        }
+                        OOS.writeObject(DATA);
+                        OOS.close();
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+                /*
 		ObjectOutputStream f1 = new ObjectOutputStream(new FileOutputStream("gui/backtable/dic.pdl"));
                 ObjectOutputStream f2 = new ObjectOutputStream(new FileOutputStream("gui/backtable/data.pdl"));
                 for (i = 0;i<count;i++) {
                     f1.writeObject(data.get(i));
                 }
-                length = List.size();
                 for (i = 0;i<length;i++)
                     f2.writeObject(List.get(i));
 		f1.close();
-                f2.close();
+                f2.close();*/
 	}
         protected class result {
             int position;
