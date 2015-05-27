@@ -6,7 +6,6 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import gui.CalenderJPanel;
 
 /**
  * JFrame,各个JPanel的容器
@@ -16,17 +15,16 @@ import gui.CalenderJPanel;
 public class MainFrame extends JFrame {
 
     //private JPanel settingPanel;
-    //private JPanel searchPanel;
+    private final Search searchPanel;
     //private JPanel bookshelfPanel;
     //private JPanel indexPanel;
-    private CalenderJPanel calenderHint;
+    private final CalenderJPanel calenderHint;
     private String[] fontStyle;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
     CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
     JPanel mainJPanel = new JPanel();  //主JPanel
     ShelfTest shelf;  //测试
     IndexTest index;  //测试
-    Search search; //测试
 
     public MainFrame() {
         //测试代码段
@@ -46,7 +44,21 @@ public class MainFrame extends JFrame {
                 img.paintIcon(this, g, 0, 0);
             }
         };
-        search = new Search(this);
+        index.setLayout(null);
+        JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+        sousuo.setBounds(263, 348, 54, 28);
+        sousuo.setBorder(null);
+        sousuo.addActionListener((ActionEvent e) -> {
+            cl.show(changeJPanel, "search");
+        });
+        JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
+        sousuo2.setBounds(140, 215, 56, 28);
+        sousuo2.setBorder(null);
+        sousuo2.addActionListener((ActionEvent e) -> {
+            cl.show(changeJPanel, "shelf");
+        });
+        index.add(sousuo);
+        index.add(sousuo2);
         //测试代码段结束
 
         mainJPanel.setLayout(null);
@@ -59,20 +71,20 @@ public class MainFrame extends JFrame {
                 img.paintIcon(this, g, 0, 0);
             }
         };
+        searchPanel = new Search(this);
         cl.addLayoutComponent(shelf, "shelf");
         cl.addLayoutComponent(index, "index");
-        cl.addLayoutComponent(search,"search");
+        cl.addLayoutComponent(searchPanel, "search");
         changeJPanel.add(shelf);
         changeJPanel.add(index);
-        changeJPanel.add(search);
-        
+        changeJPanel.add(searchPanel);
+        cl.show(changeJPanel, "index");
 
         changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
-        
-        
+
         this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
         this.setContentPane(mainJPanel);  //放置
         this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点

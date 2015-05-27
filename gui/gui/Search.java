@@ -25,7 +25,7 @@ public class Search extends BasicPanel{
     private JButton bt1, bt2;
     
     public Search(MainFrame index) {
-        super();
+        super(index);
         this.setLayout(null);
         //index.setTitle("搜索");
         bt1 = new JButton(new ImageIcon("gui/source/设置.jpg"));
