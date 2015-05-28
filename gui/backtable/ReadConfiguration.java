@@ -5,10 +5,15 @@
  */
 package backtable;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 从磁盘中读取JSON文件解析配置
  *
  * @author 开发
  */
 public class ReadConfiguration {
+
+    JSON json = new JSON() {
+    };
 }
