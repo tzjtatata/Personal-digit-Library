@@ -6,15 +6,17 @@
 package backtable;
 
 import com.alibaba.fastjson.*;
+import com.alibaba.fastjson.parser.Feature;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -24,12 +26,11 @@ import java.util.concurrent.TimeUnit;
  *
  * @author 开发
  */
-public class SearchForInit {
+public class NewSearch {
 
     public static File fileJson = new File("D:/study/Personal-digit-Library/gui/backtable/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
-    private static int count = 0;
-    private static ExecutorService executors = Executors.newCachedThreadPool();
+    private static final ExecutorService executors = Executors.newCachedThreadPool();
 
     /**
      *
@@ -37,32 +38,9 @@ public class SearchForInit {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        //线程版本
-        /*
-         long pre = System.currentTimeMillis();
-         Init();
-         File[] roots = File.listRoots();
-         for (File root : roots) {
-         if (!root.toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0))) && root.listFiles() != null) {
-         File[] files = root.listFiles((File pathname) -> !pathname.isHidden());
-         for (File file : files) {
-         if (file.isDirectory() && file.listFiles() != null) {
-         SearchDish(file);
-         } else if (file.getName().endsWith(".txt")) {
-         PutToMap(file, ".txt");
-         } else if (file.getName().endsWith(".pdf")) {
-         PutToMap(file, ".pdf");
-         } else if (file.getName().endsWith(".doc")) {
-         PutToMap(file, ".doc");
-         }
-         }
-         }
-         }
-         System.out.println(System.currentTimeMillis() - pre);
-
-         System.out.println(System.currentTimeMillis() - pre);*/
-        Init();
-
+        //Init();
+        ReadJson();
+        System.out.println(SearchTitle("文学"));
     }
 
     /**
@@ -105,41 +83,6 @@ public class SearchForInit {
     }
 
     /**
-     * 根据传入的path搜索该路径下所有子文件及其子文件夹（递归版）
-     *
-     * @param file
-     * @throws java.lang.Exception
-     */
-    public static void SearchDish(File file) throws Exception {
-        if (file.isDirectory()) {
-            File flist[] = file.listFiles((File pathname) -> !pathname.isHidden()); // 过滤掉隐藏文件夹
-            for (File flist1 : flist) {
-                if (flist1.isDirectory() && flist1.listFiles() != null) {  //符合继续搜索的要
-
-                    executors.execute(new Thread() {
-                        @Override
-                        public void run() {
-                            try {
-                                SearchDish(flist1);
-                            } catch (Exception ex) {
-                                Logger.getLogger(SearchForInit.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    });
-
-                }
-                if (flist1.getName().endsWith(".txt")) {
-                    PutToMap(flist1, ".txt");
-                } else if (flist1.getName().endsWith(".pdf")) {
-                    PutToMap(flist1, ".pdf");
-                } else if (flist1.getName().endsWith(".doc")) {
-                    PutToMap(flist1, ".doc");
-                }
-            }
-        }
-    }
-
-    /**
      * 非递归版搜全盘
      *
      * @param root
@@ -175,6 +118,42 @@ public class SearchForInit {
             fileMap.get(s).put(flist1.getParent(), new ArrayList<>());
         }
         fileMap.get(s).get(flist1.getParent()).add(flist1.getName());
+    }
+
+    /**
+     * 搜索
+     *
+     * @param title
+     * @return 动态数组
+     */
+    public static ArrayList<String> SearchTitle(String title) {
+        ArrayList<String> al = new ArrayList<>();
+        fileMap.keySet().stream().forEach((String s) -> {
+            //txt等类别
+            fileMap.get(s).keySet().stream().forEach((String s1) -> {
+                //路径
+                fileMap.get(s).get(s1).stream().filter((s2) -> (s2.contains(title))).forEach((s2) -> {
+                    al.add(s1 + "\\" + s2);
+                });
+            });
+        });
+        return al;
+    }
+
+    /**
+     * 从fileJson文件中读取json字符串获得HashMap
+     *
+     * @return
+     * @throws Exception
+     */
+    public static HashMap ReadJson() throws Exception {
+        String jsonString;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileJson))) {
+            jsonString = br.readLine();
+        }
+        fileMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, ArrayList<String>>>>() {
+        });
+        return fileMap;
     }
 
     private static class ThreadImpl extends Thread {
