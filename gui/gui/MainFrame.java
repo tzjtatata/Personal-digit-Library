@@ -25,16 +25,16 @@ public class MainFrame extends JFrame {
     ShelfPanel shelf;  //测试
     IndexTest index;  //测试
 
-    public MainFrame() throws Exception{
+    public MainFrame() throws Exception {
         //测试代码段
         /*shelf = new ShelfTest(this) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon img = new ImageIcon("gui/source/书架背景.png");
-                img.paintIcon(this, g, 0, 0);
-            }
-        };*/
+         @Override
+         protected void paintComponent(Graphics g) {
+         super.paintComponent(g);
+         ImageIcon img = new ImageIcon("gui/source/书架背景.png");
+         img.paintIcon(this, g, 0, 0);
+         }
+         };*/
         shelf = new ShelfPanel();
         index = new IndexTest() {
             @Override
@@ -94,7 +94,7 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args)  throws Exception{
+    public static void main(String[] args) throws Exception {
         new MainFrame();
     }
 
