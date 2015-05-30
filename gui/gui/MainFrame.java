@@ -23,19 +23,20 @@ public class MainFrame extends JFrame {
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
     CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
     JPanel mainJPanel = new JPanel();  //主JPanel
-    ShelfTest shelf;  //测试
+    ShelfPanel shelf;  //测试
     IndexTest index;  //测试
 
     public MainFrame() {
         //测试代码段
-        shelf = new ShelfTest(this) {
+        /*shelf = new ShelfTest(this) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 ImageIcon img = new ImageIcon("gui/source/书架背景.png");
                 img.paintIcon(this, g, 0, 0);
             }
-        };
+        };*/
+        shelf = new ShelfPanel();
         index = new IndexTest() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -78,7 +79,7 @@ public class MainFrame extends JFrame {
         changeJPanel.add(shelf);
         changeJPanel.add(index);
         changeJPanel.add(searchPanel);
-        cl.show(changeJPanel, "index");
+        cl.show(changeJPanel, "shelf");
 
         changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);

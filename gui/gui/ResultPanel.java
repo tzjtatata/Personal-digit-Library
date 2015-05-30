@@ -2,7 +2,6 @@ package me;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.Graphics;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,11 +9,7 @@ import java.util.EventObject;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import gui.SetUp;
 
 public class ResultPanel extends JPanel {
 
