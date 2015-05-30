@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
 import backtable.Node;
 import backtable.Hashstr;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReverseSet {
 
@@ -22,6 +24,7 @@ public class ReverseSet {
         protected ArrayList<Node> List = new ArrayList();
         protected ArrayList<Hashstr> data = new ArrayList();
 	private String len;
+        private Thread[] pool = new Thread[1000];
 
 	public void change() {
 		if (System.getProperty("os.name").startsWith("W")) {
@@ -85,7 +88,10 @@ public class ReverseSet {
 		String filePath = ffi.getPath();
 		String fileEncode = EncodingDetect.getJavaEncode(filePath);
 		String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
-		Analyze.testCJK(fileContent, word);
+		pool[count] = new Thread(new threadTest(fileContent, word));
+                pool[count].start();
+                count++;
+                //Analyze.testCJK(fileContent, word);
 		//System.out.println(word);
 		//prepareCryptTable();
 		for (i = 0; i < word.size(); i++) {
@@ -199,6 +205,23 @@ public class ReverseSet {
                 a.finded = false;
                 a.position = 0;
                 return a;
+            }
+        }
+        public class threadTest implements Runnable {
+            public String str;
+            public ArrayList word = new ArrayList();
+            public threadTest(String str,ArrayList word) {
+                this.str  = str;
+                this.word = word;
+            }
+            public void run() {
+                try {
+                    Analyze.testCJK(str, word);
+                    System.out.println("now the word size is"+word.size());
+                    System.out.println("this thread is ending."+Thread.currentThread());
+                } catch (Exception ex) {
+                    Logger.getLogger(ReverseSet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 	public static void main(String[] args) throws IOException {
