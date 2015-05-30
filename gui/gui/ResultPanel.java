@@ -1,4 +1,4 @@
-package me;
+package gui;
 
 import java.awt.*;
 import javax.swing.*;
@@ -14,50 +14,43 @@ import gui.SetUp;
 public class ResultPanel extends JPanel {
 
 	private HashMap<Integer, String> JLHashMap;
-	private JLabel[] labelListJLabels = new JLabel[1000];
-	private ArrayList<JLabel> labelPageJLabels = new ArrayList<JLabel>();
+	private JLabel[] labelListJLabels = new JLabel[5000];
 	private JLabel labelHintJLabel = new JLabel();
 	private JLabel[] labelorderJLabels = new JLabel[20];
+        private JLabel next,front,tail,foreward;
+        private ArrayList<JLabel> Page = new ArrayList<JLabel>();
+        private int nowPage = 0;
 	private int pagelength = 8;
 	private int countpage = 0;
-	private JButton back = new JButton(new ImageIcon("gui/source/return.png"));
-	private static int startwidth = 200, startheight = 163, width = 400, height = 30;
+	private static int startwidth = 0, startheight = -30, width = 400, height = 30;
 	private int now = 0;
-	private JLabel temLabel;
 	private int size;
+        private String name;
 
-	protected void paintComponent(Graphics g) {
+	/*protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		ImageIcon img = new ImageIcon("gui/source/搜索结果背景.png");
 		img.paintIcon(this, g, 0, 0);
-	}
-
-	public ResultPanel(String query, ArrayList<String> result) {
-		back.addMouseListener(new CursorListener());
-		back.setBorder(null);
+	}*/
+        public String getName(){
+            return this.name;
+        }
+	public ResultPanel(String str,String[] result) {
+                JLabel temLabel;
+                this.name = str;
+                this.setBackground(new Color(215, 217, 218));
 		int i;
 		JLHashMap = new HashMap<>();
 		this.setLayout(null);
 		this.setOpaque(true);
-		//back是按钮，负责返回搜索界面
-		back.setBounds(670, 134, 160, 28);
-		back.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Searchpanel sp = (Searchpanel) back.getRootPane().getParent();
-				sp.card.first(sp.jpanelroot);
-			}
-		});
-		this.add(back);
+                addMove();
 		// 设定每页显示的结果序号
 		for (i = 0; i < pagelength; i++) {
 			if (labelorderJLabels[i] == null) {
 				labelorderJLabels[i] = new JLabel();
 			}
 			labelorderJLabels[i].setText("" + (i + 1));
-			labelorderJLabels[i].setBounds(startwidth - height * 2, startheight + height * (i + 1), width, height);
+			labelorderJLabels[i].setBounds(startwidth, startheight + height * (i + 1), width, height);
 			labelorderJLabels[i].setFont(new java.awt.Font("segoe", 1, 16));
 			labelorderJLabels[i].setForeground(new java.awt.Color(255,255,255));;
 			labelorderJLabels[i].setVisible(false);
@@ -65,36 +58,30 @@ public class ResultPanel extends JPanel {
 		}
 		//判定是否有结果，并显示结果
 		//show函数用于显示第n+1页的结果
-		if (result == null || result.isEmpty()) {
-			labelHintJLabel.setText("对于" + query + "没有找到相应的结果");
-		} else {
-			size = result.size();
-			labelHintJLabel.setText("对搜索\"" + query + "\"找到" + size + "个结果.");
-			for (i = 0; i < size; i++) {
-				if (labelListJLabels[i] == null) {
-					labelListJLabels[i] = new JLabel();
-				}
-				labelListJLabels[i].setText(result.get(i));
-				JLHashMap.put(labelListJLabels[i].hashCode(), labelListJLabels[i].getText());
-				labelListJLabels[i].setFont(new java.awt.Font("微软雅黑", 0, 14));
-				this.add(labelListJLabels[i]);
-				//判定页数，并设定表现页数的标签
-				if (i / pagelength >= countpage) {
-					temLabel = new JLabel();
-					labelPageJLabels.add(temLabel);
-					labelPageJLabels.get(countpage).addMouseListener(new CursorListener());
-					labelPageJLabels.get(countpage).setText("PAGE " + (countpage + 1));
-					labelPageJLabels.get(countpage).setFont(new java.awt.Font("微软雅黑", 0, 14));
-					labelPageJLabels.get(countpage).setBounds(startwidth + (height+50) * (countpage), startheight - height, height+50, height);
-					labelPageJLabels.get(countpage).addMouseListener(new ChangePage());
-					this.add(labelPageJLabels.get(countpage));
-					countpage++;
-				}
+		size = result.length;
+		for (i = 0; i < size; i++) {
+			if (labelListJLabels[i] == null) {
+				labelListJLabels[i] = new JLabel();
 			}
-			show(0);
+			labelListJLabels[i].setText(result[i]);
+			JLHashMap.put(labelListJLabels[i].hashCode(), labelListJLabels[i].getText());
+			labelListJLabels[i].setFont(new java.awt.Font("微软雅黑", 0, 14));
+			this.add(labelListJLabels[i]);
+                        //判定页数，并设定表现页数的标签
 		}
-		labelHintJLabel.setBounds(startwidth - height * 3, startheight, width * 3, height);
-		labelHintJLabel.setFont(new java.awt.Font("微软雅黑", 1, 18));
+                while (size / pagelength >= countpage) {
+                    temLabel = new JLabel();
+                    Page.add(temLabel);
+                    Page.get(countpage).addMouseListener(new CursorListener());
+                    Page.get(countpage).setText(""+ (countpage + 1));
+                    Page.get(countpage).setFont(new java.awt.Font("微软雅黑", 0, 14));
+                    Page.get(countpage).setVisible(false);
+                    Page.get(countpage).addMouseListener(new ChangePage());
+                    this.add(Page.get(countpage));
+                    countpage++;
+		}
+                move(0);
+		show(0);
 		this.add(labelHintJLabel);
 	}
 
@@ -105,14 +92,14 @@ public class ResultPanel extends JPanel {
 			if (labelListJLabels[temp] != null) {
 				labelListJLabels[temp].addMouseListener(new ShowAdapter());
 				labelListJLabels[temp].addMouseListener(new CursorListener());
-				labelListJLabels[temp].setBounds(startwidth, startheight + height * (i + 1), width, height);
+				labelListJLabels[temp].setBounds(startwidth + height, startheight + height * (i + 1), width, height);
 				labelListJLabels[temp].setVisible(true);
 				labelorderJLabels[i].setVisible(true);
 			}
 		}
 	}
 
-	public void hide(int n) {
+        public void hide(int n) {
 		int i, temp;
 		for (i = 0; i < pagelength; i++) {
 			temp = pagelength * n + i;
@@ -122,12 +109,49 @@ public class ResultPanel extends JPanel {
                         labelorderJLabels[i].setVisible(false);
 		}
 	}
-
-	class ChangePage extends MouseAdapter {
+        public void move(int x){
+            int i,len,size;
+            size = Page.size();
+            len = size>=nowPage+pagelength?pagelength:size;
+            for (i = 0;i<len;i++)
+            {
+                Page.get(nowPage+i).setVisible(false);
+            }
+            nowPage = x;
+            len = size>=nowPage+pagelength?pagelength:size;
+            for (i = 0;i<len;i++)
+            {
+                Page.get(x+i).setBounds(startwidth + height * 3 +(height*i),8*height, height, height);
+                Page.get(x+i).setVisible(true);
+            }
+            next.setBounds(startwidth + height * 3+(height*len),8*height, height, height);
+            tail.setBounds(startwidth + height * 4+(height*len),8*height, height, height);
+            front.setBounds(startwidth + height,8*height, height, height);
+            foreward.setBounds(startwidth + height * 2,8*height, height, height);
+        }
+        public void addMove() {
+                next = new JLabel(">");
+                foreward = new JLabel("<");
+                next.addMouseListener(new movePage(1));
+                foreward.addMouseListener(new movePage(-1));
+                foreward.addMouseListener(new CursorListener());
+                next.addMouseListener(new CursorListener());
+                this.add(next);
+                this.add(foreward);
+                tail = new JLabel(">>");
+                front = new JLabel("<<");
+                tail.addMouseListener(new movePage(2));
+                front.addMouseListener(new movePage(3));
+                front.addMouseListener(new CursorListener());
+                tail.addMouseListener(new CursorListener());
+                this.add(front);
+                this.add(tail);
+        }
+        class ChangePage extends MouseAdapter {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int temp = labelPageJLabels.indexOf(e.getSource());
+			int temp = Page.indexOf(e.getSource());
 			hide(now);
 			show(temp);
 			now = temp;
@@ -152,7 +176,7 @@ public class ResultPanel extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 
 		@Override
@@ -160,4 +184,25 @@ public class ResultPanel extends JPanel {
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
+        class movePage extends MouseAdapter {
+            int change;
+            public movePage(int change) {
+                this.change = change;
+            }
+		@Override
+		public void mouseClicked(MouseEvent e) {
+                    int temp;
+                    if (change == 2) temp = Page.size() - pagelength;
+                    else if (change == 3) temp = 0;
+                    else {
+                        temp = nowPage+change;
+                        if (temp + pagelength > Page.size()){
+                            temp = Page.size() - pagelength;
+                        }
+                        else if (temp<0) temp = 0;
+                    }
+                    move(temp);
+		}
+	}
+        
 }

@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
     ShelfPanel shelf;  //测试
     IndexTest index;  //测试
 
-    public MainFrame() {
+    public MainFrame() throws Exception{
         //测试代码段
         /*shelf = new ShelfTest(this) {
             @Override
@@ -78,7 +78,7 @@ public class MainFrame extends JFrame {
         changeJPanel.add(shelf);
         changeJPanel.add(index);
         changeJPanel.add(searchPanel);
-        cl.show(changeJPanel, "shelf");
+        cl.show(changeJPanel, "index");
 
         changeJPanel.setBounds(0, 0, 950, 522);
         mainJPanel.add(changeJPanel);
@@ -94,7 +94,7 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws Exception{
         new MainFrame();
     }
 

@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import gui.MainFrame;
-import me.ResultPanel;
+import gui.ResultPanel;
 import me.Searchpanel;
 
 /**
