@@ -61,6 +61,7 @@ public class SearchForInit {
          }
          }
          */
+        SearchDish("D:\\qqfile\\1397645429");
         String jsonString = JSON.toJSONString(fileMap);
         try (BufferedWriter br = new BufferedWriter(new FileWriter(fileJson))) {
             br.write(jsonString);
@@ -93,7 +94,10 @@ public class SearchForInit {
             File flist[] = file.listFiles((File pathname) -> !pathname.isHidden()); // 过滤掉隐藏文件夹
             for (File flist1 : flist) {
                 if (flist1.isDirectory() && flist1.listFiles() != null && flist1.listFiles().length != 0) {  //符合继续搜索的要
-                    SearchDish(flist1.getPath());
+                    //SearchDish(flist1.getPath());
+                    threads[count] = new Thread(new ThreadTest(flist1));
+                    threads[count].start();
+                    count++;
                 } else if (flist1.isFile()) {
                     if (flist1.getName().endsWith(".txt")) {
                         PutToMap(flist1, ".txt");
@@ -125,9 +129,9 @@ public class SearchForInit {
         @Override
         public void run() {
             try {
+                System.out.println(flist1.getPath());
                 SearchDish(flist1.getPath());
             } catch (Exception ex) {
-                System.err.println(flist1.getPath());
             }
         }
 
