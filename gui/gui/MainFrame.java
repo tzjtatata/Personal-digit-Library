@@ -19,7 +19,6 @@ public class MainFrame extends JFrame {
     //private JPanel bookshelfPanel;
     //private JPanel indexPanel;
     private final CalenderJPanel calenderHint;
-    private String[] fontStyle;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
     CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
     JPanel mainJPanel = new JPanel();  //主JPanel
