@@ -94,10 +94,6 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) throws Exception {
-        new MainFrame();
-    }
-
     /**
      * 将JPanel组件添加到卡片布局中，并为其加上返回主页的按钮
      *

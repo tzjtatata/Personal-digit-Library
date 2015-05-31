@@ -35,58 +35,63 @@ public class NewSearch {
     private static final ExecutorService executors = Executors.newCachedThreadPool();
 
     /**
-     *
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-        //Init();
-        long pre = System.currentTimeMillis();
-        ReadJson();
-        System.err.println(System.currentTimeMillis() - pre);
-        System.out.println(SearchTitle("文学"));
-        System.err.println(System.currentTimeMillis() - pre);
-        Classify();
-        System.err.println(System.currentTimeMillis() - pre);
-    }
-
-    /**
      * 一些初始化操作，创建必须的文件等
      *
+     * @param how 为0需要搜索全盘
      * @throws IOException
      * @throws java.lang.InterruptedException
      */
     @SuppressWarnings("empty-statement")
-    public static void Init() throws IOException, InterruptedException {
+    public static void Init(int how) throws Exception {
+        long pre = System.currentTimeMillis();
+        System.out.println("开始设置哈希map！");
         if (!fileJson.exists()) {
             fileJson.createNewFile();
         }
         fileMap.put(".txt", new HashMap<>());
         fileMap.put(".pdf", new HashMap<>());
         fileMap.put(".doc", new HashMap<>());
+        System.out.println("哈希map设置完毕!" + (System.currentTimeMillis() - pre));
+        pre = System.currentTimeMillis();
         //迭代版本
-        File[] roots = File.listRoots();//获取所有磁盘盘符
-        for (int i = roots.length - 1; i >= 0; i--) {
-            if (!roots[i].toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0))) && roots[i].listFiles() != null) {
-                for (File root : roots[i].listFiles((File pathname) -> !pathname.isHidden())) {
-                    if (root.isDirectory()) {
-                        executors.execute(new ThreadImpl(root));
-                    } else if (root.getName().endsWith(".txt")) {
-                        PutToMap(root, ".txt");
-                    } else if (root.getName().endsWith(".pdf")) {
-                        PutToMap(root, ".pdf");
-                    } else if (root.getName().endsWith(".doc")) {
-                        PutToMap(root, ".doc");
+        if (how == 0) {
+            System.out.println("开始搜索全盘！" + (System.currentTimeMillis() - pre));
+            pre = System.currentTimeMillis();
+            File[] roots = File.listRoots();//获取所有磁盘盘符
+            for (int i = roots.length - 1; i >= 0; i--) {
+                if (!roots[i].toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0))) && roots[i].listFiles() != null) {
+                    for (File root : roots[i].listFiles((File pathname) -> !pathname.isHidden())) {
+                        if (root.isDirectory()) {
+                            executors.execute(new ThreadImpl(root));
+                        } else if (root.getName().endsWith(".txt")) {
+                            PutToMap(root, ".txt");
+                        } else if (root.getName().endsWith(".pdf")) {
+                            PutToMap(root, ".pdf");
+                        } else if (root.getName().endsWith(".doc")) {
+                            PutToMap(root, ".doc");
+                        }
                     }
                 }
             }
+            executors.shutdown();
+            executors.awaitTermination(1000000000, TimeUnit.DAYS);
+            System.out.println("搜索完毕，开始写入json！" + (System.currentTimeMillis() - pre));
+            pre = System.currentTimeMillis();
+            String jsonString = JSON.toJSONString(fileMap);
+            try (BufferedWriter br = new BufferedWriter(new FileWriter(fileJson))) {
+                br.write(jsonString);
+                System.out.println("json写入完成！" + (System.currentTimeMillis() - pre));
+                pre = System.currentTimeMillis();
+            }
+        } else {
+            System.out.println("加载json文件！" + (System.currentTimeMillis() - pre));
+            pre = System.currentTimeMillis();
+            ReadJson();
         }
-        executors.shutdown();
-        executors.awaitTermination(1000000000, TimeUnit.DAYS);
-        String jsonString = JSON.toJSONString(fileMap);
-        try (BufferedWriter br = new BufferedWriter(new FileWriter(fileJson))) {
-            br.write(jsonString);
-        }
+        System.out.println("进行自动分类！" + (System.currentTimeMillis() - pre));
+        pre = System.currentTimeMillis();
+        Classify();
+        System.out.println("自动分类完成，程序结束！" + (System.currentTimeMillis() - pre));
     }
 
     /**
@@ -163,6 +168,11 @@ public class NewSearch {
         return fileMap;
     }
 
+    /**
+     * 自动分类
+     *
+     * @throws Exception
+     */
     public static void Classify() throws Exception {
         HashMap<String, String> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
         HashMap<String, ArrayList<String>> classMap = new HashMap<>();  //要写入的map
