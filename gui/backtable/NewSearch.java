@@ -179,12 +179,15 @@ public class NewSearch {
         fileMap.keySet().stream().forEach((type) -> {
             fileMap.get(type).keySet().stream().forEach((path) -> {
                 fileMap.get(type).get(path).stream().forEach((file) -> {
+                    int flag = 1;
                     for (String cate : classDataMap.keySet()) {
                         if (classDataMap.get(cate).contains(file)) {
                             classMap.get(cate).add(path + "\\" + file);
-                        } else {
-                            classMap.get("其它").add(path + "\\" + file);
+                            flag = 0;
                         }
+                    }
+                    if (flag == 1) {
+                        classMap.get("其它").add(path + "\\" + file);
                     }
                 });
             });
