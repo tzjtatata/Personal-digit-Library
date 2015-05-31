@@ -79,7 +79,7 @@ public class ShelfPanel extends JPanel {
         BufferedReader br = new BufferedReader(new FileReader(f));
         while (br.ready()) {
             str = br.readLine();
-            boy = str.split(":");
+            boy = str.split("/");
             subjectShow[len] = new ResultPanel(boy[0], boy[1].split(","));
             len++;
         }

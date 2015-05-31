@@ -20,6 +20,8 @@ import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 新的Search类，将取代原有的backtable.Search
@@ -28,7 +30,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class NewSearch {
 
-    public static File fileJson = new File("D:/study/Personal-digit-Library/gui/backtable/fileInfo.json");
+    public static File fileJson = new File("gui/backtable/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
 
@@ -39,8 +41,13 @@ public class NewSearch {
      */
     public static void main(String[] args) throws Exception {
         //Init();
+        long pre = System.currentTimeMillis();
         ReadJson();
+        System.err.println(System.currentTimeMillis() - pre);
         System.out.println(SearchTitle("文学"));
+        System.err.println(System.currentTimeMillis() - pre);
+        Classify();
+        System.err.println(System.currentTimeMillis() - pre);
     }
 
     /**
@@ -154,6 +161,41 @@ public class NewSearch {
         fileMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, ArrayList<String>>>>() {
         });
         return fileMap;
+    }
+
+    public static void Classify() throws Exception {
+        HashMap<String, String> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
+        HashMap<String, ArrayList<String>> classMap = new HashMap<>();  //要写入的map
+        try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/classData.pdl"))) {
+            while (br.ready()) {
+                String line = br.readLine();
+                String lines[] = line.split(":");
+                if (lines[1].length() > 2) {
+                    classDataMap.put(lines[0], lines[1]);
+                    classMap.put(lines[0], new ArrayList<>());
+                }
+            }
+        }
+        fileMap.keySet().stream().forEach((type) -> {
+            fileMap.get(type).keySet().stream().forEach((path) -> {
+                fileMap.get(type).get(path).stream().forEach((file) -> {
+                    classDataMap.keySet().stream().filter((cate) -> (classDataMap.get(cate).contains(file))).forEach((cate) -> {
+                        classMap.get(cate).add(path + "\\" + file);
+                    });
+                });
+            });
+        });
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/class.pdl"))) {
+            classMap.keySet().stream().forEach((cate) -> {
+                try {
+                    if (classMap.get(cate).size() > 0) {
+                        bw.write(cate + "/" + classMap.get(cate).toString().substring(1, classMap.get(cate).toString().length() - 2) + "\n");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
     }
 
     private static class ThreadImpl extends Thread {
