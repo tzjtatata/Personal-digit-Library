@@ -28,5 +28,6 @@ public class Main {
                 backtable.NewSearch.Init(1);
             }
         }
+        new MainFrame();
     }
 }

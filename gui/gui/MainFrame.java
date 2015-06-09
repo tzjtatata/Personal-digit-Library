@@ -14,18 +14,19 @@ import java.awt.event.*;
  */
 public class MainFrame extends JFrame {
 
-    //private JPanel settingPanel;
+    private SetUp setPanel;
     private final Search searchPanel;
+    private final ShelfPanel shelf;
     //private JPanel bookshelfPanel;
     //private JPanel indexPanel;
     private final CalenderJPanel calenderHint;
     JPanel changeJPanel = new JPanel();  //切换用的JPanel
     CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
     JPanel mainJPanel = new JPanel();  //主JPanel
-    ShelfPanel shelf;  //测试
     IndexTest index;  //测试
 
     public MainFrame() throws Exception {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         //测试代码段
         /*shelf = new ShelfTest(this) {
          @Override
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame {
          img.paintIcon(this, g, 0, 0);
          }
          };*/
+        setPanel = new SetUp(this);
         shelf = new ShelfPanel();
         index = new IndexTest() {
             @Override
@@ -57,8 +59,15 @@ public class MainFrame extends JFrame {
         sousuo2.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "shelf");
         });
+        JButton set = new JButton(new ImageIcon("gui/source/设置.jpg"));
+        set.setBounds(390, 215, 54, 27);
+        set.setBorder(null);
+        set.addActionListener((ActionEvent e) -> {
+            cl.show(changeJPanel, "set");
+        });
         index.add(sousuo);
         index.add(sousuo2);
+        index.add(set);
         //测试代码段结束
 
         mainJPanel.setLayout(null);
@@ -75,9 +84,11 @@ public class MainFrame extends JFrame {
         cl.addLayoutComponent(shelf, "shelf");
         cl.addLayoutComponent(index, "index");
         cl.addLayoutComponent(searchPanel, "search");
+        cl.addLayoutComponent(setPanel, "set");
         changeJPanel.add(shelf);
         changeJPanel.add(index);
         changeJPanel.add(searchPanel);
+        changeJPanel.add(setPanel);
         cl.show(changeJPanel, "index");
 
         changeJPanel.setBounds(0, 0, 950, 522);
