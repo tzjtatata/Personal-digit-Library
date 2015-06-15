@@ -69,7 +69,7 @@ public class ResultPanel extends JPanel {
 			this.add(labelListJLabels[i]);
                         //判定页数，并设定表现页数的标签
 		}
-                while (size / pagelength >= countpage) {
+                do {
                     temLabel = new JLabel();
                     Page.add(temLabel);
                     Page.get(countpage).addMouseListener(new CursorListener());
@@ -79,8 +79,8 @@ public class ResultPanel extends JPanel {
                     Page.get(countpage).addMouseListener(new ChangePage());
                     this.add(Page.get(countpage));
                     countpage++;
-		}
-                length = countpage;
+		}while (size / pagelength >= countpage && countpage * pagelength != size);
+                //length = countpage;
                 move(0);
 		show(0);
 		this.add(labelHintJLabel);
@@ -113,13 +113,13 @@ public class ResultPanel extends JPanel {
         public void move(int x){
             int i,len,size;
             size = Page.size();
-            len = size>=nowPage+length?length:size;
+            len = size>=(nowPage+length)?length:size;
             for (i = 0;i<len;i++)
             {
                 Page.get(nowPage+i).setVisible(false);
             }
             nowPage = x;
-            len = size>=nowPage+length?length:size;
+            len = size>=(nowPage+length)?length:size;
             for (i = 0;i<len;i++)
             {
                 Page.get(x+i).setBounds(startwidth + height * 3 +(height*i),8*height, height, height);
@@ -192,13 +192,15 @@ public class ResultPanel extends JPanel {
             }
 		@Override
 		public void mouseClicked(MouseEvent e) {
-                    int temp;
-                    if (change == 2) temp = Page.size() - length;
+                    int temp,t;
+                    t = Page.size() - length;
+                    if (change == 2) temp = t>0?t:0;
                     else if (change == 3) temp = 0;
                     else {
                         temp = nowPage+change;
                         if (temp + length > Page.size()){
                             temp = Page.size() - length;
+                            temp = temp>0?temp:0;
                         }
                         else if (temp<0) temp = 0;
                     }
