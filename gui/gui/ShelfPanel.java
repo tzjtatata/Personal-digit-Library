@@ -28,8 +28,7 @@ public class ShelfPanel extends  JPanel{
     private JLabel left,right;
     private int nowPage = 0,firstPage = 0,len = 0;
     private final int LEN = 5;
-    public ShelfPanel(/*MainFrame index*/) throws Exception{
-        //super(index);
+    public ShelfPanel() throws Exception{
         this.setLayout(null);
         left = new JLabel();
         left.setBounds(250, 138, 20, 20);
@@ -51,7 +50,6 @@ public class ShelfPanel extends  JPanel{
                 img.paintIcon(this, g, 0, 0);
             }
     protected void setCategory(int a){
-        System.out.println(a);
         for (int i=0;i<LEN;i++)
         {
             if (subjectLabel[i]!=null) subjectLabel[i].setVisible(false);

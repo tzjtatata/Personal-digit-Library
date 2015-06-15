@@ -20,7 +20,7 @@ public class ResultPanel extends JPanel {
         private JLabel next,front,tail,foreward;
         private ArrayList<JLabel> Page = new ArrayList<JLabel>();
         private int nowPage = 0;
-	private int pagelength = 8;
+	private int pagelength = 8, length = 8;
 	private int countpage = 0;
 	private static int startwidth = 0, startheight = -30, width = 400, height = 30;
 	private int now = 0;
@@ -80,6 +80,7 @@ public class ResultPanel extends JPanel {
                     this.add(Page.get(countpage));
                     countpage++;
 		}
+                length = countpage;
                 move(0);
 		show(0);
 		this.add(labelHintJLabel);
@@ -112,13 +113,13 @@ public class ResultPanel extends JPanel {
         public void move(int x){
             int i,len,size;
             size = Page.size();
-            len = size>=nowPage+pagelength?pagelength:size;
+            len = size>=nowPage+length?length:size;
             for (i = 0;i<len;i++)
             {
                 Page.get(nowPage+i).setVisible(false);
             }
             nowPage = x;
-            len = size>=nowPage+pagelength?pagelength:size;
+            len = size>=nowPage+length?length:size;
             for (i = 0;i<len;i++)
             {
                 Page.get(x+i).setBounds(startwidth + height * 3 +(height*i),8*height, height, height);
@@ -192,12 +193,12 @@ public class ResultPanel extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
                     int temp;
-                    if (change == 2) temp = Page.size() - pagelength;
+                    if (change == 2) temp = Page.size() - length;
                     else if (change == 3) temp = 0;
                     else {
                         temp = nowPage+change;
-                        if (temp + pagelength > Page.size()){
-                            temp = Page.size() - pagelength;
+                        if (temp + length > Page.size()){
+                            temp = Page.size() - length;
                         }
                         else if (temp<0) temp = 0;
                     }

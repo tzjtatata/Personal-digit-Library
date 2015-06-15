@@ -1,12 +1,13 @@
 package backtable;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Node {
+public class Node implements Serializable{
     BigInteger value;
     int lastPOS;
     int firstPOS;
     public String toString(){
-        return value.toString()+","+lastPOS+"\n";
+        return value.toString()+","+firstPOS+"\n";
     }
 }
