@@ -4,26 +4,22 @@
  * and open the template in the editor.
  */
 package gui;
-import backtable.SearchContent;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import gui.MainFrame;
-import gui.ResultPanel;
-import me.Searchpanel;
 
 /**
  *
  * @author lyz
  */
-public class Search extends BasicPanel{
-    
+public class Search extends BasicPanel {
+
     private JLabel option1, option2, option3, option4;
     private JLabel point1, point2, point3, point4, backg1, backg2, backg3, backg4;
     private JTextField entry1, entry2, entry3, entry4;
     private JButton bt1, bt2;
-    
+
     public Search(MainFrame index) {
         super(index);
         this.setLayout(null);
@@ -140,11 +136,14 @@ public class Search extends BasicPanel{
         entry3.setBounds(350, 273, 200, 20);
         entry4.setBounds(350, 323, 200, 20);
     }
+
     class EntryListener extends MouseAdapter {
+
         @Override
         public void mouseEntered(MouseEvent e) {
             setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         }
+
         @Override
         public void mouseExited(MouseEvent e) {
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -152,10 +151,12 @@ public class Search extends BasicPanel{
     }
 
     class CursorListener extends MouseAdapter {
+
         @Override
         public void mouseEntered(MouseEvent e) {
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
+
         @SuppressWarnings("deprecation")
         @Override
         public void mouseExited(MouseEvent e) {
@@ -164,6 +165,7 @@ public class Search extends BasicPanel{
     }
 
     class ActionLis extends MouseAdapter {
+
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == point1 || e.getSource() == backg1) {
                 if (entry1.isVisible() == true) {
