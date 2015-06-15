@@ -1,5 +1,8 @@
 package backtable;
+
 import java.io.*;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
@@ -21,8 +24,7 @@ public class ReverseSet {
         protected ArrayList<Node> List = new ArrayList();
         protected ArrayList<Hashstr> data = new ArrayList();
 	private String len;
-        //private Thread[] pool = new Thread[1000];
-        public static int cal = 0;
+        private Thread[] pool = new Thread[1000];
 
 	public void change() {
 		if (System.getProperty("os.name").startsWith("W")) {
@@ -55,7 +57,7 @@ public class ReverseSet {
 					try {
 						//String codeString = EncodingDetect(str + len + str2);
 						//System.out.println(codeString);
-                                                Refile(new File(str + len + str2));
+						Refile(new File(str + len + str2));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -73,7 +75,6 @@ public class ReverseSet {
 	public void Refile(File ffi) throws Exception {
 		long temp = 0;
 		int i;
-                Thread ctemp,jtemp;
 		ArrayList<String> word = new ArrayList<>();
 		//测试段，使用EncodingDetect类按编码读入；
 		/*BufferedReader br = new BufferedReader(new FileReader(ffi));
@@ -87,19 +88,17 @@ public class ReverseSet {
 		String filePath = ffi.getPath();
 		String fileEncode = EncodingDetect.getJavaEncode(filePath);
 		String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
-                if (fileContent.length() > 1000000) return;
-                ctemp = new Thread(new threadTest(fileContent, word));
-                ctemp.start();
-                //jtemp =new Thread(new threadJudge(ctemp,filePath,word));
-                //jtemp.start();
+		pool[count] = new Thread(new threadTest(fileContent, word));
+                pool[count].start();
+                count++;
                 //Analyze.testCJK(fileContent, word);
 		//System.out.println(word);
 		//prepareCryptTable();
-		/*for (i = 0; i < word.size(); i++) {
+		for (i = 0; i < word.size(); i++) {
                         //System.out.println("\r"+i+"/"+word.size());
 			setpos(word.get(i), filePath,count);
                         count++;
-		}*/
+		}
 	}
 
 	public static BigInteger HashString(String key) {
@@ -137,7 +136,7 @@ public class ReverseSet {
                 }catch (Exception e) {
                     e.printStackTrace();
                 }*/
-                length = List.size();
+                /*
 		ObjectOutputStream f1 = new ObjectOutputStream(new FileOutputStream("gui/backtable/dic.pdl"));
                 ObjectOutputStream f2 = new ObjectOutputStream(new FileOutputStream("gui/backtable/data.pdl"));
                 for (i = 0;i<count;i++) {
@@ -146,7 +145,7 @@ public class ReverseSet {
                 for (i = 0;i<length;i++)
                     f2.writeObject(List.get(i));
 		f1.close();
-                f2.close();
+                f2.close();*/
 	}
         protected class result {
             int position;
@@ -161,6 +160,8 @@ public class ReverseSet {
                 Hashstr adata = new Hashstr();
 		BigInteger HashValue = HashString(lpString);
                 pos =find(HashValue);
+                //System.out.println(lpString + " pass the find function.");
+                //System.out.println(pos.position);
                 adata.Filepath = file;
                 adata.next = -1;
                 data.add(adata);
@@ -208,40 +209,19 @@ public class ReverseSet {
         }
         public class threadTest implements Runnable {
             public String str;
-            public long stime,etime;
-            public ArrayList word;
-            public threadTest(String str, ArrayList word) {
-                this.str = str;
+            public ArrayList word = new ArrayList();
+            public threadTest(String str,ArrayList word) {
+                this.str  = str;
                 this.word = word;
             }
             public void run() {
                 try {
-                    stime = System.currentTimeMillis();
                     Analyze.testCJK(str, word);
-                    etime = System.currentTimeMillis();
-                    //System.out.println((stime-etime)/1000.0);
-                    //System.out.println("now the word size is"+word.size());
+                    System.out.println("now the word size is"+word.size());
+                    System.out.println("this thread is ending."+Thread.currentThread());
                 } catch (Exception ex) {
                     Logger.getLogger(ReverseSet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        }
-        public class threadJudge implements Runnable {
-            String path;
-            ArrayList word;
-            Thread temp;
-            public threadJudge(Thread temp,String path,ArrayList word) {
-                this.temp = temp;
-                this.path = path;
-                this.word = word;
-            }
-            public void run() {
-                while (temp.isAlive());
-                for (i = 0; i < word.size(); i++) {
-                        //System.out.println("\r"+i+"/"+word.size());
-			setpos(word.get(i), path,count);
-                        count++;
-		}
             }
         }
 	public static void main(String[] args) throws IOException {
