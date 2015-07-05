@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
          }
          };*/
         setPanel = new SetUp(this);
-        shelf = new ShelfPanel();
+        shelf = new ShelfPanel(this);
         index = new IndexTest() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -48,18 +48,21 @@ public class MainFrame extends JFrame {
         };
         index.setLayout(null);
         JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+        sousuo.addMouseListener(new CursorListener());
         sousuo.setBounds(263, 348, 54, 28);
         sousuo.setBorder(null);
         sousuo.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "search");
         });
         JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
+        sousuo2.addMouseListener(new CursorListener());
         sousuo2.setBounds(140, 215, 56, 28);
         sousuo2.setBorder(null);
         sousuo2.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "shelf");
         });
         JButton set = new JButton(new ImageIcon("gui/source/设置.jpg"));
+        set.addMouseListener(new CursorListener());
         set.setBounds(390, 215, 54, 27);
         set.setBorder(null);
         set.addActionListener((ActionEvent e) -> {
@@ -119,5 +122,18 @@ public class MainFrame extends JFrame {
             cl.show(changeJPanel, "index");
         });
         self.add(returnButton);
+    }
+
+    class CursorListener extends MouseAdapter {
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        }
     }
 }

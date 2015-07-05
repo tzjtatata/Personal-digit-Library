@@ -8,10 +8,8 @@ package gui;
 import gui.BasicPanel;
 import gui.MainFrame;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import gui.ResultPanel;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -22,7 +20,7 @@ import java.io.*;
  *
  * @author lyz
  */
-public class ShelfPanel extends JPanel {
+public class ShelfPanel extends BasicPanel {
 
     static ResultPanel[] subjectShow = new ResultPanel[100];
     private JLabel[] subjectLabel = new JLabel[5];
@@ -30,7 +28,8 @@ public class ShelfPanel extends JPanel {
     private int nowPage = 0, firstPage = 0, len = 0;
     private final int LEN = 5;
 
-    public ShelfPanel() throws Exception {
+    public ShelfPanel(MainFrame index) throws Exception {
+        super(index);
         this.setLayout(null);
         left = new JLabel();
         left.setBounds(250, 138, 20, 20);
@@ -47,6 +46,7 @@ public class ShelfPanel extends JPanel {
         setContent(nowPage);
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon img = new ImageIcon("gui/source/书架背景.PNG");
@@ -97,7 +97,7 @@ public class ShelfPanel extends JPanel {
 
     class ChangePage extends MouseAdapter {
 
-        private int id;
+        private final int id;
 
         public ChangePage(int id) {
             super();
