@@ -14,7 +14,7 @@ import java.awt.event.*;
  */
 public class MainFrame extends JFrame {
 
-    private SetUp setPanel;
+    private final SetUp setPanel;
     private final Search searchPanel;
     private final ShelfPanel shelf;
     //private JPanel bookshelfPanel;
@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
     IndexTest index;  //测试
 
     public MainFrame() throws Exception {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        javax.swing.SwingUtilities.updateComponentTreeUI(this);
         //测试代码段
         /*shelf = new ShelfTest(this) {
          @Override
@@ -102,6 +102,7 @@ public class MainFrame extends JFrame {
         this.setBounds(200, 50, 950, 650);
         this.setResizable(false);  //大小不可变
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        SetUp.newChangeFont(this);
         this.setVisible(true);
     }
 

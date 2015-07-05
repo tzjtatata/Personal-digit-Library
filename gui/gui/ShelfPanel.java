@@ -24,11 +24,12 @@ import java.io.*;
  */
 public class ShelfPanel extends JPanel {
 
-    private ResultPanel[] subjectShow = new ResultPanel[100];
+    static ResultPanel[] subjectShow = new ResultPanel[100];
     private JLabel[] subjectLabel = new JLabel[5];
     private JLabel left, right;
     private int nowPage = 0, firstPage = 0, len = 0;
     private final int LEN = 5;
+
     public ShelfPanel() throws Exception {
         this.setLayout(null);
         left = new JLabel();
@@ -47,18 +48,19 @@ public class ShelfPanel extends JPanel {
     }
 
     protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            ImageIcon img = new ImageIcon("gui/source/书架背景.PNG");
-            img.paintIcon(this, g, 0, 0);
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon("gui/source/书架背景.PNG");
+        img.paintIcon(this, g, 0, 0);
     }
 
     protected void setCategory(int a) {
-        System.out.println(a);
+        //System.out.println(a);
         for (int i = 0; i < LEN; i++) {
             if (subjectLabel[i] != null) {
                 subjectLabel[i].setVisible(false);
             }
             subjectLabel[i] = new JLabel(subjectShow[a + i].getName());
+            subjectLabel[i].setFont(SetUp.GLOBAL_FONT);
             subjectLabel[i].setBounds(270 + i * 58, 133, 55, 28);
             subjectLabel[i].addMouseListener(new CursorListener());
             subjectLabel[i].addMouseListener(new ChangePage(a + i));

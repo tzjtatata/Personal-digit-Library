@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
@@ -15,6 +16,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -22,7 +25,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 
 /**
@@ -32,9 +34,9 @@ import javax.swing.event.ListSelectionEvent;
 public class ZFontChooser extends JPanel {
 
     private Font font;
-    private String defaultName = "宋体";
-    private int defaultStyle = Font.PLAIN;
-    private int defaultSize = 9;
+    private String defaultName;
+    private int defaultStyle;
+    private int defaultSize;
     private JDialog dialog;  //窗体
     private JLabel fontJLabel, styleJLabel, sizeJLabel, showJLabel;
     private JTextField fontField, styleField, sizeField;
@@ -43,19 +45,20 @@ public class ZFontChooser extends JPanel {
     private JScrollPane fontJScrollPane, sizeJScrollPane;
     private JPanel showJPanel;  //显示框
     private Map sizeMap;
+    private final String mode;
+    private final MainFrame index;
 
-    public ZFontChooser() {
-        init();
+    public ZFontChooser(String mode, MainFrame index) {
+        this.mode = mode;
+        this.index = index;
+        init(mode);
     }
 
-    private void init() {
+    private void init(String mode) {
         fontJLabel = new JLabel("字体:");
         styleJLabel = new JLabel("字型:");
         sizeJLabel = new JLabel("大小:");
         showJLabel = new JLabel("李沅泽是大逗比。", JLabel.CENTER);
-        fontField = new JTextField("宋体");
-        styleField = new JTextField("常规");
-        sizeField = new JTextField("9");
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();  //当前环境可用字体
         String[] fontStrings = ge.getAvailableFontFamilyNames();
         fontJList = new JList(fontStrings);
@@ -76,6 +79,68 @@ public class ZFontChooser extends JPanel {
         ok = new JButton("确定");
         cancel = new JButton("取消");
 
+        if (mode.equals("global")) {
+            fontField = new JTextField(SetUp.GLOBAL_FONT.getFontName());
+            showJLabel.setFont(SetUp.GLOBAL_FONT);
+            switch (SetUp.GLOBAL_FONT.getStyle()) {
+                case Font.PLAIN:
+                    styleField = new JTextField("常规");
+                    styleJList.setSelectedValue("常规", true);
+                    break;
+                case Font.BOLD:
+                    styleField = new JTextField("粗体");
+                    styleJList.setSelectedValue("粗体", true);
+                    break;
+                case Font.ITALIC:
+                    styleField = new JTextField("斜体");
+                    styleJList.setSelectedValue("斜体", true);
+                    break;
+                case Font.BOLD | Font.ITALIC:
+                    styleField = new JTextField("粗斜体");
+                    styleJList.setSelectedValue("粗斜体", true);
+                    break;
+            }
+            sizeField = new JTextField(Integer.toString(SetUp.GLOBAL_FONT.getSize()));
+            defaultName = SetUp.GLOBAL_FONT.getFontName();
+            defaultSize = SetUp.GLOBAL_FONT.getSize();
+            defaultStyle = SetUp.GLOBAL_FONT.getStyle();
+        } else {
+            fontField = new JTextField(SetUp.SHELF_FONT.getFontName());
+            showJLabel.setFont(SetUp.SHELF_FONT);
+            switch (SetUp.SHELF_FONT.getStyle()) {
+                case Font.PLAIN:
+                    styleField = new JTextField("常规");
+                    styleJList.setSelectedValue("常规", true);
+                    break;
+                case Font.BOLD:
+                    styleField = new JTextField("粗体");
+                    styleJList.setSelectedValue("粗体", true);
+                    break;
+                case Font.ITALIC:
+                    styleField = new JTextField("斜体");
+                    styleJList.setSelectedValue("斜体", true);
+                    break;
+                case Font.BOLD | Font.ITALIC:
+                    styleField = new JTextField("粗斜体");
+                    styleJList.setSelectedValue("粗斜体", true);
+                    break;
+            }
+            sizeField = new JTextField(Integer.toString(SetUp.SHELF_FONT.getSize()));
+            defaultName = SetUp.SHELF_FONT.getFontName();
+            defaultSize = SetUp.SHELF_FONT.getSize();
+            defaultStyle = SetUp.SHELF_FONT.getStyle();
+        }
+        sizeJList.setSelectedValue(Integer.toString(defaultSize), true);
+        fontJList.setSelectedValue(defaultName, true);
+
+        showJLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("示例"));
+        showJPanel.setLayout(new BorderLayout());
+        showJLabel.setBackground(Color.white);
+        styleJList.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray));
+        styleField.setEditable(false);
+        fontField.setEditable(false);
+        sizeField.setEditable(false);
+
         fontJLabel.setBounds(12, 10, 30, 20);
         styleJLabel.setBounds(175, 10, 30, 20);
         sizeJLabel.setBounds(320, 10, 30, 20);
@@ -88,17 +153,6 @@ public class ZFontChooser extends JPanel {
         showJPanel.setBounds(5, 150, 380, 100);
         ok.setBounds(250, 250, 60, 20);
         cancel.setBounds(310, 250, 60, 20);
-
-        showJLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("示例"));
-        showJPanel.setLayout(new BorderLayout());
-        showJLabel.setBackground(Color.white);
-        fontJList.setSelectedValue("宋体", true);
-        styleJList.setSelectedValue("常规", true);
-        sizeJList.setSelectedValue("9", false);
-        styleJList.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray));
-        styleField.setEditable(false);
-        fontField.setEditable(false);
-        sizeField.setEditable(false);
 
         showJPanel.add(showJLabel);
         this.setLayout(null);
@@ -150,6 +204,16 @@ public class ZFontChooser extends JPanel {
 
         ok.addActionListener((ActionEvent e) -> {
             font = new Font(defaultName, defaultStyle, defaultSize);
+            if (mode.equals("global")) {
+                SetUp.GLOBAL_FONT = font;
+            } else {
+                SetUp.SHELF_FONT = font;
+            }
+            try {
+                SetUp.newChangeFont(index);
+            } catch (Exception ex) {
+                Logger.getLogger(ZFontChooser.class.getName()).log(Level.SEVERE, null, ex);
+            }
             dialog.dispose();
             dialog = null;
         });
@@ -163,7 +227,11 @@ public class ZFontChooser extends JPanel {
 
     public Font showDialog(Frame parent, String title) {
         if (title == null) {
-            title = "字体选择器";
+            if (mode.equals("global")) {
+                title = "普通字体选择器";
+            } else {
+                title = "书架字体选择器";
+            }
         }
         dialog = new JDialog(parent, title, true);
         dialog.add(this);
@@ -190,4 +258,10 @@ public class ZFontChooser extends JPanel {
     public Font newWindow() throws Exception {
         return showDialog(null, null);
     }
+    /*
+     public static void main(String[] args) throws Exception {
+     ZFontChooser zFontChooser = new ZFontChooser();
+     zFontChooser.newWindow();
+     }
+     */
 }
