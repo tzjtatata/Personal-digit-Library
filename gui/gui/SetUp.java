@@ -13,6 +13,7 @@ import java.util.HashMap;
 import javax.swing.*;
 import com.alibaba.fastjson.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.logging.Level;
@@ -55,76 +56,22 @@ public class SetUp extends BasicPanel {
             if (info[i].toString().contains("Metal")) {
                 styleButtons[i] = new JRadioButton("Metal风格");
                 //加监听器
-                styleButtons[i].addActionListener((ActionEvent e) -> {
-                    try {
-                        UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-                        setMap.get("style").put("style", "javax.swing.plaf.metal.MetalLookAndFeel");
-                        SaveSetInfo();
-                    } catch (Exception ex) {
-                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    javax.swing.SwingUtilities.updateComponentTreeUI(this);
-                });
+                styleButtons[i].addActionListener(new RadioButtonListener(i, "javax.swing.plaf.metal.MetalLookAndFeel", this));
             } else if (info[i].toString().contains("Nimbus")) {
                 styleButtons[i] = new JRadioButton("Nimbus风格");
-                styleButtons[i].addActionListener((ActionEvent e) -> {
-                    try {
-                        UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-                        setMap.get("style").put("style", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-                        SaveSetInfo();
-                    } catch (Exception ex) {
-                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    javax.swing.SwingUtilities.updateComponentTreeUI(this);
-                });
+                styleButtons[i].addActionListener(new RadioButtonListener(i, "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel", this));
             } else if (info[i].toString().contains("Motif")) {
                 styleButtons[i] = new JRadioButton("Motif风格");
-                styleButtons[i].addActionListener((ActionEvent e) -> {
-                    try {
-                        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-                        setMap.get("style").put("style", "com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-                        SaveSetInfo();
-                    } catch (Exception ex) {
-                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    javax.swing.SwingUtilities.updateComponentTreeUI(this);
-                });
+                styleButtons[i].addActionListener(new RadioButtonListener(i, "com.sun.java.swing.plaf.motif.MotifLookAndFeel", this));
             } else if (info[i].toString().contains("Classic")) {
                 styleButtons[i] = new JRadioButton("Classic风格");
-                styleButtons[i].addActionListener((ActionEvent e) -> {
-                    try {
-                        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
-                        setMap.get("style").put("style", "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
-                        SaveSetInfo();
-                    } catch (Exception ex) {
-                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    javax.swing.SwingUtilities.updateComponentTreeUI(this);
-                });
+                styleButtons[i].addActionListener(new RadioButtonListener(i, "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel", this));
             } else if (info[i].toString().contains("Windows")) {
                 styleButtons[i] = new JRadioButton("Windows风格");
-                styleButtons[i].addActionListener((ActionEvent e) -> {
-                    try {
-                        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-                        setMap.get("style").put("style", "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-                        SaveSetInfo();
-                    } catch (Exception ex) {
-                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    javax.swing.SwingUtilities.updateComponentTreeUI(this);
-                });
+                styleButtons[i].addActionListener(new RadioButtonListener(i, "com.sun.java.swing.plaf.windows.WindowsLookAndFeel", this));
             } else if (info[i].toString().contains("Mac")) {
                 styleButtons[i] = new JRadioButton("Mac风格");
-                styleButtons[i].addActionListener((ActionEvent e) -> {
-                    try {
-                        UIManager.setLookAndFeel("com.sun.java.swing.plaf.mac.MacLookAndFeel");
-                        setMap.get("style").put("style", "com.sun.java.swing.plaf.mac.MacLookAndFeel");
-                        SaveSetInfo();
-                    } catch (Exception ex) {
-                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    javax.swing.SwingUtilities.updateComponentTreeUI(this);
-                });
+                styleButtons[i].addActionListener(new RadioButtonListener(i, "com.sun.java.swing.plaf.mac.MacLookAndFeel", this));
             }
             styleButtons[i].setBounds(300 + 130 * (i % 4), 180 + (i / 4) * 40, 130, 50);
             styleButtons[i].setOpaque(false);
@@ -138,18 +85,11 @@ public class SetUp extends BasicPanel {
                 180 + (styleButtons.length - 1) / 4 * 40, 130, 50);
         styleButtons[styleButtons.length - 1].setOpaque(false);
         styleButtons[styleButtons.length - 1].setFont(GLOBAL_FONT);
-        styleButtons[styleButtons.length - 1].addActionListener((ActionEvent e) -> {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                setMap.get("style").put("style", UIManager.getSystemLookAndFeelClassName());
-                SaveSetInfo();
-            } catch (Exception ex) {
-                Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            javax.swing.SwingUtilities.updateComponentTreeUI(SetUp.this);
-        });
+        styleButtons[styleButtons.length - 1].addActionListener(new RadioButtonListener(styleButtons.length - 1,
+                UIManager.getSystemLookAndFeelClassName(), this));
         this.add(styleButtons[styleButtons.length - 1]);
         stylebButtonGroup.add(styleButtons[styleButtons.length - 1]);
+        styleButtons[(int) setMap.get("style").get("num")].setSelected(true);
 
         fontJLabel = new JLabel("字体设置", JLabel.CENTER);
         fontJLabel.setFont(GLOBAL_FONT);
@@ -189,6 +129,7 @@ public class SetUp extends BasicPanel {
         themeButtonGroup = new ButtonGroup();
         themeButtons = new JRadioButton[1];
         themeButtons[0] = new JRadioButton("默认主题");
+        themeButtons[0].setSelected(true);
         //主题系列RadioButton
         for (int i = 0; i < themeButtons.length; i++) {
             themeButtons[i].setBounds(300 + 130 * (i % 4), 280 + (i / 4) * 40, 130, 50);
@@ -255,6 +196,32 @@ public class SetUp extends BasicPanel {
             setMap.get("global").put("size", GLOBAL_FONT.getSize());
             setMap.get("global").put("style", GLOBAL_FONT.getStyle());
             SaveSetInfo();
+        }
+    }
+
+    private class RadioButtonListener implements ActionListener {
+
+        private final int i;
+        private final String feel;
+        private final SetUp panel;
+
+        public RadioButtonListener(int i, String feel, SetUp panel) {
+            this.i = i;
+            this.feel = feel;
+            this.panel = panel;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                UIManager.setLookAndFeel(feel);
+                setMap.get("style").put("style", feel);
+                setMap.get("style").put("num", i);
+                SaveSetInfo();
+            } catch (Exception ex) {
+                Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            javax.swing.SwingUtilities.updateComponentTreeUI(panel);
         }
     }
 }
