@@ -3,11 +3,14 @@ package backtable;
 import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Node implements Serializable{
+public class Node implements Serializable {
+
     BigInteger value;
     int lastPOS;
     int firstPOS;
-    public String toString(){
-        return value.toString()+","+firstPOS+"\n";
+
+    @Override
+    public String toString() {
+        return value.toString() + "," + firstPOS + "\n";
     }
 }

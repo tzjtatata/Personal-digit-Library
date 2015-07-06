@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * 新的Search类，将取代原有的backtable.Search
@@ -41,18 +42,18 @@ public class NewSearch {
      */
     @SuppressWarnings("empty-statement")
     public static void Init(int how) throws Exception {
-        long pre = System.currentTimeMillis();
-        System.out.println("开始设置哈希map！");
-        if (!fileJson.exists()) {
-            fileJson.createNewFile();
-        }
-        fileMap.put(".txt", new HashMap<>());
-        fileMap.put(".pdf", new HashMap<>());
-        fileMap.put(".doc", new HashMap<>());
-        System.out.println("哈希map设置完毕!" + (System.currentTimeMillis() - pre));
-        pre = System.currentTimeMillis();
         //迭代版本
         if (how == 0) {
+            long pre = System.currentTimeMillis();
+            System.out.println("开始设置哈希map！");
+            if (!fileJson.exists()) {
+                fileJson.createNewFile();
+            }
+            fileMap.put(".txt", new HashMap<>());
+            fileMap.put(".pdf", new HashMap<>());
+            fileMap.put(".doc", new HashMap<>());
+            System.out.println("哈希map设置完毕!" + (System.currentTimeMillis() - pre));
+            pre = System.currentTimeMillis();
             System.out.println("开始搜索全盘！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
             File[] roots = File.listRoots();//获取所有磁盘盘符
@@ -81,15 +82,12 @@ public class NewSearch {
                 System.out.println("json写入完成！" + (System.currentTimeMillis() - pre));
                 pre = System.currentTimeMillis();
             }
-        } else {
-            System.out.println("加载json文件！" + (System.currentTimeMillis() - pre));
+
+            System.out.println("进行自动分类！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
-            ReadJson();
+            Classify();
+            System.out.println("自动分类完成，程序结束！" + (System.currentTimeMillis() - pre));
         }
-        System.out.println("进行自动分类！" + (System.currentTimeMillis() - pre));
-        pre = System.currentTimeMillis();
-        Classify();
-        System.out.println("自动分类完成，程序结束！" + (System.currentTimeMillis() - pre));
     }
 
     /**
@@ -172,27 +170,67 @@ public class NewSearch {
      * @throws Exception
      */
     public static void Classify() throws Exception {
-        HashMap<String, String> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
+        HashMap<String, String[]> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
         HashMap<String, ArrayList<String>> classMap = new HashMap<>();  //要写入的map
         try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/classData.pdl"))) {
             while (br.ready()) {
                 String line = br.readLine();
-                String lines[] = line.split(":");
-                if (lines[1].length() > 2) {
-                    classDataMap.put(lines[0], lines[1]);
+                String lines[] = line.split("/");
+                if (lines[2].length() > 2) {
+                    //将classData.pdl的分类作为key，正则表达式和书籍构成的数组作为value。
+                    classDataMap.put(lines[0], new String[]{lines[1], lines[2]});
                     classMap.put(lines[0], new ArrayList<>());
                 }
             }
         }
+        classMap.put("TXT", new ArrayList<>());
+        //分类，对每个文件名，进行分词匹配。将文件名两两分词，如果有词匹配到正则表达式，则匹配率视为1。否则匹配后面的书，匹配数/分词总数为匹配率，
+        //匹配率最高的分类且大于一定比例，归入此分类。否则归入其他/TXT。
         fileMap.keySet().stream().forEach((type) -> {
             fileMap.get(type).keySet().stream().forEach((path) -> {
                 fileMap.get(type).get(path).stream().forEach((file) -> {
                     int flag = 1;
-                    for (String cate : classDataMap.keySet()) {
-                        if (classDataMap.get(cate).contains(file)) {
-                            classMap.get(cate).add(path + "\\" + file);
+                    if (!file.endsWith(".txt")) { // txt单分一类
+                        int find = 0;
+                        double num = 0; //匹配率
+                        int correct = 0;
+                        String ofCate = "其它"; //最终决定所属分类
+                        ArrayList<String> word = new ArrayList<>();
+                        //分词
+                        try {
+                            Analyze.testCJK(file, word);
+                        } catch (Exception ex) {
+                            Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        for (String cate : classDataMap.keySet()) {
+                            correct = 0;
+                            //用该分类下的正则作为正则匹配文件名
+                            if (!cate.equals("其它") && Pattern.compile(classDataMap.get(cate)[0]).matcher(file).find()) {
+                                num = 1;
+                                find = 1;
+                                ofCate = cate;
+                            } else {
+                                for (String word1 : word) {
+                                    if (Pattern.compile(word1).matcher(classDataMap.get(cate)[1]).find()) {
+                                        correct++;
+                                    }
+                                }
+                            }
+                            if (find == 1) {  //找到正则的匹配，跳出循环
+                                break;
+                            } else {//否则筛选正确率
+                                num = correct * 1.0 / word.size() > num && correct * 1.0 / word.size() > 0.4 ? correct * 1.0 / word.size() : num;
+                                ofCate = cate;
+                            }
+                            //分类需要修改的地方
+                        }
+                        if (num > 0) {
+                            classMap.get(ofCate).add(path + "\\" + file);
                             flag = 0;
                         }
+                    } else {
+                        classMap.get("TXT").add(path + "\\" + file);
+                        flag = 0;
                     }
                     if (flag == 1) {
                         classMap.get("其它").add(path + "\\" + file);

@@ -154,6 +154,11 @@ public class SetUp extends BasicPanel {
         UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
     }
 
+    /**
+     * 存档
+     *
+     * @throws Exception
+     */
     public static void SaveSetInfo() throws Exception {
         jsonString = JSON.toJSONString(setMap);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(setFile))) {
@@ -168,6 +173,12 @@ public class SetUp extends BasicPanel {
         img.paintIcon(this, g, 0, 0);
     }
 
+    /**
+     * 更改字体，c为MainFrame对象。
+     *
+     * @param c
+     * @throws Exception
+     */
     public static void newChangeFont(Container c) throws Exception {
         changeFont(c);
         for (ResultPanel resultPanel : ShelfPanel.subjectShow) {
@@ -183,6 +194,12 @@ public class SetUp extends BasicPanel {
         SaveSetInfo();
     }
 
+    /**
+     * 递归更改字体，通过newChangeFont调用
+     *
+     * @param c
+     * @throws Exception
+     */
     public static void changeFont(Container c) throws Exception {
         if (c.getComponents().length != 0) {
             for (Component c1 : c.getComponents()) {

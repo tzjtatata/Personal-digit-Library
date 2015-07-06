@@ -81,13 +81,14 @@ public class Analyze {
             System.out.println(t.termText());
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        ArrayList<String> word = new ArrayList<>();
-        System.out.println(testString1);
-        System.out.println("第一种双字分词:\n");
-        testCJK(testString1, word);
-        System.out.println("第二种分词:\n");
-        testJe(testString1);
-    }
+    /*
+     public static void main(String[] args) throws Exception {
+     ArrayList<String> word = new ArrayList<>();
+     System.out.println(testString1);
+     System.out.println("第一种双字分词:\n");
+     testCJK(testString1, word);
+     System.out.println("第二种分词:\n");
+     testJe(testString1);
+     }
+     */
 }
