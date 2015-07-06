@@ -213,19 +213,29 @@ public class NewSearch {
                                 for (String word1 : word) {
                                     if (Pattern.compile(word1).matcher(classDataMap.get(cate)[1]).find()) {
                                         correct++;
+                                        if (file.contains("乔伊斯")) {
+                                            System.err.println(word1 + " " + cate);
+                                        }
                                     }
                                 }
                             }
                             if (find == 1) {  //找到正则的匹配，跳出循环
                                 break;
                             } else {//否则筛选正确率
-                                num = correct * 1.0 / word.size() > num && correct * 1.0 / word.size() > 0.4 ? correct * 1.0 / word.size() : num;
-                                ofCate = cate;
+                                double zhengque = correct * 1.0 / word.size();
+                                if (zhengque > num && zhengque > 0.4) {
+                                    num = zhengque;
+                                    ofCate = cate;
+                                    flag = 0;
+                                }
                             }
                             //分类需要修改的地方
                         }
                         if (num > 0) {
                             classMap.get(ofCate).add(path + "\\" + file);
+                            if (file.contains("乔伊斯")) {
+                                System.err.println(ofCate);
+                            }
                             flag = 0;
                         }
                     } else {
