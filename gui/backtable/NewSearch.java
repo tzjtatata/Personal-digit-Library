@@ -6,6 +6,7 @@
 package backtable;
 
 import com.alibaba.fastjson.*;
+import gui.SetUp;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -56,7 +57,12 @@ public class NewSearch {
             pre = System.currentTimeMillis();
             System.out.println("开始搜索全盘！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
-            File[] roots = File.listRoots();//获取所有磁盘盘符
+            File[] roots;
+            roots = File.listRoots();//获取所有磁盘盘符
+            if (!SetUp.setMap.get("range").get("range").equals("all")) {
+                File f = new File((String) SetUp.setMap.get("range").get("range"));
+                roots = new File[]{f};
+            }
             for (int i = roots.length - 1; i >= 0; i--) {
                 if (!roots[i].toString().startsWith(String.valueOf(System.getProperty("user.home").charAt(0))) && roots[i].listFiles() != null) {
                     for (File root : roots[i].listFiles((File pathname) -> !pathname.isHidden())) {
@@ -213,9 +219,6 @@ public class NewSearch {
                                 for (String word1 : word) {
                                     if (Pattern.compile(word1).matcher(classDataMap.get(cate)[1]).find()) {
                                         correct++;
-                                        if (file.contains("乔伊斯")) {
-                                            System.err.println(word1 + " " + cate);
-                                        }
                                     }
                                 }
                             }
@@ -233,9 +236,6 @@ public class NewSearch {
                         }
                         if (num > 0) {
                             classMap.get(ofCate).add(path + "\\" + file);
-                            if (file.contains("乔伊斯")) {
-                                System.err.println(ofCate);
-                            }
                             flag = 0;
                         }
                     } else {

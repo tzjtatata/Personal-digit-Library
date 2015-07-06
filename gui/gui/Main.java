@@ -17,6 +17,7 @@ import java.io.FileWriter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        SetUp.Init();
         try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/flag.pdl"))) {
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);
@@ -27,7 +28,6 @@ public class Main {
                 backtable.NewSearch.Init(1);
             }
         }
-        SetUp.Init();
         new MainFrame();
     }
 }

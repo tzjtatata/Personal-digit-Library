@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,14 +29,14 @@ public class SetUp extends BasicPanel {
 
     private static File setFile;
     private static String jsonString;
-    private static HashMap<String, HashMap<String, Object>> setMap;
+    public static HashMap<String, HashMap<String, Object>> setMap;
     public static Font GLOBAL_FONT;
     public static Font SHELF_FONT;
-    private final JLabel themeJLabel, fontJLabel, styleJLabel;
+    private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
     private final JRadioButton[] styleButtons, themeButtons;
     private final ButtonGroup stylebButtonGroup, themeButtonGroup;
     private final UIManager.LookAndFeelInfo[] info;
-    private final JButton globalButton, shelfButton;
+    private final JButton globalButton, shelfButton, reseButton, rangeButton;
     private ZFontChooser z;
 
     public SetUp(MainFrame index) throws Exception {
@@ -93,15 +94,15 @@ public class SetUp extends BasicPanel {
 
         fontJLabel = new JLabel("字体设置", JLabel.CENTER);
         fontJLabel.setFont(GLOBAL_FONT);
-        fontJLabel.setBounds(185, 380, 100, 50);
+        fontJLabel.setBounds(185, 320, 100, 50);
         this.add(fontJLabel);
 
         globalButton = new JButton("普通字体设置");
         shelfButton = new JButton("书架字体设置");
         globalButton.setFont(GLOBAL_FONT);
         shelfButton.setFont(GLOBAL_FONT);
-        globalButton.setBounds(350, 396, 150, 20);
-        shelfButton.setBounds(520, 396, 150, 20);
+        globalButton.setBounds(350, 330, 150, 30);
+        shelfButton.setBounds(520, 330, 150, 30);
         globalButton.addActionListener((ActionEvent e) -> {
             z = new ZFontChooser("global", index);
             try {
@@ -123,7 +124,7 @@ public class SetUp extends BasicPanel {
 
         themeJLabel = new JLabel("主题设置", JLabel.CENTER);
         themeJLabel.setFont(styleJLabel.getFont());
-        themeJLabel.setBounds(185, 280, 100, 50);
+        themeJLabel.setBounds(185, 260, 100, 50);
         this.add(themeJLabel);
 
         themeButtonGroup = new ButtonGroup();
@@ -132,12 +133,68 @@ public class SetUp extends BasicPanel {
         themeButtons[0].setSelected(true);
         //主题系列RadioButton
         for (int i = 0; i < themeButtons.length; i++) {
-            themeButtons[i].setBounds(300 + 130 * (i % 4), 280 + (i / 4) * 40, 130, 50);
+            themeButtons[i].setBounds(300 + 130 * (i % 4), 260 + (i / 4) * 40, 130, 50);
             themeButtons[i].setFont(GLOBAL_FONT);
             themeButtons[i].setOpaque(false);
             this.add(themeButtons[i]);
             themeButtonGroup.add(themeButtons[i]);
         }
+
+        startJLabel = new JLabel("启动设置", JLabel.CENTER);
+        startJLabel.setBounds(185, 380, 100, 30);
+        this.add(startJLabel);
+        //让flag.pdl置为0
+        reseButton = new JButton("重置初始搜索");
+        reseButton.setBounds(350, 380, 150, 30);
+        reseButton.addActionListener((ActionEvent) -> {
+            int answer = JOptionPane.showConfirmDialog(this, "重置初始搜索将会在下次启动时重新搜索您的计算机(如果您更改了大量文件，\n可能需要此功能)，这可能为花费较长时间，您确定要这么做吗？",
+                    "警告", JOptionPane.YES_NO_OPTION);
+            if (answer == 0) {
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/flag.pdl"))) {
+                    bw.write("0");
+                } catch (IOException ex) {
+                    Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        this.add(reseButton);
+        rangeButton = new JButton("搜索范围更改");
+        rangeButton.setBounds(520, 380, 150, 30);
+        rangeButton.addActionListener((ActionEvent) -> {
+            //如何不让选C盘相关？
+            File f;
+            if (!setMap.get("range").get("range").equals("all")) {
+                f = showFileChooser(this, new File((String) setMap.get("range").get("range")));
+            } else {
+                f = showFileChooser(this, null);
+            }
+            if (f != null) {  //选择了文件以后，存储改变信息
+                setMap.get("range").put("range", f.getAbsoluteFile());
+                try {
+                    SaveSetInfo();
+                } catch (Exception ex) {
+                    Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        this.add(rangeButton);
+    }
+
+    public static File showFileChooser(SetUp setUp, File path) {
+        JFileChooser jfc;
+        if (path != null) {
+            jfc = new JFileChooser(path);
+        } else {
+            jfc = new JFileChooser();
+        }
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        jfc.setMultiSelectionEnabled(false);
+        jfc.showDialog(setUp, "选择该目录");
+        if (jfc.getSelectedFile() != null && jfc.getSelectedFile().getAbsolutePath().startsWith(String.valueOf(System.getProperty("user.home").charAt(0)))) {
+            JOptionPane.showMessageDialog(jfc, "对不起,不能选择系统盘目录！", "警告", JOptionPane.WARNING_MESSAGE);
+            return showFileChooser(setUp, path);
+        }
+        return jfc.getSelectedFile();
     }
 
     public static void Init() throws Exception {
