@@ -164,12 +164,17 @@ public class SetUp extends BasicPanel {
             //如何不让选C盘相关？
             File f;
             if (!setMap.get("range").get("range").equals("all")) {
-                f = showFileChooser(this, new File((String) setMap.get("range").get("range")));
+                String s = (String) setMap.get("range").get("range");
+                f = showFileChooser(this, new File(s));
             } else {
                 f = showFileChooser(this, null);
             }
             if (f != null) {  //选择了文件以后，存储改变信息
-                setMap.get("range").put("range", f.getAbsoluteFile());
+                String path = f.getAbsolutePath();
+                if (!path.endsWith("\\")) {
+                    path += "\\";
+                }
+                setMap.get("range").put("range", path);
                 try {
                     SaveSetInfo();
                 } catch (Exception ex) {

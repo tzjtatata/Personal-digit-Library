@@ -60,7 +60,8 @@ public class NewSearch {
             File[] roots;
             roots = File.listRoots();//获取所有磁盘盘符
             if (!SetUp.setMap.get("range").get("range").equals("all")) {
-                File f = new File((String) SetUp.setMap.get("range").get("range"));
+                String s = (String) SetUp.setMap.get("range").get("range");
+                File f = new File(s);
                 roots = new File[]{f};
             }
             for (int i = roots.length - 1; i >= 0; i--) {
