@@ -14,6 +14,7 @@ import java.io.FileWriter;
  *
  * @author 开发
  */
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -26,8 +27,8 @@ public class Main {
                 }
             } else {
                 backtable.NewSearch.Init(1);
-            }
         }
-        new MainFrame();
-    }
+            new MainFrame();
+        }
+}
 }

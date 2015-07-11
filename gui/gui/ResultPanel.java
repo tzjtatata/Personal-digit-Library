@@ -14,7 +14,7 @@ import gui.SetUp;
 public class ResultPanel extends JPanel {
 
     private HashMap<Integer, String> JLHashMap;
-    private JLabel[] labelListJLabels = new JLabel[5000];
+    private JLabel[] labelListJLabels = new JLabel[50000];
     private JLabel labelHintJLabel = new JLabel();
     private JLabel[] labelorderJLabels = new JLabel[20];
     private JLabel next, front, tail, foreward;
