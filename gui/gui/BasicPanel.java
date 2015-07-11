@@ -22,7 +22,7 @@ public class BasicPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("main/source/搜索背景.png");
+        ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
         img.paintIcon(this, g, 0, 0);
     }
 

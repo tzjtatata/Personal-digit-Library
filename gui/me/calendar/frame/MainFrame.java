@@ -34,9 +34,9 @@ public class MainFrame extends javax.swing.JFrame //建立一視窗物件
     private static final long serialVersionUID = 1L;
     public MainDesktopPane mainDesktop;//相關物件宣告
     public CalendarPane calendarPane;
-    public JButton btn_clear = new JButton(new ImageIcon("main/source/清除.png"));
-    public JButton btn_save = new JButton(new ImageIcon("main/source/储存.png"));
-    public JButton btn_query = new JButton(new ImageIcon("main/source/查询.png"));
+    public JButton btn_clear = new JButton(new ImageIcon("gui/source/清除.png"));
+    public JButton btn_save = new JButton(new ImageIcon("gui/source/储存.png"));
+    public JButton btn_query = new JButton(new ImageIcon("gui/source/查询.png"));
     public JLabel lab_sun;
     public JLabel lab_week;
     public JLabel lab_query_year;
@@ -51,10 +51,10 @@ public class MainFrame extends javax.swing.JFrame //建立一視窗物件
     public JTextArea area_note;
 
     public JLabel j1 = new JLabel();
-    public JButton jb_shelf = new JButton(new ImageIcon("main/source/书架.jpg"));
-    public JButton jb_function = new JButton(new ImageIcon("main/source/搜索.jpg"));
-    public JButton jb_about = new JButton(new ImageIcon("main/source/关于.jpg"));
-    public JButton jb_help = new JButton(new ImageIcon("main/source/设置.jpg"));
+    public JButton jb_shelf = new JButton(new ImageIcon("gui/source/书架.jpg"));
+    public JButton jb_function = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+    public JButton jb_about = new JButton(new ImageIcon("gui/source/关于.jpg"));
+    public JButton jb_help = new JButton(new ImageIcon("gui/source/设置.jpg"));
     public JPanel jp = new JPanel();
 
     //主程式結束
@@ -119,7 +119,7 @@ public class MainFrame extends javax.swing.JFrame //建立一視窗物件
             pack();
 
             this.setBounds(200, 70, 950, 650);//大小 位置
-            Image i = this.getToolkit().getImage("main/source/digital_library.png");//logo
+            Image i = this.getToolkit().getImage("gui/source/digital_library.png");//logo
             this.setIconImage(i);
 
             this.setResizable(false);//不可以调整大小

@@ -24,10 +24,10 @@ public class Search extends BasicPanel {
         super(index);
         this.setLayout(null);
         //index.setTitle("搜索");
-        bt1 = new JButton(new ImageIcon("main/source/设置.jpg"));
+        bt1 = new JButton(new ImageIcon("gui/source/设置.jpg"));
         bt1.setBorder(null);
         bt1.addMouseListener(new CursorListener());
-        bt2 = new JButton(new ImageIcon("main/source/搜索.jpg"));
+        bt2 = new JButton(new ImageIcon("gui/source/搜索.jpg"));
         bt2.addMouseListener(new CursorListener());
         bt2.setBorder(null);
         //bt2.addActionListener();

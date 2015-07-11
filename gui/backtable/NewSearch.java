@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  */
 public class NewSearch {
 
-    public static File fileJson = new File("main/backtable/fileInfo.json");
+    public static File fileJson = new File("gui/backtable/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
 
@@ -179,7 +179,7 @@ public class NewSearch {
     public static void Classify() throws Exception {
         HashMap<String, String[]> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
         HashMap<String, ArrayList<String>> classMap = new HashMap<>();  //要写入的map
-        try (BufferedReader br = new BufferedReader(new FileReader("main/backtable/classData.pdl"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/classData.pdl"))) {
             while (br.ready()) {
                 String line = br.readLine();
                 String lines[] = line.split("/");
@@ -249,7 +249,7 @@ public class NewSearch {
                 });
             });
         });
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("main/backtable/class.pdl"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/class.pdl"))) {
             classMap.keySet().stream().forEach((cate) -> {
                 try {
                     if (classMap.get(cate).size() > 0) {

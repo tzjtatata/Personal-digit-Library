@@ -34,12 +34,12 @@ public class Search {
      * 调用该方法会清空txtFolder和otherFolder
      */
     public void Init() {
-        File f1 = new File("main/backtable/txtFolder/");
+        File f1 = new File("gui/backtable/txtFolder/");
         if (f1.exists()) {
             DeleteDirectory(f1);
         }
         f1.mkdir();
-        File f2 = new File("main/backtable/otherFolder/");
+        File f2 = new File("gui/backtable/otherFolder/");
         if (f2.exists()) {
             DeleteDirectory(f2);
         }
@@ -102,7 +102,7 @@ public class Search {
      */
     public void MakeFile(File f, boolean nf, String type) throws Exception {
         // 创建文件
-        File file = new File("main/backtable/"
+        File file = new File("gui/backtable/"
                 + type
                 + f.getParent().replaceAll(lyz, "&&").replaceAll(":&&", "&&&")
                 + ".pdl");  // pdl格式防止程序检索
@@ -171,7 +171,7 @@ public class Search {
      */
     public void NameSearch(String name, String type) throws Exception {
         Pattern p = Pattern.compile(name);
-        for (String sd : SearchDish("main/backtable/" + type, p)) {
+        for (String sd : SearchDish("gui/backtable/" + type, p)) {
             result.add(sd);
         }
     }
@@ -215,7 +215,7 @@ public class Search {
      * @throws java.lang.Exception
      */
     public static String FileMatch(File user) throws Exception {
-        File file = new File("main/backtable/bookInfo");
+        File file = new File("gui/backtable/bookInfo");
         File[] files = file.listFiles();
         File matchFile = null;  //初始化被匹配到的文件
         double num = 0, i; //num代表匹配率，i是循环中每个文件的匹配率
@@ -242,7 +242,7 @@ public class Search {
      */
     public ArrayList<String> SearchForAuthor(String name) throws Exception {
         Pattern p = Pattern.compile(name);  //正则匹配作者名
-        File f = new File("main/backtable/otherFolder/");
+        File f = new File("gui/backtable/otherFolder/");
         ArrayList<String> al = new ArrayList<>();  //存放用的动态数组
         File[] files = f.listFiles((File pathname) -> !pathname.isHidden());
         for (File file : files) {
@@ -250,7 +250,7 @@ public class Search {
                 while (br.ready()) {
                     String line = br.readLine();
                     if (!line.endsWith("null")) {  //空结尾说明文件不能从bookInfo中匹配
-                        File book = new File("main/backtable/bookInfo/" + line.split("&&")[1]);
+                        File book = new File("gui/backtable/bookInfo/" + line.split("&&")[1]);
                         try (BufferedReader br1 = new BufferedReader(new FileReader(book))) {
                             br1.readLine();
                             String s = br1.readLine();  //第二行是作者

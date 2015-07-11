@@ -150,7 +150,7 @@ public class SetUp extends BasicPanel {
             int answer = JOptionPane.showConfirmDialog(this, "重置初始搜索将会在下次启动时重新搜索您的计算机(如果您更改了大量文件，\n可能需要此功能)，这可能为花费较长时间，您确定要这么做吗？",
                     "警告", JOptionPane.YES_NO_OPTION);
             if (answer == 0) {
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter("main/backtable/flag.pdl"))) {
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/flag.pdl"))) {
                     bw.write("0");
                 } catch (IOException ex) {
                     Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
@@ -219,7 +219,7 @@ public class SetUp extends BasicPanel {
 
     public static void Init() throws Exception {
         //加载json
-        setFile = new File("main/gui/setInfo.json");
+        setFile = new File("gui/gui/setInfo.json");
         try (BufferedReader br = new BufferedReader(new FileReader(setFile))) {
             jsonString = br.readLine();
         }
@@ -246,7 +246,7 @@ public class SetUp extends BasicPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("main/source/设置2.png");
+        ImageIcon img = new ImageIcon("gui/source/设置2.png");
         img.paintIcon(this, g, 0, 0);
     }
 
