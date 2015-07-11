@@ -224,7 +224,4 @@ public class ReverseSet {
                 }
             }
         }
-	public static void main(String[] args) throws IOException {
-	 new ReverseSet();
-	 }
 }
