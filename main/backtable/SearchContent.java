@@ -17,8 +17,8 @@ public class SearchContent {
     
     public SearchContent(String target)  throws Exception{
         hash = ReverseSet.HashString(target);
-        ObjectInputStream f1 = new ObjectInputStream(new FileInputStream("gui/backtable/dic.pdl"));
-        ObjectInputStream f2 = new ObjectInputStream(new FileInputStream("gui/backtable/data.pdl"));
+        ObjectInputStream f1 = new ObjectInputStream(new FileInputStream("main/backtable/dic.pdl"));
+        ObjectInputStream f2 = new ObjectInputStream(new FileInputStream("main/backtable/data.pdl"));
         
     }
 }

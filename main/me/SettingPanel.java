@@ -40,7 +40,7 @@ public class SettingPanel extends JFrame {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				ImageIcon img = new ImageIcon("gui/source/设置2.png");
+				ImageIcon img = new ImageIcon("main/source/设置2.png");
 				img.paintIcon(this, g, 0, 0);
 			}
 		};
@@ -73,16 +73,16 @@ public class SettingPanel extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setBounds(200, 70, 950, 650);
-		Image i = this.getToolkit().getImage("gui/source/digital_library.png");//logo
+		Image i = this.getToolkit().getImage("main/source/digital_library.png");//logo
 		this.setIconImage(i);
 	}
 
 	void add_bigLabel() {
-		label1 = new JLabel(new ImageIcon("gui/source/风格.png"));
+		label1 = new JLabel(new ImageIcon("main/source/风格.png"));
 		label1.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
-		label2 = new JLabel(new ImageIcon("gui/source/字体.png"));
+		label2 = new JLabel(new ImageIcon("main/source/字体.png"));
 		label2.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
-		label3 = new JLabel(new ImageIcon("gui/source/共享.png"));
+		label3 = new JLabel(new ImageIcon("main/source/共享.png"));
 		label3.setFont(new Font(font_C, Font.BOLD, FONT_SIZE1));
 		date = Utility.getdate();
 		dts = new DataService(date[0], date[1], date[2]);

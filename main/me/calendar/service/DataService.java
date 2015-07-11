@@ -23,7 +23,7 @@ public class DataService {
 			smonth = "0" + smonth;
 		}
 		fileName = year + smonth + day;
-		file = new File("gui/me/calendar/" + fileName + ".txt");
+		file = new File("main/me/calendar/" + fileName + ".txt");
 	}
 
 	public DataService(String _year, String _month, String _day) {
@@ -46,7 +46,7 @@ public class DataService {
 			smonth = "0" + smonth;
 		}
 		filename = _year + smonth + _day;
-		File file = new File("gui/me/calendar/" + filename + ".txt");
+		File file = new File("main/me/calendar/" + filename + ".txt");
 		return file.exists();
 	}
 

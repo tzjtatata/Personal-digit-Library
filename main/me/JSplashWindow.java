@@ -74,12 +74,12 @@ class ThreadToStop extends Thread {
 		// double check，检查stop的状态
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setUndecorated(true);
-		splash = new JSplashWindow("gui/source/welcomepic.png", frame);
+		splash = new JSplashWindow("main/source/welcomepic.png", frame);
 		splash.setVisible(true);
 		frame.pack();
 		frame.setVisible(true);
 		while (!isStop) {
-			File fi = new File("gui/me/showflag.pdl");
+			File fi = new File("main/me/showflag.pdl");
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(fi));
 				if ("1".equals(br.readLine())) {

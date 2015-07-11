@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
          @Override
          protected void paintComponent(Graphics g) {
          super.paintComponent(g);
-         ImageIcon img = new ImageIcon("gui/source/书架背景.png");
+         ImageIcon img = new ImageIcon("main/source/书架背景.png");
          img.paintIcon(this, g, 0, 0);
          }
          };*/
@@ -42,26 +42,26 @@ public class MainFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("gui/source/主页_背景.png");
+                ImageIcon img = new ImageIcon("main/source/主页_背景.png");
                 img.paintIcon(this, g, 0, 0);
             }
         };
         index.setLayout(null);
-        JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+        JButton sousuo = new JButton(new ImageIcon("main/source/搜索.jpg"));
         sousuo.addMouseListener(new CursorListener());
         sousuo.setBounds(263, 348, 54, 28);
         sousuo.setBorder(null);
         sousuo.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "search");
         });
-        JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
+        JButton sousuo2 = new JButton(new ImageIcon("main/source/书架.jpg"));
         sousuo2.addMouseListener(new CursorListener());
         sousuo2.setBounds(140, 215, 56, 28);
         sousuo2.setBorder(null);
         sousuo2.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "shelf");
         });
-        JButton set = new JButton(new ImageIcon("gui/source/设置.jpg"));
+        JButton set = new JButton(new ImageIcon("main/source/设置.jpg"));
         set.addMouseListener(new CursorListener());
         set.setBounds(390, 215, 54, 27);
         set.setBorder(null);
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("gui/source/日历小部件.jpg");
+                ImageIcon img = new ImageIcon("main/source/日历小部件.jpg");
                 img.paintIcon(this, g, 0, 0);
             }
         };
@@ -99,7 +99,7 @@ public class MainFrame extends JFrame {
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
 
-        this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
+        this.setIconImage(this.getToolkit().getImage("main/source/digital_library.png"));  //logo
         this.setContentPane(mainJPanel);  //放置
         this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点
         this.setBounds(200, 50, 950, 650);
@@ -116,7 +116,7 @@ public class MainFrame extends JFrame {
      * @param index 需要返回的主页
      */
     public void addToIndex(JPanel self, MainFrame index) {
-        JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
+        JButton returnButton = new JButton(new ImageIcon("main/source/returnToIndex.png"));
         returnButton.setBounds(750, 80, 30, 30);
         returnButton.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "index");

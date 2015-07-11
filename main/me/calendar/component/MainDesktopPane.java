@@ -46,7 +46,7 @@ public class MainDesktopPane extends JDesktopPane {
         initInput();
         indexButton();
         //initNow();
-        Icon icon = new ImageIcon("gui/source/主页_背景.png", "");  //设置背景
+        Icon icon = new ImageIcon("main/source/主页_背景.png", "");  //设置背景
         //Icon icon=new ImageIcon("主页.png","");  //设置背景
         lab = new JLabel("", icon, SwingConstants.CENTER);
         lab.setBounds(0, 0, 950, 650);
@@ -136,9 +136,9 @@ public class MainDesktopPane extends JDesktopPane {
 
     void initButtons() {
 
-        Icon i1 = new ImageIcon("gui/source/清除.png", "");
-        Icon i2 = new ImageIcon("gui/source/储存.png", "");
-        Icon i3 = new ImageIcon("gui/source/查询.png", "");
+        Icon i1 = new ImageIcon("main/source/清除.png", "");
+        Icon i2 = new ImageIcon("main/source/储存.png", "");
+        Icon i3 = new ImageIcon("main/source/查询.png", "");
 
         mf.btn_clear = new DefaultButton(i1, ActionType.Clear);
         mf.btn_clear.setBorder(null);

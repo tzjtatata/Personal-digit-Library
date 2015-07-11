@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,17 +16,17 @@ import java.io.FileWriter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        SetUp.Init();
-        try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/flag.pdl"))) {
+        gui.SetUp.Init();
+        try (BufferedReader br = new BufferedReader(new FileReader("main/backtable/flag.pdl"))) {
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/flag.pdl"))) {
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter("main/backtable/flag.pdl"))) {
                     bw.write("1");
                 }
             } else {
                 backtable.NewSearch.Init(1);
             }
         }
-        new MainFrame();
+        new gui.MainFrame();
     }
 }

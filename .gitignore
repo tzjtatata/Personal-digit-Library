@@ -193,7 +193,7 @@ manifest.mf
 /build/
 build.xml
 nbbuild.xml
-/gui/backtable/otherFolder/
-/gui/backtable/txtFolder/
+/main/backtable/otherFolder/
+/main/backtable/txtFolder/
 /dist/
 daopai.pdl

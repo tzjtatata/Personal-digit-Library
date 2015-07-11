@@ -28,7 +28,7 @@ public class BookshelfPanel extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("gui/source/书架背景.PNG");
+                ImageIcon img = new ImageIcon("main/source/书架背景.PNG");
                 img.paintIcon(this, g, 0, 0);
             }
         };
