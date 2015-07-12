@@ -70,7 +70,7 @@ public class MainFrame extends JFrame {
      */
     public void addToIndex(JPanel self, MainFrame index) {
         JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
-        returnButton.setBounds(750, 80, 30, 30);
+        returnButton.setBounds(820, 80, 30, 30);
         returnButton.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "index");
         });
