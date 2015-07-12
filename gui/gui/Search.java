@@ -137,6 +137,13 @@ public class Search extends BasicPanel {
         entry4.setBounds(350, 323, 200, 20);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
+        img.paintIcon(this, g, 0, 0);
+    }
+
     class EntryListener extends MouseAdapter {
 
         @Override
