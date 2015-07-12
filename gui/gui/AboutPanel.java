@@ -5,15 +5,13 @@
  */
 package gui;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author 开发
  */
-public class IndexTest extends JPanel {
+public class AboutPanel extends BasicPanel {
 
-    public IndexTest() {
-        super();
+    public AboutPanel(MainFrame index) {
+        super(index);
     }
 }

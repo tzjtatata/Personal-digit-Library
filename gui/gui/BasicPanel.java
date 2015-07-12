@@ -19,14 +19,4 @@ public class BasicPanel extends JPanel {
         index.addToIndex(this, index);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
-        img.paintIcon(this, g, 0, 0);
-    }
-
-    protected void back() {
-
-    }
 }

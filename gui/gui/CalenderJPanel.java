@@ -13,7 +13,7 @@ import javax.swing.*;
  */
 public class CalenderJPanel extends JPanel {
 
-    private JLabel label;
+    private final JLabel label;
 
     public CalenderJPanel() {
         this.setLayout(null);
@@ -25,5 +25,12 @@ public class CalenderJPanel extends JPanel {
         this.add(label);
         this.setSize(950, 100);
         this.setVisible(true);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon("gui/source/日历小部件.jpg");
+        img.paintIcon(this, g, 0, 0);
     }
 }
