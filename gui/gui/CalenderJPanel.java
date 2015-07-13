@@ -33,4 +33,8 @@ public class CalenderJPanel extends JPanel {
         ImageIcon img = new ImageIcon(SetUp.imageForCalenderHint);
         img.paintIcon(this, g, 0, 0);
     }
+
+    public void imageRepaint() {
+        this.repaint();
+    }
 }

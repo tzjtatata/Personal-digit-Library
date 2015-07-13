@@ -144,6 +144,14 @@ public class Search extends BasicPanel {
         img.paintIcon(this, g, 0, 0);
     }
 
+    @Override
+    public void imageRepaint() {
+        super.imageRepaint();
+        this.repaint();
+        bt1.setIcon(new ImageIcon(SetUp.imageForSetButton));
+        bt2.setIcon(new ImageIcon(SetUp.imageForSearchButton));
+    }
+
     class EntryListener extends MouseAdapter {
 
         @Override
@@ -173,6 +181,7 @@ public class Search extends BasicPanel {
 
     class ActionLis extends MouseAdapter {
 
+        @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == point1 || e.getSource() == backg1) {
                 if (entry1.isVisible() == true) {

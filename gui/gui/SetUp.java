@@ -246,7 +246,7 @@ public class SetUp extends BasicPanel {
         }
         setMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, Object>>>() {
         });
-        //读取字体等设置
+        //读取字体图片等设置
         GLOBAL_FONT = new Font((String) setMap.get("global").get("font"), (int) setMap.get("global").get("style"), (int) setMap.get("global").get("size"));
         SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
         UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
@@ -339,17 +339,10 @@ public class SetUp extends BasicPanel {
         }
     }
 
-    //重绘组件
-    public static void allRepaint(Container c) {
-        if (c.getComponents().length != 0) {
-            for (Component c1 : c.getComponents()) {
-                c.repaint();
-                allRepaint((Container) c1);
-            }
-
-        } else {
-            c.repaint();
-        }
+    @Override
+    public void imageRepaint() {
+        super.imageRepaint();
+        this.repaint();
     }
 
     private class RadioButtonListener implements ActionListener {

@@ -43,4 +43,10 @@ public class AboutPanel extends BasicPanel {
         ImageIcon img = new ImageIcon(SetUp.imageForAboutBackground);
         img.paintIcon(this, g, 0, 0);
     }
+
+    @Override
+    public void imageRepaint() {
+        super.imageRepaint();
+        this.repaint();
+    }
 }

@@ -20,33 +20,38 @@ import javax.swing.JPanel;
  */
 public class Index extends JPanel {
 
+    JButton sousuo;
+    JButton sousuo2;
+    JButton set;
+    JButton about;
+
     public Index() {
         super();
 
         //以下为某Z的临时代码，QQ你重写的时候要干掉/重构这些
         this.setLayout(null);
-        JButton sousuo = new JButton(new ImageIcon(SetUp.imageForSearchButton));  //按钮的具体功能参照图片名...
+        sousuo = new JButton(new ImageIcon(SetUp.imageForSearchButton));  //按钮的具体功能参照图片名...
         sousuo.addMouseListener(new CursorListener());
         sousuo.setBounds(263, 348, 54, 28);
         sousuo.setBorder(null);
         sousuo.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "search");  //这个search单词不要改。
         });
-        JButton sousuo2 = new JButton(new ImageIcon(SetUp.imageForShelfButton));
+        sousuo2 = new JButton(new ImageIcon(SetUp.imageForShelfButton));
         sousuo2.addMouseListener(new CursorListener());
         sousuo2.setBounds(140, 215, 56, 28);
         sousuo2.setBorder(null);
         sousuo2.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "shelf");
         });
-        JButton set = new JButton(new ImageIcon(SetUp.imageForSetButton));
+        set = new JButton(new ImageIcon(SetUp.imageForSetButton));
         set.addMouseListener(new CursorListener());
         set.setBounds(390, 215, 54, 27);
         set.setBorder(null);
         set.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "set");
         });
-        JButton about = new JButton(new ImageIcon(SetUp.imageForAboutButton));
+        about = new JButton(new ImageIcon(SetUp.imageForAboutButton));
         about.setBorder(null);
         about.addMouseListener(new CursorListener());
         about.setBounds(518, 348, 49, 26);
@@ -66,6 +71,17 @@ public class Index extends JPanel {
         ImageIcon img = new ImageIcon(SetUp.imageForIndexBackground);
         img.paintIcon(this, g, 0, 0);
     }
+
+    //重绘图片用的方法
+
+    public void imageRepaint() {
+        this.repaint();
+        sousuo.setIcon(new ImageIcon(SetUp.imageForSearchButton));
+        sousuo2.setIcon(new ImageIcon(SetUp.imageForShelfButton));
+        set.setIcon(new ImageIcon(SetUp.imageForSetButton));
+        about.setIcon(new ImageIcon(SetUp.imageForAboutButton));
+    }
+//这个是鼠标监听器
 
     class CursorListener extends MouseAdapter {
 
