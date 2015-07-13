@@ -24,24 +24,24 @@ public class Search extends BasicPanel {
         super(index);
         this.setLayout(null);
         //index.setTitle("搜索");
-        bt1 = new JButton(new ImageIcon("gui/source/设置.jpg"));
+        bt1 = new JButton(new ImageIcon(SetUp.imageForSetButton));
         bt1.setBorder(null);
         bt1.addMouseListener(new CursorListener());
-        bt2 = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+        bt2 = new JButton(new ImageIcon(SetUp.imageForSearchButton));
         bt2.addMouseListener(new CursorListener());
         bt2.setBorder(null);
         //bt2.addActionListener();
         option1 = new JLabel("按作者搜索");
-        option1.setFont(new java.awt.Font("微软雅黑", 1, 18));
+        option1.setFont(SetUp.GLOBAL_FONT);
         option1.setForeground(new Color(39, 158, 218));
         option2 = new JLabel("按类型搜索");
-        option2.setFont(new java.awt.Font("微软雅黑", 1, 18));
+        option2.setFont(SetUp.GLOBAL_FONT);
         option2.setForeground(new Color(39, 158, 218));
         option3 = new JLabel("按文件名搜索");
-        option3.setFont(new java.awt.Font("微软雅黑", 1, 18));
+        option3.setFont(SetUp.GLOBAL_FONT);
         option3.setForeground(new Color(39, 158, 218));
         option4 = new JLabel("按关键字搜索");
-        option4.setFont(new java.awt.Font("微软雅黑", 1, 18));
+        option4.setFont(SetUp.GLOBAL_FONT);
         option4.setForeground(new Color(39, 158, 218));
         entry1 = new JTextField(15);
         entry1.addMouseListener(new EntryListener());
@@ -140,7 +140,7 @@ public class Search extends BasicPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/搜索背景.png");
+        ImageIcon img = new ImageIcon(SetUp.imageForSearchBackground);
         img.paintIcon(this, g, 0, 0);
     }
 

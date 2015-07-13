@@ -38,6 +38,24 @@ public class SetUp extends BasicPanel {
     private final UIManager.LookAndFeelInfo[] info;
     private final JButton globalButton, shelfButton, reseButton, rangeButton, resetRangeButton;
     private ZFontChooser z;
+    //以下图片路径
+    public static String imageForLogo;
+    public static String imageForReturn;
+    public static String imageForReturnToIndex;
+    public static String imageForWelcome;
+    public static String imageForIndexBackground;
+    public static String imageForShelfBackground;
+    public static String imageForShelfButton;
+    public static String imageForSaveButton;
+    public static String imageForAboutButton;
+    public static String imageForSearchButton;
+    public static String imageForSearchResultBackground;
+    public static String imageForSearchBackground;
+    public static String imageForCalenderHint;
+    public static String imageForQueryButton;
+    public static String imageForCleanButton;
+    public static String imageForSetButton;
+    public static String imageForSetBackground;
 
     public SetUp(MainFrame index) throws Exception {
         super(index);
@@ -199,6 +217,7 @@ public class SetUp extends BasicPanel {
         });
         this.add(resetRangeButton);
     }
+//文件选择器
 
     public static File showFileChooser(SetUp setUp, File path) {
         JFileChooser jfc;
@@ -216,6 +235,7 @@ public class SetUp extends BasicPanel {
         }
         return jfc.getSelectedFile();
     }
+//初始化操作
 
     public static void Init() throws Exception {
         //加载json
@@ -229,6 +249,30 @@ public class SetUp extends BasicPanel {
         GLOBAL_FONT = new Font((String) setMap.get("global").get("font"), (int) setMap.get("global").get("style"), (int) setMap.get("global").get("size"));
         SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
         UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
+    }
+
+    public static void changeImage(Container c) {
+        //更改图片
+        String num = "_" + String.valueOf(setMap.get("style").get("theme"));
+        imageForAboutButton = "gui/source/关于" + num + ".jpg";
+        imageForLogo = "digital_library" + num + ".png";
+        imageForReturnToIndex = "returnToIndex" + num + ".png";
+        imageForReturn = "return" + num + ".png";
+        imageForWelcome = "welcomepic" + num + ".png";
+        imageForIndexBackground = "主页_背景" + num + ".png";
+        imageForShelfButton = "书架" + num + ".jpg";
+        imageForShelfBackground = "书架背景" + num + ".PNG";
+        imageForSaveButton = "储存" + num + ".png";
+        imageForSearchButton = "搜索" + num + ".jpg";
+        imageForSearchResultBackground = "搜索结果背景" + num + ".png";
+        imageForSearchBackground = "搜索背景" + num + ".png";
+        imageForCalenderHint = "日历小部件" + num + ".jpg";
+        imageForQueryButton = "查询" + num + ".png";
+        imageForCleanButton = "清除" + num + ".png";
+        imageForSetButton = "设置" + num + ".jpg";
+        imageForSetBackground = "设置2" + num + ".png";
+        System.err.println(imageForAboutButton);
+        allRepaint(c);
     }
 
     /**
@@ -246,7 +290,7 @@ public class SetUp extends BasicPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/设置2.png");
+        ImageIcon img = new ImageIcon(SetUp.imageForSetBackground);
         img.paintIcon(this, g, 0, 0);
     }
 
@@ -265,7 +309,8 @@ public class SetUp extends BasicPanel {
                 }
             }
         }
-        setMap.get("shelf").put("font", SHELF_FONT.getFontName());
+        setMap.get("shelf").put("font", SHELF_FONT.
+                getFontName());
         setMap.get("shelf").put("size", SHELF_FONT.getSize());
         setMap.get("shelf").put("style", SHELF_FONT.getStyle());
         SaveSetInfo();
@@ -290,6 +335,19 @@ public class SetUp extends BasicPanel {
             setMap.get("global").put("size", GLOBAL_FONT.getSize());
             setMap.get("global").put("style", GLOBAL_FONT.getStyle());
             SaveSetInfo();
+        }
+    }
+
+    //重绘组件
+    public static void allRepaint(Container c) {
+        if (c.getComponents().length != 0) {
+            for (Component c1 : c.getComponents()) {
+                c.repaint();
+                allRepaint((Container) c1);
+            }
+
+        } else {
+            c.repaint();
         }
     }
 

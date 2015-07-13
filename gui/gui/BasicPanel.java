@@ -5,8 +5,6 @@
  */
 package gui;
 
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -15,7 +13,10 @@ import javax.swing.JPanel;
  */
 public class BasicPanel extends JPanel {
 
+    private final MainFrame index;
+
     public BasicPanel(MainFrame index) {
+        this.index = index;
         index.addToIndex(this, index);
     }
 

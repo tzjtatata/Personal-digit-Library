@@ -52,13 +52,14 @@ public class MainFrame extends JFrame {
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
 
-        this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
+        this.setIconImage(this.getToolkit().getImage(SetUp.imageForLogo));  //logo
         this.setContentPane(mainJPanel);  //放置
         this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点
         this.setBounds(200, 50, 950, 650);
         this.setResizable(false);  //大小不可变
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         SetUp.newChangeFont(this);
+        SetUp.changeImage(this);
         this.setVisible(true);
     }
 
@@ -69,7 +70,7 @@ public class MainFrame extends JFrame {
      * @param index 需要返回的主页
      */
     public void addToIndex(JPanel self, MainFrame index) {
-        JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
+        JButton returnButton = new JButton(new ImageIcon(SetUp.imageForReturnToIndex));
         returnButton.setBounds(750, 80, 30, 30);
         returnButton.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "index");
