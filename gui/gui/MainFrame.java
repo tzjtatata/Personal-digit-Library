@@ -70,8 +70,13 @@ public class MainFrame extends JFrame {
      * @param index 需要返回的主页
      */
     public void addToIndex(JPanel self, MainFrame index) {
+<<<<<<< HEAD
         JButton returnButton = new JButton(new ImageIcon(SetUp.imageForReturnToIndex));
         returnButton.setBounds(750, 80, 30, 30);
+=======
+        JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
+        returnButton.setBounds(820, 80, 30, 30);
+>>>>>>> a4c680e693d058d32be84b06157f6ddb11bf30dc
         returnButton.addActionListener((ActionEvent e) -> {
             cl.show(changeJPanel, "index");
         });
