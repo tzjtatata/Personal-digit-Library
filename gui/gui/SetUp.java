@@ -56,6 +56,7 @@ public class SetUp extends BasicPanel {
     public static String imageForCleanButton;
     public static String imageForSetButton;
     public static String imageForSetBackground;
+    public static String imageForAboutBackground;
 
     public SetUp(MainFrame index) throws Exception {
         super(index);
@@ -249,30 +250,30 @@ public class SetUp extends BasicPanel {
         GLOBAL_FONT = new Font((String) setMap.get("global").get("font"), (int) setMap.get("global").get("style"), (int) setMap.get("global").get("size"));
         SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
         UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
+        changeImage();
     }
 
-    public static void changeImage(Container c) {
+    public static void changeImage() {
         //更改图片
         String num = "_" + String.valueOf(setMap.get("style").get("theme"));
         imageForAboutButton = "gui/source/关于" + num + ".jpg";
-        imageForLogo = "digital_library" + num + ".png";
-        imageForReturnToIndex = "returnToIndex" + num + ".png";
-        imageForReturn = "return" + num + ".png";
-        imageForWelcome = "welcomepic" + num + ".png";
-        imageForIndexBackground = "主页_背景" + num + ".png";
-        imageForShelfButton = "书架" + num + ".jpg";
-        imageForShelfBackground = "书架背景" + num + ".PNG";
-        imageForSaveButton = "储存" + num + ".png";
-        imageForSearchButton = "搜索" + num + ".jpg";
-        imageForSearchResultBackground = "搜索结果背景" + num + ".png";
-        imageForSearchBackground = "搜索背景" + num + ".png";
-        imageForCalenderHint = "日历小部件" + num + ".jpg";
-        imageForQueryButton = "查询" + num + ".png";
-        imageForCleanButton = "清除" + num + ".png";
-        imageForSetButton = "设置" + num + ".jpg";
-        imageForSetBackground = "设置2" + num + ".png";
-        System.err.println(imageForAboutButton);
-        allRepaint(c);
+        imageForLogo = "gui/source/digital_library" + num + ".png";
+        imageForReturnToIndex = "gui/source/returnToIndex" + num + ".png";
+        imageForReturn = "gui/source/return" + num + ".png";
+        imageForWelcome = "gui/source/welcomepic" + num + ".png";
+        imageForIndexBackground = "gui/source/主页_背景" + num + ".png";
+        imageForShelfButton = "gui/source/书架" + num + ".jpg";
+        imageForShelfBackground = "gui/source/书架背景" + num + ".PNG";
+        imageForSaveButton = "gui/source/储存" + num + ".png";
+        imageForSearchButton = "gui/source/搜索" + num + ".jpg";
+        imageForSearchResultBackground = "gui/source/搜索结果背景" + num + ".png";
+        imageForSearchBackground = "gui/source/搜索背景" + num + ".png";
+        imageForCalenderHint = "gui/source/日历小部件" + num + ".jpg";
+        imageForQueryButton = "gui/source/查询" + num + ".png";
+        imageForCleanButton = "gui/source/清除" + num + ".png";
+        imageForSetButton = "gui/source/设置" + num + ".jpg";
+        imageForSetBackground = "gui/source/设置2" + num + ".png";
+        imageForAboutBackground = "gui/source/about" + num + ".png";
     }
 
     /**
