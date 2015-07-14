@@ -157,7 +157,7 @@ public class NewSearch {
 
     /**
      * 从fileJson文件中读取json字符串获得HashMap
-     *
+     * 在加载静态变量filemap之前一定要运行下面这个静态函数
      * @return
      * @throws Exception
      */
