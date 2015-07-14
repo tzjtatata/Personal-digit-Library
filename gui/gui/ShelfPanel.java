@@ -12,6 +12,9 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -19,7 +22,7 @@ import java.io.*;
  */
 public class ShelfPanel extends BasicPanel {
 
-    static ResultPanel[] subjectShow = new ResultPanel[100];
+    static ResultPanel[] subjectShow = new ResultPanel[10000];
     private JLabel[] subjectLabel = new JLabel[5];
     private JLabel left, right;
     private int nowPage = 0, firstPage = 0, len = 0;
@@ -52,7 +55,10 @@ public class ShelfPanel extends BasicPanel {
 
     private void setCategory(int a) {
         //System.out.println(a);
-        for (int i = 0; i < LEN; i++) {
+        int temp;
+        if (len<LEN) temp = len;
+        else temp = LEN;
+        for (int i = 0; i < temp; i++) {
             if (subjectLabel[i] != null) {
                 subjectLabel[i].setVisible(false);
             }
@@ -77,7 +83,8 @@ public class ShelfPanel extends BasicPanel {
         while (br.ready()) {
             str = br.readLine();
             boy = str.split("/");
-            subjectShow[len] = new ResultPanel(boy[0], boy[1].split(","));
+            List<String> wordList = new ArrayList<String>(Arrays.asList(boy[1].split(",")));  
+            subjectShow[len] = new ResultPanel(boy[0], (ArrayList<String>) wordList);
             len++;
         }
     }

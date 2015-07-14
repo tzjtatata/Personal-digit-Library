@@ -36,7 +36,7 @@ public class ResultPanel extends JPanel {
         return this.name;
     }
 
-    public ResultPanel(String str, String[] result) {
+    public ResultPanel(String str, ArrayList<String> result) {
         JLabel temLabel;
         this.name = str;
         this.setBackground(new Color(215, 217, 218));
@@ -59,12 +59,12 @@ public class ResultPanel extends JPanel {
         }
         //判定是否有结果，并显示结果
         //show函数用于显示第n+1页的结果
-        size = result.length;
+        size = result.size();
         for (i = 0; i < size; i++) {
             if (labelListJLabels[i] == null) {
                 labelListJLabels[i] = new JLabel();
             }
-            labelListJLabels[i].setText(result[i]);
+            labelListJLabels[i].setText(result.get(i));
             JLHashMap.put(labelListJLabels[i].hashCode(), labelListJLabels[i].getText());
             labelListJLabels[i].setFont(SetUp.SHELF_FONT);
             this.add(labelListJLabels[i]);

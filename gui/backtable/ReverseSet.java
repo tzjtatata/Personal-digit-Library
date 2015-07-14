@@ -35,7 +35,6 @@ public class ReverseSet {
 	}
 
 	public ReverseSet() throws IOException {
-		//prepareCryptTable();
 		//对目录下每个txt读取，获取子文件目录
 		//读取txt文件内容
             long startTime=System.currentTimeMillis();
@@ -94,7 +93,7 @@ public class ReverseSet {
                 //Analyze.testCJK(fileContent, word);
 		//System.out.println(word);
 		//prepareCryptTable();
-		for (i = 0; i < word.size(); i++) {
+                for (i = 0; i < word.size(); i++) {
                         //System.out.println("\r"+i+"/"+word.size());
 			setpos(word.get(i), filePath,count);
                         count++;
