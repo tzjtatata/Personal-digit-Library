@@ -19,45 +19,49 @@ import javax.swing.JPanel;
  * @author 开发
  */
 public class Index extends JPanel {
-
+	private JButton search,shelf,about,set;
+	private Calendar calendar;
+	
     public Index() {
         super();
-
-        //以下为某Z的临时代码，QQ你重写的时候要干掉/重构这些
         this.setLayout(null);
-        JButton sousuo = new JButton(new ImageIcon("gui/source/搜索.jpg"));  //按钮的具体功能参照图片名...
-        sousuo.addMouseListener(new CursorListener());
-        sousuo.setBounds(263, 348, 54, 28);
-        sousuo.setBorder(null);
-        sousuo.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "search");  //这个search单词不要改。
-        });
-        JButton sousuo2 = new JButton(new ImageIcon("gui/source/书架.jpg"));
-        sousuo2.addMouseListener(new CursorListener());
-        sousuo2.setBounds(140, 215, 56, 28);
-        sousuo2.setBorder(null);
-        sousuo2.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "shelf");
-        });
-        JButton set = new JButton(new ImageIcon("gui/source/设置.jpg"));
-        set.addMouseListener(new CursorListener());
+        search = new JButton(new ImageIcon("gui/source/搜索.jpg"));
+        shelf = new JButton(new ImageIcon("gui/source/书架.jpg"));
+        about = new JButton(new ImageIcon("gui/source/关于.jpg"));
+        set = new JButton(new ImageIcon("gui/source/设置.jpg"));
+        calendar = new Calendar();
+        
+        search.setBounds(263, 348, 54, 28);
+        search.setBorder(null);
+        shelf.setBounds(140, 215, 56, 28);
+        shelf.setBorder(null);
         set.setBounds(390, 215, 54, 27);
         set.setBorder(null);
+        about.setBounds(518, 348, 49, 26);
+        about.setBorder(null);
+        calendar.setBounds(642,178,200,330);
+        add(search);
+        add(shelf);
+        add(set);
+        add(about);
+        add(calendar);
+        
+        search.addMouseListener(new CursorListener());
+        shelf.addMouseListener(new CursorListener());
+        set.addMouseListener(new CursorListener());
+        about.addMouseListener(new CursorListener());
+        search.addActionListener((ActionEvent e) -> {
+            MainFrame.cl.show(MainFrame.changeJPanel, "search");  //这个search单词不要改。
+        });
+        shelf.addActionListener((ActionEvent e) -> {
+            MainFrame.cl.show(MainFrame.changeJPanel, "shelf");
+        });
         set.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "set");
         });
-        JButton about = new JButton(new ImageIcon("gui/source/关于.jpg"));
-        about.setBorder(null);
-        about.addMouseListener(new CursorListener());
-        about.setBounds(518, 348, 49, 26);
         about.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "about");
         });
-        add(sousuo);
-        add(sousuo2);
-        add(set);
-        add(about);
-        //以上代码写的实在不忍直视，77你要好好重写。。
     }
 
     @Override
