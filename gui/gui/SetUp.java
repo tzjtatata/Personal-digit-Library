@@ -149,7 +149,7 @@ public class SetUp extends BasicPanel {
         themeButtonGroup = new ButtonGroup();
         themeButtons = new JRadioButton[2];
         themeButtons[0] = new JRadioButton("默认主题");
-        themeButtons[(int) setMap.get("style").get("theme")].setSelected(true);
+        themeButtons[0].setSelected(true);
         //搞怪系列
         themeButtons[1] = new JRadioButton("Z之搞怪主题");
         //主题系列RadioButton
