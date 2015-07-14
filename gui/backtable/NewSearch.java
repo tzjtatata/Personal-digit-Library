@@ -156,8 +156,8 @@ public class NewSearch {
     }
 
     /**
-     * 从fileJson文件中读取json字符串获得HashMap
-     * 在加载静态变量filemap之前一定要运行下面这个静态函数
+     * 从fileJson文件中读取json字符串获得HashMap 在加载静态变量filemap之前一定要运行下面这个静态函数
+     *
      * @return
      * @throws Exception
      */
@@ -205,7 +205,7 @@ public class NewSearch {
                         ArrayList<String> word = new ArrayList<>();
                         //分词
                         try {
-                            Analyze.testCJK(file, word);
+                            word = PaodingAnalyze.Zanalyze(file);
                         } catch (Exception ex) {
                             Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
                         }
