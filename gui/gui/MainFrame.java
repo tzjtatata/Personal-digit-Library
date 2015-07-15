@@ -5,7 +5,6 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
  * JFrame,各个JPanel的容器
@@ -25,6 +24,7 @@ public class MainFrame extends JFrame {
     JPanel mainJPanel = new JPanel();  //主JPanel
 
     public MainFrame() throws Exception {
+        super("个人数字图书馆");
         javax.swing.SwingUtilities.updateComponentTreeUI(this);
         setPanel = new SetUp(this);
         shelf = new ShelfPanel(this);

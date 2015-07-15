@@ -147,14 +147,17 @@ public class SetUp extends BasicPanel {
         this.add(themeJLabel);
 
         themeButtonGroup = new ButtonGroup();
-        themeButtons = new JRadioButton[1];
+        themeButtons = new JRadioButton[2];
         themeButtons[0] = new JRadioButton("默认主题");
         themeButtons[0].setSelected(true);
+        //搞怪系列
+        themeButtons[1] = new JRadioButton("Z之搞怪主题");
         //主题系列RadioButton
         for (int i = 0; i < themeButtons.length; i++) {
             themeButtons[i].setBounds(300 + 130 * (i % 4), 260 + (i / 4) * 40, 130, 50);
             themeButtons[i].setFont(GLOBAL_FONT);
             themeButtons[i].setOpaque(false);
+            themeButtons[i].addActionListener(new ThemeListener(i, index));
             this.add(themeButtons[i]);
             themeButtonGroup.add(themeButtons[i]);
         }
@@ -368,6 +371,32 @@ public class SetUp extends BasicPanel {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
             }
             javax.swing.SwingUtilities.updateComponentTreeUI(panel);
+        }
+    }
+
+    class ThemeListener implements ActionListener {
+
+        private int n;
+        private final MainFrame index;
+
+        public ThemeListener(int i, MainFrame index) {
+            n = i;
+            this.index = index;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (n == 1) {
+                n = 2;
+            }
+            setMap.get("style").put("theme", n);
+            try {
+                SaveSetInfo();
+                changeImage();
+                index.imageRepaint();
+            } catch (Exception ex) {
+                Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

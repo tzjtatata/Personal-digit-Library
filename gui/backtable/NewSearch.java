@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  */
 public class NewSearch {
 
-    public static File fileJson = new File("gui/backtable/fileInfo.json");
+    public static File fileJson = new File("setFile/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
 
@@ -156,7 +156,7 @@ public class NewSearch {
     }
 
     /**
-     * 从fileJson文件中读取json字符串获得HashMap
+     * 从fileJson文件中读取json字符串获得HashMap 在加载静态变量filemap之前一定要运行下面这个静态函数
      *
      * @return
      * @throws Exception
@@ -205,7 +205,7 @@ public class NewSearch {
                         ArrayList<String> word = new ArrayList<>();
                         //分词
                         try {
-                            Analyze.testCJK(file, word);
+                            word = PaodingAnalyze.Zanalyze(file);
                         } catch (Exception ex) {
                             Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
                         }
