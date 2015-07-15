@@ -19,18 +19,19 @@ import javax.swing.JPanel;
  * @author 开发
  */
 public class Index extends JPanel {
-	private JButton search,shelf,about,set;
-	private Calendar calendar;
-	
+
+    private JButton search, shelf, about, set;
+    private Calendar calendar;
+
     public Index() {
         super();
         this.setLayout(null);
-        search = new JButton(new ImageIcon("gui/source/搜索.jpg"));
-        shelf = new JButton(new ImageIcon("gui/source/书架.jpg"));
-        about = new JButton(new ImageIcon("gui/source/关于.jpg"));
-        set = new JButton(new ImageIcon("gui/source/设置.jpg"));
+        search = new JButton(new ImageIcon(SetUp.imageForSearchButton));
+        shelf = new JButton(new ImageIcon(SetUp.imageForShelfButton));
+        about = new JButton(new ImageIcon(SetUp.imageForAboutButton));
+        set = new JButton(new ImageIcon(SetUp.imageForSetButton));
         calendar = new Calendar();
-        
+
         search.setBounds(263, 348, 54, 28);
         search.setBorder(null);
         shelf.setBounds(140, 215, 56, 28);
@@ -39,14 +40,14 @@ public class Index extends JPanel {
         set.setBorder(null);
         about.setBounds(518, 348, 49, 26);
         about.setBorder(null);
-        calendar.setBounds(642,178,200,330);
-    
+        calendar.setBounds(642, 178, 200, 330);
+
         add(search);
         add(shelf);
         add(set);
         add(about);
         add(calendar);
-        
+
         search.addMouseListener(new CursorListener());
         shelf.addMouseListener(new CursorListener());
         set.addMouseListener(new CursorListener());
@@ -68,8 +69,16 @@ public class Index extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/主页_背景.png");
+        ImageIcon img = new ImageIcon(SetUp.imageForIndexBackground);
         img.paintIcon(this, g, 0, 0);
+    }
+
+    public void imageRepaint() {
+        this.repaint();
+        search.setIcon(new ImageIcon(SetUp.imageForSearchButton));
+        set.setIcon(new ImageIcon(SetUp.imageForSetButton));
+        shelf.setIcon(new ImageIcon(SetUp.imageForShelfButton));
+        about.setIcon(new ImageIcon(SetUp.imageForAboutButton));
     }
 
     class CursorListener extends MouseAdapter {
