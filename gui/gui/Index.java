@@ -40,6 +40,7 @@ public class Index extends JPanel {
         about.setBounds(518, 348, 49, 26);
         about.setBorder(null);
         calendar.setBounds(642,178,200,330);
+    
         add(search);
         add(shelf);
         add(set);

@@ -38,6 +38,25 @@ public class SetUp extends BasicPanel {
     private final UIManager.LookAndFeelInfo[] info;
     private final JButton globalButton, shelfButton, reseButton, rangeButton, resetRangeButton;
     private ZFontChooser z;
+    //以下图片路径
+    public static String imageForLogo;
+    public static String imageForReturn;
+    public static String imageForReturnToIndex;
+    public static String imageForWelcome;
+    public static String imageForIndexBackground;
+    public static String imageForShelfBackground;
+    public static String imageForShelfButton;
+    public static String imageForSaveButton;
+    public static String imageForAboutButton;
+    public static String imageForSearchButton;
+    public static String imageForSearchResultBackground;
+    public static String imageForSearchBackground;
+    public static String imageForCalenderHint;
+    public static String imageForQueryButton;
+    public static String imageForCleanButton;
+    public static String imageForSetButton;
+    public static String imageForSetBackground;
+    public static String imageForAboutBackground;
 
     public SetUp(MainFrame index) throws Exception {
         super(index);
@@ -199,6 +218,7 @@ public class SetUp extends BasicPanel {
         });
         this.add(resetRangeButton);
     }
+//文件选择器
 
     public static File showFileChooser(SetUp setUp, File path) {
         JFileChooser jfc;
@@ -216,6 +236,7 @@ public class SetUp extends BasicPanel {
         }
         return jfc.getSelectedFile();
     }
+//初始化操作
 
     public static void Init() throws Exception {
         //加载json
@@ -225,10 +246,34 @@ public class SetUp extends BasicPanel {
         }
         setMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, Object>>>() {
         });
-        //读取字体等设置
+        //读取字体图片等设置
         GLOBAL_FONT = new Font((String) setMap.get("global").get("font"), (int) setMap.get("global").get("style"), (int) setMap.get("global").get("size"));
         SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
         UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
+        changeImage();
+    }
+
+    public static void changeImage() {
+        //更改图片
+        String num = "_" + String.valueOf(setMap.get("style").get("theme"));
+        imageForAboutButton = "gui/source/关于" + num + ".jpg";
+        imageForLogo = "gui/source/digital_library" + num + ".png";
+        imageForReturnToIndex = "gui/source/returnToIndex" + num + ".png";
+        imageForReturn = "gui/source/return" + num + ".png";
+        imageForWelcome = "gui/source/welcomepic" + num + ".png";
+        imageForIndexBackground = "gui/source/主页_背景" + num + ".png";
+        imageForShelfButton = "gui/source/书架" + num + ".jpg";
+        imageForShelfBackground = "gui/source/书架背景" + num + ".PNG";
+        imageForSaveButton = "gui/source/储存" + num + ".png";
+        imageForSearchButton = "gui/source/搜索" + num + ".jpg";
+        imageForSearchResultBackground = "gui/source/搜索结果背景" + num + ".png";
+        imageForSearchBackground = "gui/source/搜索背景" + num + ".png";
+        imageForCalenderHint = "gui/source/日历小部件" + num + ".jpg";
+        imageForQueryButton = "gui/source/查询" + num + ".png";
+        imageForCleanButton = "gui/source/清除" + num + ".png";
+        imageForSetButton = "gui/source/设置" + num + ".jpg";
+        imageForSetBackground = "gui/source/设置2" + num + ".png";
+        imageForAboutBackground = "gui/source/about" + num + ".png";
     }
 
     /**
@@ -246,7 +291,7 @@ public class SetUp extends BasicPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/设置2.png");
+        ImageIcon img = new ImageIcon(SetUp.imageForSetBackground);
         img.paintIcon(this, g, 0, 0);
     }
 
@@ -265,7 +310,8 @@ public class SetUp extends BasicPanel {
                 }
             }
         }
-        setMap.get("shelf").put("font", SHELF_FONT.getFontName());
+        setMap.get("shelf").put("font", SHELF_FONT.
+                getFontName());
         setMap.get("shelf").put("size", SHELF_FONT.getSize());
         setMap.get("shelf").put("style", SHELF_FONT.getStyle());
         SaveSetInfo();
@@ -280,7 +326,7 @@ public class SetUp extends BasicPanel {
     public static void changeFont(Container c) throws Exception {
         if (c.getComponents().length != 0) {
             for (Component c1 : c.getComponents()) {
-                if (!(c1 instanceof ResultPanel)) {
+                if (!(c1 instanceof ResultPanel)&& c1 instanceof Calendar) {
                     changeFont((Container) c1);
                 }
             }
@@ -291,6 +337,12 @@ public class SetUp extends BasicPanel {
             setMap.get("global").put("style", GLOBAL_FONT.getStyle());
             SaveSetInfo();
         }
+    }
+
+    @Override
+    public void imageRepaint() {
+        super.imageRepaint();
+        this.repaint();
     }
 
     private class RadioButtonListener implements ActionListener {

@@ -25,6 +25,7 @@ public class Calendar extends JPanel{
         btn_query = new JButton(new ImageIcon("gui/source/查询.png"));
         lab_sun = new JLabel("Sun");
         lab_week = new JLabel("Mon   Tue   Wed   Thu   Fri   Sat");
+        lab_show_test = new JLabel("个人数字图书馆");
         //642,178
         //btn_clear = new DefaultButton(ActionType.Clear);
         btn_clear.setBorder(null);
@@ -35,23 +36,22 @@ public class Calendar extends JPanel{
         btn_query.setBounds(143,6, 40,20);
         
         lab_sun.setBounds(3,44, 21, 21);
-        lab_sun.setFont(new Font("Segue",Font.PLAIN,8));
+        lab_sun.setFont(new Font("Segue",Font.PLAIN,12));
         lab_sun.setForeground(new java.awt.Color(255,255,255));
         
         lab_week.setForeground(new java.awt.Color(39, 158, 218));
         lab_week.setBounds(33,44, 189, 21);
-        lab_week.setFont(new Font("Segue",Font.PLAIN,30));
+        lab_week.setFont(new Font("Segue",Font.PLAIN,12));
+        
+
+        
+        lab_show_test.setBounds(3,252, 200, 21);
+        lab_show_test.setFont(new java.awt.Font("微软雅黑", 1, 13));
+        lab_show_test.setForeground(new java.awt.Color(39, 158, 218));
         add(lab_sun);
         add(lab_week);
+        add(lab_show_test);
 /*
-        mf.lab_show_test = new JLabel();
-
-        mf.lab_show_test.setText("个人数字图书馆");
-        mf.lab_show_test.setBounds(645, 430, 200, 21);
-        mf.lab_show_test.setFont(new java.awt.Font("微软雅黑", 1, 13));
-        mf.lab_show_test.setForeground(new java.awt.Color(39, 158, 218));
-        add(mf.lab_show_test);
-
         mf.lab_show_tip = new JLabel();
         add(mf.lab_show_tip);
         mf.lab_show_tip.setText("------------------------------------");

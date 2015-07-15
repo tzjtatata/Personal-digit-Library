@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
         calenderHint.setBounds(0, 522, 950, 100);
         mainJPanel.add(calenderHint);
 
-        this.setIconImage(this.getToolkit().getImage("gui/source/digital_library.png"));  //logo
+        this.setIconImage(this.getToolkit().getImage(SetUp.imageForLogo));  //logo
         this.setContentPane(mainJPanel);  //放置
         this.setFocusTraversalPolicyProvider(false);  //暂时没用,似乎可以取消tab键控制焦点
         this.setBounds(200, 50, 950, 650);
@@ -62,31 +62,13 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
     }
 
-    /**
-     * 将JPanel组件添加到卡片布局中，并为其加上返回主页的按钮
-     *
-     * @param self 需要添加到卡片布局中的JPanel
-     * @param index 需要返回的主页
-     */
-    public void addToIndex(JPanel self, MainFrame index) {
-        JButton returnButton = new JButton(new ImageIcon("gui/source/returnToIndex.png"));
-        returnButton.setBounds(820, 80, 30, 30);
-        returnButton.addActionListener((ActionEvent e) -> {
-            cl.show(changeJPanel, "index");
-        });
-        self.add(returnButton);
-    }
-
-    class CursorListener extends MouseAdapter {
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        }
+    //调用所有的imageRepaint从而重新绘制需要的图片
+    public void imageRepaint() {
+        about.imageRepaint();
+        calenderHint.imageRepaint();
+        index.imageRepaint();
+        searchPanel.imageRepaint();
+        setPanel.imageRepaint();
+        shelf.imageRepaint();
     }
 }

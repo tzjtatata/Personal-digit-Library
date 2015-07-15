@@ -5,12 +5,9 @@
  */
 package gui;
 
-import gui.BasicPanel;
-import gui.MainFrame;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import gui.ResultPanel;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,11 +46,11 @@ public class ShelfPanel extends BasicPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/书架背景.PNG");
+        ImageIcon img = new ImageIcon(SetUp.imageForShelfBackground);
         img.paintIcon(this, g, 0, 0);
     }
 
-    protected void setCategory(int a) {
+    private void setCategory(int a) {
         //System.out.println(a);
         for (int i = 0; i < LEN; i++) {
             if (subjectLabel[i] != null) {
@@ -72,7 +69,7 @@ public class ShelfPanel extends BasicPanel {
         subjectLabel[i].setVisible(false);
     }
 
-    protected void getContent() throws Exception {
+    private void getContent() throws Exception {
         String[] boy = new String[2];
         String str;
         File f = new File("gui/backtable/class.pdl");
@@ -85,7 +82,7 @@ public class ShelfPanel extends BasicPanel {
         }
     }
 
-    protected void setContent(int n) {
+    private void setContent(int n) {
         subjectShow[n].setBounds(130, 165, 500, 275);
         subjectShow[n].setVisible(true);
         this.add(subjectShow[n]);
@@ -93,6 +90,12 @@ public class ShelfPanel extends BasicPanel {
 
     protected void hideContent(int n) {
         subjectShow[n].setVisible(false);
+    }
+
+    @Override
+    public void imageRepaint() {
+        super.imageRepaint();
+        this.repaint();
     }
 
     class ChangePage extends MouseAdapter {

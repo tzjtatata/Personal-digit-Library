@@ -16,31 +16,37 @@ import javax.swing.JLabel;
  */
 public class AboutPanel extends BasicPanel {
 
-	private JLabel help,copyright;
-    
-	public AboutPanel(MainFrame index) {
+    private JLabel help, copyright;
+
+    public AboutPanel(MainFrame index) {
         super(index);
         this.setLayout(null);
         help = new JLabel("<html><p>操作说明如下：</p><p>Balabalabala...谁来帮忙写一个使用说明</p><p>你们觉得是用图片直接打字好，还是用html写文本好？</p></html>");
-        help.setFont(new java.awt.Font("微软雅黑", 1, 28));
+        help.setFont(SetUp.GLOBAL_FONT);
         help.setForeground(new Color(1, 158, 218));
-        help.setBounds(150, 150, 650,300);
+        help.setBounds(150, 150, 650, 300);
         help.setBackground(new Color(215, 217, 218));
         help.setOpaque(true);
         copyright = new JLabel("copyright by HIT 李沅泽 邹开发 唐梦研 高琦琦");
-        copyright.setFont(new java.awt.Font("微软雅黑", 1, 28));
+        copyright.setFont(SetUp.GLOBAL_FONT);
         copyright.setForeground(new Color(1, 158, 218));
-        copyright.setBounds(300, 470, 350,30);
+        copyright.setBounds(300, 470, 350, 30);
         copyright.setBackground(new Color(215, 217, 218));
         copyright.setOpaque(true);
         this.add(help);
         this.add(copyright);
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/about.png");
+        ImageIcon img = new ImageIcon(SetUp.imageForAboutBackground);
         img.paintIcon(this, g, 0, 0);
+    }
+
+    @Override
+    public void imageRepaint() {
+        super.imageRepaint();
+        this.repaint();
     }
 }

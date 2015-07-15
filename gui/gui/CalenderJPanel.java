@@ -30,7 +30,11 @@ public class CalenderJPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon img = new ImageIcon("gui/source/日历小部件.jpg");
+        ImageIcon img = new ImageIcon(SetUp.imageForCalenderHint);
         img.paintIcon(this, g, 0, 0);
+    }
+
+    public void imageRepaint() {
+        this.repaint();
     }
 }
