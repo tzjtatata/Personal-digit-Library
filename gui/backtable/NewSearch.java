@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  */
 public class NewSearch {
 
-    public static File fileJson = new File("setFile/fileInfo.json");
+    public static File fileJson = new File("gui/backtable/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
 
