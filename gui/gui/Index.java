@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class Index extends JPanel {
 
     private JButton search, shelf, about, set;
-    private Calendar calendar;
+    private CalendarDate calendar;
 
     public Index() {
         super();
@@ -30,7 +30,7 @@ public class Index extends JPanel {
         shelf = new JButton(new ImageIcon(SetUp.imageForShelfButton));
         about = new JButton(new ImageIcon(SetUp.imageForAboutButton));
         set = new JButton(new ImageIcon(SetUp.imageForSetButton));
-        calendar = new Calendar();
+        calendar = new CalendarDate();
 
         search.setBounds(263, 348, 54, 28);
         search.setBorder(null);
