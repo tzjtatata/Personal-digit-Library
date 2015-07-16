@@ -37,6 +37,7 @@ public class PaodingAnalyze {
         Token t = ts.next();
         while (t != null) {
             al.add(t.termText());
+            System.out.println(al);
             t = ts.next();
         }
         al = new ArrayList(new HashSet<>(al));

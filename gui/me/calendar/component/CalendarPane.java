@@ -34,8 +34,7 @@ public class CalendarPane extends JPanel {
 	}
 
 	public void rebuild(int year, int month) {
-		int y = 0, x = 0, x_add = 0, y_add = 0, week_add = 0, date_acc = 0, week_of_day = 0;
-		String smonth, sday, filename;
+		
 		smonth = "" + month;
 		if (smonth.length() == 1) {
 			smonth = "0" + smonth;
