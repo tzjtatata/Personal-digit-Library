@@ -198,7 +198,7 @@ nbbuild.xml
 /dist/
 daopai.pdl
 .classpath
-fileinfo.json
-data.json
-dict.json
-class.pdl
+/gui/backtable/fileInfo.json
+/gui/backtable/data.json
+/gui/backtable/dict.json
+/gui/backtable/class.pdl
