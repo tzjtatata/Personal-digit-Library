@@ -5,17 +5,23 @@
  */
 package backtable;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import static javafx.scene.input.KeyCode.T;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.TokenStream;
 import net.paoding.analysis.analyzer.PaodingAnalyzer;
+import net.paoding.analysis.analyzer.estimate.Estimate;
+import net.paoding.analysis.analyzer.estimate.TryPaodingAnalyzer;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -35,5 +41,25 @@ public class PaodingAnalyze {
         }
         al = new ArrayList(new HashSet<>(al));
         return al;
+    }
+
+    public static void main(String[] args) throws IOException, Exception {
+        long ty = System.currentTimeMillis();
+        long m;
+        File f = new File("D:/yyy/a.txt");
+        ArrayList<String> al = new ArrayList<>();
+        Analyzer analyzer = new PaodingAnalyzer();
+        TokenStream ts = analyzer.tokenStream("", (Reader) TryPaodingAnalyzer.read(f.getPath(), "gbk", false));
+        //m = System.currentTimeMillis();
+        //System.err.println("设置完毕，耗时" + (m - ty) + "ms.");
+        Token t;
+        LinkedList list = new LinkedList();
+        while ((t = ts.next()) != null) {
+            list.add(t);
+            //System.err.println(list);
+        }
+        m = System.currentTimeMillis();
+        System.err.println("分词完毕，耗时" + (ty - m) + "ms.");
+        System.err.println(list.size());
     }
 }
