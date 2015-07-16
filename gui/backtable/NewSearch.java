@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import net.paoding.analysis.analyzer.AnalyzerOfPdl;
 
 /**
  * 新的Search类，将取代原有的backtable.Search
@@ -33,6 +34,7 @@ public class NewSearch {
     public static File fileJson = new File("gui/backtable/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
+    public static AnalyzerOfPdl analyzerOfPdl;
 
     /**
      * 一些初始化操作，创建必须的文件等
@@ -43,19 +45,20 @@ public class NewSearch {
      */
     @SuppressWarnings("empty-statement")
     public static void Init(int how) throws Exception {
+        analyzerOfPdl = new AnalyzerOfPdl();
         //迭代版本
         if (how == 0) {
             long pre = System.currentTimeMillis();
-            System.out.println("开始设置哈希map！");
+            //System.out.println("开始设置哈希map！");
             if (!fileJson.exists()) {
                 fileJson.createNewFile();
             }
             fileMap.put(".txt", new HashMap<>());
             fileMap.put(".pdf", new HashMap<>());
             fileMap.put(".doc", new HashMap<>());
-            System.out.println("哈希map设置完毕!" + (System.currentTimeMillis() - pre));
+            //System.out.println("哈希map设置完毕!" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
-            System.out.println("开始搜索全盘！" + (System.currentTimeMillis() - pre));
+            //System.out.println("开始搜索全盘！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
             File[] roots;
             roots = File.listRoots();//获取所有磁盘盘符
@@ -81,19 +84,19 @@ public class NewSearch {
             }
             executors.shutdown();
             executors.awaitTermination(1000000000, TimeUnit.DAYS);
-            System.out.println("搜索完毕，开始写入json！" + (System.currentTimeMillis() - pre));
+            //System.out.println("搜索完毕，开始写入json！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
             String jsonString = JSON.toJSONString(fileMap);
             try (BufferedWriter br = new BufferedWriter(new FileWriter(fileJson))) {
                 br.write(jsonString);
-                System.out.println("json写入完成！" + (System.currentTimeMillis() - pre));
+                //  System.out.println("json写入完成！" + (System.currentTimeMillis() - pre));
                 pre = System.currentTimeMillis();
             }
 
-            System.out.println("进行自动分类！" + (System.currentTimeMillis() - pre));
+            //System.out.println("进行自动分类！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
             Classify();
-            System.out.println("自动分类完成，程序结束！" + (System.currentTimeMillis() - pre));
+            //System.out.println("自动分类完成，程序结束！" + (System.currentTimeMillis() - pre));
         }
     }
 
@@ -205,7 +208,7 @@ public class NewSearch {
                         ArrayList<String> word = new ArrayList<>();
                         //分词
                         try {
-                            word = PaodingAnalyze.Zanalyze(file);
+                            word = analyzerOfPdl.stringAnalyze(file);
                         } catch (Exception ex) {
                             Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
                         }
