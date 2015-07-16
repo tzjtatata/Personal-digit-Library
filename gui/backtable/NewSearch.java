@@ -97,6 +97,8 @@ public class NewSearch {
             pre = System.currentTimeMillis();
             Classify();
             //System.out.println("自动分类完成，程序结束！" + (System.currentTimeMillis() - pre));
+        } else if (how == 1) {
+            ReadJson();
         }
     }
 
