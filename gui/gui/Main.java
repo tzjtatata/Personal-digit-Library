@@ -27,6 +27,8 @@ public class Main {
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/flag.pdl"))) {
                     bw.write("1");
                 }
+            } else {
+                backtable.NewSearch.Init(1);
             }
         }
         backtable.SearchContent.Readall();
