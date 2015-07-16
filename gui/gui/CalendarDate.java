@@ -446,7 +446,6 @@ public class CalendarDate extends JPanel{
 	  date_btn_create(year,month);
 	}
 	
-	
 }
 /*
 	private static  void btnActionPerformed(ActionEvent evt)//日期按鈕按下觸發事件開始
