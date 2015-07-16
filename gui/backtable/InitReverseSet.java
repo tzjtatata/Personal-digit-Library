@@ -18,13 +18,6 @@ public class InitReverseSet {
         private HashMap<BigInteger,ArrayList<BigInteger>> data = new HashMap<>();
         private ArrayList<String> Paths = new ArrayList<>();
         public CountDownLatch threadSignal;
-//	public void change() {
-//		if (System.getProperty("os.name").startsWith("W")) {
-//			len = "\\\\";
-//		} else {
-//			len = "/";
-//		}
-//	}
 
 	public InitReverseSet() throws Exception {
             long startTime=System.currentTimeMillis();
@@ -75,13 +68,13 @@ public class InitReverseSet {
                 System.out.println("json写入完成！");
             }
         }
-//        public void test(File file) throws Exception{
+//        public void Read(File file)  throws Exception{
 //            ArrayList<String> words = new ArrayList<>();
 //            String filePath = file.getPath();
-//            String fileEncode = EncodingDetect.getJavaEncode(filePath);
-//            String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
-//            Analyze.testCJK(fileContent, words);
-//            Add(words,filePath);
+//            System.out.println(file);
+//            words = NewSearch.analyzerOfPdl.fileAnalyze(file);
+//            Paths.add(filePath);
+//            Add(words,Paths.indexOf(filePath));
 //        }
         public class ReadFile implements Runnable {
             private File file;
@@ -93,26 +86,23 @@ public class InitReverseSet {
             }
             public void run() {
                 try {
-                   //System.out.println(Thread.currentThread().getName() + "开始...");  
+                   System.out.println(Thread.currentThread().getName() + "开始...");  
                     String filePath = file.getPath();
                     String fileEncode = EncodingDetect.getJavaEncode(filePath);
                     String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
                     if (fileContent.length()<=1000000) {
-//                        words = PaodingAnalyze.Zanalyze(fileContent);
-//                        System.out.println(words.size());
                         Analyze.testCJK(fileContent, words);
-                        Paths.add(filePath);
-                        Add(words,Paths.indexOf(filePath));
                     }
-                    threadsSignal.countDown();
-                    //System.out.println(Thread.currentThread().getName() + "结束. 还有" + threadsSignal.getCount() + " 个线程"); 
+                    Paths.add(filePath);
+                    Add(words,Paths.indexOf(filePath));
+                    System.out.println(Thread.currentThread().getName() + "结束. 还有" + threadsSignal.getCount() + " 个线程"); 
                 } catch (Exception ex) {
-                    //Logger.getLogger(ReverseSet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ReverseSet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                threadsSignal.countDown();
             }
         }
        public synchronized void Add(ArrayList<String> words,int Num) {
-           //System.out.println(words.size());
            for (String word:words) {
                BigInteger Hashc = HashString(word);
                BigInteger No;
