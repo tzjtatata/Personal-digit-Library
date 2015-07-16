@@ -18,9 +18,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         SetUp.Init();
+
         try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/flag.pdl"))) {
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);
+                new backtable.InitReverseSet();
+
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/flag.pdl"))) {
                     bw.write("1");
                 }
@@ -28,6 +31,7 @@ public class Main {
                 backtable.NewSearch.Init(1);
             }
         }
+        backtable.SearchContent.Readall();
         new MainFrame();
     }
 }

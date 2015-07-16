@@ -5,9 +5,14 @@
  */
 package gui;
 
+import backtable.NewSearch;
+import backtable.SearchContent;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,9 +24,11 @@ public class Search extends BasicPanel {
     private JLabel point1, point2, point3, point4, backg1, backg2, backg3, backg4;
     private JTextField entry1, entry2, entry3, entry4;
     private JButton bt1, bt2;
+    MainFrame index;
 
     public Search(MainFrame index) {
         super(index);
+        this.index = index;
         this.setLayout(null);
         //index.setTitle("搜索");
         bt1 = new JButton(new ImageIcon(SetUp.imageForSetButton));
@@ -29,6 +36,7 @@ public class Search extends BasicPanel {
         bt1.addMouseListener(new CursorListener());
         bt2 = new JButton(new ImageIcon(SetUp.imageForSearchButton));
         bt2.addMouseListener(new CursorListener());
+        bt2.addMouseListener(new Result());
         bt2.setBorder(null);
         //bt2.addActionListener();
         option1 = new JLabel("按作者搜索");
@@ -218,6 +226,37 @@ public class Search extends BasicPanel {
                     entry4.setVisible(true);
                     point4.setBackground(Color.WHITE);
                 }
+            }
+        }
+    }
+    
+    class Result extends MouseAdapter {
+
+        @Override
+        public void mouseClicked(MouseEvent e){
+            try {
+                ArrayList<String> result = new ArrayList<>();
+                SearchContent Re4 = new SearchContent(entry4.getText());
+                result.addAll(Re4.result);
+                result.addAll(NewSearch.SearchTitle(entry3.getText()));
+                ResultPanel RESULT = new ResultPanel(entry4.getText(),result);
+                BasicPanel temp = new BasicPanel(index) {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+                        ImageIcon img = new ImageIcon(SetUp.imageForSearchResultBackground);
+                        img.paintIcon(this, g, 0, 0);
+                    }
+                };
+                RESULT.setBounds(130, 165, 500, 275);
+                RESULT.setVisible(true);
+                temp.add(RESULT);
+                temp.setLayout(null);
+                MainFrame.cl.addLayoutComponent(temp, "result");
+                MainFrame.changeJPanel.add(temp);
+                MainFrame.cl.show(MainFrame.changeJPanel,"result");
+            } catch (Exception ex) {
+                Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

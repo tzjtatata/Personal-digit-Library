@@ -56,6 +56,7 @@ public class Analyze {
             }
             word.add(temp);
         }
+        //System.out.println(word);
         // System.out.println(word.toString());
     }
     /*public static void testPaoding(String testString) throws Exception{

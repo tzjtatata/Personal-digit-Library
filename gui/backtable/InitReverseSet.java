@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import backtable.PaodingAnalyze;
+import net.paoding.analysis.knife.Paoding;
 
 public class InitReverseSet {
         private HashMap<BigInteger,ArrayList<BigInteger>> data = new HashMap<>();
@@ -91,31 +93,32 @@ public class InitReverseSet {
             }
             public void run() {
                 try {
-                    System.out.println(Thread.currentThread().getName() + "开始...");  
+                   //System.out.println(Thread.currentThread().getName() + "开始...");  
                     String filePath = file.getPath();
                     String fileEncode = EncodingDetect.getJavaEncode(filePath);
                     String fileContent = FileUtils.readFileToString(new File(filePath), fileEncode);
                     if (fileContent.length()<=1000000) {
+//                        words = PaodingAnalyze.Zanalyze(fileContent);
+//                        System.out.println(words.size());
                         Analyze.testCJK(fileContent, words);
                         Paths.add(filePath);
                         Add(words,Paths.indexOf(filePath));
                     }
                     threadsSignal.countDown();
-                    System.out.println(Thread.currentThread().getName() + "结束. 还有" + threadsSignal.getCount() + " 个线程"); 
+                    //System.out.println(Thread.currentThread().getName() + "结束. 还有" + threadsSignal.getCount() + " 个线程"); 
                 } catch (Exception ex) {
                     //Logger.getLogger(ReverseSet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
        public synchronized void Add(ArrayList<String> words,int Num) {
+           //System.out.println(words.size());
            for (String word:words) {
                BigInteger Hashc = HashString(word);
                BigInteger No;
                No = new BigInteger(String.valueOf(Num));
                if (data.containsKey(Hashc)) {
-                   if (!data.get(Hashc).contains(No)) {
-                       data.get(Hashc).add(No);
-                   } 
+                   data.get(Hashc).add(No);
                }
                else {
                    ArrayList<BigInteger> temp = new ArrayList<>();

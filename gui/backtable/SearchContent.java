@@ -19,14 +19,22 @@ import backtable.ReverseSet;*/
 
 public class SearchContent {
     private BigInteger hash;
-    private HashMap<BigInteger,ArrayList<BigInteger>> data = new HashMap<>();
-    private  ArrayList<String> Paths = new ArrayList<>();
+    private static HashMap<BigInteger,ArrayList<BigInteger>> data = new HashMap<>();
+    private static ArrayList<String> Paths = new ArrayList<>();
     public ArrayList<String> result = new ArrayList<>();
     BigInteger  target;
     public SearchContent(String target)  throws Exception{
         hash = ReverseSet.HashString(target);
-        String jsonString;
         this.target = ReverseSet.HashString(target);
+        if (data.containsKey(this.target)) {
+            for (BigInteger key:data.get(this.target)){
+                result.add(Paths.get(key.intValue()));
+            }
+        }
+        
+    }
+    public static void Readall() throws Exception{
+        String jsonString;
         File fileJson = new File("gui/backtable/data.json");
         try (BufferedReader br = new BufferedReader(new FileReader(fileJson))) {
             jsonString = br.readLine();
@@ -39,8 +47,5 @@ public class SearchContent {
         }
         data = JSON.parseObject(jsonString, new TypeReference<HashMap<BigInteger,ArrayList<BigInteger>>>() {
         });
-        for (BigInteger key:data.get(target)){
-            result.add(Paths.get(key.intValue()));
-        }
     }
 }
