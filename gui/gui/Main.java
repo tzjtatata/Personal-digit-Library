@@ -32,6 +32,6 @@ public class Main {
             }
         }
         backtable.SearchContent.Readall();
-        new MainFrame();
+        new MainFrame();//输给你了。。你替换eclipse的输出文件夹。。当然没有什么卵用。。
     }
 }

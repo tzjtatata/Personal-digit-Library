@@ -15,15 +15,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.swing.*;
-
-import me.calendar.service.Utility;
-
 import java.util.*;
 
 
 public class CalendarDate extends JPanel{
+	/**
+	 * 
+	 *  @author 77
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JButton btn_clear,btn_save,btn_query,btn[];
 	private JLabel lab_sun,lab_week,lab_query_year,lab_query_month,lab_show_date,lab_show_test,jLabel7,lab_show_tip;
 	private JComboBox<String> cbox_month;
@@ -32,9 +34,10 @@ public class CalendarDate extends JPanel{
     private JDesktopPane date;
     private JScrollPane scrollPane;
     private ComboBoxModel<String> jComboBox1Model = new DefaultComboBoxModel<>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"});//內容設定1~12
-    //int y = 0, x = 0, x_add = 0, y_add = 0, week_add = 0, date_acc = 0, week_of_day = 0;
-	String smonth, sday, filename;
-    
+	String smonth, sday,syear ,filename;
+	File file;
+	int[] now = new int[3];
+	
 	public CalendarDate() {
         this.setLayout(null);
         this.setBackground(null);
@@ -54,6 +57,7 @@ public class CalendarDate extends JPanel{
         area_note = new JTextArea(182,42);
         scrollPane = new JScrollPane(area_note, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         text_year = new JTextField();
+        lab_show_date = new JLabel();
         
         btn_clear.setBorder(null);
         btn_clear.setBounds(153, 252, 40,20);
@@ -62,24 +66,6 @@ public class CalendarDate extends JPanel{
         btn_query.setBorder(null);
         btn_query.setBounds(143,6, 40,20);
         
-        btn_clear.addMouseListener(new CursorListener());
-        btn_clear.addMouseListener(new MouseAdapter() {  
-            public void mouseClicked(MouseEvent event) {  
-            	ClearActionPerformed(event);  
-            }  
-        });
-        btn_query.addMouseListener(new CursorListener());
-        btn_save.addMouseListener(new MouseAdapter() {  
-            public void mouseClicked(MouseEvent event) {  
-            	QueryActionPerformed(event);  
-            }  
-        });
-        btn_save.addMouseListener(new CursorListener());
-        btn_save.addMouseListener(new MouseAdapter() {  
-            public void mouseClicked(MouseEvent event) {  
-            	SaveActionPerformed(event);  
-            }  
-        });  
         lab_sun.setBounds(3,44, 23, 21);
         lab_sun.setFont(new Font("Segue",Font.PLAIN,12));
         lab_sun.setForeground(new java.awt.Color(255,255,255));
@@ -109,7 +95,7 @@ public class CalendarDate extends JPanel{
         cbox_month.setForeground(new java.awt.Color(39, 158, 218));
         cbox_month.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 11));
         cbox_month.setBounds(68,6, 40, 18);
-        cbox_month.setFont(new java.awt.Font("微软雅黑", 1, 14));
+        cbox_month.setFont(new java.awt.Font("微软雅黑", 1, 10));
         cbox_month.setSelectedItem(String.valueOf(getdate()[1]));
         
         area_note.setText("");//預設內容清空
@@ -122,13 +108,43 @@ public class CalendarDate extends JPanel{
         scrollPane.setBackground(Color.red);
         scrollPane.setBounds(3, 274, 182, 42);//設定大小及位置
        
-        text_year.setText(String.valueOf(Utility.getdate()[0]));
-        text_year.setBounds(3, 6, 40, 18);
+        text_year.setText(String.valueOf(getdate()[0]));
+        text_year.setBounds(3, 3,45, 25);
         text_year.setBackground(new Color(215, 217, 218));
         text_year.setForeground(new java.awt.Color(39, 158, 218));
-        text_year.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 11));
-
+        text_year.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 10));
         
+        now = getdate();//預設為當年當月
+        syear = String.valueOf(now[0]);
+        smonth = String.valueOf(now[1]);
+        if (smonth.length() == 1) {
+            smonth = "0" + smonth;
+        }
+        System.out.println(syear + " 年 " + smonth + " 月");
+        lab_show_date.setText(syear + " 年 " + smonth + " 月");
+        lab_show_date.setBounds(3, 22, 120, 21);
+        lab_show_date.setForeground(new java.awt.Color(215, 217, 218));//設定字體為白色
+        
+        new_btn();//產生日期按鈕
+        btn_clear.addMouseListener(new CursorListener());
+        btn_clear.addMouseListener(new MouseAdapter() {  
+            public void mouseClicked(MouseEvent event) {  
+            	ClearActionPerformed(event);  
+            }  
+        });
+        btn_query.addMouseListener(new CursorListener());
+        btn_query.addMouseListener(new MouseAdapter() {  
+            public void mouseClicked(MouseEvent event) {  
+            	QueryActionPerformed(event);  
+            }  
+        });
+        btn_save.addMouseListener(new CursorListener());
+        btn_save.addMouseListener(new MouseAdapter() {  
+            public void mouseClicked(MouseEvent event) {  
+            	SaveActionPerformed(event);  
+            }  
+        });  
+        //642, 178
         add(btn_clear);
         add(btn_save);
         add(btn_query);
@@ -143,24 +159,28 @@ public class CalendarDate extends JPanel{
         add(area_note);
         add(scrollPane);
         add(text_year);
-        //add(date);
-        //new_btn();
+        add(lab_show_date);
+        
+
 	}
 	
 	public void date_btn_create(int year,int month)
 	  {
 	    int y=0,x=0,x_add=0,y_add=0,week_add=0,date_acc=0,week_of_day=0;
-	    String syear,smonth,sday,filename;
+	    
 	    syear = String.valueOf(year);
 	    smonth = String.valueOf(month);
 	    if (smonth.length() == 1)
 	      smonth = "0"+smonth;
-	    this.remove(date);
+	    System.out.println(syear);
+	    if (null != date)	
+	    {   	remove(date);
+	    System.out.println("move");}
 	    date = new JDesktopPane();
 	    this.add(date);
-	    this.setBounds(692, 220, 250, 175);
-	    this.setBackground(null);
-        this.setOpaque(false);
+	    date.setBounds(0, 300, 200, 330);
+	    date.setBackground(null);
+        date.setOpaque(false);
         
 	    switch(month)
 	    {
@@ -187,9 +207,7 @@ public class CalendarDate extends JPanel{
 	        else
 	          date_acc = 28;
 	    }
-	   
 	    week_of_day = dow(year,month,1);
-	   
 	    switch(week_of_day)
 	    {
 	      	case 0:
@@ -215,45 +233,66 @@ public class CalendarDate extends JPanel{
 	      		break;
 	    }
 	    JButton btn[] = new JButton[date_acc];
-	    for (int i=0;i<date_acc;i++)
-	    {
-	    	btn[i] = new JButton();
-	    	date.add(btn[i]);
-	    	btn[i].setText(String.valueOf(i+1));
-	    	if ((i-week_of_day>0 && (i+week_of_day)%7==0) || ((i+week_of_day)%7==0 && i != 0))
-	    	{
-	    		x=0;
-	    		x_add=0;
-	    		y++;
-	    		y_add+=10;
-	    		week_add=0;
-	    	}
-	     	btn[i].setBounds(x*25+x_add+week_add, y*35,25, 35);
-	     	btn[i].setFont(new java.awt.Font("Leto",1,12));
-	     	btn[i].setForeground(new java.awt.Color(39, 158,218));
-	     	btn[i].setBorder(null);
-	     	btn[i].setBorder(BorderFactory.createTitledBorder(""));
-	     	int[] now = new int[3];
-	     	now = getdate();
-	     	if (year == now[0] && month == now[1] && i+1 == now[2])
-	     		btn[i].setBackground(new java.awt.Color(255,255,255));
-	     	else
-	     		btn[i].setBackground(new java.awt.Color(215,217,218));
-	     	
+	    for (int i = 0; i < date_acc; i++)//建立日期按鈕陣列回圈
+		{
+			btn[i] = new JButton();//建立對應日期按鈕
+			//date.add(btn[i]);//加到桌面2上
+
+			btn[i].setText(String.valueOf(i + 1));//設定按鈕文字為日期
+			if ((i - week_of_day > 0 && (i + week_of_day) % 7 == 0) || ((i + week_of_day) % 7 == 0 && i != 0)) {//設定當月第一天日期按鈕位置
+				x = 0;//X軸座標
+				x_add = 0;//下一個按鈕座標(X軸)加值
+				y++;//Y軸座標
+				y_add += 0;//換行座標(Y軸)加值
+				week_add = 0;//當月第一日按鈕座標加值
+			}//下面設定按鈕大小及加值(X為起始10+第幾個按鈕*橫向寬度25+間隔+當月第一天星期幾加值)
+			btn[i].setBounds(x * 27 + x_add + week_add, y * 30 + y_add+75, 27, 30);//(Y為第幾個按鈕*高度20+換行加值)按鈕寬為25高為20
+			btn[i].setFont(new java.awt.Font("Leto", 1, 12));//設定字體大小及樣式
+			btn[i].setForeground(new java.awt.Color(39, 158, 218));
+			btn[i].setBorder(null);
+			btn[i].setBorder(BorderFactory.createTitledBorder(""));//設定按鈕文字不自動調整大小
+			add(btn[i]);
+			//int[] now = new int[3];
+			now = getdate();//取得當天日期
+			if (year == now[0] && month == now[1] && i + 1 == now[2]) {
+				btn[i].setBackground(new java.awt.Color(255, 255, 255));//若為當天則設定按鈕為白色
+			} else {
+				btn[i].setBackground(new java.awt.Color(215, 217, 218));//若不是當天則設定按鈕為蓝色
+			}
+			//System.out.println(now[0] + now[1] + now[2]);     	
 	     	sday = String.valueOf(i+1);
 	     	filename = syear+smonth+sday;
 	     	File file=new File(filename+".txt");
-	     	if (file.exists())
-	     		btn[i].setForeground(new java.awt.Color(255,255,255));
-	     	add(btn[i]);
-	     	btn[i].addActionListener(new ActionListener() {
-	     		public void actionPerformed(ActionEvent evt) {
-	     			btnActionPerformed(evt);
-	     		}
-	     	});
-	     	x++;
-	     	x_add+=9;
-	    }
+	     	if (exist(year, month, i + 1) == true) {//若當天有記事檔案則設定按鈕字體顏色為白色
+				btn[i].setForeground(new java.awt.Color(255, 255, 255));
+			}
+	     	//System.out.println("!");
+			btn[i].addMouseListener(new MouseAdapter() {  
+	            public void actionPerformed(ActionEvent evt) {  
+	            	btnActionPerformed(evt);  
+	            	System.out.println("!");
+	            }  
+	        });  
+			x++;//下一個按鈕X座標加權
+			x_add += 0;
+		}
+	}
+	
+	public static boolean exist(int _year, int _month, int _day) {
+
+		String filename;
+		String smonth = _month + "";
+		if (smonth.length() == 1) {
+			smonth = "0" + smonth;
+		}
+		filename = _year + smonth + _day;
+		File file = new File("gui/me/calendar/" + filename + ".txt");
+		return file.exists();
+	}
+	
+
+	public boolean exist() {
+		return file.exists();
 	}
 	
 	private void btnActionPerformed(ActionEvent evt)
@@ -281,11 +320,11 @@ public class CalendarDate extends JPanel{
 	    	lab_show_test.setText("读书日历");
 	    	lab_show_tip.setText("已选择"+year+"年"+month+"月"+btn_date+"日");
 	    	fr.close();
-	    }catch(FileNotFoundException e)//����]��ָ����ӛ�n����ӡ�����՟o����(����̎��)
+	    }catch(FileNotFoundException e)
 	    {
 	    	lab_show_test.setText("当日读书计划");
 		    lab_show_tip.setText("已选择"+year+"年"+month+"月"+btn_date+"日");
-	    }catch(IOException e)//����̎��
+	    }catch(IOException e)
 	    {
 	      e.printStackTrace();
 	    }
@@ -294,9 +333,9 @@ public class CalendarDate extends JPanel{
 	public int[] getdate(){
 		int[] date_array = new int[3];
 		Calendar ca = new GregorianCalendar();
-		date_array[0] = ca.get(Calendar.YEAR);//��
-		date_array[1] = ca.get(Calendar.MONTH)+1;//��
-		date_array[2] = ca.get(Calendar.DAY_OF_MONTH);//��
+		date_array[0] = ca.get(Calendar.YEAR);
+		date_array[1] = ca.get(Calendar.MONTH)+1;
+		date_array[2] = ca.get(Calendar.DAY_OF_MONTH);
 	  return date_array;
 	}//取得系統日期函數結束
 	
@@ -365,6 +404,7 @@ public class CalendarDate extends JPanel{
 	    year = lab_show_date.getText().substring(0,4);
 	    month = lab_show_date.getText().substring(7,9);
 	    day = jLabel7.getText();
+	    System.out.println(null == jLabel7);
 	    insert_str = area_note.getText();//記事內容
 	    if (day.length() == 0)
 	        lab_show_test.setText("未选择日期");//設定相關訊息
@@ -375,9 +415,11 @@ public class CalendarDate extends JPanel{
 		    day = jLabel7.getText();
 		    filename = year+month+day;
 		    File file=new File(filename+".txt");
+		    System.out.println(" ??");
 		    file.delete();
 		    if (insert_str.length() != 0 && day.length() != 0)//若記事框內有文字且有選擇日期則儲存記事檔案
 		    {
+		    	System.out.println(" !!");
 		    	lab_show_test.setText("已记录计划");
 		    }
 		    new_btn();
@@ -421,7 +463,7 @@ public class CalendarDate extends JPanel{
 	    jLabel7.setText("");
 	    date_btn_create(Integer.parseInt(syear),Integer.parseInt(smonth));
 	    }
-	    ////System.out.println("query successfully");
+	    System.out.println("query successfully");
 	  }
 	
 	class CursorListener extends MouseAdapter {
@@ -441,12 +483,15 @@ public class CalendarDate extends JPanel{
 	{
 	  area_note.setText("");
 	  int year,month;
+	  
+	  
 	  year = Integer.parseInt(lab_show_date.getText().substring(0,4));
 	  month = Integer.parseInt(lab_show_date.getText().substring(7,9));
+	  System.out.println(year);
+	  System.out.println(month);
 	  date_btn_create(year,month);
 	}
-	
-	
+
 }
 /*
 	private static  void btnActionPerformed(ActionEvent evt)//日期按鈕按下觸發事件開始
