@@ -20,17 +20,19 @@ import javax.swing.JPanel;
  */
 public class Index extends JPanel {
 
-    private JButton search, shelf, about, set;
-    private CalendarDate calendar;
+    private final JButton search, shelf, about, set;
+//    private final CalendarDate calendar;
+    private final ZCalendar calendar;
 
-    public Index() {
+    public Index() throws Exception {
         super();
         this.setLayout(null);
         search = new JButton(new ImageIcon(SetUp.imageForSearchButton));
         shelf = new JButton(new ImageIcon(SetUp.imageForShelfButton));
         about = new JButton(new ImageIcon(SetUp.imageForAboutButton));
         set = new JButton(new ImageIcon(SetUp.imageForSetButton));
-        calendar = new CalendarDate();
+//        calendar = new CalendarDate();
+        calendar = new ZCalendar();
 
         search.setBounds(263, 348, 54, 28);
         search.setBorder(null);

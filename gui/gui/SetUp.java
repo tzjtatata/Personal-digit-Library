@@ -329,7 +329,7 @@ public class SetUp extends BasicPanel {
     public static void changeFont(Container c) throws Exception {
         if (c.getComponents().length != 0) {
             for (Component c1 : c.getComponents()) {
-                if (!((c1 instanceof ResultPanel) || (c1 instanceof CalendarDate))) {
+                if (!((c1 instanceof ResultPanel) || (c1 instanceof CalendarDate) || (c1 instanceof ZCalendar))) {
                     changeFont((Container) c1);
                 }
             }
