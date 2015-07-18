@@ -174,6 +174,7 @@ public class ZCalendar extends JPanel {
         });
         this.setOpaque(false);
         setDate(1);
+        displayNote();
     }
 
     /**
@@ -307,10 +308,25 @@ public class ZCalendar extends JPanel {
      * 写入json
      */
     private void writeJson() throws Exception {
+        displayNote();
         File f = new File("setFile/calendarNote.json");
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"))) {
             bw.write(JSON.toJSONString(noteMap));
+        }
+    }
 
+    /**
+     * 显示当天的读书笔记（给日历小部件用)
+     *
+     * @return
+     */
+    public static void displayNote() {
+        Calendar c = Calendar.getInstance();
+        String date = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE);
+        if (!noteMap.containsKey(date)) {
+            CalenderJPanel.setText("当日无读书笔记");
+        } else {
+            CalenderJPanel.setText(noteMap.get(date));
         }
     }
 

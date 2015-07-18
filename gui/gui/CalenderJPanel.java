@@ -13,11 +13,10 @@ import javax.swing.*;
  */
 public class CalenderJPanel extends JPanel {
 
-    private final JLabel label;
+    private static JLabel label;
 
     public CalenderJPanel() {
         this.setLayout(null);
-        label = new JLabel("李沅泽是个大逗比");
         label.setBounds(103, 1, 744, 40);
         label.setOpaque(true);
         label.setBackground(new Color(215, 217, 218));
@@ -36,5 +35,13 @@ public class CalenderJPanel extends JPanel {
 
     public void imageRepaint() {
         this.repaint();
+    }
+
+    public static void setText(String s) {
+        if (label == null) {
+            label = new JLabel(s, JLabel.CENTER);
+        } else {
+            label.setText(s);
+        }
     }
 }
