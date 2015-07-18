@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -41,6 +44,29 @@ public class BasicPanel extends JPanel {
         });
         returnButton.addMouseListener(new CursorListener());
         self.add(returnButton);
+    }
+
+    /**
+     * 并不是很成功。。
+     */
+    protected void addReturnListener() {
+        this.setFocusable(true);
+        for (Component c : this.getComponents()) {
+            c.addKeyListener(new ReturnListener());
+        }
+    }
+
+    /**
+     * 按esc返回主页
+     */
+    protected class ReturnListener extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            if (event.getKeyChar() == KeyEvent.VK_ESCAPE) {
+                MainFrame.cl.show(MainFrame.changeJPanel, "index");
+            }
+        }
     }
 
     class CursorListener extends MouseAdapter {

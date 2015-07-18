@@ -35,6 +35,7 @@ public class AboutPanel extends BasicPanel {
         copyright.setOpaque(true);
         this.add(help);
         this.add(copyright);
+        this.addReturnListener();
     }
 
     @Override

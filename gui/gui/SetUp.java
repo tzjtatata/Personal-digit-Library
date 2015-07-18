@@ -220,6 +220,7 @@ public class SetUp extends BasicPanel {
             }
         });
         this.add(resetRangeButton);
+        this.addReturnListener();
     }
 //文件选择器
 

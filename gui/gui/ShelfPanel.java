@@ -44,6 +44,7 @@ public class ShelfPanel extends BasicPanel {
         getContent();
         setCategory(firstPage);
         setContent(nowPage);
+        this.addReturnListener();
     }
 
     @Override
@@ -56,8 +57,11 @@ public class ShelfPanel extends BasicPanel {
     private void setCategory(int a) {
         //System.out.println(a);
         int temp;
-        if (len<LEN) temp = len;
-        else temp = LEN;
+        if (len < LEN) {
+            temp = len;
+        } else {
+            temp = LEN;
+        }
         for (int i = 0; i < temp; i++) {
             if (subjectLabel[i] != null) {
                 subjectLabel[i].setVisible(false);
@@ -83,7 +87,7 @@ public class ShelfPanel extends BasicPanel {
         while (br.ready()) {
             str = br.readLine();
             boy = str.split("/");
-            List<String> wordList = new ArrayList<String>(Arrays.asList(boy[1].split(",")));  
+            List<String> wordList = new ArrayList<String>(Arrays.asList(boy[1].split(",")));
             subjectShow[len] = new ResultPanel(boy[0], (ArrayList<String>) wordList);
             len++;
         }

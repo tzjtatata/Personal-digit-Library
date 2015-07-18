@@ -143,6 +143,7 @@ public class Search extends BasicPanel {
         entry2.setBounds(350, 223, 200, 20);
         entry3.setBounds(350, 273, 200, 20);
         entry4.setBounds(350, 323, 200, 20);
+        this.addReturnListener();
     }
 
     @Override
@@ -229,17 +230,17 @@ public class Search extends BasicPanel {
             }
         }
     }
-    
+
     class Result extends MouseAdapter {
 
         @Override
-        public void mouseClicked(MouseEvent e){
+        public void mouseClicked(MouseEvent e) {
             try {
                 ArrayList<String> result = new ArrayList<>();
                 SearchContent Re4 = new SearchContent(entry4.getText());
                 result.addAll(Re4.result);
                 result.addAll(NewSearch.SearchTitle(entry3.getText()));
-                ResultPanel RESULT = new ResultPanel(entry4.getText(),result);
+                ResultPanel RESULT = new ResultPanel(entry4.getText(), result);
                 BasicPanel temp = new BasicPanel(index) {
                     @Override
                     protected void paintComponent(Graphics g) {
@@ -254,7 +255,7 @@ public class Search extends BasicPanel {
                 temp.setLayout(null);
                 MainFrame.cl.addLayoutComponent(temp, "result");
                 MainFrame.changeJPanel.add(temp);
-                MainFrame.cl.show(MainFrame.changeJPanel,"result");
+                MainFrame.cl.show(MainFrame.changeJPanel, "result");
             } catch (Exception ex) {
                 Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
             }
