@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,7 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javax.swing.*;
+
+
 import java.util.*;
 
 
@@ -31,7 +33,6 @@ public class CalendarDate extends JPanel{
 	private JComboBox<String> cbox_month;
 	private JTextField text_year;
     private JTextArea area_note;
-    private JDesktopPane date;
     private JScrollPane scrollPane;
     private ComboBoxModel<String> jComboBox1Model = new DefaultComboBoxModel<>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"});//內容設定1~12
 	String smonth, sday,syear ,filename;
@@ -173,14 +174,14 @@ public class CalendarDate extends JPanel{
 	    if (smonth.length() == 1)
 	      smonth = "0"+smonth;
 	    System.out.println(syear);
-	    if (null != date)	
-	    {   	remove(date);
-	    System.out.println("move");}
-	    date = new JDesktopPane();
-	    this.add(date);
-	    date.setBounds(0, 300, 200, 330);
-	    date.setBackground(null);
-        date.setOpaque(false);
+	    //if (null != date)	
+	    //{   	remove(date);
+	    //System.out.println("move");}
+	    //date = new JDesktopPane();
+	    //this.add(date);
+	    //date.setBounds(0, 300, 200, 330);
+	    //date.setBackground(null);
+        //date.setOpaque(false);
         
 	    switch(month)
 	    {
@@ -235,8 +236,12 @@ public class CalendarDate extends JPanel{
 	    JButton btn[] = new JButton[date_acc];
 	    for (int i = 0; i < date_acc; i++)//建立日期按鈕陣列回圈
 		{
-			btn[i] = new JButton();//建立對應日期按鈕
-			//date.add(btn[i]);//加到桌面2上
+	    	if(null != btn[i])
+	    	{
+	    		remove(btn[i]);
+	    		System.out.println("aaa");}
+	    	btn[i] = new JButton();//建立對應日期按鈕
+			
 
 			btn[i].setText(String.valueOf(i + 1));//設定按鈕文字為日期
 			if ((i - week_of_day > 0 && (i + week_of_day) % 7 == 0) || ((i + week_of_day) % 7 == 0 && i != 0)) {//設定當月第一天日期按鈕位置
@@ -247,10 +252,10 @@ public class CalendarDate extends JPanel{
 				week_add = 0;//當月第一日按鈕座標加值
 			}//下面設定按鈕大小及加值(X為起始10+第幾個按鈕*橫向寬度25+間隔+當月第一天星期幾加值)
 			btn[i].setBounds(x * 27 + x_add + week_add, y * 30 + y_add+75, 27, 30);//(Y為第幾個按鈕*高度20+換行加值)按鈕寬為25高為20
-			btn[i].setFont(new java.awt.Font("Leto", 1, 12));//設定字體大小及樣式
+			btn[i].setFont(new java.awt.Font("Leto", 0, 14));//設定字體大小及樣式
 			btn[i].setForeground(new java.awt.Color(39, 158, 218));
 			btn[i].setBorder(null);
-			btn[i].setBorder(BorderFactory.createTitledBorder(""));//設定按鈕文字不自動調整大小
+			
 			add(btn[i]);
 			//int[] now = new int[3];
 			now = getdate();//取得當天日期
@@ -262,12 +267,37 @@ public class CalendarDate extends JPanel{
 			//System.out.println(now[0] + now[1] + now[2]);     	
 	     	sday = String.valueOf(i+1);
 	     	filename = syear+smonth+sday;
-	     	File file=new File(filename+".txt");
+	     	//File file=new File(filename+".txt");
+	     	String read_str;
+		    try
+		    {
+			      FileReader fr = new FileReader(filename+".txt");//讀取選擇日期記事檔案
+			      BufferedReader bfr = new BufferedReader(fr);//將檔案讀到緩衝區
+			      boolean flag=false;//旗標
+			      while((read_str = bfr.readLine())!=null) // 每次讀取一行，直到檔案結束
+			      {
+			        if (flag)//從第二行開始每一行第一個位置加入斷行
+			        	area_note.append("\n");
+				        area_note.append(read_str);//加入該行訊息
+				        flag=true;
+			       
+			      }
+			      lab_show_test.setText("当天记事");
+			      lab_show_tip.setText("已选择"+syear+"年"+smonth+"月"+sday+"日");
+			      fr.close();
+		    }catch(FileNotFoundException e)//如果沒有指定的記事檔案就印出當日無行事曆(例外處理)
+		    {
+			      lab_show_test.setText("当日无行事历");
+			      lab_show_tip.setText("已选择"+syear+"年"+smonth+"月"+sday+"日");
+		    }catch(IOException e)//例外處理
+		    {
+		    e.printStackTrace();
+		    }
 	     	if (exist(year, month, i + 1) == true) {//若當天有記事檔案則設定按鈕字體顏色為白色
 				btn[i].setForeground(new java.awt.Color(255, 255, 255));
 			}
-	     	//System.out.println("!");
-			btn[i].addMouseListener(new MouseAdapter() {  
+	     	
+			btn[i].addActionListener(new ActionListener() {  
 	            public void actionPerformed(ActionEvent evt) {  
 	            	btnActionPerformed(evt);  
 	            	System.out.println("!");
@@ -286,7 +316,7 @@ public class CalendarDate extends JPanel{
 			smonth = "0" + smonth;
 		}
 		filename = _year + smonth + _day;
-		File file = new File("gui/me/calendar/" + filename + ".txt");
+		File file = new File("gui/" + filename + ".txt");
 		return file.exists();
 	}
 	
@@ -304,6 +334,7 @@ public class CalendarDate extends JPanel{
 	    btn_date = evt.getActionCommand();
 	    filename = year+month+btn_date;
 	    jLabel7.setText(btn_date);
+	    System.out.println("btn");
 	    try
 	    {
 	    	FileReader fr = new FileReader(filename+".txt");
@@ -400,31 +431,37 @@ public class CalendarDate extends JPanel{
 	
 	private void SaveActionPerformed(MouseEvent event)
 	{
-	    String year,month,day,filename,insert_str;
+	    //System.out.println("save successfully");
+	    String year,month,day,fileName,insert_str;
 	    year = lab_show_date.getText().substring(0,4);
 	    month = lab_show_date.getText().substring(7,9);
 	    day = jLabel7.getText();
-	    System.out.println(null == jLabel7);
+	    if (day.length() == 1)//20150707 0！7！
+    		day = "0"+day;
 	    insert_str = area_note.getText();//記事內容
+	    System.out.println(day);
 	    if (day.length() == 0)
 	        lab_show_test.setText("未选择日期");//設定相關訊息
 	    else if(insert_str.length()==0)	 
 	        lab_show_test.setText("当日无读书计划");
 	    else {
-	    	
-		    day = jLabel7.getText();
-		    filename = year+month+day;
-		    File file=new File(filename+".txt");
-		    System.out.println(" ??");
-		    file.delete();
+	    	fileName = year + month + day;
+			file = new File("note/" + fileName + ".txt");
 		    if (insert_str.length() != 0 && day.length() != 0)//若記事框內有文字且有選擇日期則儲存記事檔案
 		    {
-		    	System.out.println(" !!");
-		    	lab_show_test.setText("已记录计划");
+		    	System.out.println(insert_str);
+		    	if(save(insert_str))
+		    	 { 	
+		    		 lab_show_test.setText("已记录计划");//設定相關訊息
+		    	 }
+		    	 else
+		    	 {
+		    		 lab_show_test.setText("记录失败"); 
+		    	 }
 		    }
+		    
 		    new_btn();
 	    }
-	    //System.out.println("save successfully");
 	}
 	
 	private void QueryActionPerformed(MouseEvent event)
@@ -448,7 +485,7 @@ public class CalendarDate extends JPanel{
 			lab_show_date.setText(syear+" 年 "+smonth+" 月");
 			date_btn_create(Integer.parseInt(syear),Integer.parseInt(smonth));
 			jLabel7.setText("");
-			lab_show_tip.setText("未选择日期");
+			//lab_show_tip.setText("未选择日期");
 	    }catch(NumberFormatException e)//例外處理設定為當年及選擇的月份
 	    {
 	    	int[] now = new int[3];
@@ -457,11 +494,11 @@ public class CalendarDate extends JPanel{
 	    	smonth = String.valueOf(cbox_month.getSelectedIndex() + 1);
 	    	if (smonth.length() == 1)
 	    		smonth = "0"+smonth;
-	    lab_show_date.setText(syear+" 年 "+smonth+" 月");
-	    lab_show_test.setText("请选择1582年以上");
-	    lab_show_tip.setText("未选择日期");
-	    jLabel7.setText("");
-	    date_btn_create(Integer.parseInt(syear),Integer.parseInt(smonth));
+		    lab_show_date.setText(syear+" 年 "+smonth+" 月");
+		    lab_show_test.setText("请选择1582年以上");
+		    lab_show_tip.setText("未选择日期");
+		    jLabel7.setText("");
+		    date_btn_create(Integer.parseInt(syear),Integer.parseInt(smonth));
 	    }
 	    System.out.println("query successfully");
 	  }
@@ -490,6 +527,25 @@ public class CalendarDate extends JPanel{
 	  System.out.println(year);
 	  System.out.println(month);
 	  date_btn_create(year,month);
+	}
+	
+	public boolean save(String str) {
+		FileWriter fw;
+		BufferedWriter bfw;//啟用緩衝區寫入
+		try {
+			fw = new FileWriter(file);
+			bfw = new BufferedWriter(fw);
+			bfw.write(str); //將Textarea內容寫入緩衝區裡
+			bfw.flush();//將緩衝區資料寫到檔案
+			fw.close();//關閉檔案
+			bfw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}//啟用檔案寫入
+		return true;
+
 	}
 
 }
