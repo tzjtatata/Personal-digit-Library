@@ -20,8 +20,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -45,7 +43,7 @@ public class ZCalendar extends JPanel {
     private JComboBox<String> yearBox, monthBox;  //两个下拉框
     private JTextArea noteArea;  //笔记
     private Calendar systemCalendar;  //系统时间
-    private JScrollPane noteJScrollPane;
+    private JScrollPane noteJScrollPane; //控制文本域的滚动条
     public static HashMap<String, String> noteMap;  //笔记对应的hashmap
     private int[] selected;  //当前被选择的年月，和日期块序号
 
@@ -329,6 +327,9 @@ public class ZCalendar extends JPanel {
         }
     }
 
+    /**
+     * 日期块的监听器
+     */
     class DateListener extends MouseAdapter {
 
         private final int year, month, date;
