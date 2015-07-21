@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
     private final Search searchPanel;
     private final ShelfPanel shelf;
     private final CalenderJPanel calenderHint;
-    private final Index index;
+    static Index index;
     static JPanel changeJPanel = new JPanel();  //切换用的JPanel
     static CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
     JPanel mainJPanel = new JPanel();  //主JPanel

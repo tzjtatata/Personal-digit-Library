@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -42,6 +43,7 @@ public class BasicPanel extends JPanel {
         returnButton.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "index");
         });
+        SwingUtilities.updateComponentTreeUI(this);
         returnButton.addMouseListener(new CursorListener());
         self.add(returnButton);
     }

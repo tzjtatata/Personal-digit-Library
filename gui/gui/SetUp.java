@@ -151,7 +151,7 @@ public class SetUp extends BasicPanel {
         themeButtons[0] = new JRadioButton("默认主题");
         themeButtons[0].setSelected(true);
         //搞怪系列
-        themeButtons[1] = new JRadioButton("Z之搞怪主题");
+        themeButtons[1] = new JRadioButton("主题2");
         //主题系列RadioButton
         for (int i = 0; i < themeButtons.length; i++) {
             themeButtons[i].setBounds(300 + 130 * (i % 4), 260 + (i / 4) * 40, 130, 50);
@@ -372,6 +372,7 @@ public class SetUp extends BasicPanel {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
             }
             javax.swing.SwingUtilities.updateComponentTreeUI(panel);
+            SwingUtilities.updateComponentTreeUI(MainFrame.index);
         }
     }
 
