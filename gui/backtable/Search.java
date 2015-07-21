@@ -3,9 +3,11 @@ package backtable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -141,7 +143,7 @@ public class Search {
                         SearchDish(flist1.getPath());
                     }
                     if (flist1.isFile() && !flist1.isHidden()) {
-                        try (FileReader fr = new FileReader(flist1); BufferedReader br = new BufferedReader(fr)) {
+                        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(flist1), "UTF-8"))) {
                             while (br.ready()) {
                                 String s = br.readLine();
                                 Matcher m = p.matcher(s);
@@ -246,12 +248,12 @@ public class Search {
         ArrayList<String> al = new ArrayList<>();  //存放用的动态数组
         File[] files = f.listFiles((File pathname) -> !pathname.isHidden());
         for (File file : files) {
-            try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
                 while (br.ready()) {
                     String line = br.readLine();
                     if (!line.endsWith("null")) {  //空结尾说明文件不能从bookInfo中匹配
                         File book = new File("gui/backtable/bookInfo/" + line.split("&&")[1]);
-                        try (BufferedReader br1 = new BufferedReader(new FileReader(book))) {
+                        try (BufferedReader br1 = new BufferedReader(new InputStreamReader(new FileInputStream(book), "UTF-8"))) {
                             br1.readLine();
                             String s = br1.readLine();  //第二行是作者
                             if (s != null) {

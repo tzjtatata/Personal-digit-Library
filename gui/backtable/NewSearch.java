@@ -7,12 +7,8 @@ package backtable;
 
 import com.alibaba.fastjson.*;
 import gui.SetUp;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
@@ -87,7 +83,7 @@ public class NewSearch {
             //System.out.println("搜索完毕，开始写入json！" + (System.currentTimeMillis() - pre));
             pre = System.currentTimeMillis();
             String jsonString = JSON.toJSONString(fileMap);
-            try (BufferedWriter br = new BufferedWriter(new FileWriter(fileJson))) {
+            try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileJson), "UTF-8"))) {
                 br.write(jsonString);
                 //  System.out.println("json写入完成！" + (System.currentTimeMillis() - pre));
                 pre = System.currentTimeMillis();
@@ -168,7 +164,7 @@ public class NewSearch {
      */
     public static HashMap ReadJson() throws Exception {
         String jsonString;
-        try (BufferedReader br = new BufferedReader(new FileReader(fileJson))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileJson), "UTF-8"))) {
             jsonString = br.readLine();
         }
         fileMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, ArrayList<String>>>>() {
@@ -184,7 +180,7 @@ public class NewSearch {
     public static void Classify() throws Exception {
         HashMap<String, String[]> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
         HashMap<String, ArrayList<String>> classMap = new HashMap<>();  //要写入的map
-        try (BufferedReader br = new BufferedReader(new FileReader("gui/backtable/classData.pdl"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("gui/backtable/classData.pdl"), "UTF-8"))) {
             while (br.ready()) {
                 String line = br.readLine();
                 String lines[] = line.split("/");
@@ -254,7 +250,7 @@ public class NewSearch {
                 });
             });
         });
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("gui/backtable/class.pdl"))) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("gui/backtable/class.pdl"), "UTF-8"))) {
             classMap.keySet().stream().forEach((cate) -> {
                 try {
                     if (classMap.get(cate).size() > 0) {

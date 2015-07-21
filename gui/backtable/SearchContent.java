@@ -36,13 +36,13 @@ public class SearchContent {
     public static void Readall() throws Exception{
         String jsonString;
         File fileJson = new File("gui/backtable/data.json");
-        try (BufferedReader br = new BufferedReader(new FileReader(fileJson))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileJson),"UTF-8"))) {
             jsonString = br.readLine();
         }
         Paths = JSON.parseObject(jsonString, new TypeReference<ArrayList<String>>() {
         });
         fileJson = new File("gui/backtable/dict.json");
-        try (BufferedReader br = new BufferedReader(new FileReader(fileJson))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileJson),"UTF-8"))) {
             jsonString = br.readLine();
         }
         data = JSON.parseObject(jsonString, new TypeReference<HashMap<BigInteger,ArrayList<BigInteger>>>() {

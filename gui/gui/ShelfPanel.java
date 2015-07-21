@@ -82,8 +82,7 @@ public class ShelfPanel extends BasicPanel {
     private void getContent() throws Exception {
         String[] boy = new String[2];
         String str;
-        File f = new File("gui/backtable/class.pdl");
-        BufferedReader br = new BufferedReader(new FileReader(f));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("gui/backtable/class.pdl"), "UTF-8"));
         while (br.ready()) {
             str = br.readLine();
             boy = str.split("/");
