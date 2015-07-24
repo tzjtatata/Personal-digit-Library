@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -81,6 +82,10 @@ public class Index extends JPanel {
         set.setIcon(new ImageIcon(SetUp.imageForSetButton));
         shelf.setIcon(new ImageIcon(SetUp.imageForShelfButton));
         about.setIcon(new ImageIcon(SetUp.imageForAboutButton));
+    }
+
+    void setCalendarForeground() {
+        calendar.setForeground();
     }
 
     class CursorListener extends MouseAdapter {

@@ -8,7 +8,6 @@ package gui;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.HashMap;
 import javax.swing.*;
 import com.alibaba.fastjson.*;
@@ -17,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -36,6 +34,10 @@ public class SetUp extends BasicPanel {
     public static HashMap<String, HashMap<String, Object>> setMap;
     public static Font GLOBAL_FONT;
     public static Font SHELF_FONT;
+    public static Color FORE_COLOR;
+    public static Color BACK_COLOR;
+    private static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE};
+    private static final Color[] backColor = {new Color(215, 217, 218), Color.ORANGE};
     private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
     private final JRadioButton[] styleButtons, themeButtons;
     private final ButtonGroup stylebButtonGroup, themeButtonGroup;
@@ -153,9 +155,9 @@ public class SetUp extends BasicPanel {
         themeButtonGroup = new ButtonGroup();
         themeButtons = new JRadioButton[2];
         themeButtons[0] = new JRadioButton("默认主题");
-        themeButtons[0].setSelected(true);
         //搞怪系列
         themeButtons[1] = new JRadioButton("主题2");
+        themeButtons[(int) setMap.get("style").get("theme")].setSelected(true);
         //主题系列RadioButton
         for (int i = 0; i < themeButtons.length; i++) {
             themeButtons[i].setBounds(300 + 130 * (i % 4), 260 + (i / 4) * 40, 130, 50);
@@ -259,6 +261,9 @@ public class SetUp extends BasicPanel {
         SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
         UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
         changeImage();
+        int theme = (int) setMap.get("style").get("theme");
+        FORE_COLOR = foreColor[theme];
+        BACK_COLOR = backColor[theme];
     }
 
     public static void changeImage() {
@@ -382,7 +387,7 @@ public class SetUp extends BasicPanel {
 
     class ThemeListener implements ActionListener {
 
-        private int n;
+        private final int n;
         private final MainFrame index;
 
         public ThemeListener(int i, MainFrame index) {
@@ -392,14 +397,13 @@ public class SetUp extends BasicPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (n == 1) {
-                n = 2;
-            }
             setMap.get("style").put("theme", n);
             try {
                 SaveSetInfo();
                 changeImage();
                 index.imageRepaint();
+                FORE_COLOR = foreColor[n];
+                BACK_COLOR = backColor[n];
             } catch (Exception ex) {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
             }

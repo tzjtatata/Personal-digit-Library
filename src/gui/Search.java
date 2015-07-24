@@ -41,16 +41,16 @@ public class Search extends BasicPanel {
         //bt2.addActionListener();
         option1 = new JLabel("按作者搜索");
         option1.setFont(SetUp.GLOBAL_FONT);
-        option1.setForeground(new Color(39, 158, 218));
+        option1.setForeground(SetUp.FORE_COLOR);
         option2 = new JLabel("按类型搜索");
         option2.setFont(SetUp.GLOBAL_FONT);
-        option2.setForeground(new Color(39, 158, 218));
+        option2.setForeground(SetUp.FORE_COLOR);
         option3 = new JLabel("按文件名搜索");
         option3.setFont(SetUp.GLOBAL_FONT);
-        option3.setForeground(new Color(39, 158, 218));
+        option3.setForeground(SetUp.FORE_COLOR);
         option4 = new JLabel("按关键字搜索");
         option4.setFont(SetUp.GLOBAL_FONT);
-        option4.setForeground(new Color(39, 158, 218));
+        option4.setForeground(SetUp.FORE_COLOR);
         entry1 = new JTextField(15);
         entry1.addMouseListener(new EntryListener());
         entry2 = new JTextField(15);
@@ -122,16 +122,16 @@ public class Search extends BasicPanel {
 
         backg1.setBounds(150, 170, 30, 30);
         backg1.setOpaque(true);
-        backg1.setBackground(new Color(215, 217, 218));
+        backg1.setBackground(SetUp.BACK_COLOR);
         backg2.setBounds(150, 220, 30, 30);
         backg2.setOpaque(true);
-        backg2.setBackground(new Color(215, 217, 218));
+        backg2.setBackground(SetUp.BACK_COLOR);
         backg3.setBounds(150, 270, 30, 30);
         backg3.setOpaque(true);
-        backg3.setBackground(new Color(215, 217, 218));
+        backg3.setBackground(SetUp.BACK_COLOR);
         backg4.setBounds(150, 320, 30, 30);
         backg4.setOpaque(true);
-        backg4.setBackground(new Color(215, 217, 218));
+        backg4.setBackground(SetUp.BACK_COLOR);
 
         bt1.setBounds(240, 393, 50, 22);
         bt2.setBounds(380, 393, 50, 22);

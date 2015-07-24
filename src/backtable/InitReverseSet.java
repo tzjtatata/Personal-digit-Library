@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import backtable.PaodingAnalyze;
-import net.paoding.analysis.knife.Paoding;
 
 public class InitReverseSet {
 
@@ -124,8 +122,9 @@ public class InitReverseSet {
             }
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        new InitReverseSet();
-    }
+    /*
+     public static void main(String[] args) throws Exception {
+     new InitReverseSet();
+     }
+     */
 }

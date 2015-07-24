@@ -3,7 +3,6 @@
  */
 package gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.*;
 
@@ -13,13 +12,14 @@ import javax.swing.*;
  */
 public class CalenderJPanel extends JPanel {
 
-    private static JLabel label;
+    static JLabel label;
 
     public CalenderJPanel() {
         this.setLayout(null);
         label.setBounds(103, 1, 744, 40);
+        label.setBackground(SetUp.BACK_COLOR);
+        label.setForeground(SetUp.FORE_COLOR);
         label.setOpaque(true);
-        label.setBackground(new Color(215, 217, 218));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(label);
         this.setSize(950, 100);

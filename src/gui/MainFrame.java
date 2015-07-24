@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     static Index index;
     static JPanel changeJPanel = new JPanel();  //切换用的JPanel
     static CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
-    JPanel mainJPanel = new JPanel();  //主JPanel
+    private JPanel mainJPanel = new JPanel();  //主JPanel
 
     public MainFrame() throws Exception {
         super("个人数字图书馆");

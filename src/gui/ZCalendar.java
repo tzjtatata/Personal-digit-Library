@@ -94,51 +94,44 @@ public class ZCalendar extends JPanel {
         this.add(queryJLabel);
         for (int i = 0; i < weekJLabels.length; i++) {
             weekJLabels[i].setBounds(i * 29, 44, 29, 21);
-            weekJLabels[i].setForeground(new java.awt.Color(39, 158, 218));
             weekJLabels[i].setFont(new Font("Segue", Font.PLAIN, 12));
             this.add(weekJLabels[i]);
         }
         dateJLabel.setBounds(3, 30, 200, 14);
         dateJLabel.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 14));
-        dateJLabel.setForeground(new java.awt.Color(255, 255, 255));
+        dateJLabel.setForeground(SetUp.FORE_COLOR);
         this.add(dateJLabel);
         noteJLabel.setBounds(3, 252, 200, 21);
         noteJLabel.setFont(new java.awt.Font("微软雅黑", 1, 13));
-        noteJLabel.setForeground(new java.awt.Color(39, 158, 218));
         this.add(noteJLabel);
         noteArea.setBounds(3, 274, 182, 42);
         noteArea.setFont(new java.awt.Font("黑体", Font.BOLD, 10));
-        noteArea.setForeground(new Color(39, 158, 218));
-        noteArea.setBackground(Color.LIGHT_GRAY);
+        noteArea.setBackground(SetUp.BACK_COLOR);
         noteArea.setWrapStyleWord(true);
         noteArea.setLineWrap(true);
         noteJScrollPane.setBounds(noteArea.getBounds());
         this.add(noteJScrollPane);
         yearBox.setBounds(0, 5, 55, 21);
         yearBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.YEAR)));  //选择系统时间
-        yearBox.setBackground(new Color(215, 217, 218));
-        yearBox.setForeground(new java.awt.Color(39, 158, 218));
+        yearBox.setBackground(SetUp.BACK_COLOR);
         yearBox.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 10));
         this.add(yearBox);
         monthBox.setBounds(77, 5, 39, 21);
         monthBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.MONTH) + 1));
-        monthBox.setForeground(new Color(39, 158, 218));
         monthBox.setFont(new Font("微软雅黑", Font.BOLD, 10));
         this.add(monthBox);
         monthJLabel.setBounds(120, 5, 20, 21);
         monthJLabel.setFont(new java.awt.Font("微软雅黑", 1, 14));
-        monthJLabel.setForeground(new java.awt.Color(39, 158, 218));
         this.add(monthJLabel);
         yearJLabel.setBounds(59, 5, 14, 21);
         yearJLabel.setFont(new java.awt.Font("微软雅黑", 1, 14));
-        yearJLabel.setForeground(new java.awt.Color(39, 158, 218));
         this.add(yearJLabel);
         for (int i = 0; i < dateJLabels.length; i++) {
             dateJLabels[i].setBounds(29 * (i % 7), 68 + 29 * (i / 7), 29, 29);
             dateJLabels[i].setFont(new java.awt.Font("Leto", 1, 12));
-            dateJLabels[i].setForeground(new java.awt.Color(39, 158, 218));
             this.add(dateJLabels[i]);
         }
+        setForeground();
         //监听器响应阶段
         queryJLabel.addMouseListener(new CursorListener());
         queryJLabel.addMouseListener(new MouseAdapter() {
@@ -230,7 +223,7 @@ public class ZCalendar extends JPanel {
         while (!dateJLabels[i++].isVisible());
         i--; //计算第一个显示了的日期
         if (selected[2] != -1) {  //是-1说明是第一次调用
-            dateJLabels[selected[2]].setForeground(new Color(39, 158, 218));
+            dateJLabels[selected[2]].setForeground(SetUp.FORE_COLOR);
             selected[2] = date + i - 1;
             dateJLabels[selected[2]].setForeground(Color.red);  //选中后前景色突出
         } else {
@@ -318,7 +311,6 @@ public class ZCalendar extends JPanel {
     /**
      * 显示当天的读书笔记（给日历小部件用)
      *
-     * @return
      */
     public static void displayNote() {
         Calendar c = Calendar.getInstance();
@@ -327,6 +319,21 @@ public class ZCalendar extends JPanel {
             CalenderJPanel.setText("当日无读书笔记");
         } else {
             CalenderJPanel.setText(noteMap.get(date));
+        }
+    }
+
+    public void setForeground() {
+        for (JLabel weekJLabel : weekJLabels) {
+            weekJLabel.setForeground(SetUp.FORE_COLOR);
+        }
+        noteJLabel.setForeground(SetUp.FORE_COLOR);
+        noteArea.setForeground(SetUp.FORE_COLOR);
+        yearBox.setBackground(SetUp.BACK_COLOR);
+        monthBox.setBackground(SetUp.BACK_COLOR);
+        yearJLabel.setForeground(SetUp.FORE_COLOR);
+        monthJLabel.setForeground(SetUp.FORE_COLOR);
+        for (JLabel dateJLabel1 : dateJLabels) {
+            dateJLabel1.setForeground(SetUp.FORE_COLOR);
         }
     }
 

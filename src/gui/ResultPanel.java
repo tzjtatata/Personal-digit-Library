@@ -40,7 +40,7 @@ public class ResultPanel extends JPanel {
     public ResultPanel(String str, ArrayList<String> result) {
         JLabel temLabel;
         this.name = str;
-        this.setBackground(new Color(215, 217, 218));
+        this.setBackground(SetUp.BACK_COLOR);
         int i;
         JLHashMap = new HashMap<>();
         this.setLayout(null);
@@ -54,7 +54,7 @@ public class ResultPanel extends JPanel {
             labelorderJLabels[i].setText("" + (i + 1));
             labelorderJLabels[i].setBounds(startwidth, startheight + height * (i + 1), width, height);
             labelorderJLabels[i].setFont(SetUp.GLOBAL_FONT);
-            labelorderJLabels[i].setForeground(new java.awt.Color(255, 255, 255));;
+            labelorderJLabels[i].setForeground(SetUp.FORE_COLOR);  //用于项目查找的注释
             labelorderJLabels[i].setVisible(false);
             this.add(labelorderJLabels[i]);
         }

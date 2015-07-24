@@ -20,7 +20,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         SetUp.Init();
-
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/flag.pdl"), "UTF-8"))) {
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);

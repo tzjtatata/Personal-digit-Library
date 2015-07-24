@@ -38,24 +38,25 @@ public class PaodingAnalyze {
         al = new ArrayList(new HashSet<>(al));
         return al;
     }
-
-    public static void main(String[] args) throws IOException, Exception {
-        long ty = System.currentTimeMillis();
-        long m;
-        File f = new File("D:/yyy/a.txt");
-        ArrayList<String> al = new ArrayList<>();
-        Analyzer analyzer = new PaodingAnalyzer();
-        TokenStream ts = analyzer.tokenStream("", (Reader) TryPaodingAnalyzer.read(f.getPath(), "gbk", false));
-        //m = System.currentTimeMillis();
-        //System.err.println("设置完毕，耗时" + (m - ty) + "ms.");
-        Token t;
-        LinkedList list = new LinkedList();
-        while ((t = ts.next()) != null) {
-            list.add(t);
-            //System.err.println(list);
-        }
-        m = System.currentTimeMillis();
-        System.err.println("分词完毕，耗时" + (ty - m) + "ms.");
-        System.err.println(list.size());
-    }
+    /*
+     public static void main(String[] args) throws IOException, Exception {
+     long ty = System.currentTimeMillis();
+     long m;
+     File f = new File("D:/yyy/a.txt");
+     ArrayList<String> al = new ArrayList<>();
+     Analyzer analyzer = new PaodingAnalyzer();
+     TokenStream ts = analyzer.tokenStream("", (Reader) TryPaodingAnalyzer.read(f.getPath(), "gbk", false));
+     //m = System.currentTimeMillis();
+     //System.err.println("设置完毕，耗时" + (m - ty) + "ms.");
+     Token t;
+     LinkedList list = new LinkedList();
+     while ((t = ts.next()) != null) {
+     list.add(t);
+     //System.err.println(list);
+     }
+     m = System.currentTimeMillis();
+     System.err.println("分词完毕，耗时" + (ty - m) + "ms.");
+     System.err.println(list.size());
+     }
+     */
 }
