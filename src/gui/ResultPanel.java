@@ -5,22 +5,20 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import gui.SetUp;
 
 public class ResultPanel extends JPanel {
 
     private HashMap<Integer, String> JLHashMap;
-    private JLabel[] labelListJLabels = new JLabel[5000];
+    JLabel[] labelListJLabels = new JLabel[5000];
     private JLabel labelHintJLabel = new JLabel();
     private JLabel[] labelorderJLabels = new JLabel[20];
     private JLabel next, front, tail, foreward;
     private ArrayList<JLabel> Page = new ArrayList<JLabel>();
     private int nowPage = 0;
-    private int pagelength = 8, length = 8;
+    private int pagelength = 10, length = 10;
     private int countpage = 0;
     private static int startwidth = 0, startheight = -30, width = 400, height = 30;
     private int now = 0;
@@ -37,7 +35,17 @@ public class ResultPanel extends JPanel {
         return this.name;
     }
 
-    public ResultPanel(String str, ArrayList<String> result) {
+    /**
+     * 元神请看这里！
+     *
+     * @param str
+     * @param result
+     * @param where 为了加长搜索结果的显示，所以加了个这个，where为"shelf"或者"search"
+     */
+    public ResultPanel(String str, ArrayList<String> result, String where) {
+        if (where.equals("search")) {
+            width += 200;
+        }
         JLabel temLabel;
         this.name = str;
         this.setBackground(SetUp.BACK_COLOR);
@@ -125,13 +133,13 @@ public class ResultPanel extends JPanel {
         nowPage = x;
         len = size >= (nowPage + length) ? length : size;
         for (i = 0; i < len; i++) {
-            Page.get(x + i).setBounds(startwidth + height * 3 + (height * i), 8 * height, height, height);
+            Page.get(x + i).setBounds(startwidth + height * 3 + (height * i), 10 * height, height, height);
             Page.get(x + i).setVisible(true);
         }
-        next.setBounds(startwidth + height * 3 + (height * len), 8 * height, height, height);
-        tail.setBounds(startwidth + height * 4 + (height * len), 8 * height, height, height);
-        front.setBounds(startwidth + height, 8 * height, height, height);
-        foreward.setBounds(startwidth + height * 2, 8 * height, height, height);
+        next.setBounds(startwidth + height * 3 + (height * len), 10 * height, height, height);
+        tail.setBounds(startwidth + height * 4 + (height * len), 10 * height, height, height);
+        front.setBounds(startwidth + height, 10 * height, height, height);
+        foreward.setBounds(startwidth + height * 2, 10 * height, height, height);
     }
 
     public void addMove() {

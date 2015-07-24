@@ -69,6 +69,7 @@ public class ShelfPanel extends BasicPanel {
             }
             subjectLabel[i] = new JLabel(subjectShow[a + i].getName());
             subjectLabel[i].setFont(SetUp.GLOBAL_FONT);
+            subjectLabel[i].setForeground(Color.WHITE);  //可能要改
             subjectLabel[i].setBounds(270 + i * 58, 133, 55, 28);
             subjectLabel[i].addMouseListener(new CursorListener());
             subjectLabel[i].addMouseListener(new ChangePage(a + i));
@@ -88,13 +89,13 @@ public class ShelfPanel extends BasicPanel {
             str = br.readLine();
             boy = str.split("/");
             List<String> wordList = new ArrayList<>(Arrays.asList(boy[1].split(",")));
-            subjectShow[len] = new ResultPanel(boy[0], (ArrayList<String>) wordList);
+            subjectShow[len] = new ResultPanel(boy[0], (ArrayList<String>) wordList, "shelf");
             len++;
         }
     }
 
     private void setContent(int n) {
-        subjectShow[n].setBounds(130, 165, 500, 275);
+        subjectShow[n].setBounds(130, 165, 500, 325);
         subjectShow[n].setVisible(true);
         this.add(subjectShow[n]);
     }

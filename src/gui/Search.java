@@ -98,29 +98,29 @@ public class Search extends BasicPanel {
         entry3.setVisible(false);
         entry4.setVisible(false);
 
-        point1.setBounds(160, 173, 20, 20);
+        point1.setBounds(160, 223, 20, 20);
         point1.setOpaque(true);
         point1.setBackground(new Color(39, 158, 218));
-        point2.setBounds(160, 223, 20, 20);
+        point2.setBounds(160, 273, 20, 20);
         point2.setOpaque(true);
         point2.setBackground(new Color(39, 158, 218));
-        point3.setBounds(160, 273, 20, 20);
+        point3.setBounds(160, 323, 20, 20);
         point3.setOpaque(true);
         point3.setBackground(new Color(39, 158, 218));
-        point4.setBounds(160, 323, 20, 20);
+        point4.setBounds(160, 373, 20, 20);
         point4.setOpaque(true);
         point4.setBackground(new Color(39, 158, 218));
 
         bt1.setBounds(240, 393, 50, 22);
-        bt2.setBounds(340, 393, 50, 22);
-        option1.setBounds(220, 173, 200, 20);
-        option2.setBounds(220, 223, 200, 20);
-        option3.setBounds(220, 273, 200, 20);
-        option4.setBounds(220, 323, 200, 20);
-        entry1.setBounds(350, 173, 200, 20);
-        entry2.setBounds(350, 223, 200, 20);
-        entry3.setBounds(350, 273, 200, 20);
-        entry4.setBounds(350, 323, 200, 20);
+        bt2.setBounds(340, 433, 50, 22);
+        option1.setBounds(220, 223, 200, 20);
+        option2.setBounds(220, 273, 200, 20);
+        option3.setBounds(220, 323, 200, 20);
+        option4.setBounds(220, 373, 200, 20);
+        entry1.setBounds(350, 223, 200, 20);
+        entry2.setBounds(350, 273, 200, 20);
+        entry3.setBounds(350, 323, 200, 20);
+        entry4.setBounds(350, 373, 200, 20);
         this.addReturnListener();
     }
 
@@ -206,15 +206,15 @@ public class Search extends BasicPanel {
                 ArrayList<String> result = new ArrayList<>();
                 ResultPanel RESULT = null;
                 for (JTextField entry : new JTextField[]{entry1, entry2, entry3, entry4}) {
-                    if (entry.isVisible()) {
+                    if (entry.isVisible() && !"".equals(entry.getText())) {
                         if (entry == entry4) {
-                            SearchContent Re4 = new SearchContent(entry4.getText());
+                            SearchContent Re4 = new SearchContent(entry.getText());
                             result.addAll(Re4.result);
                         }
                         if (entry == entry3) {
-                            result.addAll(NewSearch.SearchTitle(entry3.getText()));
+                            result.addAll(NewSearch.SearchTitle(entry.getText()));
                         }
-                        RESULT = new ResultPanel(entry.getText(), result);
+                        RESULT = new ResultPanel(entry.getText(), result, "search");
                         break;
                     }
                 }
@@ -226,11 +226,16 @@ public class Search extends BasicPanel {
                         img.paintIcon(this, g, 0, 0);
                     }
                 };
+                //z到此一游
                 temp.returnButton.removeActionListener(temp.actionListener);
                 temp.returnButton.addActionListener((ActionListener) -> {
                     MainFrame.cl.show(MainFrame.changeJPanel, "search");
                 });
-                RESULT.setBounds(130, 165, 600, 275);
+                for (Component c : RESULT.getComponents()) {
+                    c.setForeground(SetUp.FORE_COLOR);
+                }
+                RESULT.setBounds(130, 165, 700, 325);
+                //z游览完毕
                 RESULT.setVisible(true);
                 temp.add(RESULT);
                 temp.setLayout(null);
