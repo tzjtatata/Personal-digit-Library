@@ -113,6 +113,7 @@ public class ZCalendar extends JPanel {
         this.add(noteJScrollPane);
         yearBox.setBounds(0, 5, 55, 21);
         yearBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.YEAR)));  //选择系统时间
+        //yearBox.setOpaque(false);
         yearBox.setBackground(SetUp.BACK_COLOR);
         yearBox.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 10));
         this.add(yearBox);
@@ -131,7 +132,6 @@ public class ZCalendar extends JPanel {
             dateJLabels[i].setFont(new java.awt.Font("Leto", 1, 12));
             this.add(dateJLabels[i]);
         }
-        setForeground();
         //监听器响应阶段
         queryJLabel.addMouseListener(new CursorListener());
         queryJLabel.addMouseListener(new MouseAdapter() {
@@ -322,12 +322,14 @@ public class ZCalendar extends JPanel {
         }
     }
 
-    public void setForeground() {
+    public void changeColor() {
         for (JLabel weekJLabel : weekJLabels) {
             weekJLabel.setForeground(SetUp.FORE_COLOR);
         }
         noteJLabel.setForeground(SetUp.FORE_COLOR);
         noteArea.setForeground(SetUp.FORE_COLOR);
+        yearBox.setForeground(SetUp.FORE_COLOR);
+        monthBox.setForeground(SetUp.FORE_COLOR);
         yearBox.setBackground(SetUp.BACK_COLOR);
         monthBox.setBackground(SetUp.BACK_COLOR);
         yearJLabel.setForeground(SetUp.FORE_COLOR);
@@ -335,6 +337,12 @@ public class ZCalendar extends JPanel {
         for (JLabel dateJLabel1 : dateJLabels) {
             dateJLabel1.setForeground(SetUp.FORE_COLOR);
         }
+    }
+
+    public void imageRepaint() {
+        queryJLabel.setIcon(new ImageIcon(SetUp.imageForQueryButton));
+        cleanJLabel.setIcon(new ImageIcon(SetUp.imageForCleanButton));
+        saveJLabel.setIcon(new ImageIcon(SetUp.imageForSaveButton));
     }
 
     class CursorListener extends MouseAdapter {

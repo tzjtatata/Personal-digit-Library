@@ -352,6 +352,39 @@ public class SetUp extends BasicPanel {
         }
     }
 
+    /**
+     * 更改颜色
+     *
+     * @param c
+     */
+    public static void changeColor(Container c) {
+        circleChangeColor(c);
+        ((MainFrame) c).changeCalendarColor();
+        for (ResultPanel resultPanel : ShelfPanel.subjectShow) {
+            if (resultPanel != null) {
+                circleChangeColor(resultPanel);
+            }
+        }
+    }
+
+    /**
+     * 递归更改颜色
+     *
+     * @param c
+     */
+    public static void circleChangeColor(Container c) {
+        if (c.getComponents().length != 0) {
+            for (Component c1 : c.getComponents()) {
+                if (!(c1 instanceof ShelfPanel)) {
+                    circleChangeColor((Container) c1);
+                }
+            }
+        } else {
+            c.setForeground(FORE_COLOR);
+            c.setBackground(BACK_COLOR);
+        }
+    }
+
     @Override
     public void imageRepaint() {
         super.imageRepaint();
@@ -404,6 +437,7 @@ public class SetUp extends BasicPanel {
                 index.imageRepaint();
                 FORE_COLOR = foreColor[n];
                 BACK_COLOR = backColor[n];
+                changeColor(index);
             } catch (Exception ex) {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -59,6 +59,7 @@ public class MainFrame extends JFrame {
         this.setResizable(false);  //大小不可变
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         SetUp.newChangeFont(this);
+        SetUp.changeColor(this);
         this.setVisible(true);
     }
 
@@ -70,5 +71,13 @@ public class MainFrame extends JFrame {
         searchPanel.imageRepaint();
         setPanel.imageRepaint();
         shelf.imageRepaint();
+    }
+
+    /**
+     * 顺便也改了书架
+     */
+    void changeCalendarColor() {
+        shelf.changeColor();
+        index.changeCalendarColor();
     }
 }

@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -106,6 +107,14 @@ public class ShelfPanel extends BasicPanel {
     public void imageRepaint() {
         super.imageRepaint();
         this.repaint();
+    }
+
+    void changeColor() {
+        this.setOpaque(true);
+        this.setBackground(SetUp.BACK_COLOR);
+        for (JLabel subjectJLabel : subjectLabel) {
+            subjectJLabel.setForeground(Color.WHITE);
+        }
     }
 
     class ChangePage extends MouseAdapter {

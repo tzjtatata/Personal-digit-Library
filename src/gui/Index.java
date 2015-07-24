@@ -78,14 +78,15 @@ public class Index extends JPanel {
 
     public void imageRepaint() {
         this.repaint();
+        calendar.imageRepaint();
         search.setIcon(new ImageIcon(SetUp.imageForSearchButton));
         set.setIcon(new ImageIcon(SetUp.imageForSetButton));
         shelf.setIcon(new ImageIcon(SetUp.imageForShelfButton));
         about.setIcon(new ImageIcon(SetUp.imageForAboutButton));
     }
 
-    void setCalendarForeground() {
-        calendar.setForeground();
+    void changeCalendarColor() {
+        calendar.changeColor();
     }
 
     class CursorListener extends MouseAdapter {

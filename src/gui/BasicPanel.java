@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingUtilities;
@@ -24,28 +25,23 @@ import javax.swing.SwingUtilities;
 public class BasicPanel extends JPanel {
 
     private final MainFrame index;
-    private JButton returnButton;
+    protected JButton returnButton;
+    protected ActionListener actionListener;
 
     public BasicPanel(MainFrame index) {
         this.index = index;  //好吧这个参数只是SetUp在用
-        addToIndex(this);
-    }
-
-    /**
-     * 将JPanel组件添加到卡片布局中，并为其加上返回主页的按钮
-     *
-     * @param self 需要添加到卡片布局中的JPanel
-     * @param index 需要返回的主页
-     */
-    private void addToIndex(JPanel self) {
         returnButton = new JButton(new ImageIcon(SetUp.imageForReturnToIndex));
         returnButton.setBounds(820, 80, 30, 30);
-        returnButton.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "index");
-        });
+        actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainFrame.cl.show(MainFrame.changeJPanel, "index");
+            }
+        };
+        returnButton.addActionListener(actionListener);
         SwingUtilities.updateComponentTreeUI(this);
         returnButton.addMouseListener(new CursorListener());
-        self.add(returnButton);
+        add(returnButton);
     }
 
     /**
