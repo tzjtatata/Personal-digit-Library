@@ -16,7 +16,7 @@ public class CalenderJPanel extends JPanel {
 
     public CalenderJPanel() {
         this.setLayout(null);
-        label.setBounds(103, 1, 744, 40);
+        label.setBounds(105, 1, 744, 40);
         label.setBackground(SetUp.BACK_COLOR);
         label.setForeground(SetUp.FORE_COLOR);
         label.setOpaque(true);
@@ -30,7 +30,7 @@ public class CalenderJPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon img = new ImageIcon(SetUp.imageForCalenderHint);
-        img.paintIcon(this, g, 0, 0);
+        img.paintIcon(this, g, 0, -522);
     }
 
     public void imageRepaint() {

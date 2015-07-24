@@ -281,7 +281,7 @@ public class SetUp extends BasicPanel {
         imageForSearchButton = "source/搜索" + num + ".jpg";
         imageForSearchResultBackground = "source/搜索结果背景" + num + ".png";
         imageForSearchBackground = "source/搜索背景" + num + ".png";
-        imageForCalenderHint = "source/日历小部件" + num + ".jpg";
+        imageForCalenderHint = "source/主页_背景" + num + ".png";
         imageForQueryButton = "source/查询" + num + ".png";
         imageForCleanButton = "source/清除" + num + ".png";
         imageForSetButton = "source/设置" + num + ".jpg";
