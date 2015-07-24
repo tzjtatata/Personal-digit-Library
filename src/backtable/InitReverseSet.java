@@ -56,14 +56,14 @@ public class InitReverseSet {
             });
         });
         threadSignal.await();
-        File fileJson = new File("gui/backtable/dict.json");
+        File fileJson = new File("setFile/dict.json");
         System.out.println("搜索完毕，开始写入json！");
         String jsonString = JSON.toJSONString(data);
         try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileJson), "UTF-8"))) {
             br.write(jsonString);
             System.out.println("json写入完成！");
         }
-        fileJson = new File("gui/backtable/data.json");
+        fileJson = new File("setFile/data.json");
         System.out.println("搜索完毕，开始写入json！");
         jsonString = JSON.toJSONString(Paths);
         try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileJson), "UTF-8"))) {
@@ -104,7 +104,7 @@ public class InitReverseSet {
                 Add(words, Paths.indexOf(filePath));
                 System.out.println(Thread.currentThread().getName() + "结束. 还有" + threadsSignal.getCount() + " 个线程");
             } catch (Exception ex) {
-                Logger.getLogger(ReverseSet.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
             threadsSignal.countDown();
         }

@@ -82,11 +82,11 @@ public class ShelfPanel extends BasicPanel {
     private void getContent() throws Exception {
         String[] boy = new String[2];
         String str;
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("gui/backtable/class.pdl"), "UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/class.pdl"), "UTF-8"));
         while (br.ready()) {
             str = br.readLine();
             boy = str.split("/");
-            List<String> wordList = new ArrayList<String>(Arrays.asList(boy[1].split(",")));
+            List<String> wordList = new ArrayList<>(Arrays.asList(boy[1].split(",")));
             subjectShow[len] = new ResultPanel(boy[0], (ArrayList<String>) wordList);
             len++;
         }

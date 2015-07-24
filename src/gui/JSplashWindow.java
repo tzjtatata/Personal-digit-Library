@@ -1,24 +1,15 @@
-package me;
+package gui;
 
-import com.sun.javafx.applet.Splash;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
-
-import com.sun.prism.Image;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
@@ -29,7 +20,6 @@ public class JSplashWindow extends JWindow {
      *
      * @param filename 欢迎屏幕所用的图片
      * @param frame 欢迎屏幕所属的窗体
-     * @param waitTime 欢迎屏幕显示的事件
      */
     public JSplashWindow(String filename, JFrame frame) {
         super(frame);
@@ -76,13 +66,13 @@ class ThreadToStop extends Thread {
         // double check，检查stop的状态
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setUndecorated(true);
-        splash = new JSplashWindow("gui/source/welcomepic.png", frame);
+        splash = new JSplashWindow(SetUp.imageForWelcome, frame);
         splash.setVisible(true);
         frame.pack();
         frame.setVisible(true);
         while (!isStop) {
             try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("gui/me/showflag.pdl"), "UTF-8"));
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/showflag.pdl"), "UTF-8"));
                 if ("1".equals(br.readLine())) {
                     //System.out.println("abc");
                     try {

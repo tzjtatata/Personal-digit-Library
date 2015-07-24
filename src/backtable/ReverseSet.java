@@ -33,48 +33,49 @@ public class ReverseSet {
             len = "/";
         }
     }
-
-    public ReverseSet() throws IOException {
-		//对目录下每个txt读取，获取子文件目录
-        //读取txt文件内容
-        long startTime = System.currentTimeMillis();
-        change();
-        num = ls.length;
-        for (i = 0; i < num; i++) {
-            if (!ls[i].isHidden()) {
-                //获取txtFolder目录下文件
-                System.out.println(i + "/" + num);
-                //System.out.println(ls[i].getPath());
-                str = ls[i].getName();
-                Search zkf = new Search();
-                str = zkf.nameChange(str);
-                temp = new File(str);
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(ls[i]), "UTF-8"));
-                String str2 = br.readLine();
-                while (str2 != null) {
-                    try {
-						//String codeString = EncodingDetect(str + len + str2);
-                        //System.out.println(codeString);
-                        Refile(new File(str + len + str2));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    str2 = br.readLine();
-                }
-            }
-        }
-		//Refile(fi);
-        //最后将hash数组输出到倒排索引表中
-        printf();
-        long endTime = System.currentTimeMillis();
-        System.out.println("程序运行时间： " + (endTime - startTime) / 1000.0 + "s");
-    }
+    /*
+     public ReverseSet() throws IOException {
+     //对目录下每个txt读取，获取子文件目录
+     //读取txt文件内容
+     long startTime = System.currentTimeMillis();
+     change();
+     num = ls.length;
+     for (i = 0; i < num; i++) {
+     if (!ls[i].isHidden()) {
+     //获取txtFolder目录下文件
+     System.out.println(i + "/" + num);
+     //System.out.println(ls[i].getPath());
+     str = ls[i].getName();
+     Search zkf = new Search();
+     str = zkf.nameChange(str);
+     temp = new File(str);
+     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(ls[i]), "UTF-8"));
+     String str2 = br.readLine();
+     while (str2 != null) {
+     try {
+     //String codeString = EncodingDetect(str + len + str2);
+     //System.out.println(codeString);
+     Refile(new File(str + len + str2));
+     } catch (Exception e) {
+     e.printStackTrace();
+     }
+     str2 = br.readLine();
+     }
+     }
+     }
+     //Refile(fi);
+     //最后将hash数组输出到倒排索引表中
+     printf();
+     long endTime = System.currentTimeMillis();
+     System.out.println("程序运行时间： " + (endTime - startTime) / 1000.0 + "s");
+     }
+     */
 
     public void Refile(File ffi) throws Exception {
         long temp = 0;
         int i;
         ArrayList<String> word = new ArrayList<>();
-		//测试段，使用EncodingDetect类按编码读入；
+        //测试段，使用EncodingDetect类按编码读入；
 		/*BufferedReader br = new BufferedReader(new FileReader(ffi));
          String nw;
          while ((nw = br.readLine()) != null) {
@@ -89,7 +90,7 @@ public class ReverseSet {
         pool[count] = new Thread(new threadTest(fileContent, word));
         pool[count].start();
         count++;
-                //Analyze.testCJK(fileContent, word);
+        //Analyze.testCJK(fileContent, word);
         //System.out.println(word);
         //prepareCryptTable();
         for (i = 0; i < word.size(); i++) {
@@ -162,7 +163,7 @@ public class ReverseSet {
         Hashstr adata = new Hashstr();
         BigInteger HashValue = HashString(lpString);
         pos = find(HashValue);
-                //System.out.println(lpString + " pass the find function.");
+        //System.out.println(lpString + " pass the find function.");
         //System.out.println(pos.position);
         adata.Filepath = file;
         adata.next = -1;

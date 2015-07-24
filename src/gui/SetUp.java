@@ -176,7 +176,7 @@ public class SetUp extends BasicPanel {
             int answer = JOptionPane.showConfirmDialog(this, "重置初始搜索将会在下次启动时重新搜索您的计算机(如果您更改了大量文件，\n可能需要此功能)，这可能为花费较长时间，您确定要这么做吗？",
                     "警告", JOptionPane.YES_NO_OPTION);
             if (answer == 0) {
-                try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("gui/backtable/flag.pdl"), "UTF-8"))) {
+                try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/flag.pdl"), "UTF-8"))) {
                     bw.write("0");
                 } catch (IOException ex) {
                     Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,7 +248,7 @@ public class SetUp extends BasicPanel {
 
     public static void Init() throws Exception {
         //加载json
-        setFile = new File("gui/gui/setInfo.json");
+        setFile = new File("setFile/setInfo.json");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(setFile), "UTF-8"))) {
             jsonString = br.readLine();
         }
@@ -264,24 +264,24 @@ public class SetUp extends BasicPanel {
     public static void changeImage() {
         //更改图片
         String num = "_" + String.valueOf(setMap.get("style").get("theme"));
-        imageForAboutButton = "gui/source/关于" + num + ".jpg";
-        imageForLogo = "gui/source/digital_library" + num + ".png";
-        imageForReturnToIndex = "gui/source/returnToIndex" + num + ".png";
-        imageForReturn = "gui/source/return" + num + ".png";
-        imageForWelcome = "gui/source/welcomepic" + num + ".png";
-        imageForIndexBackground = "gui/source/主页_背景" + num + ".png";
-        imageForShelfButton = "gui/source/书架" + num + ".jpg";
-        imageForShelfBackground = "gui/source/书架背景" + num + ".PNG";
-        imageForSaveButton = "gui/source/储存" + num + ".png";
-        imageForSearchButton = "gui/source/搜索" + num + ".jpg";
-        imageForSearchResultBackground = "gui/source/搜索结果背景" + num + ".png";
-        imageForSearchBackground = "gui/source/搜索背景" + num + ".png";
-        imageForCalenderHint = "gui/source/日历小部件" + num + ".jpg";
-        imageForQueryButton = "gui/source/查询" + num + ".png";
-        imageForCleanButton = "gui/source/清除" + num + ".png";
-        imageForSetButton = "gui/source/设置" + num + ".jpg";
-        imageForSetBackground = "gui/source/设置2" + num + ".png";
-        imageForAboutBackground = "gui/source/about" + num + ".png";
+        imageForAboutButton = "source/关于" + num + ".jpg";
+        imageForLogo = "source/digital_library" + num + ".png";
+        imageForReturnToIndex = "source/returnToIndex" + num + ".png";
+        imageForReturn = "source/return" + num + ".png";
+        imageForWelcome = "source/welcomepic" + num + ".png";
+        imageForIndexBackground = "source/主页_背景" + num + ".png";
+        imageForShelfButton = "source/书架" + num + ".jpg";
+        imageForShelfBackground = "source/书架背景" + num + ".PNG";
+        imageForSaveButton = "source/储存" + num + ".png";
+        imageForSearchButton = "source/搜索" + num + ".jpg";
+        imageForSearchResultBackground = "source/搜索结果背景" + num + ".png";
+        imageForSearchBackground = "source/搜索背景" + num + ".png";
+        imageForCalenderHint = "source/日历小部件" + num + ".jpg";
+        imageForQueryButton = "source/查询" + num + ".png";
+        imageForCleanButton = "source/清除" + num + ".png";
+        imageForSetButton = "source/设置" + num + ".jpg";
+        imageForSetBackground = "source/设置2" + num + ".png";
+        imageForAboutBackground = "source/about" + num + ".png";
     }
 
     /**
@@ -334,7 +334,7 @@ public class SetUp extends BasicPanel {
     public static void changeFont(Container c) throws Exception {
         if (c.getComponents().length != 0) {
             for (Component c1 : c.getComponents()) {
-                if (!((c1 instanceof ResultPanel) || (c1 instanceof CalendarDate) || (c1 instanceof ZCalendar))) {
+                if (!((c1 instanceof ResultPanel) || (c1 instanceof ZCalendar))) {
                     changeFont((Container) c1);
                 }
             }

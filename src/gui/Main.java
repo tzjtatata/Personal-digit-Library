@@ -9,11 +9,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.String;
 
 /**
  *
@@ -24,12 +21,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         SetUp.Init();
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("gui/backtable/flag.pdl"), "UTF-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/flag.pdl"), "UTF-8"))) {
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);
                 new backtable.InitReverseSet();
 
-                try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("gui/backtable/flag.pdl"), "UTF-8"))) {
+                try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/flag.pdl"), "UTF-8"))) {
                     bw.write("1");
                 }
             } else {
@@ -37,6 +34,6 @@ public class Main {
             }
         }
         backtable.SearchContent.Readall();
-        new MainFrame();//输给你了。。你替换eclipse的输出文件夹。。当然没有什么卵用。。
+        new MainFrame();
     }
 }

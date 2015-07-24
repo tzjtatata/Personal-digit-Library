@@ -27,7 +27,7 @@ import net.paoding.analysis.analyzer.AnalyzerOfPdl;
  */
 public class NewSearch {
 
-    public static File fileJson = new File("gui/backtable/fileInfo.json");
+    public static File fileJson = new File("setFile/fileInfo.json");
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
     public static AnalyzerOfPdl analyzerOfPdl;
@@ -180,7 +180,7 @@ public class NewSearch {
     public static void Classify() throws Exception {
         HashMap<String, String[]> classDataMap = new HashMap<>();  //分类用到的原始数据的Map
         HashMap<String, ArrayList<String>> classMap = new HashMap<>();  //要写入的map
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("gui/backtable/classData.pdl"), "UTF-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/classData.pdl"), "UTF-8"))) {
             while (br.ready()) {
                 String line = br.readLine();
                 String lines[] = line.split("/");
@@ -250,7 +250,7 @@ public class NewSearch {
                 });
             });
         });
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("gui/backtable/class.pdl"), "UTF-8"))) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/class.pdl"), "UTF-8"))) {
             classMap.keySet().stream().forEach((cate) -> {
                 try {
                     if (classMap.get(cate).size() > 0) {

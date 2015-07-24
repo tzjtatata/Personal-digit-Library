@@ -32,6 +32,7 @@ public class ResultPanel extends JPanel {
      ImageIcon img = new ImageIcon("gui/source/搜索结果背景.png");
      img.paintIcon(this, g, 0, 0);
      }*/
+    @Override
     public String getName() {
         return this.name;
     }

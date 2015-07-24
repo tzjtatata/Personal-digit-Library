@@ -10,18 +10,13 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
-import static javafx.scene.input.KeyCode.T;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.TokenStream;
 import net.paoding.analysis.analyzer.PaodingAnalyzer;
-import net.paoding.analysis.analyzer.estimate.Estimate;
 import net.paoding.analysis.analyzer.estimate.TryPaodingAnalyzer;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
