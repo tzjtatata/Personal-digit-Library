@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +37,7 @@ public class SetUp extends BasicPanel {
     public static Font SHELF_FONT;
     public static Color FORE_COLOR;
     private static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
+    private static ArrayList<Font> fonts;
     private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
     private final JRadioButton[] styleButtons, themeButtons;
     private final ButtonGroup stylebButtonGroup, themeButtonGroup;
@@ -262,6 +264,10 @@ public class SetUp extends BasicPanel {
         changeImage();
         int theme = (int) setMap.get("style").get("theme");
         FORE_COLOR = foreColor[theme];
+        fonts = new ArrayList<>();
+        fonts.add(GLOBAL_FONT);  //第一套
+        fonts.add(SHELF_FONT); //第二套
+        fonts.add(SHELF_FONT); //第三套
     }
 
     public static void changeImage() {
@@ -431,6 +437,7 @@ public class SetUp extends BasicPanel {
             try {
                 SaveSetInfo();
                 changeImage();
+                imageForCalenderHint = imageForSetBackground;
                 index.imageRepaint();
                 FORE_COLOR = foreColor[n];
                 changeColor(index);
