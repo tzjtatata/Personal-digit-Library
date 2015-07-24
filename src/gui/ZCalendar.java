@@ -106,7 +106,6 @@ public class ZCalendar extends JPanel {
         this.add(noteJLabel);
         noteArea.setBounds(3, 274, 182, 42);
         noteArea.setFont(new java.awt.Font("黑体", Font.BOLD, 10));
-        noteArea.setBackground(SetUp.BACK_COLOR);
         noteArea.setWrapStyleWord(true);
         noteArea.setLineWrap(true);
         noteJScrollPane.setBounds(noteArea.getBounds());
@@ -114,7 +113,6 @@ public class ZCalendar extends JPanel {
         yearBox.setBounds(0, 5, 55, 21);
         yearBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.YEAR)));  //选择系统时间
         //yearBox.setOpaque(false);
-        yearBox.setBackground(SetUp.BACK_COLOR);
         yearBox.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 10));
         this.add(yearBox);
         monthBox.setBounds(77, 5, 39, 21);
@@ -193,7 +191,7 @@ public class ZCalendar extends JPanel {
             dateJLabels[i].addMouseListener(new DateListener(year, month + 1, j));
         }
         if (year == systemCalendar.get(Calendar.YEAR) && month == systemCalendar.get(Calendar.MONTH)) {  //为当前月则突出当前日期
-            dateJLabels[first + systemCalendar.get(Calendar.DATE) - 1].setOpaque(true);
+            dateJLabels[first + systemCalendar.get(Calendar.DATE) - 1].setOpaque(false);
         } else {
             for (JLabel dateJLabel1 : dateJLabels) {
                 dateJLabel1.setOpaque(false);
@@ -330,8 +328,6 @@ public class ZCalendar extends JPanel {
         noteArea.setForeground(SetUp.FORE_COLOR);
         yearBox.setForeground(SetUp.FORE_COLOR);
         monthBox.setForeground(SetUp.FORE_COLOR);
-        yearBox.setBackground(SetUp.BACK_COLOR);
-        monthBox.setBackground(SetUp.BACK_COLOR);
         yearJLabel.setForeground(SetUp.FORE_COLOR);
         monthJLabel.setForeground(SetUp.FORE_COLOR);
         for (JLabel dateJLabel1 : dateJLabels) {

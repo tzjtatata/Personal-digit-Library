@@ -25,7 +25,7 @@ public class Index extends JPanel {
 //    private final CalendarDate calendar;
     private final ZCalendar calendar;
 
-    public Index() throws Exception {
+    public Index(MainFrame main) throws Exception {
         super();
         this.setLayout(null);
         search = new JButton(new ImageIcon(SetUp.imageForSearchButton));
@@ -57,15 +57,23 @@ public class Index extends JPanel {
         about.addMouseListener(new CursorListener());
         search.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "search");  //这个search单词不要改。
+            SetUp.imageForCalenderHint = SetUp.imageForSearchBackground;
+            main.imageRepaint();
         });
         shelf.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "shelf");
+            SetUp.imageForCalenderHint = SetUp.imageForShelfBackground;
+            main.imageRepaint();
         });
         set.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "set");
+            SetUp.imageForCalenderHint = SetUp.imageForSetBackground;
+            main.imageRepaint();
         });
         about.addActionListener((ActionEvent e) -> {
             MainFrame.cl.show(MainFrame.changeJPanel, "about");
+            SetUp.imageForCalenderHint = SetUp.imageForAboutBackground;
+            main.imageRepaint();
         });
     }
 

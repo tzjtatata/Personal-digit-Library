@@ -35,9 +35,7 @@ public class SetUp extends BasicPanel {
     public static Font GLOBAL_FONT;
     public static Font SHELF_FONT;
     public static Color FORE_COLOR;
-    public static Color BACK_COLOR;
-    private static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE};
-    private static final Color[] backColor = {new Color(215, 217, 218), Color.ORANGE};
+    private static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
     private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
     private final JRadioButton[] styleButtons, themeButtons;
     private final ButtonGroup stylebButtonGroup, themeButtonGroup;
@@ -70,7 +68,7 @@ public class SetUp extends BasicPanel {
 
         styleJLabel = new JLabel("风格设置", JLabel.CENTER);
         styleJLabel.setFont(GLOBAL_FONT);
-        styleJLabel.setBounds(185, 230, 100, 50);
+        styleJLabel.setBounds(185, 210, 100, 50);
         this.add(styleJLabel);
 
         stylebButtonGroup = new ButtonGroup();
@@ -99,7 +97,7 @@ public class SetUp extends BasicPanel {
                 styleButtons[i] = new JRadioButton("Mac风格");
                 styleButtons[i].addActionListener(new RadioButtonListener(i, "com.sun.java.swing.plaf.mac.MacLookAndFeel", this));
             }
-            styleButtons[i].setBounds(300 + 130 * (i % 4), 230 + (i / 4) * 40, 130, 50);
+            styleButtons[i].setBounds(300 + 130 * (i % 4), 210 + (i / 4) * 40, 130, 50);
             styleButtons[i].setOpaque(false);
             styleButtons[i].setFont(GLOBAL_FONT);
             this.add(styleButtons[i]);
@@ -108,7 +106,7 @@ public class SetUp extends BasicPanel {
         //默认系统风格
         styleButtons[styleButtons.length - 1] = new JRadioButton("系统风格");
         styleButtons[styleButtons.length - 1].setBounds(300 + 130 * ((styleButtons.length - 1) % 4),
-                230 + (styleButtons.length - 1) / 4 * 40, 130, 50);
+                210 + (styleButtons.length - 1) / 4 * 40, 130, 50);
         styleButtons[styleButtons.length - 1].setOpaque(false);
         styleButtons[styleButtons.length - 1].setFont(GLOBAL_FONT);
         styleButtons[styleButtons.length - 1].addActionListener(new RadioButtonListener(styleButtons.length - 1,
@@ -126,8 +124,8 @@ public class SetUp extends BasicPanel {
         shelfButton = new JButton("书架字体设置");
         globalButton.setFont(GLOBAL_FONT);
         shelfButton.setFont(GLOBAL_FONT);
-        globalButton.setBounds(390, 380, 150, 30);
-        shelfButton.setBounds(560, 380, 150, 30);
+        globalButton.setBounds(390, 360, 150, 30);
+        shelfButton.setBounds(560, 360, 150, 30);
         globalButton.addActionListener((ActionEvent e) -> {
             z = new ZFontChooser("global", index);
             try {
@@ -149,18 +147,19 @@ public class SetUp extends BasicPanel {
 
         themeJLabel = new JLabel("主题设置", JLabel.CENTER);
         themeJLabel.setFont(styleJLabel.getFont());
-        themeJLabel.setBounds(185, 310, 100, 50);
+        themeJLabel.setBounds(185, 290, 100, 50);
         this.add(themeJLabel);
 
         themeButtonGroup = new ButtonGroup();
-        themeButtons = new JRadioButton[2];
-        themeButtons[0] = new JRadioButton("默认主题");
+        themeButtons = new JRadioButton[3];
+        themeButtons[0] = new JRadioButton("蓝灰商务");
         //搞怪系列
-        themeButtons[1] = new JRadioButton("主题2");
+        themeButtons[1] = new JRadioButton("Z神最帅");
+        themeButtons[2] = new JRadioButton("粉嫩青春");
         themeButtons[(int) setMap.get("style").get("theme")].setSelected(true);
         //主题系列RadioButton
         for (int i = 0; i < themeButtons.length; i++) {
-            themeButtons[i].setBounds(300 + 130 * (i % 4), 310 + (i / 4) * 40, 130, 50);
+            themeButtons[i].setBounds(300 + 130 * (i % 4), 290 + (i / 4) * 40, 130, 50);
             themeButtons[i].setFont(GLOBAL_FONT);
             themeButtons[i].setOpaque(false);
             themeButtons[i].addActionListener(new ThemeListener(i, index));
@@ -169,11 +168,11 @@ public class SetUp extends BasicPanel {
         }
 
         startJLabel = new JLabel("启动设置", JLabel.CENTER);
-        startJLabel.setBounds(185, 430, 100, 30);
+        startJLabel.setBounds(185, 410, 100, 30);
         this.add(startJLabel);
         //让flag.pdl置为0
         reseButton = new JButton("重置初始搜索");
-        reseButton.setBounds(305, 430, 150, 30);
+        reseButton.setBounds(305, 410, 150, 30);
         reseButton.addActionListener((ActionEvent) -> {
             int answer = JOptionPane.showConfirmDialog(this, "重置初始搜索将会在下次启动时重新搜索您的计算机(如果您更改了大量文件，\n可能需要此功能)，这可能为花费较长时间，您确定要这么做吗？",
                     "警告", JOptionPane.YES_NO_OPTION);
@@ -187,7 +186,7 @@ public class SetUp extends BasicPanel {
         });
         this.add(reseButton);
         rangeButton = new JButton("搜索范围更改");
-        rangeButton.setBounds(475, 430, 150, 30);
+        rangeButton.setBounds(475, 410, 150, 30);
         rangeButton.addActionListener((ActionEvent) -> {
             //如何不让选C盘相关？
             File f;
@@ -213,7 +212,7 @@ public class SetUp extends BasicPanel {
         this.add(rangeButton);
         //重置至all
         resetRangeButton = new JButton("重置搜索范围");
-        resetRangeButton.setBounds(645, 430, 150, 30);
+        resetRangeButton.setBounds(645, 410, 150, 30);
         resetRangeButton.addActionListener((ActionEvent e) -> {
             int answer = JOptionPane.showConfirmDialog(this, "如此将重置初始搜索为全盘(除系统盘)搜索，\n确定要这样吗？", "提示", JOptionPane.OK_CANCEL_OPTION);
             if (answer == 0) {
@@ -263,7 +262,6 @@ public class SetUp extends BasicPanel {
         changeImage();
         int theme = (int) setMap.get("style").get("theme");
         FORE_COLOR = foreColor[theme];
-        BACK_COLOR = backColor[theme];
     }
 
     public static void changeImage() {
@@ -381,7 +379,6 @@ public class SetUp extends BasicPanel {
             }
         } else {
             c.setForeground(FORE_COLOR);
-            c.setBackground(BACK_COLOR);
         }
     }
 
@@ -436,7 +433,6 @@ public class SetUp extends BasicPanel {
                 changeImage();
                 index.imageRepaint();
                 FORE_COLOR = foreColor[n];
-                BACK_COLOR = backColor[n];
                 changeColor(index);
             } catch (Exception ex) {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,14 +25,12 @@ public class AboutPanel extends BasicPanel {
         help.setFont(SetUp.GLOBAL_FONT);
         help.setForeground(SetUp.FORE_COLOR);
         help.setBounds(150, 150, 650, 300);
-        help.setBackground(SetUp.BACK_COLOR);
-        help.setOpaque(true);
+        help.setOpaque(false);
         copyright = new JLabel("copyright by HIT 李沅泽 邹开发 唐梦研 高琦琦", JLabel.CENTER);
         copyright.setFont(SetUp.GLOBAL_FONT);
         copyright.setForeground(SetUp.FORE_COLOR);
         copyright.setBounds(105, 470, 747, 30);
-        copyright.setBackground(SetUp.BACK_COLOR);
-        copyright.setOpaque(true);
+        copyright.setOpaque(false);
         this.add(help);
         this.add(copyright);
         this.addReturnListener();

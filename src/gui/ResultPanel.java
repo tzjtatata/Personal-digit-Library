@@ -48,11 +48,10 @@ public class ResultPanel extends JPanel {
         }
         JLabel temLabel;
         this.name = str;
-        this.setBackground(SetUp.BACK_COLOR);
         int i;
         JLHashMap = new HashMap<>();
         this.setLayout(null);
-        this.setOpaque(true);
+        this.setOpaque(false);
         addMove();
         // 设定每页显示的结果序号
         for (i = 0; i < pagelength; i++) {

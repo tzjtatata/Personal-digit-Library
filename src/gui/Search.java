@@ -99,16 +99,16 @@ public class Search extends BasicPanel {
         entry4.setVisible(false);
 
         point1.setBounds(160, 223, 20, 20);
-        point1.setOpaque(true);
+        point1.setOpaque(false);
         point1.setBackground(new Color(39, 158, 218));
         point2.setBounds(160, 273, 20, 20);
-        point2.setOpaque(true);
+        point2.setOpaque(false);
         point2.setBackground(new Color(39, 158, 218));
         point3.setBounds(160, 323, 20, 20);
-        point3.setOpaque(true);
+        point3.setOpaque(false);
         point3.setBackground(new Color(39, 158, 218));
         point4.setBounds(160, 373, 20, 20);
-        point4.setOpaque(true);
+        point4.setOpaque(false);
         point4.setBackground(new Color(39, 158, 218));
 
         bt1.setBounds(240, 393, 50, 22);

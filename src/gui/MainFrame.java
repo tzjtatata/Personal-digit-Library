@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
         javax.swing.SwingUtilities.updateComponentTreeUI(this);
         setPanel = new SetUp(this);
         shelf = new ShelfPanel(this);
-        index = new Index();
+        index = new Index(this);
         about = new AboutPanel(this);
 
         mainJPanel.setLayout(null);

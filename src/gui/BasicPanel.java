@@ -36,6 +36,8 @@ public class BasicPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MainFrame.cl.show(MainFrame.changeJPanel, "index");
+                SetUp.imageForCalenderHint = SetUp.imageForIndexBackground;
+                index.imageRepaint();
             }
         };
         returnButton.addActionListener(actionListener);
