@@ -188,6 +188,17 @@ public class SetUp extends BasicPanel {
                 } catch (IOException ex) {
                     Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                int an2 = JOptionPane.showConfirmDialog(this, "是否要重启程序？", "提示", JOptionPane.YES_NO_OPTION);
+                if (an2 == 0) {
+                    try {
+                        if (new File("PDL.jar").exists()) {  //重启
+                            Runtime.getRuntime().exec("java -jar PDL.jar");
+                            System.exit(0);
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         });
         this.add(reseButton);
