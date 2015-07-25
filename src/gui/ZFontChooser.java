@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -40,7 +42,7 @@ public class ZFontChooser extends JPanel {
     private JLabel fontJLabel, styleJLabel, sizeJLabel, showJLabel;
     private JTextField fontField, styleField, sizeField;
     private JList fontJList, styleJList, sizeJList;
-    private JButton ok, cancel;
+    private JButton ok, cancel, recover;
     private JScrollPane fontJScrollPane, sizeJScrollPane;
     private JPanel showJPanel;  //显示框
     private Map sizeMap;
@@ -77,6 +79,7 @@ public class ZFontChooser extends JPanel {
         showJPanel = new JPanel();
         ok = new JButton("确定");
         cancel = new JButton("取消");
+        recover = new JButton("恢复为主题字体");
 
         if (mode.equals("global")) {
             fontField = new JTextField(SetUp.GLOBAL_FONT.getFontName());
@@ -152,6 +155,7 @@ public class ZFontChooser extends JPanel {
         showJPanel.setBounds(5, 150, 380, 100);
         ok.setBounds(250, 250, 60, 20);
         cancel.setBounds(310, 250, 60, 20);
+        recover.setBounds(130, 250, 120, 20);
 
         showJPanel.add(showJLabel);
         this.setLayout(null);
@@ -167,6 +171,7 @@ public class ZFontChooser extends JPanel {
         this.add(showJPanel);
         this.add(ok);
         this.add(cancel);
+        this.add(recover);
         this.setVisible(true);
 
         fontJList.addListSelectionListener((ListSelectionEvent e) -> {
@@ -210,6 +215,8 @@ public class ZFontChooser extends JPanel {
             }
             try {
                 SetUp.newChangeFont(index);
+                SetUp.setMap.get("style").put("hasFont", 1);
+                SetUp.SaveSetInfo();
             } catch (Exception ex) {
                 Logger.getLogger(ZFontChooser.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -221,6 +228,27 @@ public class ZFontChooser extends JPanel {
             font = null;
             dialog.dispose();
             dialog = null;
+        });
+
+        recover.addActionListener((ActionEvent e) -> {
+            int answer = JOptionPane.showConfirmDialog(this, "您将恢复为主题默认的字体，确定要这么做吗？",
+                    "提示", JOptionPane.OK_CANCEL_OPTION);
+            if (answer == 0) {
+                if (mode.equals("global")) {
+                    SetUp.GLOBAL_FONT = SetUp.globalFonts[(int) SetUp.setMap.get("style").get("theme")];
+                } else {
+                    SetUp.SHELF_FONT = SetUp.shelfFonts[(int) SetUp.setMap.get("style").get("theme")];
+                }
+                try {
+                    SetUp.newChangeFont(index);
+                    SetUp.setMap.get("style").put("hasFont", 0);
+                    SetUp.SaveSetInfo();
+                } catch (Exception ex) {
+                    Logger.getLogger(ZFontChooser.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                dialog.dispose();
+                dialog = null;
+            }
         });
     }
 

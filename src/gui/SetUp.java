@@ -35,9 +35,11 @@ public class SetUp extends BasicPanel {
     public static HashMap<String, HashMap<String, Object>> setMap;
     public static Font GLOBAL_FONT;
     public static Font SHELF_FONT;
-    public static Color FORE_COLOR;
-    private static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
-    private static ArrayList<Font> fonts;
+    public static Color FORE_COLOR, SHELF_COLOR;
+    static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
+    static final Color[] shelfColors = {Color.WHITE, Color.ORANGE, Color.gray};
+    static final Font[] globalFonts = new Font[foreColor.length];
+    static final Font[] shelfFonts = new Font[foreColor.length];
     private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
     private final JRadioButton[] styleButtons, themeButtons;
     private final ButtonGroup stylebButtonGroup, themeButtonGroup;
@@ -250,6 +252,15 @@ public class SetUp extends BasicPanel {
 //初始化操作
 
     public static void Init() throws Exception {
+        //设置主题对应的字体
+        globalFonts[0] = new Font("微软雅黑", Font.PLAIN, 15);
+        globalFonts[1] = new Font("微软雅黑", Font.PLAIN, 15);
+        globalFonts[2] = Font.createFont(Font.TRUETYPE_FONT, //qq的少女字体
+                new File("source/2.TTF")).deriveFont(Font.PLAIN, 15);
+        shelfFonts[0] = new Font("微软雅黑", Font.PLAIN, 15);
+        shelfFonts[1] = new Font("微软雅黑", Font.PLAIN, 15);
+        shelfFonts[2] = Font.createFont(Font.TRUETYPE_FONT, //qq的少女字体
+                new File("source/2.TTF")).deriveFont(Font.PLAIN, 15);
         //加载json
         setFile = new File("setFile/setInfo.json");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(setFile), "UTF-8"))) {
@@ -258,16 +269,18 @@ public class SetUp extends BasicPanel {
         setMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, Object>>>() {
         });
         //读取字体图片等设置
-        GLOBAL_FONT = new Font((String) setMap.get("global").get("font"), (int) setMap.get("global").get("style"), (int) setMap.get("global").get("size"));
-        SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
-        UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
         changeImage();
         int theme = (int) setMap.get("style").get("theme");
         FORE_COLOR = foreColor[theme];
-        fonts = new ArrayList<>();
-        fonts.add(GLOBAL_FONT);  //第一套
-        fonts.add(SHELF_FONT); //第二套
-        fonts.add(SHELF_FONT); //第三套
+        SHELF_COLOR = shelfColors[theme];
+        GLOBAL_FONT = globalFonts[theme];  //先加载主题字体
+        SHELF_FONT = shelfFonts[theme];
+        //如果有，加载用户自己的字体设置
+        if ((int) setMap.get("style").get("hasFont") == 1) {
+            GLOBAL_FONT = new Font((String) setMap.get("global").get("font"), (int) setMap.get("global").get("style"), (int) setMap.get("global").get("size"));
+            SHELF_FONT = new Font((String) setMap.get("shelf").get("font"), (int) setMap.get("shelf").get("style"), (int) setMap.get("shelf").get("size"));
+        }
+        UIManager.setLookAndFeel((String) setMap.get("style").get("style"));
     }
 
     public static void changeImage() {
@@ -440,6 +453,10 @@ public class SetUp extends BasicPanel {
                 imageForCalenderHint = imageForSetBackground;
                 index.imageRepaint();
                 FORE_COLOR = foreColor[n];
+                SHELF_COLOR = shelfColors[n];
+                SHELF_FONT = shelfFonts[n];
+                GLOBAL_FONT = globalFonts[n];
+                newChangeFont(index);
                 changeColor(index);
             } catch (Exception ex) {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);

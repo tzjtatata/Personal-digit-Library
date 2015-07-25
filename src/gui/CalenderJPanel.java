@@ -16,7 +16,7 @@ public class CalenderJPanel extends JPanel {
 
     public CalenderJPanel() {
         this.setLayout(null);
-        label.setBounds(105, 1, 744, 40);
+        label.setBounds(105, 1, 746, 40);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(label);
         this.setSize(950, 100);
