@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class ResultPanel extends JPanel {
 
     private HashMap<Integer, String> JLHashMap;
-    JLabel[] labelListJLabels = new JLabel[5000];
+    private ArrayList<JLabel> labelListJLabels = new ArrayList<>();
     private JLabel labelHintJLabel = new JLabel();
     private JRadioButton[] jRadioButtons = new JRadioButton[20];
     private JLabel next, front, tail, foreward;
@@ -68,13 +68,12 @@ public class ResultPanel extends JPanel {
         //show函数用于显示第n+1页的结果
         size = result.size();
         for (i = 0; i < size; i++) {
-            if (labelListJLabels[i] == null) {
-                labelListJLabels[i] = new JLabel();
-            }
-            labelListJLabels[i].setText(result.get(i));
-            JLHashMap.put(labelListJLabels[i].hashCode(), labelListJLabels[i].getText());
-            labelListJLabels[i].setFont(SetUp.SHELF_FONT);
-            this.add(labelListJLabels[i]);
+            JLabel temp = new JLabel();
+            temp.setText(result.get(i));
+            JLHashMap.put(temp.hashCode(), temp.getText());
+            temp.setFont(SetUp.SHELF_FONT);
+            this.add(temp);
+            labelListJLabels.add(temp);
             //判定页数，并设定表现页数的标签
         }
         do {
@@ -98,30 +97,31 @@ public class ResultPanel extends JPanel {
         int i, temp;
         for (i = 0; i < pagelength; i++) {
             temp = pagelength * n + i;
-            if (labelListJLabels[temp] != null) {
-                labelListJLabels[temp].addMouseListener(new ShowAdapter());
-                labelListJLabels[temp].addMouseListener(new CursorListener());
-                labelListJLabels[temp].setFont(SetUp.SHELF_FONT);
-                labelListJLabels[temp].setBounds(startwidth + height, startheight + height * (i + 1), width, height);
-                labelListJLabels[temp].setVisible(true);
+            if (labelListJLabels.size()>temp) {
+                labelListJLabels.get(temp).addMouseListener(new ShowAdapter());
+                labelListJLabels.get(temp).addMouseListener(new CursorListener());
+                labelListJLabels.get(temp).setFont(SetUp.SHELF_FONT);
+                labelListJLabels.get(temp).setBounds(startwidth + height, startheight + height * (i + 1), width, height);
+                labelListJLabels.get(temp).setVisible(true);
                 jRadioButtons[i].setVisible(true);
             }
         }
+        Page.get(n).setForeground(Color.LIGHT_GRAY);
     }
 
     public void hide(int n) {
         int i, temp;
+        Page.get(n).setForeground(SetUp.FORE_COLOR);
         for (i = 0; i < pagelength; i++) {
             temp = pagelength * n + i;
             if (temp < size) {
-                labelListJLabels[temp].setFont(SetUp.SHELF_FONT);
-                labelListJLabels[temp].setVisible(false);
+                labelListJLabels.get(temp).setFont(SetUp.SHELF_FONT);
+                labelListJLabels.get(temp).setVisible(false);
             }
             jRadioButtons[i].setVisible(false);
             jRadioButtons[i].setSelected(false);
         }
     }
-
     public void move(int x) {
         int i, len, size;
         size = Page.size();
@@ -164,7 +164,8 @@ public class ResultPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            int temp = Page.indexOf(e.getSource());
+            JLabel I = (JLabel) e.getSource();
+            int temp = Integer.parseInt(I.getText())-1;
             hide(now);
             show(temp);
             now = temp;
