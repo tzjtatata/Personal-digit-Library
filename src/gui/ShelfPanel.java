@@ -9,8 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,8 +29,9 @@ public class ShelfPanel extends BasicPanel {
     private int nowPage = 0, firstPage = 0, len = 0;
     private final int LEN = 5;
     private HashMap<Integer, JLabel> label = new HashMap<>();
-    private JLabel addJLabel, menuJLabel;  //帅z的label
-    File ujson = new File("setFile/UserClass.json");
+    private JLabel addJLabel, menuJLabel;
+    private File ujson = new File("setFile/UserClass.json");
+    private JDialog classChoser  = new JDialog();
 
     public ShelfPanel(MainFrame index) throws Exception {
         super(index);
@@ -48,12 +48,13 @@ public class ShelfPanel extends BasicPanel {
         if (UserClass == null) {
             UserClass = new HashMap<String, ArrayList<String>>();
         }
-        addJLabel = new JLabel(new ImageIcon(SetUp.imageForAddClass));  //帅z开始实例化对象了
+        addJLabel = new JLabel(new ImageIcon(SetUp.imageForAddClass)); 
         menuJLabel = new JLabel(new ImageIcon(SetUp.imageForMenu));
         addJLabel.setBounds(606, 133, 25, 26);
         menuJLabel.setBounds(631, 133, 25, 26);
         addJLabel.addMouseListener(new CursorListener());
-        menuJLabel.addMouseListener(new CursorListener());   //丑Y快刚
+        menuJLabel.addMouseListener(new CursorListener());  
+        addJLabel.addMouseListener(new AddClass());
         add(addJLabel);
         add(menuJLabel);
         this.setLayout(null);
@@ -133,7 +134,14 @@ public class ShelfPanel extends BasicPanel {
         label.get(n).setForeground(SetUp.SHELF_COLOR);
         subjectShow[n].setVisible(false);
     }
-
+    public void setUserClass(String str) throws Exception{
+        ArrayList<String> temp = new ArrayList<>();
+        UserClass.put(str,temp);
+        String jsonString = JSON.toJSONString(UserClass);
+        try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ujson), "UTF-8"))) {
+            br.write(jsonString);
+        }
+    }
     @Override
     public void imageRepaint() {
         super.imageRepaint();
@@ -219,5 +227,10 @@ public class ShelfPanel extends BasicPanel {
             subjectLabel[n + i].setVisible(true);
         }
         firstPage = n;
+    }
+    class AddClass extends MouseAdapter {
+        public void mouseClicked(MouseEvent e) {
+            new ClassChooser(index).show();
+        }
     }
 }

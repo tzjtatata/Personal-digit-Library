@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
  */
 public class BasicPanel extends JPanel {
 
-    private final MainFrame index;
+    public final MainFrame index;
     protected JButton returnButton;
     protected ActionListener actionListener;
 

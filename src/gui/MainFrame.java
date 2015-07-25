@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
     private final AboutPanel about;
     private final SetUp setPanel;
     private final Search searchPanel;
-    private final ShelfPanel shelf;
+    private ShelfPanel shelf;
     private final CalenderJPanel calenderHint;
     static Index index;
     static JPanel changeJPanel = new JPanel();  //切换用的JPanel
@@ -79,5 +79,13 @@ public class MainFrame extends JFrame {
     void changeCalendarColor() {
         shelf.changeColor();
         index.changeCalendarColor();
+    }
+    public void ReShelf(String newClass) throws Exception{
+        this.shelf.setUserClass(newClass);
+        shelf.setVisible(false);
+        shelf = new ShelfPanel(this);
+        cl.addLayoutComponent(shelf, "shelf");
+        changeJPanel.add(shelf);
+        cl.show(changeJPanel,"shelf");
     }
 }
