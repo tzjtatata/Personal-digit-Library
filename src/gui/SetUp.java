@@ -257,10 +257,10 @@ public class SetUp extends BasicPanel {
         globalFonts[1] = new Font("微软雅黑", Font.PLAIN, 15);
         globalFonts[2] = Font.createFont(Font.TRUETYPE_FONT, //qq的少女字体
                 new File("source/2.TTF")).deriveFont(Font.PLAIN, 15);
-        shelfFonts[0] = new Font("微软雅黑", Font.PLAIN, 15);
+        shelfFonts[0] = new Font("华文楷体", Font.PLAIN, 15);
         shelfFonts[1] = new Font("微软雅黑", Font.PLAIN, 15);
         shelfFonts[2] = Font.createFont(Font.TRUETYPE_FONT, //qq的少女字体
-                new File("source/2.TTF")).deriveFont(Font.PLAIN, 15);
+                new File("source/2s.TTF")).deriveFont(Font.PLAIN, 18);
         //加载json
         setFile = new File("setFile/setInfo.json");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(setFile), "UTF-8"))) {
