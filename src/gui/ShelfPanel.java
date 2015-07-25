@@ -113,8 +113,10 @@ public class ShelfPanel extends BasicPanel {
     void changeColor() {
         this.setOpaque(false);
         for (JLabel subjectJLabel : subjectLabel) {
-            subjectJLabel.setForeground(SetUp.SHELF_COLOR);
-            subjectJLabel.setOpaque(false);
+            if (subjectJLabel != null) {
+                subjectJLabel.setForeground(SetUp.SHELF_COLOR);
+                subjectJLabel.setOpaque(false);
+            }
         }
     }
 

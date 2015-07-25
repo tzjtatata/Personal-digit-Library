@@ -28,6 +28,7 @@ import net.paoding.analysis.analyzer.AnalyzerOfPdl;
 public class NewSearch {
 
     public static File fileJson = new File("setFile/fileInfo.json");
+    public static HashMap<String, ArrayList<String>> authorMap = new HashMap<>();
     public static HashMap<String, HashMap<String, ArrayList<String>>> fileMap = new HashMap<>();
     private static final ExecutorService executors = Executors.newCachedThreadPool();
     public static AnalyzerOfPdl analyzerOfPdl;
@@ -157,7 +158,18 @@ public class NewSearch {
     }
 
     /**
-     * 从fileJson文件中读取json字符串获得HashMap 在加载静态变量filemap之前一定要运行下面这个静态函数
+     * 按作者搜索
+     *
+     * @param author
+     * @return
+     */
+    public static ArrayList<String> authorSearch(String author) {
+        ArrayList<String> result = new ArrayList<>();
+        return result;
+    }
+
+    /**
+     * 从fileJson文件中读取json字符串获得HashMap 在加载静态变量filemap之前一定要运行下面这个静态函数 并读取
      *
      * @return
      * @throws Exception
@@ -168,6 +180,12 @@ public class NewSearch {
             jsonString = br.readLine();
         }
         fileMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, HashMap<String, ArrayList<String>>>>() {
+        });
+        File f = new File("setFile/authors.json");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"))) {
+            jsonString = br.readLine();
+        }
+        authorMap = JSON.parseObject(jsonString, new TypeReference<HashMap<String, ArrayList<String>>>() {
         });
         return fileMap;
     }
