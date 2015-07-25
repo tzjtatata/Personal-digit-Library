@@ -21,11 +21,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         SetUp.Init();
+        JSplashWindow.getABC();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/flag.pdl"), "UTF-8"))) {
+            
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);
                 new backtable.InitReverseSet();
-
                 try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/flag.pdl"), "UTF-8"))) {
                     bw.write("1");
                 }
