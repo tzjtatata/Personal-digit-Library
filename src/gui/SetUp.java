@@ -35,8 +35,8 @@ public class SetUp extends BasicPanel {
     public static Font GLOBAL_FONT;
     public static Font SHELF_FONT;
     public static Color FORE_COLOR, SHELF_COLOR, SPECIAL_COLOR;
-    static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
-    static final Color[] shelfColors = {Color.WHITE, Color.ORANGE, Color.WHITE};
+    static final Color[] foreColor = {new Color(39, 158, 218), Color.BLACK, new Color(101, 0, 3)};
+    static final Color[] shelfColors = {Color.WHITE, Color.WHITE, Color.WHITE};
     static final Color[] specialColors = {Color.BLACK, Color.ORANGE, Color.BLUE};
     static final Font[] globalFonts = new Font[foreColor.length];
     static final Font[] shelfFonts = new Font[foreColor.length];
@@ -159,8 +159,7 @@ public class SetUp extends BasicPanel {
         themeButtonGroup = new ButtonGroup();
         themeButtons = new JRadioButton[3];
         themeButtons[0] = new JRadioButton("蓝灰商务");
-        //搞怪系列
-        themeButtons[1] = new JRadioButton("Z神最帅");
+        themeButtons[1] = new JRadioButton("古风流韵");
         themeButtons[2] = new JRadioButton("粉嫩青春");
         themeButtons[(int) setMap.get("style").get("theme")].setSelected(true);
         //主题系列RadioButton
@@ -267,11 +266,13 @@ public class SetUp extends BasicPanel {
     public static void Init() throws Exception {
         //设置主题对应的字体
         globalFonts[0] = new Font("微软雅黑", Font.PLAIN, 15);
-        globalFonts[1] = new Font("微软雅黑", Font.PLAIN, 15);
+        globalFonts[1] = Font.createFont(Font.TRUETYPE_FONT,
+                new File("source/1.TTF")).deriveFont(Font.PLAIN, 18);
         globalFonts[2] = Font.createFont(Font.TRUETYPE_FONT, //qq的少女字体
                 new File("source/2.TTF")).deriveFont(Font.PLAIN, 15);
         shelfFonts[0] = new Font("华文楷体", Font.PLAIN, 15);
-        shelfFonts[1] = new Font("微软雅黑", Font.PLAIN, 15);
+        shelfFonts[1] = Font.createFont(Font.TRUETYPE_FONT,
+                new File("source/1s.TTF")).deriveFont(Font.PLAIN, 18);
         shelfFonts[2] = Font.createFont(Font.TRUETYPE_FONT, //qq的少女字体
                 new File("source/2s.TTF")).deriveFont(Font.PLAIN, 18);
         //加载json
@@ -372,8 +373,16 @@ public class SetUp extends BasicPanel {
     public static void changeFont(Container c) throws Exception {
         if (c.getComponents().length != 0) {
             for (Component c1 : c.getComponents()) {
-                if (!((c1 instanceof ResultPanel) || (c1 instanceof ZCalendar))) {
+                if ((!(c1 instanceof ResultPanel) && !(c1 instanceof ZCalendar))) {
                     changeFont((Container) c1);
+                } else if (c1 instanceof ZCalendar) {
+                    for (Component com : ((Container) c1).getComponents()) {
+                        if (com instanceof JComboBox) {
+                            com.setFont(globalFonts[(int) setMap.get("style").get("theme")].deriveFont(0, 9));
+                        } else {
+                            com.setFont(globalFonts[(int) setMap.get("style").get("theme")].deriveFont(0, 13));
+                        }
+                    }
                 }
             }
         } else {
