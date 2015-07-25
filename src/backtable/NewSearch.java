@@ -11,6 +11,7 @@ import gui.SetUp;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -165,6 +166,7 @@ public class NewSearch {
      */
     public static ArrayList<String> authorSearch(String author) {
         ArrayList<String> result = new ArrayList<>();
+        HashSet<String> resulttemp = new HashSet<>();
         authorMap.keySet().stream().forEach((String name) -> {
             if (name.contains(author)) {
                 authorMap.get(name).stream().forEach((String file) -> {
@@ -185,8 +187,8 @@ public class NewSearch {
                                         }
                                     }
 //                                    System.err.println(correct + " " + word.size());
-                                    if (correct * 1.0 / word.size() > 0.5) {
-                                        result.add(path + "\\" + filename);
+                                    if (correct * 1.0 / word.size() > 0.8) {
+                                        resulttemp.add(path + "\\" + filename);
                                     }
                                 }
                             }
@@ -195,6 +197,7 @@ public class NewSearch {
                 });
             }
         });
+        result = new ArrayList<>(resulttemp);
         return result;
     }
 
