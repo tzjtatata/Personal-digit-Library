@@ -23,28 +23,39 @@ import java.util.*;
  */
 public class ShelfPanel extends BasicPanel {
 
-    private HashMap<String,ArrayList<String>> UserClass,Class;
+    private HashMap<String, ArrayList<String>> UserClass, Class;
     static ResultPanel[] subjectShow = new ResultPanel[10000];
     private JLabel[] subjectLabel = new JLabel[10000];
     private JLabel left, right;
     private int nowPage = 0, firstPage = 0, len = 0;
     private final int LEN = 5;
-    private HashMap<Integer,JLabel> label = new HashMap<>();
+    private HashMap<Integer, JLabel> label = new HashMap<>();
+    private JLabel addJLabel, menuJLabel;  //帅z的label
     File ujson = new File("setFile/UserClass.json");
 
     public ShelfPanel(MainFrame index) throws Exception {
         super(index);
         if (!ujson.exists()) {
             ujson.createNewFile();
-        }
-        else {
+        } else {
             String jsonString;
             try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(ujson), "UTF-8"))) {
                 jsonString = br.readLine();
             }
-            UserClass = JSON.parseObject(jsonString, new TypeReference<HashMap<String,ArrayList<String>>>() { });
+            UserClass = JSON.parseObject(jsonString, new TypeReference<HashMap<String, ArrayList<String>>>() {
+            });
         }
-        if (UserClass == null) UserClass = new HashMap<String,ArrayList<String>>();
+        if (UserClass == null) {
+            UserClass = new HashMap<String, ArrayList<String>>();
+        }
+        addJLabel = new JLabel(new ImageIcon(SetUp.imageForAddClass));  //帅z开始实例化对象了
+        menuJLabel = new JLabel(new ImageIcon(SetUp.imageForMenu));
+        addJLabel.setBounds(606, 133, 25, 26);
+        menuJLabel.setBounds(631, 133, 25, 26);
+        addJLabel.addMouseListener(new CursorListener());
+        menuJLabel.addMouseListener(new CursorListener());   //丑Y快刚
+        add(addJLabel);
+        add(menuJLabel);
         this.setLayout(null);
         left = new JLabel();
         left.setBounds(250, 138, 20, 20);
@@ -80,7 +91,7 @@ public class ShelfPanel extends BasicPanel {
             subjectLabel[i].setVisible(false);
             this.add(subjectLabel[i]);
         }
-        cCategory(firstPage,len>LEN?LEN:len);
+        cCategory(firstPage, len > LEN ? LEN : len);
     }
 
     protected void hideLabel(int i) {
@@ -95,17 +106,20 @@ public class ShelfPanel extends BasicPanel {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cjson), "UTF-8"))) {
             jsonString = br.readLine();
         }
-        Class = JSON.parseObject(jsonString, new TypeReference<HashMap<String,ArrayList<String>>>() { });
-        if (!UserClass.isEmpty())
-            for (String category:UserClass.keySet()) {
+        Class = JSON.parseObject(jsonString, new TypeReference<HashMap<String, ArrayList<String>>>() {
+        });
+        if (!UserClass.isEmpty()) {
+            for (String category : UserClass.keySet()) {
                 subjectShow[len] = new ResultPanel(category, UserClass.get(category), "shelf");
                 len++;
             }
-        if (!Class.isEmpty())
-            for (String category:Class.keySet()) {
+        }
+        if (!Class.isEmpty()) {
+            for (String category : Class.keySet()) {
                 subjectShow[len] = new ResultPanel(category, Class.get(category), "shelf");
                 len++;
             }
+        }
     }
 
     private void setContent(int n) {
@@ -184,16 +198,17 @@ public class ShelfPanel extends BasicPanel {
             } else if (temp < 0) {
                 temp = 0;
             }
-            cCategory(temp,len>LEN?LEN:len);
+            cCategory(temp, len > LEN ? LEN : len);
         }
     }
-    public void cCategory(int n,int range) {
-         for (int i = 0;i<range;i++) {
+
+    public void cCategory(int n, int range) {
+        for (int i = 0; i < range; i++) {
             subjectLabel[firstPage + i].setVisible(false);
         }
-        for (int i = 0;i<range;i++) {
-            subjectLabel[n+i].setBounds(270 + i * 58, 133, 55, 28);
-            subjectLabel[n+i].setVisible(true);
+        for (int i = 0; i < range; i++) {
+            subjectLabel[n + i].setBounds(270 + i * 58, 133, 55, 28);
+            subjectLabel[n + i].setVisible(true);
         }
         firstPage = n;
     }

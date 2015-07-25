@@ -317,6 +317,8 @@ public class SetUp extends BasicPanel {
         imageForSetButton = "source/设置" + num + ".jpg";
         imageForSetBackground = "source/设置2" + num + ".png";
         imageForAboutBackground = "source/about" + num + ".png";
+        imageForAddClass = "source/加号" + num + ".png";
+        imageForMenu = "source/菜单" + num + ".png";
     }
 
     /**
