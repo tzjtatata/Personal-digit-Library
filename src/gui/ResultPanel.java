@@ -14,7 +14,7 @@ public class ResultPanel extends JPanel {
     private HashMap<Integer, String> JLHashMap;
     JLabel[] labelListJLabels = new JLabel[5000];
     private JLabel labelHintJLabel = new JLabel();
-    private JLabel[] labelorderJLabels = new JLabel[20];
+    private JRadioButton[] jRadioButtons = new JRadioButton[20];
     private JLabel next, front, tail, foreward;
     private ArrayList<JLabel> Page = new ArrayList<JLabel>();
     private int nowPage = 0;
@@ -55,15 +55,14 @@ public class ResultPanel extends JPanel {
         addMove();
         // 设定每页显示的结果序号
         for (i = 0; i < pagelength; i++) {
-            if (labelorderJLabels[i] == null) {
-                labelorderJLabels[i] = new JLabel();
+            if (jRadioButtons[i] == null) {
+                jRadioButtons[i] = new JRadioButton();
             }
-            labelorderJLabels[i].setText("" + (i + 1));
-            labelorderJLabels[i].setBounds(startwidth, startheight + height * (i + 1), width, height);
-            labelorderJLabels[i].setFont(SetUp.GLOBAL_FONT);
-            labelorderJLabels[i].setForeground(SetUp.FORE_COLOR);  //用于项目查找的注释
-            labelorderJLabels[i].setVisible(false);
-            this.add(labelorderJLabels[i]);
+            jRadioButtons[i].setBounds(startwidth, startheight + height * (i + 1), height, height); //用于项目查找的注释
+            jRadioButtons[i].setOpaque(false);
+            //jRadioButtons[i].setBackground(new Color(39, 158, 218));
+            jRadioButtons[i].setVisible(false);
+            this.add(jRadioButtons[i]);
         }
         //判定是否有结果，并显示结果
         //show函数用于显示第n+1页的结果
@@ -105,7 +104,7 @@ public class ResultPanel extends JPanel {
                 labelListJLabels[temp].setFont(SetUp.SHELF_FONT);
                 labelListJLabels[temp].setBounds(startwidth + height, startheight + height * (i + 1), width, height);
                 labelListJLabels[temp].setVisible(true);
-                labelorderJLabels[i].setVisible(true);
+                jRadioButtons[i].setVisible(true);
             }
         }
     }
@@ -118,7 +117,8 @@ public class ResultPanel extends JPanel {
                 labelListJLabels[temp].setFont(SetUp.SHELF_FONT);
                 labelListJLabels[temp].setVisible(false);
             }
-            labelorderJLabels[i].setVisible(false);
+            jRadioButtons[i].setVisible(false);
+            jRadioButtons[i].setSelected(false);
         }
     }
 

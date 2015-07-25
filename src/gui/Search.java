@@ -20,9 +20,9 @@ import java.util.ArrayList;
  */
 public class Search extends BasicPanel {
 
-    private final JLabel option1, option2, option3, option4;
-    private final JRadioButton point1, point2, point3, point4;
-    private final JTextField entry1, entry2, entry3, entry4;
+    private final JLabel option1,option3, option4;
+    private final JRadioButton point1,  point3, point4;
+    private final JTextField entry1,  entry3, entry4;
     private final JButton bt1, bt2;
     private final ButtonGroup pointGroup;
     MainFrame index;
@@ -43,9 +43,6 @@ public class Search extends BasicPanel {
         option1 = new JLabel("按作者搜索");
         option1.setFont(SetUp.GLOBAL_FONT);
         option1.setForeground(SetUp.FORE_COLOR);
-        option2 = new JLabel("按类型搜索");
-        option2.setFont(SetUp.GLOBAL_FONT);
-        option2.setForeground(SetUp.FORE_COLOR);
         option3 = new JLabel("按文件名搜索");
         option3.setFont(SetUp.GLOBAL_FONT);
         option3.setForeground(SetUp.FORE_COLOR);
@@ -54,73 +51,58 @@ public class Search extends BasicPanel {
         option4.setForeground(SetUp.FORE_COLOR);
         entry1 = new JTextField(15);
         entry1.addMouseListener(new EntryListener());
-        entry2 = new JTextField(15);
-        entry2.addMouseListener(new EntryListener());
         entry3 = new JTextField(15);
         entry3.addMouseListener(new EntryListener());
         entry4 = new JTextField(15);
         entry4.addMouseListener(new EntryListener());
         pointGroup = new ButtonGroup();
         point1 = new JRadioButton();
-        point2 = new JRadioButton();
         point3 = new JRadioButton();
         point4 = new JRadioButton();
         pointGroup.add(point1);
-        pointGroup.add(point2);
         pointGroup.add(point3);
         pointGroup.add(point4);
         point1.addMouseListener(new ActionLis());
-        point2.addMouseListener(new ActionLis());
         point3.addMouseListener(new ActionLis());
         point4.addMouseListener(new ActionLis());
         point1.addMouseListener(new CursorListener());
-        point2.addMouseListener(new CursorListener());
         point3.addMouseListener(new CursorListener());
         point4.addMouseListener(new CursorListener());
         //this.add(bt1);
         this.add(bt2);
         this.add(option1);
-        this.add(option2);
         this.add(option3);
         this.add(option4);
         this.add(point1);
-        this.add(point2);
         this.add(point3);
         this.add(point4);
 
         this.add(entry1);
-        this.add(entry2);
         this.add(entry3);
         this.add(entry4);
         entry1.setVisible(true);
         point1.setSelected(true);
-        entry2.setVisible(false);
         entry3.setVisible(false);
         entry4.setVisible(false);
 
-        point1.setBounds(160, 223, 20, 20);
+        point1.setBounds(160, 230, 20, 20);
         point1.setOpaque(false);
         point1.setBackground(new Color(39, 158, 218));
-        point2.setBounds(160, 273, 20, 20);
-        point2.setOpaque(false);
-        point2.setBackground(new Color(39, 158, 218));
-        point3.setBounds(160, 323, 20, 20);
+        point3.setBounds(160, 300, 20, 20);
         point3.setOpaque(false);
         point3.setBackground(new Color(39, 158, 218));
-        point4.setBounds(160, 373, 20, 20);
+        point4.setBounds(160, 370, 20, 20);
         point4.setOpaque(false);
         point4.setBackground(new Color(39, 158, 218));
 
         bt1.setBounds(240, 393, 50, 22);
         bt2.setBounds(340, 433, 50, 22);
-        option1.setBounds(220, 223, 200, 20);
-        option2.setBounds(220, 273, 200, 20);
-        option3.setBounds(220, 323, 200, 20);
-        option4.setBounds(220, 373, 200, 20);
-        entry1.setBounds(350, 223, 200, 20);
-        entry2.setBounds(350, 273, 200, 20);
-        entry3.setBounds(350, 323, 200, 20);
-        entry4.setBounds(350, 373, 200, 20);
+        option1.setBounds(220, 230, 200, 20);
+        option3.setBounds(220, 300, 200, 20);
+        option4.setBounds(220, 370, 200, 20);
+        entry1.setBounds(350, 230, 200, 20);
+        entry3.setBounds(350, 300, 200, 20);
+        entry4.setBounds(350, 370, 200, 20);
         this.addReturnListener();
     }
 
@@ -172,25 +154,16 @@ public class Search extends BasicPanel {
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == point1) {
                 entry1.setVisible(true);
-                entry2.setVisible(false);
                 entry3.setVisible(false);
                 entry4.setVisible(false);
                 entry1.setFocusable(true);
-            } else if (e.getSource() == point2) {
-                entry1.setVisible(false);
-                entry2.setVisible(true);
-                entry3.setVisible(false);
-                entry4.setVisible(false);
-                entry2.setFocusable(true);
             } else if (e.getSource() == point3) {
                 entry1.setVisible(false);
-                entry2.setVisible(false);
                 entry3.setVisible(true);
                 entry4.setVisible(false);
                 entry3.setFocusable(true);
             } else if (e.getSource() == point4) {
                 entry1.setVisible(false);
-                entry2.setVisible(false);
                 entry3.setVisible(false);
                 entry4.setVisible(true);
                 entry4.setFocusable(true);
@@ -205,7 +178,7 @@ public class Search extends BasicPanel {
             try {
                 ArrayList<String> result = new ArrayList<>();
                 ResultPanel RESULT = null;
-                for (JTextField entry : new JTextField[]{entry1, entry2, entry3, entry4}) {
+                for (JTextField entry : new JTextField[]{entry1, entry3, entry4}) {
                     if (entry.isVisible() && !"".equals(entry.getText())) {
                         if (entry == entry4) {
                             SearchContent Re4 = new SearchContent(entry.getText());

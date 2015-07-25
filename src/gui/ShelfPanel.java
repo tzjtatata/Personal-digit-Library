@@ -13,9 +13,7 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -28,6 +26,7 @@ public class ShelfPanel extends BasicPanel {
     private JLabel left, right;
     private int nowPage = 0, firstPage = 0, len = 0;
     private final int LEN = 5;
+    private HashMap<Integer,JLabel> label = new HashMap<>();
 
     public ShelfPanel(MainFrame index) throws Exception {
         super(index);
@@ -68,6 +67,7 @@ public class ShelfPanel extends BasicPanel {
                 subjectLabel[i].setVisible(false);
             }
             subjectLabel[i] = new JLabel(subjectShow[a + i].getName());
+            label.put(i, subjectLabel[i]);
             subjectLabel[i].setFont(SetUp.GLOBAL_FONT);
             subjectLabel[i].setForeground(SetUp.SHELF_COLOR);  //可能要改
             subjectLabel[i].setBounds(270 + i * 58, 133, 55, 28);
@@ -132,7 +132,9 @@ public class ShelfPanel extends BasicPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             hideContent(nowPage);
+            label.get(nowPage).setForeground(SetUp.SHELF_COLOR);
             nowPage = id;
+            label.get(id).setForeground(Color.BLACK);
             setContent(id);
         }
     }
