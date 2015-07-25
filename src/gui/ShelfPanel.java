@@ -23,7 +23,7 @@ import java.util.*;
  */
 public class ShelfPanel extends BasicPanel {
 
-    private HashMap<String,ArrayList<String>> UserClass;
+    private HashMap<String,ArrayList<String>> UserClass,Class;
     static ResultPanel[] subjectShow = new ResultPanel[10000];
     private JLabel[] subjectLabel = new JLabel[10000];
     private JLabel left, right;
@@ -80,7 +80,7 @@ public class ShelfPanel extends BasicPanel {
             subjectLabel[i].setVisible(false);
             this.add(subjectLabel[i]);
         }
-        cCategory(firstPage);
+        cCategory(firstPage,len>LEN?LEN:len);
     }
 
     protected void hideLabel(int i) {
@@ -90,17 +90,20 @@ public class ShelfPanel extends BasicPanel {
     private void getContent() throws Exception {
         String[] boy = new String[2];
         String str;
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/class.pdl"), "UTF-8"));
-        while (br.ready()) {
-            str = br.readLine();
-            boy = str.split("/");
-            List<String> wordList = new ArrayList<>(Arrays.asList(boy[1].split(",")));
-            subjectShow[len] = new ResultPanel(boy[0], (ArrayList<String>) wordList, "shelf");
-            len++;
+        File cjson = new File("setFile/class.json");
+        String jsonString;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cjson), "UTF-8"))) {
+            jsonString = br.readLine();
         }
+        Class = JSON.parseObject(jsonString, new TypeReference<HashMap<String,ArrayList<String>>>() { });
         if (!UserClass.isEmpty())
             for (String category:UserClass.keySet()) {
                 subjectShow[len] = new ResultPanel(category, UserClass.get(category), "shelf");
+                len++;
+            }
+        if (!Class.isEmpty())
+            for (String category:Class.keySet()) {
+                subjectShow[len] = new ResultPanel(category, Class.get(category), "shelf");
                 len++;
             }
     }
@@ -181,14 +184,14 @@ public class ShelfPanel extends BasicPanel {
             } else if (temp < 0) {
                 temp = 0;
             }
-            cCategory(temp);
+            cCategory(temp,len>LEN?LEN:len);
         }
     }
-    public void cCategory(int n) {
-         for (int i = 0;i<LEN;i++) {
+    public void cCategory(int n,int range) {
+         for (int i = 0;i<range;i++) {
             subjectLabel[firstPage + i].setVisible(false);
         }
-        for (int i = 0;i<LEN;i++) {
+        for (int i = 0;i<range;i++) {
             subjectLabel[n+i].setBounds(270 + i * 58, 133, 55, 28);
             subjectLabel[n+i].setVisible(true);
         }
