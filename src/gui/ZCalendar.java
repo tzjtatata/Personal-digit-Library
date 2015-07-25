@@ -191,7 +191,7 @@ public class ZCalendar extends JPanel {
             dateJLabels[i].addMouseListener(new DateListener(year, month + 1, j));
         }
         if (year == systemCalendar.get(Calendar.YEAR) && month == systemCalendar.get(Calendar.MONTH)) {  //为当前月则突出当前日期
-            dateJLabels[first + systemCalendar.get(Calendar.DATE) - 1].setOpaque(false);
+            //dateJLabels[first + systemCalendar.get(Calendar.DATE) - 1].setOpaque(true);
         } else {
             for (JLabel dateJLabel1 : dateJLabels) {
                 dateJLabel1.setOpaque(false);
@@ -223,13 +223,13 @@ public class ZCalendar extends JPanel {
         if (selected[2] != -1) {  //是-1说明是第一次调用
             dateJLabels[selected[2]].setForeground(SetUp.FORE_COLOR);
             selected[2] = date + i - 1;
-            dateJLabels[selected[2]].setForeground(Color.red);  //选中后前景色突出
+            dateJLabels[selected[2]].setForeground(SetUp.SPECIAL_COLOR);  //选中后前景色突出
         } else {
             int j = 0;
             while (++j != date);
             j--;
             selected[2] = i + j;  //当前日期所代表序号
-            dateJLabels[selected[2]].setForeground(Color.red);
+            dateJLabels[selected[2]].setForeground(SetUp.SPECIAL_COLOR);
         }
 
         if (noteMap.containsKey(year + "-" + month + "-" + date)) {  //如果有记事的话
@@ -333,6 +333,7 @@ public class ZCalendar extends JPanel {
         for (JLabel dateJLabel1 : dateJLabels) {
             dateJLabel1.setForeground(SetUp.FORE_COLOR);
         }
+        setDate(1);
     }
 
     public void imageRepaint() {
