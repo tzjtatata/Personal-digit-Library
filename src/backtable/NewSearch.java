@@ -301,16 +301,19 @@ public class NewSearch {
                 });
             });
         });
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/class.pdl"), "UTF-8"))) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/class.json"), "UTF-8"))) {
+            ArrayList<String> removeList = new ArrayList<>();
             classMap.keySet().stream().forEach((cate) -> {
-                try {
-                    if (classMap.get(cate).size() > 0) {
-                        bw.write(cate + "/" + classMap.get(cate).toString().substring(1, classMap.get(cate).toString().length() - 2) + "\n");
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
+                if (classMap.get(cate).size() <= 0) {
+                    //bw.write(cate + "/" + classMap.get(cate).toString().substring(1, classMap.get(cate).toString().length() - 2) + "\n");
+                    removeList.add(cate);  //改为去除键
                 }
             });
+            for (String removeList1 : removeList) {
+                classMap.remove(removeList1);
+            }
+            String jsonString = JSON.toJSONString(classMap);
+            bw.write(jsonString);
         }
     }
 
