@@ -21,9 +21,9 @@ public class JSplashWindow extends JWindow {
      * @param filename 欢迎屏幕所用的图片
      * @param frame 欢迎屏幕所属的窗体
      */
-    public JSplashWindow(String filename, JFrame frame) {
+    public JSplashWindow(JFrame frame) {
         super(frame);
-        ImageIcon img = new ImageIcon(filename);
+        ImageIcon img = new ImageIcon(SetUp.imageForWelcome);
         img.setImage(img.getImage().getScaledInstance(600, 350, 1));
         // 建立一个标签，标签中显示图片。
         JLabel label = new JLabel(img);
@@ -56,8 +56,9 @@ class ThreadToStop extends Thread {
     public void interrupt() {
         //调用interrupt之前，把isStop置为false
         isStop = true;
-        frame.dispose();
+        //splash.setVisible(false);
         splash.dispose();
+        frame.dispose();
         super.interrupt();
     }
 
@@ -66,7 +67,7 @@ class ThreadToStop extends Thread {
         // double check，检查stop的状态
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setUndecorated(true);
-        splash = new JSplashWindow(SetUp.imageForWelcome, frame);
+        splash = new JSplashWindow(frame);
         splash.setVisible(true);
         frame.pack();
         frame.setVisible(true);
