@@ -20,9 +20,9 @@ import java.util.ArrayList;
  */
 public class Search extends BasicPanel {
 
-    private final JLabel option1,option3, option4;
-    private final JRadioButton point1,  point3, point4;
-    private final JTextField entry1,  entry3, entry4;
+    private final JLabel option1, option3, option4;
+    private final JRadioButton point1, point3, point4;
+    private final JTextField entry1, entry3, entry4;
     private final JButton bt1, bt2;
     private final ButtonGroup pointGroup;
     MainFrame index;
@@ -206,12 +206,16 @@ public class Search extends BasicPanel {
                 temp.returnButton.removeActionListener(temp.actionListener);
                 temp.returnButton.addActionListener((ActionListener) -> {
                     MainFrame.cl.show(MainFrame.changeJPanel, "search");
+                    SetUp.imageForCalenderHint = SetUp.imageForSearchBackground;
+                    index.imageRepaint();
                 });
                 for (Component c : RESULT.getComponents()) {
                     c.setForeground(SetUp.FORE_COLOR);
                 }
                 RESULT.setBounds(130, 165, 700, 325);
                 //z游览完毕
+                SetUp.imageForCalenderHint = SetUp.imageForSearchResultBackground;
+                index.imageRepaint();
                 RESULT.setVisible(true);
                 temp.add(RESULT);
                 temp.setLayout(null);
