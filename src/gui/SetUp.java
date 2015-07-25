@@ -37,7 +37,7 @@ public class SetUp extends BasicPanel {
     public static Font SHELF_FONT;
     public static Color FORE_COLOR, SHELF_COLOR;
     static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
-    static final Color[] shelfColors = {Color.WHITE, Color.ORANGE, Color.gray};
+    static final Color[] shelfColors = {Color.WHITE, Color.ORANGE, Color.WHITE};
     static final Font[] globalFonts = new Font[foreColor.length];
     static final Font[] shelfFonts = new Font[foreColor.length];
     private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
@@ -65,6 +65,8 @@ public class SetUp extends BasicPanel {
     public static String imageForSetButton;
     public static String imageForSetBackground;
     public static String imageForAboutBackground;
+    public static String imageForAddClass;
+    public static String imageForMenu;
 
     public SetUp(MainFrame index) throws Exception {
         super(index);

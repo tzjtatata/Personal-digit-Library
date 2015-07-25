@@ -69,7 +69,7 @@ public class ShelfPanel extends BasicPanel {
             }
             subjectLabel[i] = new JLabel(subjectShow[a + i].getName());
             subjectLabel[i].setFont(SetUp.GLOBAL_FONT);
-            subjectLabel[i].setForeground(Color.WHITE);  //可能要改
+            subjectLabel[i].setForeground(SetUp.SHELF_COLOR);  //可能要改
             subjectLabel[i].setBounds(270 + i * 58, 133, 55, 28);
             subjectLabel[i].addMouseListener(new CursorListener());
             subjectLabel[i].addMouseListener(new ChangePage(a + i));
@@ -164,7 +164,7 @@ public class ShelfPanel extends BasicPanel {
             int temp;
             temp = firstPage + change;
             if (temp + LEN >= len) {
-                firstPage = (len - LEN)>0?len-LEN:0;
+                firstPage = (len - LEN) > 0 ? len - LEN : 0;
             } else if (temp < 0) {
                 firstPage = 0;
             } else {
