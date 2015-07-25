@@ -214,6 +214,9 @@ public class Search extends BasicPanel {
                         if (entry == entry3) {
                             result.addAll(NewSearch.SearchTitle(entry.getText()));
                         }
+                        if (entry == entry1) {
+                            result.addAll(NewSearch.authorSearch(entry.getText()));
+                        }
                         RESULT = new ResultPanel(entry.getText(), result, "search");
                         break;
                     }

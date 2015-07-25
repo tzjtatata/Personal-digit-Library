@@ -165,6 +165,36 @@ public class NewSearch {
      */
     public static ArrayList<String> authorSearch(String author) {
         ArrayList<String> result = new ArrayList<>();
+        authorMap.keySet().stream().forEach((String name) -> {
+            if (name.contains(author)) {
+                authorMap.get(name).stream().forEach((String file) -> {
+                    ArrayList<String> word = new ArrayList<>();
+                    try {
+                        word = PaodingAnalyze.Zanalyze(file);
+                    } catch (Exception ex) {
+                        Logger.getLogger(NewSearch.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (String type : fileMap.keySet()) {
+                        if (!".txt".equals(type)) {
+                            for (String path : fileMap.get(type).keySet()) {
+                                for (String filename : fileMap.get(type).get(path)) {
+                                    int correct = 0;
+                                    for (String w : word) {
+                                        if (filename.contains(w)) {
+                                            correct++;
+                                        }
+                                    }
+//                                    System.err.println(correct + " " + word.size());
+                                    if (correct * 1.0 / word.size() > 0.5) {
+                                        result.add(path + "\\" + filename);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
         return result;
     }
 
