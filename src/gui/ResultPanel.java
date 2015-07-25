@@ -1,5 +1,6 @@
 package gui;
 
+import com.sun.javafx.runtime.VersionInfo;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -93,11 +94,18 @@ public class ResultPanel extends JPanel {
         this.add(labelHintJLabel);
     }
 
+    /**
+     * Z神的改颜色！耶！
+     */
+    public void changeColor() {
+        Page.get(now).setForeground(SetUp.SPECIAL_COLOR);
+    }
+
     public void show(int n) {
         int i, temp;
         for (i = 0; i < pagelength; i++) {
             temp = pagelength * n + i;
-            if (labelListJLabels.size()>temp) {
+            if (labelListJLabels.size() > temp) {
                 labelListJLabels.get(temp).addMouseListener(new ShowAdapter());
                 labelListJLabels.get(temp).addMouseListener(new CursorListener());
                 labelListJLabels.get(temp).setFont(SetUp.SHELF_FONT);
@@ -106,7 +114,7 @@ public class ResultPanel extends JPanel {
                 jRadioButtons[i].setVisible(true);
             }
         }
-        Page.get(n).setForeground(Color.LIGHT_GRAY);
+        Page.get(n).setForeground(SetUp.SPECIAL_COLOR);
     }
 
     public void hide(int n) {
@@ -122,6 +130,7 @@ public class ResultPanel extends JPanel {
             jRadioButtons[i].setSelected(false);
         }
     }
+
     public void move(int x) {
         int i, len, size;
         size = Page.size();
@@ -165,7 +174,7 @@ public class ResultPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel I = (JLabel) e.getSource();
-            int temp = Integer.parseInt(I.getText())-1;
+            int temp = Integer.parseInt(I.getText()) - 1;
             hide(now);
             show(temp);
             now = temp;

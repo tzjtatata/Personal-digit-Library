@@ -123,7 +123,7 @@ public class ShelfPanel extends BasicPanel {
     }
 
     private void setContent(int n) {
-        label.get(n).setForeground(Color.BLACK);
+        label.get(n).setForeground(SetUp.SPECIAL_COLOR);
         subjectShow[n].setBounds(130, 165, 500, 325);
         subjectShow[n].setVisible(true);
         this.add(subjectShow[n]);
@@ -137,6 +137,8 @@ public class ShelfPanel extends BasicPanel {
     @Override
     public void imageRepaint() {
         super.imageRepaint();
+        menuJLabel.setIcon(new ImageIcon(SetUp.imageForMenu));
+        addJLabel.setIcon(new ImageIcon(SetUp.imageForAddClass));
         this.repaint();
     }
 
@@ -148,6 +150,12 @@ public class ShelfPanel extends BasicPanel {
                 subjectJLabel.setOpaque(false);
             }
         }
+        for (ResultPanel s : subjectShow) {
+            if (s != null) {
+                s.changeColor();
+            }
+        }
+        subjectLabel[nowPage].setForeground(SetUp.SPECIAL_COLOR);
     }
 
     class ChangePage extends MouseAdapter {

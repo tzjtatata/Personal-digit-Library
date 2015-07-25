@@ -19,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,9 +34,10 @@ public class SetUp extends BasicPanel {
     public static HashMap<String, HashMap<String, Object>> setMap;
     public static Font GLOBAL_FONT;
     public static Font SHELF_FONT;
-    public static Color FORE_COLOR, SHELF_COLOR;
+    public static Color FORE_COLOR, SHELF_COLOR, SPECIAL_COLOR;
     static final Color[] foreColor = {new Color(39, 158, 218), Color.ORANGE, new Color(101, 0, 3)};
     static final Color[] shelfColors = {Color.WHITE, Color.ORANGE, Color.WHITE};
+    static final Color[] specialColors = {Color.BLACK, Color.ORANGE, Color.BLUE};
     static final Font[] globalFonts = new Font[foreColor.length];
     static final Font[] shelfFonts = new Font[foreColor.length];
     private final JLabel themeJLabel, fontJLabel, styleJLabel, startJLabel;
@@ -286,6 +286,7 @@ public class SetUp extends BasicPanel {
         int theme = (int) setMap.get("style").get("theme");
         FORE_COLOR = foreColor[theme];
         SHELF_COLOR = shelfColors[theme];
+        SPECIAL_COLOR = specialColors[theme];
         GLOBAL_FONT = globalFonts[theme];  //先加载主题字体
         SHELF_FONT = shelfFonts[theme];
         //如果有，加载用户自己的字体设置
@@ -390,13 +391,13 @@ public class SetUp extends BasicPanel {
      * @param c
      */
     public static void changeColor(Container c) {
-        circleChangeColor(c);
-        ((MainFrame) c).changeCalendarColor();
         for (ResultPanel resultPanel : ShelfPanel.subjectShow) {
             if (resultPanel != null) {
                 circleChangeColor(resultPanel);
             }
         }
+        circleChangeColor(c);
+        ((MainFrame) c).changeCalendarColor();
     }
 
     /**
@@ -469,6 +470,7 @@ public class SetUp extends BasicPanel {
                 index.imageRepaint();
                 FORE_COLOR = foreColor[n];
                 SHELF_COLOR = shelfColors[n];
+                SPECIAL_COLOR = specialColors[n];
                 SHELF_FONT = shelfFonts[n];
                 GLOBAL_FONT = globalFonts[n];
                 newChangeFont(index);
