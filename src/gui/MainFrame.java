@@ -80,6 +80,9 @@ public class MainFrame extends JFrame {
         shelf.changeColor();
         index.changeCalendarColor();
     }
+    public ShelfPanel getShelf() {
+        return shelf;
+    }
     public void ReShelf(String newClass) throws Exception{
         if (newClass != null) {
             this.shelf.setUserClass(newClass);

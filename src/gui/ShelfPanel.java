@@ -36,6 +36,7 @@ public class ShelfPanel extends BasicPanel {
     private JDialog classChoser  = new JDialog();
     private JPopupMenu popupMenu;
     private JMenuItem menu1,menu2;
+    private ClassChooser2 cc2;
 
     public ShelfPanel(MainFrame index) throws Exception {
         super(index);
@@ -232,7 +233,12 @@ public class ShelfPanel extends BasicPanel {
             cCategory(temp, len > LEN ? LEN : len);
         }
     }
-
+    public HashMap<String, ArrayList<String>> getUserClass() {
+        return UserClass;
+    }
+    public HashMap<String, ArrayList<String>> getclass() {
+        return Class;
+    }
     public void cCategory(int n, int range) {
         for (int i = 0; i < range; i++) {
             subjectLabel[firstPage + i].setVisible(false);
@@ -242,6 +248,33 @@ public class ShelfPanel extends BasicPanel {
             subjectLabel[n + i].setVisible(true);
         }
         firstPage = n;
+    }
+    public void movebooks() {
+        ResultPanel tempr = subjectShow[nowPage];
+            ArrayList<String> books = tempr.getSelectedBook();
+            String str = cc2.category;
+            System.out.println(str);
+            if (UserClass.containsKey(str)) {
+                UserClass.put(str, books);
+                try {
+                    Update(UserClass, ujson);
+                } catch (Exception ex) {
+                    Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else {
+                Class.put(str, books);
+                try {
+                    Update(Class, cjson);
+                } catch (Exception ex) {
+                    Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            try {
+                index.ReShelf(null);
+            } catch (Exception ex) {
+                Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     class AddClass extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
@@ -298,7 +331,8 @@ public class ShelfPanel extends BasicPanel {
     }
     class moveBook implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-            new ClassChooser2(index);
+            cc2 = new ClassChooser2(index);
+            cc2.show();
         }
     }
 }
