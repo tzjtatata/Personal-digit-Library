@@ -318,6 +318,7 @@ public class ZCalendar extends JPanel {
         } else {
             CalenderJPanel.setText(noteMap.get(date));
         }
+        ShelfPanel.setNote();
     }
 
     public void changeColor() {

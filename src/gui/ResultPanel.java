@@ -170,6 +170,7 @@ public class ResultPanel extends JPanel {
         this.add(front);
         this.add(tail);
     }
+
     public ArrayList<String> getSelectedBook() {
         return selectedBook;
     }
@@ -243,19 +244,21 @@ public class ResultPanel extends JPanel {
     }
 
     class Selected implements ActionListener {
+
         private String book;
         private int flag = 0;
+
         public Selected(String str) {
             this.book = str;
         }
+
         public void actionPerformed(ActionEvent e) {
             if (flag == 0) {
                 selectedBook.add(book);
-            }
-            else {
+            } else {
                 selectedBook.remove(book);
             }
-            flag = 1- flag;
+            flag = 1 - flag;
             System.out.println(selectedBook);
         }
     }

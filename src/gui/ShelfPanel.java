@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.*;
 import java.awt.Cursor;
+import java.awt.TextArea;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
  */
 public class ShelfPanel extends BasicPanel {
 
+    private static JTextArea noteArea;  //帅z的笔记
     private HashMap<String, ArrayList<String>> UserClass, Class;
     static ResultPanel[] subjectShow = new ResultPanel[10000];
     private JLabel[] subjectLabel = new JLabel[10000];
@@ -87,6 +89,17 @@ public class ShelfPanel extends BasicPanel {
         setCategory();
         setContent(nowPage);
         this.addReturnListener();
+
+        //帅z的笔记
+        noteArea = new JTextArea();
+        noteArea.setBounds(674, 162, 174, 353);
+        noteArea.setOpaque(false);
+        noteArea.setWrapStyleWord(true);
+        noteArea.setLineWrap(true);
+        //
+        JScrollPane textPane = new JScrollPane(noteArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        textPane.setBounds(noteArea.getBounds());
+        add(textPane);
     }
 
     @Override
@@ -139,7 +152,7 @@ public class ShelfPanel extends BasicPanel {
 
     private void setContent(int n) {
         label.get(n).setForeground(SetUp.SPECIAL_COLOR);
-        subjectShow[n].setBounds(130, 165, 500, 325);
+        subjectShow[n].setBounds(130, 165, 500, 320);
         subjectShow[n].setVisible(true);
         this.add(subjectShow[n]);
     }
@@ -184,6 +197,18 @@ public class ShelfPanel extends BasicPanel {
             }
         }
         subjectLabel[nowPage].setForeground(SetUp.SPECIAL_COLOR);
+    }
+
+    public static void setNote() {
+        noteArea.setEditable(true);
+        String note = "";
+        ArrayList<String> al = new ArrayList<>(ZCalendar.noteMap.keySet());
+        al.sort(null);
+        for (String date : al) {
+            note += date + "\n" + ZCalendar.noteMap.get(date) + "\n";
+        }
+        noteArea.setText(note);
+        noteArea.setEditable(false);
     }
 
     class ChangePage extends MouseAdapter {
