@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 public class ResultPanel extends JPanel {
 
     private HashMap<Integer, String> JLHashMap;
+    private ArrayList<String> selectedBook = new ArrayList<>();
     private ArrayList<JLabel> labelListJLabels = new ArrayList<>();
     private JLabel labelHintJLabel = new JLabel();
     private JRadioButton[] jRadioButtons = new JRadioButton[20];
@@ -111,6 +112,7 @@ public class ResultPanel extends JPanel {
                 labelListJLabels.get(temp).setFont(SetUp.SHELF_FONT);
                 labelListJLabels.get(temp).setBounds(startwidth + height, startheight + height * (i + 1), width, height);
                 labelListJLabels.get(temp).setVisible(true);
+                jRadioButtons[i].addActionListener(new Selected(labelListJLabels.get(temp).getText()));
                 jRadioButtons[i].setVisible(true);
             }
         }
@@ -167,6 +169,9 @@ public class ResultPanel extends JPanel {
         tail.addMouseListener(new CursorListener());
         this.add(front);
         this.add(tail);
+    }
+    public ArrayList<String> getSelectedBook() {
+        return selectedBook;
     }
 
     class ChangePage extends MouseAdapter {
@@ -237,4 +242,21 @@ public class ResultPanel extends JPanel {
         }
     }
 
+    class Selected implements ActionListener {
+        private String book;
+        private int flag = 0;
+        public Selected(String str) {
+            this.book = str;
+        }
+        public void actionPerformed(ActionEvent e) {
+            if (flag == 0) {
+                selectedBook.add(book);
+            }
+            else {
+                selectedBook.remove(book);
+            }
+            flag = 1- flag;
+            System.out.println(selectedBook);
+        }
+    }
 }

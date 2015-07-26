@@ -7,6 +7,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author lyz
@@ -42,7 +44,11 @@ public class ClassChooser extends BasicPanel{
         public void actionPerformed(ActionEvent e) {
            String str = jt.getText();
            newClass = str;
-           index.ReShelf(newClass);
+            try {
+                index.ReShelf(newClass);
+            } catch (Exception ex) {
+                Logger.getLogger(ClassChooser.class.getName()).log(Level.SEVERE, null, ex);
+            }
            content.dispose();
         }
     }
