@@ -200,6 +200,7 @@ daopai.pdl
 /setFile/data.json
 /setFile/dict.json
 /setFile/class.pdl
+/setFile/UserClass.json
 /out/
 /bin/
 /.idea/

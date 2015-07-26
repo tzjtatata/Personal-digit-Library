@@ -38,8 +38,9 @@ public class ShelfPanel extends BasicPanel {
     private JMenuItem menu1, menu2;
     private ClassChooser2 cc2;
 
-    public ShelfPanel(MainFrame index) throws Exception {
+    public ShelfPanel(MainFrame index, int nowpage) throws Exception {
         super(index);
+        nowPage = nowpage;
         popupMenu = new JPopupMenu();
         // 增加菜单项到菜单上
         menu1 = new JMenuItem("删除选定书籍");
@@ -283,6 +284,10 @@ public class ShelfPanel extends BasicPanel {
         }
     }
 
+    public int getnowpage() {
+        return nowPage;
+    }
+
     class AddClass extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
@@ -311,22 +316,20 @@ public class ShelfPanel extends BasicPanel {
             ResultPanel temp = subjectShow[nowPage];
             ArrayList<String> books = temp.getSelectedBook();
             String category = temp.getName();
-            System.out.println("yes");
             if (UserClass.containsKey(category)) {
                 for (String book : books) {
-                    UserClass.remove(category, book);
+                    UserClass.get(category).remove(book);
                 }
                 try {
                     Update(UserClass, ujson);
                 } catch (Exception ex) {
                     Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             } else {
                 for (String book : books) {
-                    Class.remove(category, book);
-                    System.out.println(book);
+                    Class.get(category).remove(book);
                 }
+
                 try {
                     Update(Class, cjson);
                 } catch (Exception ex) {

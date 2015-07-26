@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
         super("个人数字图书馆");
         javax.swing.SwingUtilities.updateComponentTreeUI(this);
         setPanel = new SetUp(this);
-        shelf = new ShelfPanel(this);
+        shelf = new ShelfPanel(this,0);
         index = new Index(this);
         about = new AboutPanel(this);
 
@@ -87,8 +87,9 @@ public class MainFrame extends JFrame {
         if (newClass != null) {
             this.shelf.setUserClass(newClass);
         }
+        int temp = shelf.getnowpage();
         shelf.setVisible(false);
-        shelf = new ShelfPanel(this);
+        shelf = new ShelfPanel(this,temp);
         cl.addLayoutComponent(shelf, "shelf");
         changeJPanel.add(shelf);
         cl.show(changeJPanel,"shelf");
