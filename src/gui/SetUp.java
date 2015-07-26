@@ -128,6 +128,8 @@ public class SetUp extends BasicPanel {
 
         globalButton = new JButton("普通字体设置");
         shelfButton = new JButton("书架字体设置");
+        globalButton.setOpaque(false);
+        shelfButton.setOpaque(false);
         globalButton.setFont(GLOBAL_FONT);
         shelfButton.setFont(GLOBAL_FONT);
         globalButton.setBounds(390, 360, 150, 30);
@@ -177,6 +179,7 @@ public class SetUp extends BasicPanel {
         this.add(startJLabel);
         //让flag.pdl置为0
         reseButton = new JButton("重置初始搜索");
+        reseButton.setOpaque(false);
         reseButton.setBounds(305, 410, 150, 30);
         reseButton.addActionListener((ActionEvent) -> {
             int answer = JOptionPane.showConfirmDialog(this, "重置初始搜索将会在下次启动时重新搜索您的计算机(如果您更改了大量文件，\n可能需要此功能)，这可能为花费较长时间，您确定要这么做吗？",
@@ -202,6 +205,7 @@ public class SetUp extends BasicPanel {
         });
         this.add(reseButton);
         rangeButton = new JButton("搜索范围更改");
+        rangeButton.setOpaque(false);
         rangeButton.setBounds(475, 410, 150, 30);
         rangeButton.addActionListener((ActionEvent) -> {
             //如何不让选C盘相关？
@@ -228,6 +232,7 @@ public class SetUp extends BasicPanel {
         this.add(rangeButton);
         //重置至all
         resetRangeButton = new JButton("重置搜索范围");
+        resetRangeButton.setOpaque(false);
         resetRangeButton.setBounds(645, 410, 150, 30);
         resetRangeButton.addActionListener((ActionEvent e) -> {
             int answer = JOptionPane.showConfirmDialog(this, "如此将重置初始搜索为全盘(除系统盘)搜索，\n确定要这样吗？", "提示", JOptionPane.OK_CANCEL_OPTION);

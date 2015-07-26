@@ -11,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +22,7 @@ public class Main {
         SetUp.Init();
         JSplashWindow.getABC();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/flag.pdl"), "UTF-8"))) {
-            
+
             if (br.readLine().equals("0")) {
                 backtable.NewSearch.Init(0);
                 new backtable.InitReverseSet();

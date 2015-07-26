@@ -99,6 +99,10 @@ public class ShelfPanel extends BasicPanel {
         //
         JScrollPane textPane = new JScrollPane(noteArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         textPane.setBounds(noteArea.getBounds());
+        textPane.setOpaque(false);
+        textPane.setBorder(null);
+        textPane.getViewport().setBorder(null);
+        textPane.getViewport().setOpaque(false);
         add(textPane);
     }
 
@@ -197,6 +201,7 @@ public class ShelfPanel extends BasicPanel {
             }
         }
         subjectLabel[nowPage].setForeground(SetUp.SPECIAL_COLOR);
+        noteArea.setForeground(SetUp.FORE_COLOR);
     }
 
     public static void setNote() {
@@ -204,8 +209,10 @@ public class ShelfPanel extends BasicPanel {
         String note = "";
         ArrayList<String> al = new ArrayList<>(ZCalendar.noteMap.keySet());
         al.sort(null);
-        for (String date : al) {
-            note += date + "\n" + ZCalendar.noteMap.get(date) + "\n";
+        if (al.isEmpty()) {
+            note = "无读书笔记信息";
+        } else {
+            note = al.stream().map((date) -> date + "\n" + ZCalendar.noteMap.get(date) + "\n").reduce(note, String::concat);
         }
         noteArea.setText(note);
         noteArea.setEditable(false);

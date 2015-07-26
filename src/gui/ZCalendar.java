@@ -25,11 +25,14 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 /**
  *
@@ -80,7 +83,7 @@ public class ZCalendar extends JPanel {
         yearBox = new JComboBox<>(years);
         String[] months = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         monthBox = new JComboBox<>(months);
-        noteArea = new JTextArea(182, 42);
+        noteArea = new JTextArea();
         noteJScrollPane = new JScrollPane(noteArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //设置组件,顺手add
         saveJLabel.setBounds(118, 252, 40, 20);
@@ -104,11 +107,14 @@ public class ZCalendar extends JPanel {
         noteJLabel.setBounds(3, 252, 200, 21);
         noteJLabel.setFont(new java.awt.Font("微软雅黑", 1, 13));
         this.add(noteJLabel);
-        noteArea.setBounds(3, 274, 182, 42);
+        noteArea.setBounds(3, 274, 189, 44);
         noteArea.setFont(new java.awt.Font("黑体", Font.BOLD, 10));
         noteArea.setWrapStyleWord(true);
         noteArea.setLineWrap(true);
         noteJScrollPane.setBounds(noteArea.getBounds());
+        noteArea.setOpaque(false);
+        noteJScrollPane.setOpaque(false);
+        noteJScrollPane.getViewport().setOpaque(false);
         this.add(noteJScrollPane);
         yearBox.setBounds(0, 5, 55, 21);
         yearBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.YEAR)));  //选择系统时间
