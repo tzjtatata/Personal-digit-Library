@@ -4,28 +4,31 @@
  * and open the template in the editor.
  */
 package gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author lyz
  */
-public class ClassChooser extends BasicPanel{
-    
+public class ClassChooser extends BasicPanel {
+
     JDialog content = new JDialog();
     JTextField jt = new JTextField();
     JButton jb = new JButton("确定");
     JLabel jl = new JLabel("新建类别名字");
     public static String newClass;
+
     public ClassChooser(MainFrame index) {
         super(index);
         this.setLayout(null);
-        jl.setBounds(50,50,100,50);
-        jt.setBounds(150,50,150,40);
-        jb.setBounds(175,155,80,30);
+        jl.setBounds(50, 50, 100, 50);
+        jt.setBounds(150, 50, 150, 40);
+        jb.setBounds(175, 155, 80, 30);
         jl.setFont(SetUp.GLOBAL_FONT);
         jb.setFont(SetUp.GLOBAL_FONT);
         jb.addActionListener(new SimpleListener());
@@ -37,19 +40,22 @@ public class ClassChooser extends BasicPanel{
         content.setLocation(380, 120);
         content.add(this);
     }
+
     public void show() {
         content.setVisible(true);
     }
-    private class SimpleListener implements ActionListener{
+
+    private class SimpleListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
-           String str = jt.getText();
-           newClass = str;
+            String str = jt.getText();
+            newClass = str;
             try {
                 index.ReShelf(newClass);
             } catch (Exception ex) {
                 Logger.getLogger(ClassChooser.class.getName()).log(Level.SEVERE, null, ex);
             }
-           content.dispose();
+            content.dispose();
         }
     }
 }
