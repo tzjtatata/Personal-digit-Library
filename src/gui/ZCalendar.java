@@ -7,7 +7,6 @@ package gui;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -24,8 +23,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -40,7 +40,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
  */
 public class ZCalendar extends JPanel {
 
-    private JLabel saveJLabel, cleanJLabel, queryJLabel, dateJLabel, noteJLabel;  //后两个分别用来提示日期和笔记等
+    private JLabel dateJLabel, noteJLabel;  //后两个分别用来提示日期和笔记等
+    private JLabel saveLabel, cleanLabel, queryLabel;
     private JLabel yearJLabel, monthJLabel;  //年字和月字
     private JLabel[] dateJLabels, weekJLabels;  //42个日期块和7个星期块
     private JComboBox<String> yearBox, monthBox;  //两个下拉框
@@ -60,9 +61,9 @@ public class ZCalendar extends JPanel {
         initMap();
         //实例化对象
         systemCalendar = Calendar.getInstance();
-        saveJLabel = new JLabel(new ImageIcon(SetUp.imageForSaveButton));
-        cleanJLabel = new JLabel(new ImageIcon(SetUp.imageForCleanButton));
-        queryJLabel = new JLabel(new ImageIcon(SetUp.imageForQueryButton));
+        saveLabel = new JLabel("存储");
+        cleanLabel = new JLabel("清除");
+        queryLabel = new JLabel("查询");
         dateJLabel = new JLabel("日期", JLabel.LEFT);
         noteJLabel = new JLabel("笔记", JLabel.LEFT);
         dateJLabels = new JLabel[42];
@@ -86,15 +87,14 @@ public class ZCalendar extends JPanel {
         noteArea = new JTextArea();
         noteJScrollPane = new JScrollPane(noteArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //设置组件,顺手add
-        saveJLabel.setBounds(118, 252, 40, 20);
-        saveJLabel.setBorder(null);
-        this.add(saveJLabel);
-        cleanJLabel.setBounds(153, 252, 40, 20);
-        cleanJLabel.setBorder(null);
-        this.add(cleanJLabel);
-        queryJLabel.setBounds(143, 6, 40, 20);
-        queryJLabel.setBorder(null);
-        this.add(queryJLabel);
+        saveLabel.setBounds(118, 252, 40, 20);
+        this.add(saveLabel);
+        cleanLabel.setBounds(153, 252, 40, 20);
+        cleanLabel.setBorder(null);
+        this.add(cleanLabel);
+        queryLabel.setBounds(143, 6, 40, 20);
+        queryLabel.setBorder(null);
+        this.add(queryLabel);
         for (int i = 0; i < weekJLabels.length; i++) {
             weekJLabels[i].setBounds(i * 29, 44, 29, 21);
             weekJLabels[i].setFont(new Font("Segue", Font.PLAIN, 12));
@@ -120,8 +120,10 @@ public class ZCalendar extends JPanel {
         yearBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.YEAR)));  //选择系统时间
         //yearBox.setOpaque(false);
         yearBox.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 10));
+        yearBox.setBorder(BorderFactory.createLineBorder(SetUp.FORE_COLOR));
         this.add(yearBox);
         monthBox.setBounds(77, 5, 39, 21);
+        monthBox.setBorder(BorderFactory.createLineBorder(SetUp.FORE_COLOR));
         monthBox.setSelectedItem(String.valueOf(systemCalendar.get(Calendar.MONTH) + 1));
         monthBox.setFont(new Font("微软雅黑", Font.BOLD, 10));
         this.add(monthBox);
@@ -137,8 +139,8 @@ public class ZCalendar extends JPanel {
             this.add(dateJLabels[i]);
         }
         //监听器响应阶段
-        queryJLabel.addMouseListener(new CursorListener());
-        queryJLabel.addMouseListener(new MouseAdapter() {
+        queryLabel.addMouseListener(new CursorListener());
+        queryLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (Integer.parseInt((String) yearBox.getSelectedItem()) != selected[0]
@@ -147,9 +149,9 @@ public class ZCalendar extends JPanel {
                 }
             }
         });
-        cleanJLabel.addMouseListener(new CursorListener());
-        saveJLabel.addMouseListener(new CursorListener());
-        saveJLabel.addMouseListener(new MouseAdapter() {
+        cleanLabel.addMouseListener(new CursorListener());
+        saveLabel.addMouseListener(new CursorListener());
+        saveLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -159,7 +161,7 @@ public class ZCalendar extends JPanel {
                 }
             }
         });
-        cleanJLabel.addMouseListener(new MouseAdapter() {
+        cleanLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -334,6 +336,8 @@ public class ZCalendar extends JPanel {
         noteJLabel.setForeground(SetUp.FORE_COLOR);
         noteArea.setForeground(SetUp.FORE_COLOR);
         yearBox.setForeground(SetUp.FORE_COLOR);
+        yearBox.setBorder(BorderFactory.createLineBorder(SetUp.FORE_COLOR));
+        monthBox.setBorder(BorderFactory.createLineBorder(SetUp.FORE_COLOR));
         monthBox.setForeground(SetUp.FORE_COLOR);
         yearJLabel.setForeground(SetUp.FORE_COLOR);
         monthJLabel.setForeground(SetUp.FORE_COLOR);
@@ -344,9 +348,6 @@ public class ZCalendar extends JPanel {
     }
 
     public void imageRepaint() {
-        queryJLabel.setIcon(new ImageIcon(SetUp.imageForQueryButton));
-        cleanJLabel.setIcon(new ImageIcon(SetUp.imageForCleanButton));
-        saveJLabel.setIcon(new ImageIcon(SetUp.imageForSaveButton));
     }
 
     class CursorListener extends MouseAdapter {

@@ -23,7 +23,8 @@ public class Search extends BasicPanel {
     private final JLabel option1, option3, option4;
     private final JRadioButton point1, point3, point4;
     private final JTextField entry1, entry3, entry4;
-    private final JButton bt1, bt2;
+    private final JButton bt1;
+    private final JLabel bt2;
     private final ButtonGroup pointGroup;
     MainFrame index;
 
@@ -35,7 +36,7 @@ public class Search extends BasicPanel {
         bt1 = new JButton(new ImageIcon(SetUp.imageForSetButton));
         bt1.setBorder(null);
         bt1.addMouseListener(new CursorListener());
-        bt2 = new JButton(new ImageIcon(SetUp.imageForSearchButton));
+        bt2 = new JLabel("搜索");
         bt2.addMouseListener(new CursorListener());
         bt2.addMouseListener(new Result());
         bt2.setBorder(null);
@@ -117,8 +118,8 @@ public class Search extends BasicPanel {
     public void imageRepaint() {
         super.imageRepaint();
         this.repaint();
-        bt1.setIcon(new ImageIcon(SetUp.imageForSetButton));
-        bt2.setIcon(new ImageIcon(SetUp.imageForSearchButton));
+        //bt1.setIcon(new ImageIcon(SetUp.imageForSetButton));
+        //bt2.setIcon(new ImageIcon(SetUp.imageForSearchButton));
     }
 
     class EntryListener extends MouseAdapter {

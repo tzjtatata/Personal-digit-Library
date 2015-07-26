@@ -13,12 +13,15 @@ import javax.swing.*;
 import com.alibaba.fastjson.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -128,6 +131,12 @@ public class SetUp extends BasicPanel {
 
         globalButton = new JButton("普通字体设置");
         shelfButton = new JButton("书架字体设置");
+        globalButton.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+        shelfButton.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+        globalButton.addMouseListener(new CursorListener());
+        shelfButton.addMouseListener(new CursorListener());
+        globalButton.setContentAreaFilled(false);
+        shelfButton.setContentAreaFilled(false);
         globalButton.setOpaque(false);
         shelfButton.setOpaque(false);
         globalButton.setFont(GLOBAL_FONT);
@@ -179,7 +188,9 @@ public class SetUp extends BasicPanel {
         this.add(startJLabel);
         //让flag.pdl置为0
         reseButton = new JButton("重置初始搜索");
-        reseButton.setOpaque(false);
+        reseButton.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+        reseButton.setContentAreaFilled(false);
+        reseButton.addMouseListener(new CursorListener());
         reseButton.setBounds(305, 410, 150, 30);
         reseButton.addActionListener((ActionEvent) -> {
             int answer = JOptionPane.showConfirmDialog(this, "重置初始搜索将会在下次启动时重新搜索您的计算机(如果您更改了大量文件，\n可能需要此功能)，这可能为花费较长时间，您确定要这么做吗？",
@@ -205,7 +216,9 @@ public class SetUp extends BasicPanel {
         });
         this.add(reseButton);
         rangeButton = new JButton("搜索范围更改");
-        rangeButton.setOpaque(false);
+        rangeButton.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+        rangeButton.addMouseListener(new CursorListener());
+        rangeButton.setContentAreaFilled(false);
         rangeButton.setBounds(475, 410, 150, 30);
         rangeButton.addActionListener((ActionEvent) -> {
             //如何不让选C盘相关？
@@ -232,7 +245,9 @@ public class SetUp extends BasicPanel {
         this.add(rangeButton);
         //重置至all
         resetRangeButton = new JButton("重置搜索范围");
-        resetRangeButton.setOpaque(false);
+        resetRangeButton.setContentAreaFilled(false);
+        resetRangeButton.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+        resetRangeButton.addMouseListener(new CursorListener());
         resetRangeButton.setBounds(645, 410, 150, 30);
         resetRangeButton.addActionListener((ActionEvent e) -> {
             int answer = JOptionPane.showConfirmDialog(this, "如此将重置初始搜索为全盘(除系统盘)搜索，\n确定要这样吗？", "提示", JOptionPane.OK_CANCEL_OPTION);
@@ -362,6 +377,9 @@ public class SetUp extends BasicPanel {
                 }
             }
         }
+        setMap.get("global").put("font", GLOBAL_FONT.getFontName());
+        setMap.get("global").put("size", GLOBAL_FONT.getSize());
+        setMap.get("global").put("style", GLOBAL_FONT.getStyle());
         setMap.get("shelf").put("font", SHELF_FONT.
                 getFontName());
         setMap.get("shelf").put("size", SHELF_FONT.getSize());
@@ -392,10 +410,13 @@ public class SetUp extends BasicPanel {
             }
         } else {
             c.setFont(GLOBAL_FONT);
-            setMap.get("global").put("font", GLOBAL_FONT.getFontName());
-            setMap.get("global").put("size", GLOBAL_FONT.getSize());
-            setMap.get("global").put("style", GLOBAL_FONT.getStyle());
-            SaveSetInfo();
+            ArrayList<String> strings = new ArrayList();
+            for (String s : new String[]{"书架", "搜索", "设置", "关于", "查询", "清除", "存储"}) {
+                strings.add(s);
+            }
+            if (c instanceof JLabel && ((JLabel) c).getText() != null && strings.contains(((JLabel) c).getText())) {
+                c.setFont(GLOBAL_FONT.deriveFont(GLOBAL_FONT.getStyle(), 22));
+            }
         }
     }
 
@@ -410,8 +431,9 @@ public class SetUp extends BasicPanel {
                 circleChangeColor(resultPanel);
             }
         }
-        circleChangeColor(c);
         ((MainFrame) c).changeCalendarColor();
+        circleChangeColor(c);
+        //CalenderJPanel.label.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
     }
 
     /**
@@ -428,6 +450,10 @@ public class SetUp extends BasicPanel {
             }
         } else {
             c.setForeground(FORE_COLOR);
+            if ((c instanceof JButton) && ((JButton) c).getIcon() == null) {
+                ((JButton) c).setContentAreaFilled(false);
+                ((JComponent) c).setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+            }
         }
     }
 
@@ -492,6 +518,19 @@ public class SetUp extends BasicPanel {
             } catch (Exception ex) {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    class CursorListener extends MouseAdapter {
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
     }
 }

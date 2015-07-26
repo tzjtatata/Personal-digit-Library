@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -21,17 +22,17 @@ import javax.swing.JPanel;
  */
 public class Index extends JPanel {
 
-    private final JButton search, shelf, about, set;
+    private final JLabel search, shelf, about, set;
 //    private final CalendarDate calendar;
     private final ZCalendar calendar;
 
     public Index(MainFrame main) throws Exception {
         super();
         this.setLayout(null);
-        search = new JButton(new ImageIcon(SetUp.imageForSearchButton));
-        shelf = new JButton(new ImageIcon(SetUp.imageForShelfButton));
-        about = new JButton(new ImageIcon(SetUp.imageForAboutButton));
-        set = new JButton(new ImageIcon(SetUp.imageForSetButton));
+        search = new JLabel("搜索", JLabel.CENTER);
+        shelf = new JLabel("书架", JLabel.CENTER);
+        about = new JLabel("关于", JLabel.CENTER);
+        set = new JLabel("设置", JLabel.CENTER);
 //        calendar = new CalendarDate();
         calendar = new ZCalendar();
 
@@ -55,25 +56,37 @@ public class Index extends JPanel {
         shelf.addMouseListener(new CursorListener());
         set.addMouseListener(new CursorListener());
         about.addMouseListener(new CursorListener());
-        search.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "search");  //这个search单词不要改。
-            SetUp.imageForCalenderHint = SetUp.imageForSearchBackground;
-            main.imageRepaint();
+        search.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.cl.show(MainFrame.changeJPanel, "search");  //这个search单词不要改。
+                SetUp.imageForCalenderHint = SetUp.imageForSearchBackground;
+                main.imageRepaint();
+            }
         });
-        shelf.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "shelf");
-            SetUp.imageForCalenderHint = SetUp.imageForShelfBackground;
-            main.imageRepaint();
+        shelf.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.cl.show(MainFrame.changeJPanel, "shelf");
+                SetUp.imageForCalenderHint = SetUp.imageForShelfBackground;
+                main.imageRepaint();
+            }
         });
-        set.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "set");
-            SetUp.imageForCalenderHint = SetUp.imageForSetBackground;
-            main.imageRepaint();
+        set.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.cl.show(MainFrame.changeJPanel, "set");
+                SetUp.imageForCalenderHint = SetUp.imageForSetBackground;
+                main.imageRepaint();
+            }
         });
-        about.addActionListener((ActionEvent e) -> {
-            MainFrame.cl.show(MainFrame.changeJPanel, "about");
-            SetUp.imageForCalenderHint = SetUp.imageForAboutBackground;
-            main.imageRepaint();
+        about.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.cl.show(MainFrame.changeJPanel, "about");
+                SetUp.imageForCalenderHint = SetUp.imageForAboutBackground;
+                main.imageRepaint();
+            }
         });
     }
 
@@ -87,10 +100,6 @@ public class Index extends JPanel {
     public void imageRepaint() {
         this.repaint();
         calendar.imageRepaint();
-        search.setIcon(new ImageIcon(SetUp.imageForSearchButton));
-        set.setIcon(new ImageIcon(SetUp.imageForSetButton));
-        shelf.setIcon(new ImageIcon(SetUp.imageForShelfButton));
-        about.setIcon(new ImageIcon(SetUp.imageForAboutButton));
     }
 
     void changeCalendarColor() {

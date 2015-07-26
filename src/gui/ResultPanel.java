@@ -1,6 +1,5 @@
 package gui;
 
-import com.sun.javafx.runtime.VersionInfo;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
