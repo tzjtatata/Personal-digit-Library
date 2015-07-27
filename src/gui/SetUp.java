@@ -431,8 +431,8 @@ public class SetUp extends BasicPanel {
                 circleChangeColor(resultPanel);
             }
         }
-        ((MainFrame) c).changeCalendarColor();
         circleChangeColor(c);
+        ((MainFrame) c).changeCalendarColor();
         //CalenderJPanel.label.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
     }
 

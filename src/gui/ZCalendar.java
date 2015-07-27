@@ -276,8 +276,7 @@ public class ZCalendar extends JPanel {
             dateJLabels[selected[2]].setForeground(SetUp.SPECIAL_COLOR); // 选中后前景色突出
         } else {
             int j = 0;
-            while (++j != date)
-				;
+            while (++j != date);
             j--;
             selected[2] = i + j; // 当前日期所代表序号
             dateJLabels[selected[2]].setForeground(SetUp.SPECIAL_COLOR);

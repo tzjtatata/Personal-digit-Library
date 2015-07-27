@@ -51,10 +51,10 @@ public class ZComboBox extends JPanel {
         scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         this.add(scrollPane);
         scrollPane.setVisible(false);
-        list.addMouseListener(new MouseAdapter() {
+
+        scrollPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.err.println("?");
                 textField.setText(list.getSelectedValue());
                 scrollPane.setVisible(false);
                 setSize(textField.getWidth(), textField.getHeight());
@@ -99,12 +99,14 @@ public class ZComboBox extends JPanel {
     }
 
     public void setListUnVisible() {
+        textField.setText(list.getSelectedValue());
         scrollPane.setVisible(false);
         setSize(textField.getWidth(), textField.getHeight());
     }
 
     public void setSelectedItem(String string) {
         textField.setText(string);
+        list.setSelectedValue(string, true);
     }
 
     public String getSelectedItem() {

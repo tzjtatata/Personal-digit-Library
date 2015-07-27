@@ -21,13 +21,13 @@ public class MainFrame extends JFrame {
     static Index index;
     static JPanel changeJPanel = new JPanel();  //切换用的JPanel
     static CardLayout cl = new CardLayout();  //切换书架,设置等JPanel
-    private JPanel mainJPanel = new JPanel();  //主JPanel
+    private final JPanel mainJPanel = new JPanel();  //主JPanel
 
     public MainFrame() throws Exception {
         super("个人数字图书馆");
         javax.swing.SwingUtilities.updateComponentTreeUI(this);
         setPanel = new SetUp(this);
-        shelf = new ShelfPanel(this,0);
+        shelf = new ShelfPanel(this, 0);
         index = new Index(this);
         about = new AboutPanel(this);
 
@@ -80,18 +80,20 @@ public class MainFrame extends JFrame {
         shelf.changeColor();
         index.changeCalendarColor();
     }
+
     public ShelfPanel getShelf() {
         return shelf;
     }
-    public void ReShelf(String newClass) throws Exception{
+
+    public void ReShelf(String newClass) throws Exception {
         if (newClass != null) {
             this.shelf.setUserClass(newClass);
         }
         int temp = shelf.getnowpage();
         shelf.setVisible(false);
-        shelf = new ShelfPanel(this,temp);
+        shelf = new ShelfPanel(this, temp);
         cl.addLayoutComponent(shelf, "shelf");
         changeJPanel.add(shelf);
-        cl.show(changeJPanel,"shelf");
+        cl.show(changeJPanel, "shelf");
     }
 }
