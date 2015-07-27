@@ -34,6 +34,13 @@ public class Main {
             }
         }
         backtable.SearchContent.Readall();
-        new MainFrame();
+        try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/showflag.pdl"), "UTF-8"))) {
+            br.write("0");
+        }
+        try {
+            new MainFrame();
+        } catch (Exception e) {
+            System.err.println("main");
+        }
     }
 }

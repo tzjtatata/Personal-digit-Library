@@ -68,8 +68,6 @@ public class InitReverseSet {
             br.write(jsonString);
             System.out.println("json写入完成！");
         }
-        BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/showflag.pdl"), "UTF-8"));
-        br.write("0");
     }
 //        public void Read(File file)  throws Exception{
 //            ArrayList<String> words = new ArrayList<>();

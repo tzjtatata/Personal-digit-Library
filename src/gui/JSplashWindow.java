@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -11,7 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JSplashWindow extends JWindow {
 
@@ -25,6 +30,7 @@ public class JSplashWindow extends JWindow {
         super(frame);
         ImageIcon img = new ImageIcon(SetUp.imageForWelcome);
         img.setImage(img.getImage().getScaledInstance(600, 350, 1));
+        frame.setIconImage(this.getToolkit().getImage(SetUp.imageForLogo));
         // 建立一个标签，标签中显示图片。
         JLabel label = new JLabel(img);
         // 将标签放在欢迎屏幕中间
@@ -60,6 +66,13 @@ class ThreadToStop extends Thread {
         splash.dispose();
         frame.dispose();
         super.interrupt();
+        BufferedWriter br;
+        try {
+            br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/showflag.pdl"), "UTF-8"));
+            br.write("1");
+        } catch (Exception ex) {
+            Logger.getLogger(ThreadToStop.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

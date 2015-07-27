@@ -86,4 +86,5 @@ public class BasicPanel extends JPanel {
     public void imageRepaint() {
         returnButton.setIcon(new ImageIcon(SetUp.imageForReturnToIndex));
     }
+
 }

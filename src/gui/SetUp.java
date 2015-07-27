@@ -450,9 +450,9 @@ public class SetUp extends BasicPanel {
             }
         } else {
             c.setForeground(FORE_COLOR);
-            if ((c instanceof JButton) && ((JButton) c).getIcon() == null) {
-                ((JButton) c).setContentAreaFilled(false);
+            if ((c instanceof JButton && ((JButton) c).getIcon() == null)) {
                 ((JComponent) c).setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+                ((JButton) c).setContentAreaFilled(false);
             }
         }
     }
@@ -479,14 +479,19 @@ public class SetUp extends BasicPanel {
         public void actionPerformed(ActionEvent e) {
             try {
                 UIManager.setLookAndFeel(feel);
+                SwingUtilities.updateComponentTreeUI(panel.index);
+                changeColor(panel.index);
                 setMap.get("style").put("style", feel);
                 setMap.get("style").put("num", i);
                 SaveSetInfo();
+                reseButton.setBorder(BorderFactory.createLineBorder(FORE_COLOR));
+                resetRangeButton.setBorder(reseButton.getBorder());
+                rangeButton.setBorder(reseButton.getBorder());
+                shelfButton.setBorder(reseButton.getBorder());
+                globalButton.setBorder(reseButton.getBorder());
             } catch (Exception ex) {
                 Logger.getLogger(SetUp.class.getName()).log(Level.SEVERE, null, ex);
             }
-            javax.swing.SwingUtilities.updateComponentTreeUI(panel);
-            SwingUtilities.updateComponentTreeUI(MainFrame.index);
         }
     }
 

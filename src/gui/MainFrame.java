@@ -25,7 +25,11 @@ public class MainFrame extends JFrame {
 
     public MainFrame() throws Exception {
         super("个人数字图书馆");
-        javax.swing.SwingUtilities.updateComponentTreeUI(this);
+        try {
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            System.err.println("fadslfjkdsdf");
+        }
         setPanel = new SetUp(this);
         shelf = new ShelfPanel(this, 0);
         index = new Index(this);
