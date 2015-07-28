@@ -39,8 +39,6 @@ public class ShelfPanel extends BasicPanel {
     private JPopupMenu popupMenu;
     private JMenuItem menu1, menu2;
     private ClassChooser2 cc2;
-    private JMenu moveClass;
-    private ArrayList<JMenuItem> cateItems;
 
     public ShelfPanel(MainFrame index, int nowpage) throws Exception {
         super(index);
@@ -52,7 +50,7 @@ public class ShelfPanel extends BasicPanel {
         menu2 = new JMenuItem("将选定书籍移至...");
         menu2.addActionListener(new moveBook());
         popupMenu.add(menu1);
-        //popupMenu.add(menu2);
+        popupMenu.add(menu2);
         if (!ujson.exists()) {
             ujson.createNewFile();
         } else {
@@ -92,26 +90,12 @@ public class ShelfPanel extends BasicPanel {
         setContent(nowPage);
         this.addReturnListener();
 
-        //帅z的笔记以及菜单
+        //帅z的笔记
         noteArea = new JTextArea();
         noteArea.setBounds(674, 162, 174, 353);
         noteArea.setOpaque(false);
         noteArea.setWrapStyleWord(true);
         noteArea.setLineWrap(true);
-        ArrayList<String> cateArrayList = new ArrayList(Class.keySet());
-        cateArrayList.addAll(UserClass.keySet());
-        moveClass = new JMenu("移动选定书籍至");
-        cateArrayList.stream().map((cateArrayList1) -> {
-            JMenuItem item = new JMenuItem(cateArrayList1);
-            item.addActionListener((ActionEvent e) -> {
-                ClassChooser2.category = cateArrayList1;
-                ShelfPanel.this.movebooks();
-            });
-            return item;
-        }).forEach((item) -> {
-            moveClass.add(item);
-        });
-        popupMenu.add(moveClass);
         //
         JScrollPane textPane = new JScrollPane(noteArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         textPane.setBounds(noteArea.getBounds());
@@ -308,32 +292,27 @@ public class ShelfPanel extends BasicPanel {
     public void movebooks() {
         ResultPanel tempr = subjectShow[nowPage];
         ArrayList<String> books = tempr.getSelectedBook();
-        if (books.isEmpty()) {
-            JOptionPane.showMessageDialog(ShelfPanel.this, "请选择要移动的书籍!", "警告", JOptionPane.WARNING_MESSAGE);
-        } else {
-            String str = ClassChooser2.category;
-            if (UserClass.containsKey(str)) {
-                UserClass.put(str, books);
-                UserClass.get(tempr.getName()).removeAll(books);
-                try {
-                    Update(UserClass, ujson);
-                } catch (Exception ex) {
-                    Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                Class.put(str, books);
-                Class.get(tempr.getName()).removeAll(books);
-                try {
-                    Update(Class, cjson);
-                } catch (Exception ex) {
-                    Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        String str = cc2.category;
+        System.out.println(str);
+        if (UserClass.containsKey(str)) {
+            UserClass.put(str, books);
             try {
-                index.ReShelf(null);
+                Update(UserClass, ujson);
             } catch (Exception ex) {
                 Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            Class.put(str, books);
+            try {
+                Update(Class, cjson);
+            } catch (Exception ex) {
+                Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            index.ReShelf(null);
+        } catch (Exception ex) {
+            Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -368,35 +347,31 @@ public class ShelfPanel extends BasicPanel {
         public void actionPerformed(ActionEvent e) {
             ResultPanel temp = subjectShow[nowPage];
             ArrayList<String> books = temp.getSelectedBook();
-            if (books.isEmpty()) {
-                JOptionPane.showMessageDialog(ShelfPanel.this, "请选择要删除的书籍!", "警告", JOptionPane.WARNING_MESSAGE);
-            } else {
-                String category = temp.getName();
-                if (UserClass.containsKey(category)) {
-                    for (String book : books) {
-                        UserClass.get(category).remove(book);
-                    }
-                    try {
-                        Update(UserClass, ujson);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    for (String book : books) {
-                        Class.get(category).remove(book);
-                    }
-
-                    try {
-                        Update(Class, cjson);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            String category = temp.getName();
+            if (UserClass.containsKey(category)) {
+                for (String book : books) {
+                    UserClass.get(category).remove(book);
                 }
                 try {
-                    index.ReShelf(null);
+                    Update(UserClass, ujson);
                 } catch (Exception ex) {
                     Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                for (String book : books) {
+                    Class.get(category).remove(book);
+                }
+
+                try {
+                    Update(Class, cjson);
+                } catch (Exception ex) {
+                    Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            try {
+                index.ReShelf(null);
+            } catch (Exception ex) {
+                Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
