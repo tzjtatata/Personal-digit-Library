@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.logging.*;
+
 /**
  *
  * @author lyz
@@ -24,7 +25,7 @@ public class ClassChooser extends BasicPanel {
     String category = "";
     public static String newClass;
 
-    public ClassChooser(MainFrame index,String str ,int flag) {
+    public ClassChooser(MainFrame index, String str, int flag) {
         super(index);
         this.setLayout(null);
         jl.setText(str);
@@ -35,20 +36,22 @@ public class ClassChooser extends BasicPanel {
         for (String cate : index.getShelf().getclass().keySet()) {
             cates.add(cate);
         }
-        String[] a ={"abc"};
+        String[] a = {"abc"};
         String[] strs = cates.toArray(a);
         jc = new ZComboBox(strs);
         jl.setBounds(50, 50, 100, 50);
         jt.setBounds(150, 50, 150, 40);
         jb.setBounds(175, 155, 80, 30);
         jc.setBounds(150, 50, 150, 40);
+        jc.setTextSize(150, 40);
+        jc.setBorder();
+        jc.setSelectedItem(strs[0]);
         jl.setFont(SetUp.GLOBAL_FONT);
         jb.setFont(SetUp.GLOBAL_FONT);
         jb.addActionListener(new SimpleListener());
         if (flag == 1) {
             this.add(jt);
-        }
-        else {
+        } else {
             this.add(jc);
         }
         this.add(jb);
@@ -62,6 +65,7 @@ public class ClassChooser extends BasicPanel {
     public void show() {
         content.setVisible(true);
     }
+
     private class SimpleListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
