@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.sun.awt.AWTUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,12 +31,12 @@ public class ClassChooser extends BasicPanel {
         this.setLayout(null);
         jl.setText(str);
         ArrayList<String> cates = new ArrayList<>();
-        for (String cate : index.getShelf().getUserClass().keySet()) {
+        index.getShelf().getUserClass().keySet().stream().forEach((cate) -> {
             cates.add(cate);
-        }
-        for (String cate : index.getShelf().getclass().keySet()) {
+        });
+        index.getShelf().getclass().keySet().stream().forEach((cate) -> {
             cates.add(cate);
-        }
+        });
         String[] a = {"abc"};
         String[] strs = cates.toArray(a);
         jc = new ZComboBox(strs);
@@ -59,15 +60,17 @@ public class ClassChooser extends BasicPanel {
         content.setResizable(false);
         content.setSize(400, 310);
         content.setLocation(380, 120);
-        content.add(this);
+        content.setContentPane(ClassChooser.this);
     }
 
+    @Override
     public void show() {
         content.setVisible(true);
     }
 
     private class SimpleListener implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             String str = jt.getText();
             newClass = str;
