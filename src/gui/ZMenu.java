@@ -28,7 +28,7 @@ interface Function {
  *
  * @author ZouKaifa
  */
-public class ZMenu1 extends JMenu {
+public class ZMenu extends JMenu {
 
     private int nowItems;  //现在的菜单数
     private int up;  //最上面显示的JMenuItem计数
@@ -45,7 +45,7 @@ public class ZMenu1 extends JMenu {
      * @param s 菜单显示的字符串
      * @param preferItems 最多显示的JMenuItems数目（即完全不需要上下拉框
      */
-    public ZMenu1(String s, int preferItems) {
+    public ZMenu(String s, int preferItems) {
         super(s);
         this.preferItems = preferItems;
         nowItems = 0;
@@ -68,10 +68,10 @@ public class ZMenu1 extends JMenu {
      * @param preferItems
      * @param items
      */
-    public ZMenu1(String s, int preferItems, ArrayList<JMenuItem> items) {
+    public ZMenu(String s, int preferItems, ArrayList<JMenuItem> items) {
         this(s, preferItems);
         items.stream().forEach((item) -> {
-            ZMenu1.this.add(item);
+            ZMenu.this.add(item);
         });
     }
 
@@ -82,10 +82,10 @@ public class ZMenu1 extends JMenu {
      * @param preferItems
      * @param items
      */
-    public ZMenu1(String s, int preferItems, JMenuItem[] items) {
+    public ZMenu(String s, int preferItems, JMenuItem[] items) {
         this(s, preferItems);
         for (JMenuItem item : items) {
-            ZMenu1.this.add(item);
+            ZMenu.this.add(item);
         }
     }
 
@@ -120,6 +120,8 @@ public class ZMenu1 extends JMenu {
                 nowShowingItems[i].setText(menuItems.get(i).getText());
             }
             downItem.setForeground(Color.BLACK);
+        } else {
+            super.add(menuItem);
         }
         return menuItem;
     }
@@ -171,12 +173,21 @@ public class ZMenu1 extends JMenu {
      * @param function 点击菜单项后响应的函数
      */
     void addFuntionForItem(Function function) {
-        for (JMenuItem nowShowingItem : nowShowingItems) {
-            nowShowingItem.addActionListener((ActionEvent e) -> {
-                function.fun();
+        if (nowItems > preferItems) {
+            for (JMenuItem nowShowingItem : nowShowingItems) {
+                nowShowingItem.addActionListener((ActionEvent e) -> {
+                    function.fun();
+                });
+            }
+            addMoveListener();
+        } else {
+            menuItems.stream().forEach((menuItem) -> {
+                menuItem.addActionListener((ActionEvent e) -> {
+                    selectedString = menuItem.getText();
+                    function.fun();
+                });
             });
         }
-        addMoveListener();
     }
 
     public String getSelectedItemString() {
