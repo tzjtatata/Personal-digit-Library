@@ -37,8 +37,8 @@ public class ShelfPanel extends BasicPanel {
     private File cjson = new File("setFile/class.json");
     private JDialog classChoser = new JDialog();
     private JPopupMenu popupMenu;
-    private JMenuItem menu1, menu2;
-    private ClassChooser2 cc2;
+    private JMenuItem menu1, menu2,menu3,menu4;
+    private ClassChooser cc2;
 
     public ShelfPanel(MainFrame index, int nowpage) throws Exception {
         super(index);
@@ -49,8 +49,14 @@ public class ShelfPanel extends BasicPanel {
         menu1.addActionListener(new deleteBook());
         menu2 = new JMenuItem("将选定书籍移至...");
         menu2.addActionListener(new moveBook());
+        menu3 = new JMenuItem("重命名分类");
+        menu3.addActionListener(new deleteBook());
+        menu4 = new JMenuItem("删除分类");
+        menu4.addActionListener(new moveBook());
         popupMenu.add(menu1);
         popupMenu.add(menu2);
+        popupMenu.add(menu3);
+        popupMenu.add(menu4);
         if (!ujson.exists()) {
             ujson.createNewFile();
         } else {
@@ -323,7 +329,7 @@ public class ShelfPanel extends BasicPanel {
     class AddClass extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            new ClassChooser(index).show();
+            new ClassChooser(index,"新建类名：",1).show();
         }
     }
 
@@ -379,7 +385,7 @@ public class ShelfPanel extends BasicPanel {
     class moveBook implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            cc2 = new ClassChooser2(index);
+            cc2 = new ClassChooser(index,"移动书籍到...",2);
             cc2.show();
         }
     }

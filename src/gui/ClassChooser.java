@@ -8,9 +8,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.util.*;
+import java.util.logging.*;
 /**
  *
  * @author lyz
@@ -20,19 +19,38 @@ public class ClassChooser extends BasicPanel {
     JDialog content = new JDialog();
     JTextField jt = new JTextField();
     JButton jb = new JButton("确定");
-    JLabel jl = new JLabel("新建类别名字");
+    JLabel jl = new JLabel();
+    ZComboBox jc;
+    String category = "";
     public static String newClass;
 
-    public ClassChooser(MainFrame index) {
+    public ClassChooser(MainFrame index,String str ,int flag) {
         super(index);
         this.setLayout(null);
+        jl.setText(str);
+        ArrayList<String> cates = new ArrayList<>();
+        for (String cate : index.getShelf().getUserClass().keySet()) {
+            cates.add(cate);
+        }
+        for (String cate : index.getShelf().getclass().keySet()) {
+            cates.add(cate);
+        }
+        String[] a ={"abc"};
+        String[] strs = cates.toArray(a);
+        jc = new ZComboBox(strs);
         jl.setBounds(50, 50, 100, 50);
         jt.setBounds(150, 50, 150, 40);
         jb.setBounds(175, 155, 80, 30);
+        jc.setBounds(150, 50, 150, 40);
         jl.setFont(SetUp.GLOBAL_FONT);
         jb.setFont(SetUp.GLOBAL_FONT);
         jb.addActionListener(new SimpleListener());
-        this.add(jt);
+        if (flag == 1) {
+            this.add(jt);
+        }
+        else {
+            this.add(jc);
+        }
         this.add(jb);
         this.add(jl);
         content.setResizable(false);
@@ -44,7 +62,6 @@ public class ClassChooser extends BasicPanel {
     public void show() {
         content.setVisible(true);
     }
-
     private class SimpleListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
