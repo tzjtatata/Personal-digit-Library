@@ -7,11 +7,9 @@ package gui;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.*;
 import java.awt.Cursor;
-import java.awt.TextArea;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
@@ -37,7 +35,7 @@ public class ShelfPanel extends BasicPanel {
     private File cjson = new File("setFile/class.json");
     private JDialog classChoser = new JDialog();
     private JPopupMenu popupMenu;
-    private JMenuItem menu1, menu2,menu3,menu4;
+    private JMenuItem menu1, menu2, menu3, menu4;
     private ClassChooser cc2;
 
     public ShelfPanel(MainFrame index, int nowpage) throws Exception {
@@ -329,7 +327,7 @@ public class ShelfPanel extends BasicPanel {
     class AddClass extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            new ClassChooser(index,"新建类名：",1).show();
+            new ClassChooser(index, "新建类名：", 1).show();
         }
     }
 
@@ -385,7 +383,7 @@ public class ShelfPanel extends BasicPanel {
     class moveBook implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            cc2 = new ClassChooser(index,"移动书籍到...",2);
+            cc2 = new ClassChooser(index, "移动书籍到...", 2);
             cc2.show();
         }
     }
