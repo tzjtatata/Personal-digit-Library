@@ -20,39 +20,21 @@ public class ClassChooser extends BasicPanel {
     JTextField jt = new JTextField();
     JButton jb = new JButton("确定");
     JLabel jl = new JLabel();
-    ZComboBox jc;
     String category = "";
-    public static String newClass;
+    public static String newClass,oldClass;
 
-    public ClassChooser(MainFrame index, String str, int flag) {
+    public ClassChooser(MainFrame index, String str,String oldClass) {
         super(index);
         this.setLayout(null);
+        this.oldClass = oldClass;
         jl.setText(str);
-        ArrayList<String> cates = new ArrayList<>();
-        index.getShelf().getUserClass().keySet().stream().forEach((cate) -> {
-            cates.add(cate);
-        });
-        index.getShelf().getclass().keySet().stream().forEach((cate) -> {
-            cates.add(cate);
-        });
-        String[] a = {"abc"};
-        String[] strs = cates.toArray(a);
-        jc = new ZComboBox(strs);
         jl.setBounds(50, 50, 100, 50);
         jt.setBounds(150, 50, 150, 40);
         jb.setBounds(175, 155, 80, 30);
-        jc.setBounds(150, 50, 150, 40);
-        jc.setTextSize(150, 40);
-        jc.setBorder();
-        jc.setSelectedItem(strs[0]);
         jl.setFont(SetUp.GLOBAL_FONT);
         jb.setFont(SetUp.GLOBAL_FONT);
         jb.addActionListener(new SimpleListener());
-        if (flag == 1) {
-            this.add(jt);
-        } else {
-            this.add(jc);
-        }
+        this.add(jt);
         this.add(jb);
         this.add(jl);
         content.setResizable(false);
@@ -73,7 +55,7 @@ public class ClassChooser extends BasicPanel {
             String str = jt.getText();
             newClass = str;
             try {
-                index.ReShelf(newClass);
+                index.ReShelf(oldClass,newClass);
             } catch (Exception ex) {
                 Logger.getLogger(ClassChooser.class.getName()).log(Level.SEVERE, null, ex);
             }

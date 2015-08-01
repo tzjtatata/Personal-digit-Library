@@ -89,10 +89,11 @@ public class MainFrame extends JFrame {
         return shelf;
     }
 
-    public void ReShelf(String newClass) throws Exception {
+    public void ReShelf(String oldClass,String newClass) throws Exception {
         if (newClass != null) {
-            this.shelf.setUserClass(newClass);
+            this.shelf.setUserClass(oldClass,newClass);
         }
+        
         int temp = shelf.getnowpage();
         shelf.setVisible(false);
         shelf = new ShelfPanel(this, temp);

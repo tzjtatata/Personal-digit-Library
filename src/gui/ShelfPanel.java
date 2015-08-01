@@ -35,39 +35,29 @@ public class ShelfPanel extends BasicPanel {
     private File cjson = new File("setFile/class.json");
     private JDialog classChoser = new JDialog();
     private JPopupMenu popupMenu;
-    private JMenuItem menu1, menu2, menu3, menu4;
-    private ClassChooser cc2;
+    private JMenuItem menu1;
+    private ZMenu menu2,menu4,menu5;
+    private ClassChooser cc;
+    private ArrayList<JMenuItem> cateO= new ArrayList<>(),cateT = new ArrayList<>(),cateTh = new ArrayList<>();
 
     public ShelfPanel(MainFrame index, int nowpage) throws Exception {
         super(index);
         nowPage = nowpage;
+        getContent();
         popupMenu = new JPopupMenu();
         // 增加菜单项到菜单上
         menu1 = new JMenuItem("删除选定书籍");
         menu1.addActionListener(new deleteBook());
-        menu2 = new JMenuItem("将选定书籍移至...");
-        menu2.addActionListener(new moveBook());
-        menu3 = new JMenuItem("重命名分类");
-        menu3.addActionListener(new deleteBook());
-        menu4 = new JMenuItem("删除分类");
-        menu4.addActionListener(new moveBook());
+        menu2 = new ZMenu("将选定书籍移至...",10,cateO);
+        menu2.addFuntionForItem(this::movebooks);
+        menu4 = new ZMenu("删除分类.",10,cateT);
+        menu4.addFuntionForItem(this::deletecate);
+        menu5 = new ZMenu("重命名分类.",10,cateTh);
+        menu5.addFuntionForItem(this::inputName);
         popupMenu.add(menu1);
         popupMenu.add(menu2);
-        popupMenu.add(menu3);
         popupMenu.add(menu4);
-        if (!ujson.exists()) {
-            ujson.createNewFile();
-        } else {
-            String jsonString;
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(ujson), "UTF-8"))) {
-                jsonString = br.readLine();
-            }
-            UserClass = JSON.parseObject(jsonString, new TypeReference<HashMap<String, ArrayList<String>>>() {
-            });
-        }
-        if (UserClass == null) {
-            UserClass = new HashMap<String, ArrayList<String>>();
-        }
+        popupMenu.add(menu5);
         addJLabel = new JLabel(new ImageIcon(SetUp.imageForAddClass));
         menuJLabel = new JLabel(new ImageIcon(SetUp.imageForMenu));
         addJLabel.setBounds(606, 133, 25, 26);
@@ -89,7 +79,6 @@ public class ShelfPanel extends BasicPanel {
         right.addMouseListener(new changeSubject(1));
         this.add(left);
         this.add(right);
-        getContent();
         setCategory();
         setContent(nowPage);
         this.addReturnListener();
@@ -117,6 +106,32 @@ public class ShelfPanel extends BasicPanel {
         img.paintIcon(this, g, 0, 0);
     }
 
+    public void deletecate() {
+        String cate = menu4.getSelectedItemString();
+        if (UserClass.containsKey(cate)) {
+            UserClass.remove(cate);
+            try {
+                Update(UserClass, ujson);
+            } catch (Exception ex) {
+                Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(UserClass.keySet());
+        }
+        else {
+            Class.remove(cate);
+            try {
+                Update(Class, cjson);
+            } catch (Exception ex) {
+                Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(Class.keySet());
+        }
+        try {
+            index.ReShelf(null,null);
+        } catch (Exception ex) {
+            Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void setCategory() {
         for (int i = 0; i < len; i++) {
             subjectLabel[i] = new JLabel(subjectShow[i].getName());
@@ -139,6 +154,18 @@ public class ShelfPanel extends BasicPanel {
         String[] boy = new String[2];
         String str;
         String jsonString;
+        if (!ujson.exists()) {
+            ujson.createNewFile();
+        } else {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(ujson), "UTF-8"))) {
+                jsonString = br.readLine();
+            }
+            UserClass = JSON.parseObject(jsonString, new TypeReference<HashMap<String, ArrayList<String>>>() {
+            });
+        }
+        if (UserClass == null) {
+            UserClass = new HashMap<String, ArrayList<String>>();
+        }
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(cjson), "UTF-8"))) {
             jsonString = br.readLine();
         }
@@ -146,12 +173,18 @@ public class ShelfPanel extends BasicPanel {
         });
         if (!UserClass.isEmpty()) {
             for (String category : UserClass.keySet()) {
+                cateO.add(new JMenuItem(category));
+                cateT.add(new JMenuItem(category));
+                cateTh.add(new JMenuItem(category));
                 subjectShow[len] = new ResultPanel(category, UserClass.get(category), "shelf");
                 len++;
             }
         }
         if (!Class.isEmpty()) {
             for (String category : Class.keySet()) {
+                cateO.add(new JMenuItem(category));
+                cateT.add(new JMenuItem(category));
+                cateTh.add(new JMenuItem(category));
                 subjectShow[len] = new ResultPanel(category, Class.get(category), "shelf");
                 len++;
             }
@@ -170,14 +203,28 @@ public class ShelfPanel extends BasicPanel {
         subjectShow[n].setVisible(false);
     }
 
-    public void setUserClass(String str) throws Exception {
-        ArrayList<String> temp = new ArrayList<>();
-        UserClass.put(str, temp);
+    public void setUserClass(String oldClass,String newClass) throws Exception {
+        if (oldClass == null) {
+            ArrayList<String> temp = new ArrayList<>();
+            UserClass.put(newClass, temp);
+        }
+        else {
+            if (UserClass.containsKey(oldClass)) {
+                UserClass.put(newClass, UserClass.get(oldClass));
+                UserClass.remove(oldClass);
+            }
+            else {
+                Class.put(newClass, Class.get(oldClass));
+                Class.remove(oldClass);
+            }
+        }
         Update(UserClass, ujson);
+        Update(Class, cjson);
     }
 
     public void Update(HashMap<String, ArrayList<String>> data, File json) throws Exception {
         String jsonString = JSON.toJSONString(data);
+        //System.out.println(jsonString);
         try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(json), "UTF-8"))) {
             br.write(jsonString);
         }
@@ -296,7 +343,7 @@ public class ShelfPanel extends BasicPanel {
     public void movebooks() {
         ResultPanel tempr = subjectShow[nowPage];
         ArrayList<String> books = tempr.getSelectedBook();
-        String str = cc2.category;
+        String str = menu2.getSelectedItemString();
         System.out.println(str);
         if (UserClass.containsKey(str)) {
             UserClass.put(str, books);
@@ -314,7 +361,7 @@ public class ShelfPanel extends BasicPanel {
             }
         }
         try {
-            index.ReShelf(null);
+            index.ReShelf(null,null);
         } catch (Exception ex) {
             Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -323,11 +370,16 @@ public class ShelfPanel extends BasicPanel {
     public int getnowpage() {
         return nowPage;
     }
+    
+    public void inputName() {
+        cc = new ClassChooser(index, "输入新类名",menu5.getSelectedItemString());
+        cc.show();
+    }
 
     class AddClass extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            new ClassChooser(index, "新建类名：", 1).show();
+            new ClassChooser(index, "新建类名：",null).show();
         }
     }
 
@@ -373,18 +425,10 @@ public class ShelfPanel extends BasicPanel {
                 }
             }
             try {
-                index.ReShelf(null);
+                index.ReShelf(null,null);
             } catch (Exception ex) {
                 Logger.getLogger(ShelfPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-    }
-
-    class moveBook implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            cc2 = new ClassChooser(index, "移动书籍到...", 2);
-            cc2.show();
         }
     }
 }
