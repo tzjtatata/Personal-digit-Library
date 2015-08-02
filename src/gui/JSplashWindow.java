@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 public class JSplashWindow extends JWindow {
 
+    private static ThreadToStop th = new ThreadToStop();
     /**
      * 构造函数
      *
@@ -46,8 +47,10 @@ public class JSplashWindow extends JWindow {
     }
 
     public static void getABC() {
-        ThreadToStop th = new ThreadToStop();
         th.start();
+    }
+    public static void stop() {
+        th.interrupt();
     }
 }
 
@@ -66,13 +69,6 @@ class ThreadToStop extends Thread {
         splash.dispose();
         frame.dispose();
         super.interrupt();
-        BufferedWriter br;
-        try {
-            br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("setFile/showflag.pdl"), "UTF-8"));
-            br.write("1");
-        } catch (Exception ex) {
-            Logger.getLogger(ThreadToStop.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @Override
@@ -84,21 +80,21 @@ class ThreadToStop extends Thread {
         splash.setVisible(true);
         frame.pack();
         frame.setVisible(true);
-        while (!isStop) {
-            try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/showflag.pdl"), "UTF-8"));
-                if ("1".equals(br.readLine())) {
-                    //System.out.println("abc");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                    }
-                } else {
-                    this.interrupt();
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+//        while (!isStop) {
+//            try {
+//                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("setFile/showflag.pdl"), "UTF-8"));
+//                if ("1".equals(br.readLine())) {
+//                    //System.out.println("abc");
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                    }
+//                } else {
+//                    this.interrupt();
+//                }
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//        }
     }
 }
